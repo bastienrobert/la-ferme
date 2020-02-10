@@ -10,9 +10,9 @@
     "isolatedModules": true,
     "strict": true,
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "paths": {
-      "~/*": ["./"]
+      "@/*": ["./*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true

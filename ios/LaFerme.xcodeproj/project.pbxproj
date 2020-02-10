@@ -12,8 +12,8 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		576F9582B8B0A764F27FC531 /* libPods-LaFermeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7BB7F61AE89881D49693EC /* libPods-LaFermeTests.a */; };
-		E061C5E4F49828A7FB2A15F5 /* libPods-LaFerme.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE99886E84C5D5219859DE /* libPods-LaFerme.a */; };
+		3EFEA16051C79C220F6B8E6E /* libPods-LaFermeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8F0D902D4BF159D8548205 /* libPods-LaFermeTests.a */; };
+		616105EF5815D97E8ABB1AFD /* libPods-LaFerme.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EA5BBDE0868373D8CAF0D7 /* libPods-LaFerme.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +31,7 @@
 		00E356EE1AD99517003FC87E /* LaFermeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaFermeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* LaFermeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaFermeTests.m; sourceTree = "<group>"; };
-		02C4A99F0364DC308550D315 /* Pods-LaFermeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFermeTests.debug.xcconfig"; path = "Target Support Files/Pods-LaFermeTests/Pods-LaFermeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		07AEAC058604AF7515686BE8 /* Pods-LaFerme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme/Pods-LaFerme.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* LaFerme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaFerme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LaFerme/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = LaFerme/AppDelegate.m; sourceTree = "<group>"; };
@@ -39,11 +39,11 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LaFerme/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LaFerme/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LaFerme/main.m; sourceTree = "<group>"; };
-		3D77F25486118988D3D666C5 /* Pods-LaFerme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme/Pods-LaFerme.debug.xcconfig"; sourceTree = "<group>"; };
-		52E47ED06A38D5B28A928B8A /* Pods-LaFerme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme.release.xcconfig"; path = "Target Support Files/Pods-LaFerme/Pods-LaFerme.release.xcconfig"; sourceTree = "<group>"; };
-		94CE99886E84C5D5219859DE /* libPods-LaFerme.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFerme.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B7BB7F61AE89881D49693EC /* libPods-LaFermeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFermeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C50EED928CBD2B356B4EA600 /* Pods-LaFermeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFermeTests.release.xcconfig"; path = "Target Support Files/Pods-LaFermeTests/Pods-LaFermeTests.release.xcconfig"; sourceTree = "<group>"; };
+		22EA5BBDE0868373D8CAF0D7 /* libPods-LaFerme.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFerme.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		678709CFCE49CA6A4B13B4E7 /* Pods-LaFerme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme.release.xcconfig"; path = "Target Support Files/Pods-LaFerme/Pods-LaFerme.release.xcconfig"; sourceTree = "<group>"; };
+		6A1D50ECF6E558E223D387E1 /* Pods-LaFermeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFermeTests.release.xcconfig"; path = "Target Support Files/Pods-LaFermeTests/Pods-LaFermeTests.release.xcconfig"; sourceTree = "<group>"; };
+		7D8F0D902D4BF159D8548205 /* libPods-LaFermeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFermeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A150A8EB4B37AC679D581106 /* Pods-LaFermeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFermeTests.debug.xcconfig"; path = "Target Support Files/Pods-LaFermeTests/Pods-LaFermeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				576F9582B8B0A764F27FC531 /* libPods-LaFermeTests.a in Frameworks */,
+				3EFEA16051C79C220F6B8E6E /* libPods-LaFermeTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E061C5E4F49828A7FB2A15F5 /* libPods-LaFerme.a in Frameworks */,
+				616105EF5815D97E8ABB1AFD /* libPods-LaFerme.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,8 +104,8 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				94CE99886E84C5D5219859DE /* libPods-LaFerme.a */,
-				9B7BB7F61AE89881D49693EC /* libPods-LaFermeTests.a */,
+				22EA5BBDE0868373D8CAF0D7 /* libPods-LaFerme.a */,
+				7D8F0D902D4BF159D8548205 /* libPods-LaFermeTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -144,10 +144,10 @@
 		A2EB9A2C409C35DE8E0DBF3C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3D77F25486118988D3D666C5 /* Pods-LaFerme.debug.xcconfig */,
-				52E47ED06A38D5B28A928B8A /* Pods-LaFerme.release.xcconfig */,
-				02C4A99F0364DC308550D315 /* Pods-LaFermeTests.debug.xcconfig */,
-				C50EED928CBD2B356B4EA600 /* Pods-LaFermeTests.release.xcconfig */,
+				07AEAC058604AF7515686BE8 /* Pods-LaFerme.debug.xcconfig */,
+				678709CFCE49CA6A4B13B4E7 /* Pods-LaFerme.release.xcconfig */,
+				A150A8EB4B37AC679D581106 /* Pods-LaFermeTests.debug.xcconfig */,
+				6A1D50ECF6E558E223D387E1 /* Pods-LaFermeTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -159,7 +159,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "LaFermeTests" */;
 			buildPhases = (
-				4857829C94FEBBD5FD6CA16E /* [CP] Check Pods Manifest.lock */,
+				46BD1113A0C2EA30C78981BB /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -178,7 +178,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LaFerme" */;
 			buildPhases = (
-				CF12B3535C60CA29BC5536EE /* [CP] Check Pods Manifest.lock */,
+				11D8BC3D59DC3702DE46C0F7 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -267,29 +267,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		4857829C94FEBBD5FD6CA16E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LaFermeTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CF12B3535C60CA29BC5536EE /* [CP] Check Pods Manifest.lock */ = {
+		11D8BC3D59DC3702DE46C0F7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -305,6 +283,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-LaFerme-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		46BD1113A0C2EA30C78981BB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LaFermeTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -375,7 +375,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02C4A99F0364DC308550D315 /* Pods-LaFermeTests.debug.xcconfig */;
+			baseConfigurationReference = A150A8EB4B37AC679D581106 /* Pods-LaFermeTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = Y87978A2JM;
@@ -399,7 +399,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C50EED928CBD2B356B4EA600 /* Pods-LaFermeTests.release.xcconfig */;
+			baseConfigurationReference = 6A1D50ECF6E558E223D387E1 /* Pods-LaFermeTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -420,7 +420,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D77F25486118988D3D666C5 /* Pods-LaFerme.debug.xcconfig */;
+			baseConfigurationReference = 07AEAC058604AF7515686BE8 /* Pods-LaFerme.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -441,7 +441,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52E47ED06A38D5B28A928B8A /* Pods-LaFerme.release.xcconfig */;
+			baseConfigurationReference = 678709CFCE49CA6A4B13B4E7 /* Pods-LaFerme.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;

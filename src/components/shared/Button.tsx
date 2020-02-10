@@ -1,13 +1,12 @@
 import React from 'react'
 import { Button, ButtonProps } from 'react-native'
 
-export interface ICustomButtonProps extends ButtonProps {
+interface ICustomButtonProps extends ButtonProps {
   children: string
 }
 
-export default function CustomButton({
-  children,
-  onPress
-}: ICustomButtonProps) {
+export type CustomButtonProps = Omit<ICustomButtonProps, 'title'>
+
+export default function CustomButton({ children, onPress }: CustomButtonProps) {
   return <Button title={children} onPress={onPress} />
 }

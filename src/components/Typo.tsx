@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, StyleSheet, TextStyle } from 'react-native'
 
-import { Colors, Fonts } from '~/lib'
+import { Colors, Fonts } from '@/config'
 
 export interface ITypoStyleSheet {
   [key: string]: TextStyle
