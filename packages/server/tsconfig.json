@@ -1,13 +1,11 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
-    "lib": ["es6"],
+    "module": "esnext",
+    "lib": ["esnext"],
     "allowJs": true,
-    "jsx": "react-native",
     "noEmit": true,
     "incremental": true,
-    "isolatedModules": true,
     "strict": true,
     "moduleResolution": "node",
     "baseUrl": "src",
@@ -17,10 +15,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "exclude": [
-    "node_modules",
-    "babel.config.js",
-    "metro.config.js",
-    "jest.config.js"
-  ]
+  "include": ["../"],
+  "exclude": ["node_modules"]
 }

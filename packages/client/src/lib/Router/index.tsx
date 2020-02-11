@@ -15,12 +15,7 @@ export default class Router extends Component<
   constructor(props: Router.IRouterProps) {
     super(props)
 
-    this.getBasePage()
-  }
-
-  async getBasePage() {
-    const data = await this.getPageData(this.props.base, this.state)
-    this.setState(data)
+    this.use(this.props.base)
   }
 
   getRouteObject(name: string): Router.IRoute | null {
@@ -29,7 +24,7 @@ export default class Router extends Component<
 
   use = async (name: string) => {
     const pageData = await this.getPageData(name, this.state)
-    this.setState(() => pageData, this.startTransition)
+    this.setState(pageData, this.startTransition)
   }
 
   async getPageData(

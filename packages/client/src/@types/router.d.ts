@@ -38,7 +38,6 @@ declare module Page {
   }
 
   interface IPage extends React.Component<Page.IPageProps> {
-    load?: () => Promise<void>
     willAppear?: () => Promise<void>
     didAppear?: () => void
   }
