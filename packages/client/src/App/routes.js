@@ -1,6 +1,7 @@
 import Home from '@/pages/Home'
 import JoinRoom from '@/pages/rooms/Join'
 import CreateRoom from '@/pages/rooms/Create'
+import OpenGL from '@/pages/OpenGL'
 
 export default {
   base: 'home',
@@ -16,6 +17,10 @@ export default {
     {
       name: 'room/create',
       component: CreateRoom
+    },
+    {
+      name: 'opengl',
+      component: OpenGL
     }
   ]
 }

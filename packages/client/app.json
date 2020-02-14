@@ -1,4 +1,13 @@
 {
   "name": "LaFerme",
-  "displayName": "LaFerme"
+  "displayName": "LaFerme",
+  "expo": {
+    "name": "LaFerme",
+    "slug": "LaFerme",
+    "privacy": "unlisted",
+    "sdkVersion": "36.0.0",
+    "version": "1.0.0",
+    "entryPoint": "./AppEntry.js",
+    "platforms": ["ios", "android", "web"]
+  }
 }

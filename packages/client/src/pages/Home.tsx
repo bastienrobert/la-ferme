@@ -19,6 +19,10 @@ export default class Welcome extends Component<Page.IPageProps, any>
     this.props.goto('room/create')
   }
 
+  onGLPress = () => {
+    this.props.goto('opengl')
+  }
+
   render() {
     return (
       <View>
@@ -27,6 +31,7 @@ export default class Welcome extends Component<Page.IPageProps, any>
         <TextInput placeholder="Votre nom" />
         <Button onPress={this.onJoinPress}>Rejoindre une room</Button>
         <Button onPress={this.onCreatePress}>Créer une room</Button>
+        <Button onPress={this.onGLPress}>OpenGL</Button>
       </View>
     )
   }
