@@ -8,13 +8,12 @@
     "incremental": true,
     "strict": true,
     "moduleResolution": "node",
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "~/*": ["src/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["../"],
   "exclude": ["node_modules"]
 }

@@ -1,9 +1,7 @@
 {
+  "private": true,
   "name": "@la-ferme/server",
   "version": "1.0.0",
-  "private": true,
-  "license": "MIT",
-  "types": "src/@types",
   "scripts": {
     "clean": "rm -rf dist",
     "start": "run-s start:**",
@@ -14,6 +12,7 @@
     "dev:serve": "nodemon dist/index"
   },
   "dependencies": {
+    "@la-ferme/shared": "*",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",

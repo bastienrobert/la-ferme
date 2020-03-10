@@ -1,0 +1,51 @@
+{
+  "name": "@la-ferme/components",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "run-p dev:** storybook",
+    "dev:compile": "rollup -cw",
+    "build": "rollup -c",
+    "test:jest": "jest",
+    "lint": "tslint --project tsconfig.json 'src/*/**'",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0",
+    "styled-components": ">= 5.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^3.0.1",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@storybook/addon-a11y": "^5.3.14",
+    "@storybook/addon-knobs": "^5.3.14",
+    "@storybook/react": "^5.3.14",
+    "@types/react": "^16.9.23",
+    "@types/styled-components": "^5.0.1",
+    "@wessberg/rollup-plugin-ts": "^1.2.19",
+    "babel-loader": "^8.0.6",
+    "npm-run-all": "^4.1.5",
+    "react": "^16.9.0",
+    "react-docgen-typescript-loader": "^3.6.0",
+    "react-dom": "^16.12.0",
+    "react-native": "^0.61.5",
+    "rollup": "^1.31.1",
+    "rollup-plugin-filesize": "^6.2.1",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
+    "styled-components": "^5.0.1",
+    "ts-loader": "^6.2.1",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "tslint": "^6.0.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.2.0",
+    "typescript-styled-plugin": "^0.15.0"
+  }
+}

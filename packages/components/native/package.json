@@ -1,0 +1,6 @@
+{
+  "name": "@la-ferme/components/native",
+  "private": true,
+  "main": "dist/index.native.cjs.js",
+  "module": "dist/index.native.esm.js"
+}
