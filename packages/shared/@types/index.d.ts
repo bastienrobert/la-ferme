@@ -1,4 +1,4 @@
-declare module Foo {
+namespace Foo {
   interface Bar {
     foo: string
   }

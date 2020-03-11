@@ -1,5 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve'
-import typescript from 'rollup-plugin-typescript2'
+import ts from '@wessberg/rollup-plugin-ts'
 import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
 import json from '@rollup/plugin-json'
@@ -17,14 +17,10 @@ export default {
   external: ['express', 'body-parser', 'dotenv', 'uuid'],
   plugins: [
     resolve({ extensions: ['.ts'] }),
-    typescript({
-      useTsconfigDeclarationDir: true,
-      objectHashIgnoreUnknownHack: true,
-      clean: true
-    }),
+    ts(),
+    json(),
     commonjs(),
     production && terser(),
-    json(),
     !production && sourcemaps()
   ]
 }

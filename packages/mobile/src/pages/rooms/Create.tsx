@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
+import { Button } from '@la-ferme/components/native'
 
 import Typo from '@/components/Typo'
 
-export default class JoinRoom extends Component<Page.IPageProps, any>
+export default class CreateRoom extends Component<Page.IPageProps, any>
   implements Page.IPage {
   static load(): Promise<void> {
     return new Promise(resolve =>
@@ -13,11 +14,16 @@ export default class JoinRoom extends Component<Page.IPageProps, any>
     )
   }
 
+  onHomePress = () => {
+    this.props.goto('Home')
+  }
+
   render() {
     return (
       <View>
         <Typo h1>La ferme</Typo>
-        <Typo h2>Join room</Typo>
+        <Typo h2>Create room</Typo>
+        <Button onPress={this.onHomePress}>Return to home</Button>
       </View>
     )
   }

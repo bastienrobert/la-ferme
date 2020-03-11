@@ -3,9 +3,9 @@ import { storiesOf } from '@storybook/react'
 
 import Typo from './'
 
-import { Fonts } from '~/theme'
+import { Fonts } from '@/theme'
 
-import { Wrapper } from '~/helpers/stories'
+import { Wrapper } from '@/helpers/stories'
 
 // LOCAL INTERFACES
 interface IClosureOption {

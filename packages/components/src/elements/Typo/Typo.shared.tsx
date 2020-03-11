@@ -1,4 +1,4 @@
-import { Fonts } from '~/theme'
+import { Fonts } from '@/theme'
 
 export interface ITypoProps {
   children: any

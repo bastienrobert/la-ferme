@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { ITypoProps } from './'
 
-import { Fonts, Colors } from '~/theme'
+import { Fonts, Colors } from '@/theme'
 
 export default function Typo({ children, ...styles }: ITypoProps): any {
   return <StyledTypo {...styles}>{Children.only(children)}</StyledTypo>

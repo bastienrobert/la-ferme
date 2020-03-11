@@ -17,7 +17,7 @@
     "dev:components": "yarn --cwd packages/components dev:compile",
     "dev:mobile": "yarn --cwd packages/mobile dev",
     "dev:server": "yarn --cwd packages/server dev",
-    "components": "yarn --cwd packages/server dev",
+    "components": "yarn --cwd packages/components dev",
     "build": "run-p build:**",
     "build:components": "yarn --cwd packages/components build",
     "bootstrap": "lerna bootstrap",

@@ -9,7 +9,7 @@ import Button, {
   ButtonVariantOptions
 } from './'
 
-import { Wrapper } from '~/helpers/stories'
+import { Wrapper } from '@/helpers/stories'
 
 // PROPS
 const sizeProps = (value: ButtonSize = 'medium') => {

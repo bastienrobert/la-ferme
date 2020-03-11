@@ -1,3 +1,1 @@
-import * as elements from './elements/index.native'
-
-export { elements }
+export * from './elements/index.native'

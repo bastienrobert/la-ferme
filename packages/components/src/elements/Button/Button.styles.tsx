@@ -1,6 +1,6 @@
 import { css } from 'styled-components'
 
-import { Colors } from '~/theme'
+import { Colors } from '@/theme'
 
 const boxVariantStyles = {
   primary: css`
