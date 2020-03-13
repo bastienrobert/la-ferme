@@ -2,25 +2,19 @@
   "name": "@la-ferme/components",
   "version": "1.0.0",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "main": "dist/index.js",
   "scripts": {
+    "build": "rollup -c",
+    "build-storybook": "build-storybook -s public",
     "dev": "run-p dev:** storybook",
     "dev:compile": "rollup -cw",
-    "build": "rollup -c",
-    "test:jest": "jest",
     "lint": "tslint --project tsconfig.json 'src/*/**'",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "peerDependencies": {
-    "react": ">= 16.8.0",
-    "react-dom": ">= 16.8.0",
-    "react-native": ">= 0.61.0",
-    "styled-components": ">= 5.0.0"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:jest": "jest"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^3.0.1",
@@ -44,5 +38,11 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.2.0",
     "typescript-styled-plugin": "^0.15.0"
+  },
+  "peerDependencies": {
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0",
+    "react-native": ">= 0.61.0",
+    "styled-components": ">= 5.0.0"
   }
 }

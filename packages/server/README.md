@@ -14,3 +14,7 @@ Use **yarn** as package manager. Then:
 yarn
 yarn dev
 ```
+
+## Knex and GraphQL
+
+Here is a cool cheatsheet to use [knex](https://devhints.io/knex) and [graphql](https://devhints.io/graphql).

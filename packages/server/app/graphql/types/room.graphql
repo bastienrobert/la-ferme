@@ -1,0 +1,17 @@
+extend type Query {
+  rooms: [Room]
+}
+
+extend type Mutation {
+  join: Boolean
+  roundComplete: Float
+}
+
+extend type Subscription {
+  roundCompleted: Float
+}
+
+type Room {
+  title: String
+  foo: String
+}
