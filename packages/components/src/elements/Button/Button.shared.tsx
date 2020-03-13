@@ -1,11 +1,10 @@
 /** Different theme variations */
-export const ButtonVariantOptions = ['primary', 'secondary'] as const
-export type ButtonVariant = typeof ButtonVariantOptions[number]
+export const ButtonVariantOptions = [] as const
+export type ButtonVariant = 'primary' | 'secondary'
 export const defaultVariant = 'primary'
 
 /** The size of the button */
-export const ButtonSizeOptions = ['small', 'medium', 'large'] as const
-export type ButtonSize = typeof ButtonSizeOptions[number]
+export type ButtonSize = 'small' | 'medium' | 'large'
 export const defaultSize = 'medium'
 
 export interface IButtonProps {

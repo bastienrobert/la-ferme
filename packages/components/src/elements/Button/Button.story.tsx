@@ -1,58 +1,43 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { select, text } from '@storybook/addon-knobs'
+import { action } from '@storybook/addon-actions'
+import { text } from '@storybook/addon-knobs'
 
-import Button, {
-  ButtonSize,
-  ButtonVariant,
-  ButtonSizeOptions,
-  ButtonVariantOptions
-} from './'
-
-import { Wrapper } from '@/helpers/stories'
+import Button, { IButtonProps } from './'
 
 // PROPS
-const sizeProps = (value: ButtonSize = 'medium') => {
-  return select('size', ButtonSizeOptions, value)
-}
-
-const variantProps = (value: ButtonVariant = 'primary') => {
-  return select('variant', ButtonVariantOptions, value)
-}
-
 const childrenProps = (value = '') => {
   return text('children', value)
 }
 
 // LOCAL INTERFACES
-interface IClosureOption {
-  size?: ButtonSize
-  variant?: ButtonVariant
-  disabled?: boolean
+interface IClosureOption extends Partial<IButtonProps> {
+  children?: string
 }
 
-// CLOSURE GENERATOR
-const closure = ({ size, variant, disabled }: IClosureOption = {}) => {
+// RENDER COMPONENT
+const render = ({
+  children = 'Hello world',
+  size,
+  variant,
+  disabled = false
+}: IClosureOption = {}) => {
   return () => (
-    <>
-      <Wrapper>
-        <Button
-          size={sizeProps(size)}
-          variant={variantProps(variant)}
-          onClick={() => alert('click')}
-          disabled={disabled}>
-          {childrenProps('Hello world')}
-        </Button>
-      </Wrapper>
-    </>
+    <Button
+      size={size}
+      variant={variant}
+      onClick={action('onClick')}
+      disabled={disabled}>
+      {childrenProps(children)}
+    </Button>
   )
 }
 
 // STORIES
 const stories = storiesOf('Button', module)
 
-stories.add('small', closure({ size: 'small' }))
-stories.add('medium', closure({ size: 'medium' }))
-stories.add('large', closure({ size: 'large' }))
-stories.add('secondary', closure({ variant: 'secondary' }))
-stories.add('disabled', closure({ disabled: true }))
+stories.add('small', render({ size: 'small' }))
+stories.add('medium', render({ size: 'medium' }))
+stories.add('large', render({ size: 'large' }))
+stories.add('secondary', render({ variant: 'secondary' }))
+stories.add('disabled', render({ disabled: true }))

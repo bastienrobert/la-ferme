@@ -1,7 +1,7 @@
 {
+  "private": true,
   "name": "@la-ferme/server",
   "version": "1.0.0",
-  "private": true,
   "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf dist",

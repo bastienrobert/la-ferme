@@ -6,7 +6,7 @@ import styles from './Button.styles'
 
 export interface WebButtonProps extends IButtonProps {
   /** Callback on click */
-  onClick?: (e) => void
+  onClick?: (e: Event) => void
 }
 
 function Button({ children, ...style }: WebButtonProps) {
