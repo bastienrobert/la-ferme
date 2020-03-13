@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
     "lib": ["esnext"],
-    "allowJs": true,
-    "noEmit": true,
-    "incremental": true,
-    "strict": true,
     "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
