@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { StatusBar, SafeAreaView, StyleSheet } from 'react-native'
-import { ApolloProvider } from '@apollo/react-hooks'
 
 import Router from '@/lib/Router'
 import routes from './routes'
-import apollo from './apollo'
 
 export interface IAppState {
   isSplashReady: boolean
@@ -16,9 +14,7 @@ function Main() {
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.SafeAreaView}>
-        <ApolloProvider client={apollo}>
-          <Router base={routes.base} routes={routes.pages} />
-        </ApolloProvider>
+        <Router base={routes.base} routes={routes.pages} />
       </SafeAreaView>
     </>
   )
