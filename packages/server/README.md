@@ -1,6 +1,6 @@
-# La Ferme - Client
+# La Ferme - Server
 
-Here is the server codebase.
+This package contains the server application using GraphQL and PostgreSQL.
 
 ## Install
 

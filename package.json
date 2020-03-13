@@ -6,13 +6,20 @@
     "Bastien Robert <bastienrobert@outlook.com> (https://bastienrobert.fr)",
     "Mathieu Harribey (https://mathieuharribey.com)"
   ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
   "scripts": {
     "server": "yarn --cwd sources/server start",
     "dev": "run-p dev:**",
-    "dev:client": "yarn --cwd packages/client dev",
+    "dev:components": "yarn --cwd packages/components dev:compile",
+    "dev:mobile": "yarn --cwd packages/mobile dev",
     "dev:server": "yarn --cwd packages/server dev",
-    "build": "yarn build:**",
-    "build:server": "yarn --cwd packages/server build",
+    "components": "yarn --cwd packages/components dev",
+    "build": "run-p build:**",
+    "build:components": "yarn --cwd packages/components build",
     "bootstrap": "lerna bootstrap",
     "postinstall": "yarn bootstrap"
   },
