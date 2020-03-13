@@ -1,9 +1,7 @@
 {
+  "private": true,
   "name": "@la-ferme/server",
   "version": "1.0.0",
-  "private": true,
-  "license": "MIT",
-  "types": "src/@types",
   "scripts": {
     "clean": "rm -rf dist",
     "start": "run-s start:**",
@@ -14,13 +12,14 @@
     "dev:serve": "nodemon dist/index"
   },
   "dependencies": {
+    "@la-ferme/shared": "*",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
+    "@wessberg/rollup-plugin-ts": "^1.2.19",
     "rollup": "^1.31.0",
     "rollup-plugin-sourcemaps": "^0.5.0",
     "rollup-plugin-terser": "^5.2.0",
-    "rollup-plugin-typescript2": "^0.25.3",
     "uuid": "^3.4.0",
     "@types/uuid": "^3.4.7",
     "nodemon": "^2.0.2",
