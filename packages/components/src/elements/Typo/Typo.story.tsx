@@ -5,8 +5,6 @@ import Typo from './'
 
 import { Fonts } from '@/theme'
 
-import { Wrapper } from '@/helpers/stories'
-
 // LOCAL INTERFACES
 interface IClosureOption {
   size?: Fonts.Sizes
@@ -15,13 +13,9 @@ interface IClosureOption {
 // CLOSURE GENERATOR
 const closure = ({ size }: IClosureOption = {}) => {
   return () => (
-    <>
-      <Wrapper>
-        <Typo size={size}>
-          <span>Hello</span>
-        </Typo>
-      </Wrapper>
-    </>
+    <Typo size={size}>
+      <span>Hello</span>
+    </Typo>
   )
 }
 
