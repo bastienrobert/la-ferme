@@ -1,19 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Text, View } from 'react-native'
 import { Button } from '@la-ferme/components/native'
 
-export default class Welcome extends Component<Page.IPageProps, any>
-  implements Page.IPage {
-  onCreatePress = () => {
-    this.props.goto('Room:Create')
+export default function Welcome({ goto }: Page.IPageProps) {
+  const onCreatePress = () => {
+    goto('Room:Create')
   }
 
-  render() {
-    return (
-      <View>
-        <Text>Hell</Text>
-        <Button onPress={this.onCreatePress}>Create room</Button>
-      </View>
-    )
-  }
+  return (
+    <View>
+      <Text>Hello</Text>
+      <Button onPress={onCreatePress}>Create room</Button>
+    </View>
+  )
 }

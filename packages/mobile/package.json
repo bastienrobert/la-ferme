@@ -4,22 +4,7 @@
   "private": true,
   "workspaces": {
     "nohoist": [
-      "react-native",
-      "react-native/**",
-      "react-native-unimodules",
-      "react-native-unimodules/**",
-      "styled-components",
-      "styled-components/**",
-      "apollo-client",
-      "apollo-client/**",
-      "apollo-cache-inmemory",
-      "apollo-cache-inmemory/**",
-      "apollo-link-http",
-      "apollo-link-http/**",
-      "apollo-link-ws",
-      "apollo-link-ws/**",
-      "graphql-tag",
-      "graphql-tag/**"
+      "**"
     ]
   },
   "scripts": {
