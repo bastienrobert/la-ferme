@@ -6,8 +6,9 @@ La Ferme is a mobile-app board game to denounce issues of everyday life.
 
 Check **README.md** in both packages:
 
-- [client](packages/client/README.md)
+- [mobile](packages/mobile/README.md)
 - [server](packages/server/README.md)
+- [components](packages/components/README.md)
 
 ## Getting started
 
@@ -34,3 +35,5 @@ Server and iOS simulator should open.
 ## Workspaces
 
 This repo is using Yarn Workspaces. Please see more [here](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md#how-can-i-use-autolinking-in-a-monorepo) about autolinking a monorepo with yarn workspaces.
+
+To fix simlinks we used this solution [on facebook metro #1 issue](https://github.com/facebook/metro/issues/1#issuecomment-527863738).
