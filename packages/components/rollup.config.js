@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import ts from '@wessberg/rollup-plugin-ts'
 import alias from '@rollup/plugin-alias'
 import commonjs from '@rollup/plugin-commonjs'
+import { eslint } from 'rollup-plugin-eslint'
 import filesize from 'rollup-plugin-filesize'
 
 import pkg from './package.json'
@@ -30,6 +31,7 @@ function generateConfig(input, output) {
       commonjs({
         include: ['node_modules/**']
       }),
+      eslint(),
       filesize()
     ]
   }
