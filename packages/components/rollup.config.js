@@ -1,7 +1,8 @@
 import external from 'rollup-plugin-peer-deps-external'
-import resolve from '@rollup/plugin-node-resolve'
+import { eslint } from 'rollup-plugin-eslint'
 import ts from '@wessberg/rollup-plugin-ts'
 import alias from '@rollup/plugin-alias'
+import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import filesize from 'rollup-plugin-filesize'
 
@@ -21,6 +22,9 @@ function generateConfig(input, output) {
     output: [{ file: output, format: 'cjs' }],
     plugins: [
       external(),
+      eslint({
+        configFile: './.eslintrc.js'
+      }),
       ts(),
       alias({
         resolve: ['.ts', '.tsx'],

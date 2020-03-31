@@ -5,6 +5,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
 import graphql from 'rollup-plugin-graphql'
 import json from '@rollup/plugin-json'
+import { eslint } from 'rollup-plugin-eslint'
 import sourcemaps from 'rollup-plugin-sourcemaps'
 
 const env = JSON.stringify(
@@ -40,6 +41,7 @@ export default {
     json(),
     graphql(),
     commonjs(),
+    eslint(),
     !watch && terser(),
     watch && sourcemaps()
   ]

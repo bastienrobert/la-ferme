@@ -1,16 +1,11 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "lib": ["esnext"],
-    "moduleResolution": "node",
-    "noEmit": true,
-    "skipLibCheck": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    },
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
-  },
-  "exclude": ["node_modules"]
+    }
+  }
 }

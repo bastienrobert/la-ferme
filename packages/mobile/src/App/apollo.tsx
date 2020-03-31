@@ -4,15 +4,19 @@ import { HttpLink } from 'apollo-link-http'
 import { WebSocketLink } from 'apollo-link-ws'
 import { split } from 'apollo-link'
 import { getMainDefinition } from 'apollo-utilities'
+import unfetch from 'unfetch'
+import ws from 'isomorphic-ws'
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql'
+  uri: 'http://localhost:4000/graphql',
+  fetch: unfetch
 })
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql`,
+  uri: 'ws://localhost:4000/graphql',
+  webSocketImpl: ws,
   options: {
     reconnect: true
   }

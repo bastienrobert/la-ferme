@@ -12,6 +12,7 @@ app.get('/', (_, res) => {
 })
 
 const foo = { foo: 'hello' }
+console.log(foo)
 
 app.listen(3000, () =>
   console.log('Server is running on http://localhost:3000')
