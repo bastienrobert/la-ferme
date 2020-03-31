@@ -36,12 +36,14 @@ export default {
     replace({
       'process.env.NODE_ENV': env
     }),
+    eslint({
+      configFile: './.eslintrc.js'
+    }),
     resolve({ extensions: ['.ts'] }),
     ts(),
     json(),
     graphql(),
     commonjs(),
-    eslint(),
     !watch && terser(),
     watch && sourcemaps()
   ]
