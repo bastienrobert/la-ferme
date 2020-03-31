@@ -1,12 +1,13 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
+    "outDir": "dist",
     "jsx": "react-native",
-    "lib": ["dom", "esnext"],
-    "moduleResolution": "node",
-    "noEmit": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ],
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
