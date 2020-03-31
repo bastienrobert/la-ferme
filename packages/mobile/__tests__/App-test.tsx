@@ -1,8 +1,5 @@
-/**
- * @format
- */
-
 import 'react-native'
+import 'styled-components/native'
 import 'jest-styled-components/native'
 
 import React from 'react'

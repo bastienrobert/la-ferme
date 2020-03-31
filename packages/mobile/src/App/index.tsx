@@ -24,7 +24,7 @@ function Main() {
   )
 }
 
-export default class App extends Component<void, IAppState> {
+export default class App extends Component<any, IAppState> {
   state = {
     isSplashReady: false,
     isAppReady: false
