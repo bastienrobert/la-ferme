@@ -1,7 +1,7 @@
-## ❓ What? Why
+**Description**
 
-<!-- Intérêt de cette PR ? Qu'est ce qu'elle ajoute en gros -->
+Ce que cette PR ajoute.
 
-## 📋 Spécifications fonctionnelles
+**Plus de détails**
 
-<!-- Si possible, une liste plus ou moins précise de ce qui a été fait techniquement parlant, si c'est trop chiant, on met rien :trollface: -->
+Une liste plus ou moins précise de ce qui a été fait techniquement parlant. (supprimer cete ligne si inutile)
