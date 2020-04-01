@@ -1,20 +1,16 @@
-import React, { Component } from 'react'
-import { StatusBar, SafeAreaView, StyleSheet } from 'react-native'
+import React, { useEffect } from 'react'
+import { StatusBar, SafeAreaView, Platform, StyleSheet } from 'react-native'
 import { ApolloProvider } from '@apollo/react-hooks'
+import BootSplash from 'react-native-bootsplash'
 
 import Router from '@/lib/Router'
 import routes from './routes'
 import apollo from './apollo'
 
-export interface IAppState {
-  isSplashReady: boolean
-  isAppReady: boolean
-}
-
 function Main() {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
       <SafeAreaView style={styles.SafeAreaView}>
         <ApolloProvider client={apollo}>
           <Router base={routes.base} routes={routes.pages} />
@@ -24,15 +20,12 @@ function Main() {
   )
 }
 
-export default class App extends Component<any, IAppState> {
-  state = {
-    isSplashReady: false,
-    isAppReady: false
-  }
+export default function App() {
+  useEffect(() => {
+    BootSplash.hide({ duration: 250 })
+  }, [])
 
-  render() {
-    return <Main />
-  }
+  return <Main />
 }
 
 const styles = StyleSheet.create({
