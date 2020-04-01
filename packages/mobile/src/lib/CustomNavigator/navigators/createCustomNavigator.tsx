@@ -3,11 +3,11 @@ import {
   useNavigationBuilder,
   createNavigatorFactory,
   DefaultNavigatorOptions,
-  TabRouter,
   TabRouterOptions,
   TabNavigationState
 } from '@react-navigation/native'
 
+import CustomRouter from '../routers/CustomRouter'
 import NavigatorView from '../views/NavigatorView'
 
 import {
@@ -32,7 +32,7 @@ function CustomNavigator({
     TabRouterOptions,
     CustomNavigationOptions,
     CustomNavigationEventMap
-  >(TabRouter, {
+  >(CustomRouter, {
     initialRouteName,
     backBehavior,
     children,
