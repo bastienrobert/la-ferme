@@ -12,6 +12,5 @@ extend type Subscription {
 }
 
 type Room {
-  title: String
-  foo: String
+  id: Int
 }

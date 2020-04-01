@@ -1,14 +1,17 @@
-const rooms = [
-  {
-    title: '#1',
-    foo: 'bar'
-  },
-  {
-    title: '#2',
-    foo: 'baz'
-  }
-]
+import db from '@/config/database'
 
-export default {
-  all: () => rooms
+export default class Room extends db.bookshelf.Model<Room> {
+  static tableName = 'rooms'
+
+  static get all() {
+    return db.knex.select('id').from(Room.tableName)
+  }
+
+  get tableName() {
+    return Room.tableName
+  }
+
+  get hasTimestamps() {
+    return true
+  }
 }

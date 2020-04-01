@@ -8,7 +8,7 @@ import Room from '@/app/models/Room'
 const resolvers = {
   Query: {
     // returns all rooms
-    rooms: () => Room.all()
+    rooms: async () => await Room.all
   },
   Mutation: {
     // create new room

@@ -17,6 +17,8 @@ const watch = process.env.ROLLUP_WATCH
 
 const external = [
   'apollo-server',
+  'knex',
+  'bookshelf',
   'graphql',
   'graphql-tools',
   'lodash.merge',
@@ -39,10 +41,10 @@ export default {
     eslint({
       configFile: './.eslintrc.js'
     }),
-    resolve({ extensions: ['.ts'] }),
+    resolve({ preferBuiltins: true }),
     ts(),
-    json(),
     graphql(),
+    json(),
     commonjs(),
     !watch && terser(),
     watch && sourcemaps()
