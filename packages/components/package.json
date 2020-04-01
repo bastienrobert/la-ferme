@@ -11,7 +11,9 @@
     "build-storybook": "build-storybook -s public",
     "dev": "run-p dev:** storybook",
     "dev:compile": "rollup -cw",
-    "lint": "eslint src/**/*.{tsx,ts}",
+    "lint": "run-p lint:**",
+    "lint:eslint": "eslint src/**/*.{tsx,ts}",
+    "lint:css": "stylelint 'src/**/*.tsx'",
     "storybook": "start-storybook -p 9009 -s public",
     "test": "jest"
   },
