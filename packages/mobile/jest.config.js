@@ -20,6 +20,5 @@ module.exports = {
     },
     typescriptModuleNameMapper
   ),
-  setupFiles: ['./node_modules/react-native-gesture-handler/jestSetup.js'],
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts']
 }
