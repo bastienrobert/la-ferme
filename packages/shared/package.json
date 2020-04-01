@@ -10,6 +10,6 @@
     "lint": "eslint src/**/*.ts"
   },
   "devDependencies": {
-    "@types/node": "^13.9.0"
+    "@types/node": "13.9.5"
   }
 }
