@@ -44,6 +44,11 @@
     "lerna": "^3.20.2",
     "lodash.merge": "^4.6.2",
     "npm-run-all": "^4.1.5",
+    "stylelint": "^13.2.1",
+    "stylelint-config-prettier": "^8.0.1",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0",
     "typescript": "^3.7.3"
   },
   "authors": [
