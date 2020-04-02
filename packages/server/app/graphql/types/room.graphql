@@ -3,12 +3,13 @@ extend type Query {
 }
 
 extend type Mutation {
-  join: Boolean
+  join: Float
   roundComplete: Float
 }
 
 extend type Subscription {
   roundCompleted: Float
+  connection: Float
 }
 
 type Room {

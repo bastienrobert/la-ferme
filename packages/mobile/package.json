@@ -23,6 +23,7 @@
     "@bastienrobert/events": "^1.0.3",
     "@la-ferme/components": "*",
     "@la-ferme/shared": "*",
+    "@react-native-community/async-storage": "^1.9.0",
     "@react-navigation/native": "^5.1.4",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",

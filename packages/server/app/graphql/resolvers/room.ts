@@ -1,7 +1,7 @@
-import { PubSub } from 'apollo-server'
 import { ROUND } from '@la-ferme/shared'
+import { withFilter } from 'apollo-server'
 
-const pubsub = new PubSub()
+import pubsub from '../pubsub'
 
 import Room from '@/app/models/Room'
 
@@ -11,9 +11,14 @@ const resolvers = {
     rooms: async () => await Room.all()
   },
   Mutation: {
-    // create new room
+    // join room
     join() {
-      return true
+      // should get user ID and room ID
+      const id = Math.random()
+      pubsub.publish('NEW_USER_CONNECTION', {
+        connection: id
+      })
+      return new Promise(resolve => resolve(id))
     },
     // round complete
     roundComplete() {
@@ -25,6 +30,15 @@ const resolvers = {
     }
   },
   Subscription: {
+    connection: {
+      subscribe: withFilter(
+        () => pubsub.asyncIterator(['NEW_USER_CONNECTION']),
+        (payload, args, rest) => {
+          console.log(payload, args, rest)
+          return true
+        }
+      )
+    },
     // tell to connected client when a round is complete
     roundCompleted: {
       subscribe: () => pubsub.asyncIterator([ROUND.COMPLETED])
