@@ -3,6 +3,7 @@ const shared = require('../../.eslintrc.back.js')
 
 module.exports = merge(shared, {
   rules: {
-    '@typescript-eslint/camelcase': 'off'
+    '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off'
   }
 })

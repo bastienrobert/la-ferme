@@ -1,7 +1,5 @@
 import db from '@/config/database'
 
-import Room from './Room'
-
 export default class Game extends db.bookshelf.Model<Game> {
   static async find(id) {
     return await new Game().where('id', id).fetch()
@@ -16,7 +14,8 @@ export default class Game extends db.bookshelf.Model<Game> {
   }
 
   get room() {
-    const model = this.belongsTo(Room)
+    // @ts-ignore
+    const model = this.belongsTo('Room')
     return model.fetch()
   }
 
