@@ -9,6 +9,8 @@ class Database {
 
   constructor() {
     this._knex = Knex(knexfile)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
     this._bookshelf = Bookshelf(this._knex)
   }
 

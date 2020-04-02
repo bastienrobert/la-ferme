@@ -4,8 +4,12 @@ export async function up(knex: Knex): Promise<any> {
   await knex.schema.createTable('games', table => {
     table.increments('id').primary()
     table.boolean('completed').defaultTo(false)
+    table
+      .integer('room_id')
+      .references('rooms.id')
+      .onDelete('cascade')
 
-    table.timestamps()
+    table.timestamps(true, true)
   })
 
   return
