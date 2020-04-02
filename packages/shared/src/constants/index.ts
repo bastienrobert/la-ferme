@@ -1,3 +1,3 @@
-import Round from './Round'
+import ROUND from './Round'
 
-export { Round }
+export { ROUND }

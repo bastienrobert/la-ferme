@@ -1,0 +1,12 @@
+extend type Query {
+  game(id: Int): Game
+}
+
+extend type Mutation {
+  gameComplete(id: Int): Game
+}
+
+type Game {
+  id: Int
+  completed: Boolean
+}

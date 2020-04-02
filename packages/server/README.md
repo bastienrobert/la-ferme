@@ -8,7 +8,15 @@ Check **INSTALL.md**
 
 ## Getting started
 
-Use **yarn** as package manager. Then:
+Use **yarn** as package manager.
+
+Start postgresql:
+
+```
+brew services start postgresql
+```
+
+Then:
 
 ```
 yarn

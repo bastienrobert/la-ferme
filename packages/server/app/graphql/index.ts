@@ -3,9 +3,11 @@ import merge from 'lodash.merge'
 
 // Import typeDefs
 import roomDefs from './types/room.graphql'
+import gameDefs from './types/game.graphql'
 
 // Import resolvers
 import roomResolvers from './resolvers/room'
+import gameResolvers from './resolvers/game'
 
 const Query = `
   type Query {
@@ -21,6 +23,6 @@ const Query = `
 
 // Export generated schema
 export default makeExecutableSchema({
-  typeDefs: [Query, roomDefs],
-  resolvers: merge(roomResolvers)
+  typeDefs: [Query, roomDefs, gameDefs],
+  resolvers: merge(roomResolvers, gameResolvers)
 })
