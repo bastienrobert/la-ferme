@@ -22,9 +22,9 @@ export interface FontFamilies {
   mono: FontFamily
 }
 
-const sansFont = "'San Francisco'"
+const sansFont = "'Helvetica Neue'"
 const sansFallback = "'Helvetica Neue', Helvetica, Arial, sans-serif"
-const monoFont = "'San Francisco'"
+const monoFont = 'monospace'
 const monoFallback = "'Lucida Console', 'Courier New', monospace"
 
 export const fontFamilies: FontFamilies = {
@@ -68,3 +68,27 @@ export type Sizes = typeof sizesOptions[number]
 export const defaultColor = Colors.black
 export const colorsOptions = [...Object.keys(Colors), defaultColor] as const
 export type Colors = typeof colorsOptions[number]
+
+/**
+ * HELPERS
+ */
+const splitFontDefinition = (definition, isReactNative) => {
+  if (typeof definition === 'string') {
+    if (isReactNative) {
+      definition = definition.split(',', 1)[0]
+    }
+    definition = `font-family: ${definition};`
+  } else {
+    if (isReactNative) {
+      definition.fontFamily = definition.fontFamily.split(',', 1)[0]
+    }
+  }
+  return definition
+}
+
+export const getFontStyle = (name, style, isReactNative): string => {
+  const family = fontFamilies[name] || fontFamilies[defaultFontFamily] // prettier-ignore
+  const definition = family[style] || family[defaultFontStyle] // prettier-ignore
+
+  return splitFontDefinition(definition, isReactNative)
+}
