@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { Text, View } from 'react-native'
-import { Button } from '@la-ferme/components/native'
+import { View } from 'react-native'
+import { Typo, Button } from '@la-ferme/components/native'
 
 const Welcome: FC<any> = ({ navigation }) => {
   const onCreatePress = () => {
@@ -9,7 +9,7 @@ const Welcome: FC<any> = ({ navigation }) => {
 
   return (
     <View>
-      <Text>Hello</Text>
+      <Typo size="h1">La ferme</Typo>
       <Button onPress={onCreatePress}>Create room</Button>
     </View>
   )
