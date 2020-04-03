@@ -15,7 +15,8 @@
     "lint:eslint": "eslint src/**/*.{tsx,ts}",
     "lint:css": "stylelint 'src/**/*.tsx'",
     "storybook": "start-storybook -p 9009 -s public",
-    "test": "jest"
+    "test": "jest",
+    "test:setup": "yarn build"
   },
   "devDependencies": {
     "@babel/core": "~7.6.0",

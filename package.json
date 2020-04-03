@@ -19,6 +19,7 @@
     "dev:server": "yarn --cwd packages/server dev",
     "server": "yarn --cwd sources/server start",
     "lint": "lerna run lint",
+    "test:setup": "lerna run test:setup",
     "test": "lerna run test"
   },
   "dependencies": {

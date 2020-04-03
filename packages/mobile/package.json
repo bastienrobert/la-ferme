@@ -16,7 +16,8 @@
     "lint:eslint": "eslint src/**/*.{tsx,ts}",
     "lint:css": "stylelint 'src/**/*.tsx'",
     "start": "react-native start",
-    "test": "yarn jest --detectOpenHandles --forceExit"
+    "test": "yarn jest --detectOpenHandles --forceExit",
+    "test:setup": "yarn pods"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
