@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 
-import { IButtonProps, defaultSize, defaultVariant } from './index.native'
+import { IButtonProps, defaultSize, defaultVariant } from './Button.shared'
 import styles from './Button.styles'
 
 export interface IOSButtonProps extends IButtonProps {

@@ -1,8 +1,6 @@
 import React, { FC } from 'react'
 import { View } from 'react-native'
-import { Button } from '@la-ferme/components/native'
-
-import Typo from '@/components/Typo'
+import { Typo, Button } from '@la-ferme/components/native'
 
 interface IPage {
   load: () => Promise<void>

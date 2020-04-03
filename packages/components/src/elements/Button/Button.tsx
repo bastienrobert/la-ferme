@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { IButtonProps, defaultSize, defaultVariant } from './'
+import { IButtonProps, defaultSize, defaultVariant } from './Button.shared'
 import styles from './Button.styles'
 
 export interface WebButtonProps extends IButtonProps {
