@@ -7,7 +7,7 @@ import { getMainDefinition } from 'apollo-utilities'
 import unfetch from 'unfetch'
 import ws from 'isomorphic-ws'
 
-import auth from '@/utils/auth'
+// import auth from '@/utils/auth'
 
 // Create an http link:
 const httpLink = new HttpLink({
@@ -20,8 +20,7 @@ const wsLink = new WebSocketLink({
   uri: 'ws://localhost:4000/graphql',
   webSocketImpl: ws,
   options: {
-    reconnect: true,
-    connectionParams: auth.connectionParams
+    reconnect: true
   }
 })
 

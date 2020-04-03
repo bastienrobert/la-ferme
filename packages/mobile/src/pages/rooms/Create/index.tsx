@@ -2,7 +2,6 @@ import React, { FC } from 'react'
 import { View } from 'react-native'
 import { Button } from '@la-ferme/components/native'
 
-import RoundComplete from './RoundComplete'
 import Typo from '@/components/Typo'
 
 interface IPage {
@@ -18,7 +17,6 @@ const CreateRoom: FC<any> & IPage = ({ navigation }) => {
     <View>
       <Typo h1>La ferme</Typo>
       <Typo h2>Create room</Typo>
-      <RoundComplete />
       <Button onPress={onHomePress}>Return to home</Button>
     </View>
   )

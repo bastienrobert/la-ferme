@@ -1,3 +1,3 @@
 export default {
-  COMPLETED: 'ROUND_COMPLETED'
+  COMPLETE: 'COMPLETE_ROUND'
 }

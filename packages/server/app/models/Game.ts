@@ -10,20 +10,38 @@ export default class Game extends db.bookshelf.Model<Game> {
   }
 
   get hasTimestamps() {
-    return false
+    return true
   }
 
   get room() {
     // @ts-ignore
-    const model = this.belongsTo('Room')
-    return model.fetch()
+    return this.belongsTo('Room').fetch()
   }
 
-  get completed(): string {
-    return this.get('completed')
+  get rounds() {
+    // @ts-ignore
+    return this.hasMany('Round').fetch()
   }
 
-  set completed(value: string) {
-    this.set({ completed: value })
+  get creator() {
+    // @ts-ignore
+    // should take a user in params
+    // return game creator
+    return true
+  }
+
+  get players() {
+    // @ts-ignore
+    return this.hasMany('Player').fetch()
+  }
+
+  get winner(): string {
+    return this.get('winner')
+  }
+
+  set winner(value: string) {
+    // should take a player in params
+    // should check player is in the game
+    this.set({ winner: value })
   }
 }

@@ -1,17 +1,7 @@
-extend type Query {
-  rooms: [Room]
-}
-
 extend type Mutation {
-  join: Float
-  roundComplete: Float
+  joinRoom: Float!
 }
 
 extend type Subscription {
-  roundCompleted: Float
-  connection: Float
-}
-
-type Room {
-  id: Int
+  userJoinRoom(room: Int!): Boolean!
 }

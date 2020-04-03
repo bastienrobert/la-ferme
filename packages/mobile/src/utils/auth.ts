@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import Emitter from '@bastienrobert/events'
-import uuid from 'uuid/v4'
 
 class Auth extends Emitter {
   _uuid: string
@@ -13,31 +12,34 @@ class Auth extends Emitter {
 
   async setup() {
     this._uuid = await this.get()
-    if (!this._uuid) this._uuid = this.set()
     this.emit('setup', this._uuid)
+  }
+
+  async clear() {
+    return await AsyncStorage.removeItem('@uuid')
+  }
+
+  fetch(): Promise<string | null> {
+    return new Promise(resolve => {
+      const instance = this._uuid
+      typeof instance !== 'undefined'
+        ? resolve(instance)
+        : this.on('setup', res => resolve(res))
+    })
   }
 
   get uuid() {
     return this._uuid
   }
 
-  async connectionParams() {
-    return new Promise(resolve => {
-      const authToken = this.uuid
-      authToken
-        ? resolve({ authToken })
-        : this.on('setup', id => resolve({ authToken: id }))
-    })
+  async set(value: string): Promise<string> {
+    await AsyncStorage.setItem('@uuid', value)
+    this._uuid = value
+    return value
   }
 
   protected async get() {
     return await AsyncStorage.getItem('@uuid')
-  }
-
-  protected set() {
-    const token = uuid()
-    AsyncStorage.setItem('@uuid', token)
-    return token
   }
 }
 

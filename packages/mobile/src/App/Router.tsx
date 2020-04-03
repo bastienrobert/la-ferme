@@ -22,7 +22,7 @@ export interface Props {
 const Navigation: FC<Props> = ({ routes }) => {
   return (
     <NavigationContainer>
-      <CustomNav.Navigator>
+      <CustomNav.Navigator initialRouteName={routes.base}>
         {routes.pages.map((page, i) => (
           <CustomNav.Screen key={`screen-${i}`} {...page} />
         ))}

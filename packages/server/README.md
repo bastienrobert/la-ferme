@@ -23,6 +23,10 @@ yarn
 yarn dev
 ```
 
+## Debug
+
+You can open node devtools in chrome following [this URL](chrome://inspect/#devices) when dev server starts.
+
 ## Knex and GraphQL
 
 Here is a cool cheatsheet to use [knex](https://devhints.io/knex) and [graphql](https://devhints.io/graphql).

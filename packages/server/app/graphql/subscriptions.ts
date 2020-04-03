@@ -1,12 +1,20 @@
+// import User from '@/app/models/User'
+
 export default {
-  onConnect: (connectionParams: any) => {
-    if (connectionParams.authToken) {
-      console.log('HELLO ' + connectionParams.authToken)
-      return true
-    }
+  onConnect: async (_: any) => {
+    // const authToken = connectionParams.authToken
+
+    // const user = authToken || (await new User().save())
+    // console.log('HELLO ' + user)
+
+    // return {
+    //   user
+    // }
+    return true
   },
-  onDisconnect: () => {
-    console.log('BYE')
+  onDisconnect: async (_, context) => {
+    const initialContext = await context.initPromise
+    console.log('BYE', initialContext.user)
     return true
   }
 }

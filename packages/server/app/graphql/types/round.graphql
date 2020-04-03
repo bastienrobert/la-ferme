@@ -1,0 +1,11 @@
+type Round {
+  id: Int!
+}
+
+extend type Mutation {
+  completeRound: Float!
+}
+
+extend type Subscription {
+  round: Float!
+}

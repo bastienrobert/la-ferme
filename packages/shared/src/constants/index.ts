@@ -1,3 +1,4 @@
+import ROOM from './Room'
 import ROUND from './Round'
 
-export { ROUND }
+export { ROOM, ROUND }
