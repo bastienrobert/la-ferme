@@ -17,7 +17,7 @@ function Main() {
   const [getUser, { data }] = useLazyQuery(USER_GET)
 
   useEffect(() => {
-    auth.fetch().then(uuid => getUser({ variables: { uuid } }))
+    auth.local().then(uuid => getUser({ variables: { uuid } }))
   }, [getUser])
 
   useEffect(() => {
@@ -27,6 +27,7 @@ function Main() {
   }, [data])
 
   useEffect(() => {
+    auth.ready()
     BootSplash.hide({ duration: 250 })
   }, [ready])
 

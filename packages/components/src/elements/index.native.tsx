@@ -1,4 +1,2 @@
-import Button from './Button/index.native'
-import Typo from './Typo/index.native'
-
-export { Button, Typo }
+export { default as Button } from './Button/index.native'
+export { default as Typo } from './Typo/index.native'

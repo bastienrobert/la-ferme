@@ -1,6 +1,6 @@
 import { ROUND } from '@la-ferme/shared'
 
-import pubsub from '../pubsub'
+import pubsub from '../../pubsub'
 
 const resolvers = {
   Mutation: {
@@ -15,7 +15,7 @@ const resolvers = {
   },
   Subscription: {
     round: {
-      subscribe: () => pubsub.asyncIterator([ROUND.COMPLETE])
+      subscribe: () => pubsub.asyncIterator(ROUND.COMPLETE)
     }
   }
 }

@@ -1,7 +1,16 @@
 extend type Mutation {
-  joinRoom: Float!
+  joinRoom(box_id: UUID!, user_uuid: UUID!): UUID!
+}
+
+type ConnectedUser {
+  user_uuid: UUID!
+}
+
+type ConnectedUsers {
+  box_id: UUID!
+  connectedUsers: [ConnectedUser]
 }
 
 extend type Subscription {
-  userJoinRoom(room: Int!): Boolean!
+  connectedUsers(box_id: UUID!): ConnectedUsers
 }

@@ -1,3 +1,4 @@
 export default {
-  JOIN: 'ROOM_JOIN'
+  JOIN: 'ROOM_JOIN',
+  LEAVE: 'ROOM_LEAVE'
 }

@@ -11,10 +11,16 @@ const Welcome: FC<any> = ({ navigation }) => {
   const [joinRoom, { data }] = useMutation(ROOM_JOIN)
 
   const onCreatePress = async () => {
-    await joinRoom()
-    console.log(data)
+    await joinRoom({
+      variables: {
+        box_id: 'ba7e0095-0e48-47bd-a90d-32cac8f0139a',
+        user: auth.uuid
+      }
+    })
     navigation.navigate('Room:Create')
   }
+
+  console.log(data)
 
   return (
     <View>

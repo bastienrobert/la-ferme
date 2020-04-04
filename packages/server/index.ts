@@ -1,7 +1,7 @@
 import { ApolloServer } from 'apollo-server'
 
 import schema from '@/app/graphql'
-import subscriptions from '@/app/graphql/subscriptions'
+import subscriptions from '@/app/subscriptions'
 
 const server = new ApolloServer({
   schema,

@@ -16,6 +16,7 @@
     "start:serve": "node dist/index.js"
   },
   "dependencies": {
+    "@bastienrobert/events": "^1.0.3",
     "@la-ferme/shared": "*",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.0.2",
