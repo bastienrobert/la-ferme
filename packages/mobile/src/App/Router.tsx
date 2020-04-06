@@ -3,8 +3,6 @@ import { NavigationContainer } from '@react-navigation/native'
 
 import { createCustomNavigator } from '@/lib/CustomNavigator'
 
-const CustomNav = createCustomNavigator()
-
 export interface Page {
   name: string
   component: React.ComponentType<any>
@@ -20,9 +18,11 @@ export interface Props {
 }
 
 const Navigation: FC<Props> = ({ routes }) => {
+  const CustomNav = createCustomNavigator()
+
   return (
     <NavigationContainer>
-      <CustomNav.Navigator>
+      <CustomNav.Navigator initialRouteName={routes.base}>
         {routes.pages.map((page, i) => (
           <CustomNav.Screen key={`screen-${i}`} {...page} />
         ))}

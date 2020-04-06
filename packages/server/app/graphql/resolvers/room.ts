@@ -1,33 +1,40 @@
-import { PubSub } from 'apollo-server'
-import { ROUND } from '@la-ferme/shared'
+import { ROOM } from '@la-ferme/shared/constants'
+import { UUID } from '@la-ferme/shared/typings'
+import { withFilter } from 'apollo-server'
 
-const pubsub = new PubSub()
-
-import Room from '@/app/models/Room'
+import pubsub from '@/app/pubsub'
+import { connections } from '@/app/stores'
+import formatConnectedUsers from '@/app/helpers/formatConnectedUsers'
 
 const resolvers = {
   Query: {
-    // returns all rooms
-    rooms: async () => await Room.all()
+    // get connected users
+    connectedUsers(_, { boxID }) {
+      return formatConnectedUsers(boxID, connections.getByBoxID(boxID))
+    }
   },
   Mutation: {
-    // create new room
-    join() {
-      return true
-    },
-    // round complete
-    roundComplete() {
-      const id = Math.random()
-      pubsub.publish(ROUND.COMPLETED, {
-        roundCompleted: id
+    // join room
+    joinRoom(_, { userUUID, boxID }): UUID {
+      connections.setBoxID(userUUID, boxID)
+      pubsub.publish(ROOM.JOIN, {
+        connectedUsers: formatConnectedUsers(
+          boxID,
+          connections.getByBoxID(boxID)
+        )
       })
-      return new Promise(resolve => resolve(id))
+      return boxID
     }
   },
   Subscription: {
-    // tell to connected client when a round is complete
-    roundCompleted: {
-      subscribe: () => pubsub.asyncIterator([ROUND.COMPLETED])
+    // stream user connections
+    connectedUsers: {
+      subscribe: withFilter(
+        () => pubsub.asyncIterator([ROOM.JOIN, ROOM.LEAVE]),
+        ({ connectedUsers }, variables) => {
+          return connectedUsers.boxId === variables.boxId
+        }
+      )
     }
   }
 }

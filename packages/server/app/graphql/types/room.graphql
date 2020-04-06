@@ -1,16 +1,16 @@
+type ConnectedUsers {
+  boxID: UUID!
+  users: [User]!
+}
+
 extend type Query {
-  rooms: [Room]
+  connectedUsers(boxID: UUID!): ConnectedUsers!
 }
 
 extend type Mutation {
-  join: Boolean
-  roundComplete: Float
+  joinRoom(boxID: UUID!, userUUID: UUID!): UUID!
 }
 
 extend type Subscription {
-  roundCompleted: Float
-}
-
-type Room {
-  id: Int
+  connectedUsers(boxID: UUID!): ConnectedUsers!
 }

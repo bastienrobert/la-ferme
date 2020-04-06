@@ -20,7 +20,7 @@ jobs:
           node-version: 12.x
       - name: Install
         run: yarn
-      - name: Compile components
-        run: yarn build:components
+      - name: Setup tests
+        run: yarn test:setup
       - name: Test
         run: yarn test

@@ -9,13 +9,14 @@
     "db:seed": "knex seed:run",
     "dev": "run-p dev:**",
     "dev:build": "yarn clean && rollup -cw",
-    "dev:serve": "nodemon dist/index.js",
+    "dev:serve": "nodemon --inspect dist/index.js",
     "lint": "eslint **/*.ts",
     "start": "run-s start:**",
     "start:build": "yarn clean && rollup -c",
     "start:serve": "node dist/index.js"
   },
   "dependencies": {
+    "@bastienrobert/events": "^1.0.3",
     "@la-ferme/shared": "*",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.0.2",
