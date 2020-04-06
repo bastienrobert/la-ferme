@@ -1,34 +1,38 @@
-import { ROOM } from '@la-ferme/shared'
+import { ROOM } from '@la-ferme/shared/constants'
+import { UUID } from '@la-ferme/shared/typings'
 import { withFilter } from 'apollo-server'
 
-import pubsub from '../../pubsub'
+import pubsub from '@/app/pubsub'
 import { connections } from '@/app/stores'
+import formatConnectedUsers from '@/app/helpers/formatConnectedUsers'
 
 const resolvers = {
+  Query: {
+    // get connected users
+    connectedUsers(_, { boxID }) {
+      return formatConnectedUsers(boxID, connections.getByBoxID(boxID))
+    }
+  },
   Mutation: {
     // join room
-    joinRoom(_, { box_id, user_uuid }) {
-      // should get user ID and room ID
-      connections.setGame(user_uuid, box_id)
-      const users = connections.getGames(box_id)
-      const connectedUsers = Array.from(users.entries()).map(({ 1: key }) => ({
-        user_uuid: key
-      }))
+    joinRoom(_, { userUUID, boxID }): UUID {
+      connections.setBoxID(userUUID, boxID)
       pubsub.publish(ROOM.JOIN, {
-        connectedUsers: {
-          box_id,
-          connectedUsers
-        }
+        connectedUsers: formatConnectedUsers(
+          boxID,
+          connections.getByBoxID(boxID)
+        )
       })
-      return box_id
+      return boxID
     }
   },
   Subscription: {
+    // stream user connections
     connectedUsers: {
       subscribe: withFilter(
         () => pubsub.asyncIterator([ROOM.JOIN, ROOM.LEAVE]),
-        (payload, variables) => {
-          return payload.connectedUsers.box_id === variables.box_id
+        ({ connectedUsers }, variables) => {
+          return connectedUsers.boxId === variables.boxId
         }
       )
     }

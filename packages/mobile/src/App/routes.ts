@@ -1,5 +1,10 @@
 import Home from '@/pages/Home'
-import RoomCreate from '@/pages/rooms/Create'
+import RoomJoin from '@/pages/room/Join'
+
+export interface RootStackParamList {
+  Home: undefined
+  RoomJoin: undefined
+}
 
 export default {
   base: 'Home',
@@ -9,8 +14,8 @@ export default {
       component: Home
     },
     {
-      name: 'Room:Create',
-      component: RoomCreate
+      name: 'Room:Join',
+      component: RoomJoin
     }
   ]
 }

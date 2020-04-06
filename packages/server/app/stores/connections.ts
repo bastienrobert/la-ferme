@@ -1,44 +1,48 @@
 import Emitter from '@bastienrobert/events'
 import merge from 'lodash.merge'
 
-class Connections extends Emitter {
-  _connections = new Map()
+import { UUID } from '@la-ferme/shared/typings'
 
-  connect(key) {
+export interface Connection {
+  boxID: UUID | null
+}
+
+export type ConnectionsCollection = Map<UUID, Connection>
+
+class Connections extends Emitter {
+  _connections: ConnectionsCollection = new Map()
+
+  connect(key: UUID) {
     const res = this.set(key, {
-      game: null
+      boxID: null
     })
     this.emit('connect', key, this.get(key))
     return res
   }
 
-  get(key) {
+  get(key: UUID) {
     return this._connections.get(key)
   }
 
-  set(key, value) {
+  set(key: UUID, value: Connection) {
     return this._connections.set(key, value)
   }
 
-  setGame(user_id, game_id) {
-    const state = this._connections.get(user_id)
+  setBoxID(userUUID: UUID, boxID: UUID) {
+    const state = this._connections.get(userUUID)
     return this._connections.set(
-      user_id,
+      userUUID,
       merge(state, {
-        game: game_id
+        boxID: boxID
       })
     )
   }
 
-  getGames(id) {
-    const res = new Map()
-    this._connections.forEach((val, key) => {
-      if (val.game === id) res.set(val, key)
-    })
-    return res
+  getByBoxID(id: UUID) {
+    return new Map([...this._connections].filter(({ 1: v }) => v.boxID === id))
   }
 
-  disconnect(key) {
+  disconnect(key: UUID) {
     this.emit('disconnecting', key, this.get(key))
     const res = this._connections.delete(key)
     this.emit('disconnect', key)

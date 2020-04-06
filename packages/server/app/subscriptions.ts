@@ -1,10 +1,20 @@
-import { ROOM } from '@la-ferme/shared'
+import { ROOM } from '@la-ferme/shared/constants'
+import { UUID } from '@la-ferme/shared/typings'
 
-import { connections } from '@/app/stores'
 import pubsub from './pubsub'
+import { connections } from '@/app/stores'
+import formatConnectedUsers from '@/app/helpers/formatConnectedUsers'
+
+export interface ConnectionParams {
+  user: UUID
+}
+
+export interface InitialContext {
+  user: UUID
+}
 
 export default {
-  onConnect: connectionParams => {
+  onConnect: (connectionParams: ConnectionParams): InitialContext => {
     const user = connectionParams.user
 
     console.log('HELLO', user)
@@ -12,28 +22,26 @@ export default {
 
     return { user }
   },
-  onDisconnect: async (_, context) => {
-    const initialContext = await context.initPromise
+  onDisconnect: async (_, context): Promise<void> => {
+    const initialContext: InitialContext = await context.initPromise
     const user = initialContext.user
 
     const connection = connections.get(user)
-    const game = connection ? connection.game : null
-    console.log('BYE', user, 'connected to', game)
+    const boxID = connection ? connection.boxID : null
+
+    console.log('BYE', user, 'connected to', boxID)
 
     connections.disconnect(user)
-    if (connection) {
-      const users = connections.getGames(connection.game)
-      const connectedUsers = Array.from(users.entries()).map(({ 1: key }) => ({
-        user_uuid: key
-      }))
+
+    if (boxID) {
       pubsub.publish(ROOM.LEAVE, {
-        connectedUsers: {
-          box_id: connection.game,
-          connectedUsers
-        }
+        connectedUsers: formatConnectedUsers(
+          boxID,
+          connections.getByBoxID(boxID)
+        )
       })
     }
 
-    return true
+    return
   }
 }

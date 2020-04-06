@@ -1,12 +1,21 @@
 import gql from 'graphql-tag'
 
-const USER_GET = gql`
-  query($uuid: UUID) {
-    getUser(uuid: $uuid) {
+const fragments = {
+  userUUID: gql`
+    fragment UserUUID on User {
       uuid
-      existed
+    }
+  `
+}
+
+const USER_GET_QUERY = gql`
+  query GetUser($uuid: UUID) {
+    getUser(uuid: $uuid) {
+      ...UserUUID
+      exists
     }
   }
+  ${fragments.userUUID}
 `
 
-export { USER_GET }
+export { fragments, USER_GET_QUERY }

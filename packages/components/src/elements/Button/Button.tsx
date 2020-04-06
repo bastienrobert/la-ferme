@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components'
 
 import { IButtonProps, defaultSize, defaultVariant } from './Button.shared'
@@ -9,7 +9,7 @@ export interface WebButtonProps extends IButtonProps {
   onClick?: (e: Event) => void
 }
 
-function Button({ children, ...style }: WebButtonProps) {
+const Button: FC<WebButtonProps> = ({ children, ...style }) => {
   return <StyledButton {...style}>{children}</StyledButton>
 }
 

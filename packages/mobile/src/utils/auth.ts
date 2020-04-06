@@ -1,9 +1,10 @@
+import { UUID } from '@la-ferme/shared/typings'
 import AsyncStorage from '@react-native-community/async-storage'
 import Emitter from '@bastienrobert/events'
 
 class Auth extends Emitter {
   _local: string
-  _uuid: string
+  _uuid: UUID
   _ready: boolean = false
 
   constructor() {
@@ -25,21 +26,22 @@ class Auth extends Emitter {
     return await AsyncStorage.getItem('@uuid')
   }
 
-  async set(value: string): Promise<void> {
+  async set(value: UUID): Promise<UUID> {
     if (this._local !== value) {
       await AsyncStorage.setItem('@uuid', value)
     }
     this._uuid = value
+    return value
   }
 
   async clear() {
     return await AsyncStorage.removeItem('@uuid')
   }
 
-  local(): Promise<string | null> {
+  local(): Promise<UUID | null> {
     return new Promise(resolve => {
       typeof this._local !== 'undefined'
-        ? resolve(this._local)
+        ? resolve(this._local as UUID)
         : this.on('_setup', resolve)
     })
   }

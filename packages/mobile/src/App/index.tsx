@@ -8,13 +8,13 @@ import Router from './Router'
 import apollo from './apollo'
 import routes from './routes'
 
-import { USER_GET } from '@/graphql/user'
+import { USER_GET_QUERY } from '@/graphql/user'
 
 import auth from '@/utils/auth'
 
 function Main() {
   const [ready, setReady] = useState(false)
-  const [getUser, { data }] = useLazyQuery(USER_GET)
+  const [getUser, { data }] = useLazyQuery(USER_GET_QUERY)
 
   useEffect(() => {
     auth.local().then(uuid => getUser({ variables: { uuid } }))
@@ -27,6 +27,7 @@ function Main() {
   }, [data])
 
   useEffect(() => {
+    if (!ready) return
     auth.ready()
     BootSplash.hide({ duration: 250 })
   }, [ready])

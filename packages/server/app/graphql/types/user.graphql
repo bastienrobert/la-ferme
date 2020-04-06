@@ -1,6 +1,6 @@
 type User {
-  existed: Boolean
-  uuid: UUID
+  uuid: UUID!
+  exists: Boolean
 }
 
 extend type Query {

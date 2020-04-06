@@ -1,19 +1,21 @@
+import { User as UserType } from '@la-ferme/shared/typings'
+
 import User from '@/app/models/User'
 
 const resolvers = {
   Query: {
-    async getUser(_, { uuid }) {
+    async getUser(_, { uuid }): Promise<UserType> {
       try {
         if (!uuid) throw new Error('uuid is undefined')
         const user = await User.findByUUID(uuid)
         return {
-          existed: true,
+          exists: true,
           uuid: user.uuid
         }
       } catch (error) {
         const user = await User.create()
         return {
-          existed: false,
+          exists: false,
           uuid: user.uuid
         }
       }
