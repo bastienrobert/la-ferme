@@ -1,5 +1,8 @@
 import db from '@/config/database'
 
+import Player from './Player'
+import Connection from './Connection'
+
 export default class User extends db.bookshelf.Model<User> {
   static async find(id) {
     return await new User().where('id', id).fetch()
@@ -7,14 +10,6 @@ export default class User extends db.bookshelf.Model<User> {
 
   static async findByUUID(uuid) {
     return await new User().where('uuid', uuid).fetch()
-  }
-
-  static async create() {
-    return await new User().save()
-  }
-
-  static async save(user: User) {
-    return await user.save()
   }
 
   get tableName() {
@@ -30,12 +25,10 @@ export default class User extends db.bookshelf.Model<User> {
   }
 
   get players() {
-    // @ts-ignore
-    return this.hasMany('Player').fetch()
+    return this.hasMany(Player)
   }
 
   get connections() {
-    // @ts-ignore
-    return this.hasMany('Connection').fetch()
+    return this.hasMany(Connection)
   }
 }

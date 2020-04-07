@@ -1,9 +1,10 @@
 import db from '@/config/database'
 
+import Game from './Game'
+
 export default class Room extends db.bookshelf.Model<Room> {
-  static async all() {
-    const all = await Room.fetchAll()
-    return all.serialize()
+  static async findByBoxID(id) {
+    return await new Room().where('box_id', id).fetch()
   }
 
   get tableName() {
@@ -11,8 +12,12 @@ export default class Room extends db.bookshelf.Model<Room> {
   }
 
   get games() {
-    // @ts-ignore
-    return this.hasMany('Game')
+    return this.hasMany(Game)
+  }
+
+  async getLastGame() {
+    const games = await this.games.fetch()
+    return games.last()
   }
 
   get hasTimestamps() {

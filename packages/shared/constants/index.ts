@@ -1,4 +1,5 @@
 import ROOM from './Room'
+import GAME from './Game'
 import ROUND from './Round'
 
-export { ROOM, ROUND }
+export { ROOM, GAME, ROUND }

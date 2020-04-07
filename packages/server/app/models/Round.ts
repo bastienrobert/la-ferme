@@ -1,5 +1,8 @@
 import db from '@/config/database'
 
+import Game from './Game'
+import Player from './Player'
+
 export default class Round extends db.bookshelf.Model<Round> {
   get tableName() {
     return 'rounds'
@@ -10,13 +13,11 @@ export default class Round extends db.bookshelf.Model<Round> {
   }
 
   get game() {
-    // @ts-ignore
-    return this.belongsTo('Game').fetch()
+    return this.belongsTo(Game)
   }
 
   get player() {
-    // @ts-ignore
-    return this.belongsTo('Player').fetch()
+    return this.belongsTo(Player)
   }
 
   get completed(): string {

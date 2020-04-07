@@ -1,0 +1,12 @@
+type Game {
+  boxID: UUID!
+  players: [Player]!
+}
+
+extend type Mutation {
+  startGame(boxID: UUID!, userUUID: UUID!): Boolean!
+}
+
+extend type Subscription {
+  gameStarted(boxID: UUID!): Game!
+}

@@ -48,8 +48,8 @@ const link = split(
 
 const client = new ApolloClient({
   link,
+  resolvers: {},
   cache: new InMemoryCache()
-  // other options like cache
 })
 
 export default client

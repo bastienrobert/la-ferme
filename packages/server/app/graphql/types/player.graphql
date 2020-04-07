@@ -1,0 +1,10 @@
+type Player {
+  user: UUID!
+  character: String
+  skill: String
+  goal: String
+}
+
+extend type Query {
+  getPlayer(userUUID: UUID!): Player!
+}

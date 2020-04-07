@@ -1,8 +1,10 @@
 import db from '@/config/database'
 
+import User from './User'
+
 export default class Connection extends db.bookshelf.Model<Connection> {
-  static async save(connection: Connection) {
-    return await connection.save()
+  static async find(id) {
+    return await new Connection().where('id', id).fetch()
   }
 
   get tableName() {
@@ -14,7 +16,11 @@ export default class Connection extends db.bookshelf.Model<Connection> {
   }
 
   get user() {
-    // @ts-ignore
-    return this.belongsTo('User').fetch()
+    return this.belongsTo(User)
+  }
+
+  disconnect() {
+    this.set({ disconnected_at: new Date(Date.now()) })
+    return this
   }
 }

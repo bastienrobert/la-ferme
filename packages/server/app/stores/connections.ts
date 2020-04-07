@@ -1,7 +1,9 @@
+import { UUID } from '@la-ferme/shared/typings'
 import Emitter from '@bastienrobert/events'
 import merge from 'lodash.merge'
 
-import { UUID } from '@la-ferme/shared/typings'
+import ConnectionModel from '@/app/models/Connection'
+import UserModel from '@/app/models/User'
 
 export interface Connection {
   boxID: UUID | null
@@ -12,7 +14,19 @@ export type ConnectionsCollection = Map<UUID, Connection>
 class Connections extends Emitter {
   _connections: ConnectionsCollection = new Map()
 
-  connect(key: UUID) {
+  protected static async saveDisconnect(user) {
+    const connection = (await user.connections.fetch()).last()
+    connection.disconnect().save()
+  }
+
+  protected static async surrenderPlayer(user) {
+    const player = (await user.players.fetch()).last()
+    player.surrender().save()
+  }
+
+  async connect(key: UUID) {
+    const user = await UserModel.findByUUID(key)
+    new ConnectionModel({ user_id: user.id }).save()
     const res = this.set(key, {
       boxID: null
     })
@@ -42,8 +56,14 @@ class Connections extends Emitter {
     return new Map([...this._connections].filter(({ 1: v }) => v.boxID === id))
   }
 
-  disconnect(key: UUID) {
-    this.emit('disconnecting', key, this.get(key))
+  async disconnect(key: UUID) {
+    const value = this.get(key)
+    this.emit('disconnecting', key, value)
+    const user = await UserModel.findByUUID(key)
+    await Promise.all([
+      Connections.saveDisconnect(user),
+      Connections.surrenderPlayer(user)
+    ])
     const res = this._connections.delete(key)
     this.emit('disconnect', key)
     return res

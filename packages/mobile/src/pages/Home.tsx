@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import { View } from 'react-native'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation, useApolloClient } from '@apollo/react-hooks'
 import { Typo, Button } from '@la-ferme/components/native'
 
 import { ROOM_JOIN_MUTATION } from '@/graphql/room'
@@ -8,7 +8,8 @@ import { ROOM_JOIN_MUTATION } from '@/graphql/room'
 import auth from '@/utils/auth'
 
 const Home: FC<any> = ({ navigation }) => {
-  const [joinRoom] = useMutation(ROOM_JOIN_MUTATION)
+  const client = useApolloClient()
+  const [joinRoom, { data }] = useMutation(ROOM_JOIN_MUTATION)
   const [uuid, setUUID] = useState(auth.uuid || '')
 
   useEffect(() => {
@@ -16,22 +17,29 @@ const Home: FC<any> = ({ navigation }) => {
     auth.on('uuid', setUUID)
   }, [])
 
-  const onCreatePress = async () => {
-    await joinRoom({
+  useEffect(() => {
+    if (!data) return
+    navigation.navigate('Room', data.joinRoom)
+  }, [data, navigation])
+
+  const onJoinPress = async () => {
+    const boxID = '99719f7a-52a7-4d0e-b794-4caf71c4bcce'
+    client.writeData({ data: { boxID } })
+    joinRoom({
       variables: {
-        boxID: 'ba7e0095-0e48-47bd-a90d-32cac8f0139a',
+        // TODO: set boxID from QR code or NFC tag
+        boxID,
         userUUID: auth.uuid
       }
     })
-    navigation.navigate('Room:Join')
   }
 
   return (
     <View>
       <Typo size="h1">La Ferme</Typo>
+      <Typo size="h5">Connected as</Typo>
       <Typo>{uuid}</Typo>
-      <Button onPress={onCreatePress}>Create room</Button>
-      <Button onPress={auth.clear}>Clean async torage</Button>
+      <Button onPress={onJoinPress}>Join room</Button>
     </View>
   )
 }
