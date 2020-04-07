@@ -8,6 +8,7 @@ export async function up(knex: Knex): Promise<any> {
     table.string('character')
     table.string('skill')
     table.string('goal')
+    table.boolean('ready').defaultTo(false)
     table.boolean('surrender').defaultTo(false)
 
     table.timestamps(true, true)

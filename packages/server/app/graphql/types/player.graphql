@@ -1,5 +1,6 @@
 type Player {
   user: UUID!
+  ready: Boolean
   character: String
   skill: String
   goal: String
@@ -7,4 +8,12 @@ type Player {
 
 extend type Query {
   getPlayer(userUUID: UUID!): Player!
+}
+
+extend type Mutation {
+  playerReady(boxID: UUID!, userUUID: UUID!): Boolean!
+}
+
+extend type Subscription {
+  playerIsReady(boxID: UUID!): Game!
 }

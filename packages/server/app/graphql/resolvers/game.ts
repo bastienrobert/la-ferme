@@ -5,21 +5,13 @@ import { withFilter } from 'apollo-server'
 import pubsub from '@/app/pubsub'
 import Room from '@/app/models/Room'
 
+import formatPlayers from '@/app/helpers/formatPlayers'
+
 const characters = ['peter', 'monique', 'leon', 'isabelle']
 
-const getRandomCharacter = () => {
-  return characters[Math.floor(Math.random() * characters.length)]
-}
-
-const formatPlayer = async player => {
-  const user = await player.user.fetch()
-  const { character, skill, goal } = await player.serialize()
-  return {
-    user: user.uuid,
-    character,
-    skill,
-    goal
-  }
+const getRandomCharacter = tmp => {
+  const character = tmp.splice(Math.floor(Math.random() * tmp.length), 1)
+  return character[0]
 }
 
 const resolvers = {
@@ -33,16 +25,18 @@ const resolvers = {
       game.start().save()
 
       const players = await game.players.fetch()
+
+      const tmp_characters = characters
       await Promise.all(
         players.map(player => {
-          player.character = getRandomCharacter()
+          player.character = getRandomCharacter(tmp_characters)
           player.skill = 'skill'
           player.goal = 'goal'
           return player.save()
         })
       )
 
-      const formattedPlayer = await Promise.all(players.map(formatPlayer))
+      const formattedPlayer = await formatPlayers(players)
       pubsub.publish(GAME.START, {
         gameStarted: {
           boxID,

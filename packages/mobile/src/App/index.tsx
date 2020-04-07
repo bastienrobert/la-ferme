@@ -22,7 +22,6 @@ function Main() {
 
   useEffect(() => {
     if (!data) return
-    console.log(data)
     const { uuid } = data.getUser
     auth.set(uuid).then(() => setReady(true))
   }, [data])

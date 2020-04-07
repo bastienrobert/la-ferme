@@ -30,6 +30,10 @@ export default class Player extends db.bookshelf.Model<Player> {
     return this.belongsTo(User)
   }
 
+  ready() {
+    this.set({ ready: true })
+  }
+
   set character(val) {
     this.set({ character: val })
   }
