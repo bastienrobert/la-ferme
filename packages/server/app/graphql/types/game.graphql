@@ -1,12 +1,14 @@
 type Game {
   boxID: UUID!
   players: [Player]!
+  winnerUUID: UUID
 }
 
 extend type Mutation {
   startGame(boxID: UUID!, userUUID: UUID!): Boolean!
+  stopGame(boxID: UUID!, winnerUUID: UUID!): Boolean!
 }
 
 extend type Subscription {
-  gameStarted(boxID: UUID!): Game!
+  gameStatus(boxID: UUID!): Game!
 }

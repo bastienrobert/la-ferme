@@ -4,7 +4,7 @@ import { useSubscription, useQuery, useMutation } from '@apollo/react-hooks'
 import { Typo, Button } from '@la-ferme/components/native'
 
 import { GET_BOX_ID, NEW_USER_IN_ROOM_SUBSCRIPTION } from '@/graphql/room'
-import { START_GAME_MUTATION, GAME_STARTED_SUBSCRIPTION } from '@/graphql/game'
+import { START_GAME_MUTATION, GAME_STATUS_SUBSCRIPTION } from '@/graphql/game'
 
 import auth from '@/utils/auth'
 
@@ -17,7 +17,7 @@ const CreateRoom: FC<any> = ({ navigation, route }) => {
   const boxID = boxIDQuery?.data?.boxID
 
   const [startGameMututation] = useMutation(START_GAME_MUTATION)
-  const gameStartedSubscription = useSubscription(GAME_STARTED_SUBSCRIPTION, {
+  const gameStatusSubscription = useSubscription(GAME_STATUS_SUBSCRIPTION, {
     variables: { boxID }
   })
   const newUserInRoomSubscription = useSubscription(
@@ -30,9 +30,10 @@ const CreateRoom: FC<any> = ({ navigation, route }) => {
   const owner = routeData?.creatorUUID === auth.uuid
 
   useEffect(() => {
-    if (!gameStartedSubscription.data) return
-    navigation.navigate('Role', gameStartedSubscription.data?.gameStarted)
-  }, [gameStartedSubscription.data, navigation])
+    if (!gameStatusSubscription.data) return
+    if (gameStatusSubscription.data?.gameStatus?.winnerUUID) return
+    navigation.navigate('Role', gameStatusSubscription.data?.gameStatus)
+  }, [gameStatusSubscription.data, navigation])
 
   const onHomePress = () => {
     navigation.navigate('Home')

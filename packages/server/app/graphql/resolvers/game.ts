@@ -4,6 +4,7 @@ import { withFilter } from 'apollo-server'
 
 import pubsub from '@/app/pubsub'
 import Room from '@/app/models/Room'
+import User from '@/app/models/User'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
 
@@ -22,7 +23,7 @@ const resolvers = {
       const game = await (await room.getLastGame()).fetch()
       const creator = await game.creator.fetch()
       if (creator.uuid !== userUUID) throw new Error(NOT_ALLOWED)
-      game.start().save()
+      await game.start().save()
 
       const players = await game.players.fetch()
 
@@ -38,8 +39,28 @@ const resolvers = {
 
       const formattedPlayer = await formatPlayers(players)
       pubsub.publish(GAME.START, {
-        gameStarted: {
+        gameStatus: {
           boxID,
+          players: formattedPlayer
+        }
+      })
+
+      return true
+    },
+    async stopGame(_, { winnerUUID, boxID }) {
+      const room = await Room.findByBoxID(boxID)
+      const game = await (await room.getLastGame()).fetch()
+      const winner = await User.findByUUID(winnerUUID)
+      game.winner = winner.id
+      await game.save()
+
+      const players = await game.players.fetch()
+
+      const formattedPlayer = await formatPlayers(players)
+      pubsub.publish(GAME.STOP, {
+        gameStatus: {
+          boxID,
+          winnerUUID,
           players: formattedPlayer
         }
       })
@@ -48,11 +69,11 @@ const resolvers = {
     }
   },
   Subscription: {
-    gameStarted: {
+    gameStatus: {
       subscribe: withFilter(
-        () => pubsub.asyncIterator(GAME.START),
-        ({ gameStarted }, variables) => {
-          return gameStarted.boxID === variables.boxID
+        () => pubsub.asyncIterator([GAME.START, GAME.STOP]),
+        ({ gameStatus }, variables) => {
+          return gameStatus.boxID === variables.boxID
         }
       )
     }

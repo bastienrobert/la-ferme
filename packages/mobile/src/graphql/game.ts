@@ -6,9 +6,16 @@ const START_GAME_MUTATION = gql`
   }
 `
 
-const GAME_STARTED_SUBSCRIPTION = gql`
-  subscription GameStarted($boxID: UUID!) {
-    gameStarted(boxID: $boxID) {
+const STOP_GAME_MUTATION = gql`
+  mutation StopGame($winnerUUID: UUID!, $boxID: UUID!) {
+    stopGame(boxID: $boxID, winnerUUID: $winnerUUID)
+  }
+`
+
+const GAME_STATUS_SUBSCRIPTION = gql`
+  subscription GameStatus($boxID: UUID!) {
+    gameStatus(boxID: $boxID) {
+      winnerUUID
       players {
         user
         character
@@ -19,4 +26,4 @@ const GAME_STARTED_SUBSCRIPTION = gql`
   }
 `
 
-export { START_GAME_MUTATION, GAME_STARTED_SUBSCRIPTION }
+export { START_GAME_MUTATION, STOP_GAME_MUTATION, GAME_STATUS_SUBSCRIPTION }
