@@ -16,6 +16,11 @@ const getRandomCharacter = tmp => {
 }
 
 const resolvers = {
+  Game: {
+    __resolveType(game) {
+      return game.winnerUUID ? 'WonGame' : 'NewGame'
+    }
+  },
   Mutation: {
     // set game as ready
     async startGame(_, { userUUID, boxID }) {

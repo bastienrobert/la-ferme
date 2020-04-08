@@ -11,11 +11,10 @@ const fragments = {
 const GET_USER_QUERY = gql`
   query GetUser($uuid: UUID) {
     getUser(uuid: $uuid) {
-      ...UserUUID
+      uuid
       exists
     }
   }
-  ${fragments.userUUID}
 `
 
 export { fragments, GET_USER_QUERY }

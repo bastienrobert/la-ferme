@@ -1,4 +1,14 @@
-type Game {
+interface Game {
+  boxID: UUID!
+  players: [Player]!
+}
+
+type NewGame implements Game {
+  boxID: UUID!
+  players: [Player]!
+}
+
+type WonGame implements Game {
   boxID: UUID!
   players: [Player]!
   winnerUUID: UUID

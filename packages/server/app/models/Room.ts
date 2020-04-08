@@ -16,7 +16,7 @@ export default class Room extends db.bookshelf.Model<Room> {
   }
 
   async getLastGame() {
-    const games = await this.games.fetch()
+    const games = await this.games.orderBy('id').fetch()
     return games.last()
   }
 

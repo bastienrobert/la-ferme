@@ -14,7 +14,7 @@ import formatConnectedUsers from '@/app/helpers/formatConnectedUsers'
 
 const getGame = async (room, user, users) => {
   if (users.size > 0) {
-    const games = await room.games.fetch()
+    const games = await room.games.orderBy('id').fetch()
     return games.last()
   } else {
     return await new Game({

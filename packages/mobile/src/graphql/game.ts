@@ -15,12 +15,14 @@ const STOP_GAME_MUTATION = gql`
 const GAME_STATUS_SUBSCRIPTION = gql`
   subscription GameStatus($boxID: UUID!) {
     gameStatus(boxID: $boxID) {
-      winnerUUID
       players {
         user
         character
         skill
         goal
+      }
+      ... on WonGame {
+        winnerUUID
       }
     }
   }

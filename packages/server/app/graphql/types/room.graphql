@@ -1,17 +1,13 @@
 type Room {
   boxID: UUID!
-}
-
-type ConnectedUsers {
-  boxID: UUID!
   creatorUUID: UUID!
   users: [User]!
 }
 
 extend type Mutation {
-  joinRoom(boxID: UUID!, userUUID: UUID!): ConnectedUsers!
+  joinRoom(boxID: UUID!, userUUID: UUID!): Room!
 }
 
 extend type Subscription {
-  connectedUsers(boxID: UUID!): ConnectedUsers!
+  connectedUsers(boxID: UUID!): Room!
 }
