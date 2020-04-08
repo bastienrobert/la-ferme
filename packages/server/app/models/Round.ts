@@ -20,11 +20,11 @@ export default class Round extends db.bookshelf.Model<Round> {
     return this.belongsTo(Player)
   }
 
-  get completed(): string {
+  get completed(): boolean {
     return this.get('completed')
   }
 
-  set completed(value: string) {
+  set completed(value: boolean) {
     this.set({ completed: value })
   }
 }

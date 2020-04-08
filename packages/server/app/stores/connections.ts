@@ -7,6 +7,7 @@ import UserModel from '@/app/models/User'
 
 export interface Connection {
   boxID: UUID | null
+  ready: boolean
 }
 
 export type ConnectionsCollection = Map<UUID, Connection>
@@ -28,7 +29,8 @@ class Connections extends Emitter {
     const user = await UserModel.findByUUID(key)
     new ConnectionModel({ user_id: user.id }).save()
     const res = this.set(key, {
-      boxID: null
+      boxID: null,
+      ready: false
     })
     this.emit('connect', key, this.get(key))
     return res
@@ -42,14 +44,17 @@ class Connections extends Emitter {
     return this._connections.set(key, value)
   }
 
-  setBoxID(userUUID: UUID, boxID: UUID) {
+  merge(userUUID, newState) {
     const state = this._connections.get(userUUID)
-    return this._connections.set(
-      userUUID,
-      merge(state, {
-        boxID: boxID
-      })
-    )
+    return this._connections.set(userUUID, merge(state, newState))
+  }
+
+  setBoxID(userUUID: UUID, boxID: UUID) {
+    return this.merge(userUUID, { boxID })
+  }
+
+  setReady(userUUID) {
+    return this.merge(userUUID, { ready: true })
   }
 
   getByBoxID(id: UUID) {
@@ -58,6 +63,7 @@ class Connections extends Emitter {
 
   async disconnect(key: UUID) {
     const value = this.get(key)
+    if (!value) return
     this.emit('disconnecting', key, value)
     const user = await UserModel.findByUUID(key)
     await Promise.all([

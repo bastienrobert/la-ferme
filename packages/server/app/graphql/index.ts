@@ -12,12 +12,14 @@ import roomDefs from './types/room.graphql'
 import userDefs from './types/user.graphql'
 import gameDefs from './types/game.graphql'
 import playerDefs from './types/player.graphql'
+import roundDefs from './types/round.graphql'
 
 // Import resolvers
 import roomResolvers from './resolvers/room'
 import userResolvers from './resolvers/user'
 import gameResolvers from './resolvers/game'
 import playerResolvers from './resolvers/player'
+import roundResolvers from './resolvers/round'
 
 const Query = `
   type Query {
@@ -33,12 +35,21 @@ const Query = `
 
 // Export generated schema
 export default makeExecutableSchema({
-  typeDefs: [Query, uuidScalarDefs, userDefs, roomDefs, gameDefs, playerDefs],
+  typeDefs: [
+    Query,
+    uuidScalarDefs,
+    userDefs,
+    roomDefs,
+    gameDefs,
+    playerDefs,
+    roundDefs
+  ],
   resolvers: merge(
     uuidScalarResolvers,
     userResolvers,
     roomResolvers,
     gameResolvers,
-    playerResolvers
+    playerResolvers,
+    roundResolvers
   )
 })

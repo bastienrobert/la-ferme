@@ -2,6 +2,7 @@ import Home from '@/pages/Home'
 import Room from '@/pages/Room'
 import Role from '@/pages/Role'
 import Game from '@/pages/Game'
+import GameOver from '@/pages/GameOver'
 
 export interface RootStackParamList {
   Home: undefined
@@ -26,6 +27,10 @@ export default {
     {
       name: 'Game',
       component: Game
+    },
+    {
+      name: 'GameOver',
+      component: GameOver
     }
   ]
 }
