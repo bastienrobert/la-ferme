@@ -1,0 +1,17 @@
+type Round {
+  user: UUID!
+}
+
+type NewRound {
+  boxID: UUID!
+  round: Round!
+}
+
+extend type Mutation {
+  readyForRound(boxID: UUID!, userUUID: UUID!): Boolean!
+  pushRound(boxID: UUID!, userUUID: UUID!): Boolean!
+}
+
+extend type Subscription {
+  newRound(boxID: UUID!): NewRound!
+}

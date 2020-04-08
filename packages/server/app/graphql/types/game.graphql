@@ -1,0 +1,24 @@
+interface Game {
+  boxID: UUID!
+  players: [Player]!
+}
+
+type NewGame implements Game {
+  boxID: UUID!
+  players: [Player]!
+}
+
+type WonGame implements Game {
+  boxID: UUID!
+  players: [Player]!
+  winnerUUID: UUID
+}
+
+extend type Mutation {
+  startGame(boxID: UUID!, userUUID: UUID!): Boolean!
+  stopGame(boxID: UUID!, winnerUUID: UUID!): Boolean!
+}
+
+extend type Subscription {
+  gameStatus(boxID: UUID!): Game!
+}

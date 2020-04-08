@@ -1,8 +1,12 @@
 type User {
   uuid: UUID!
-  exists: Boolean
+}
+
+type UserExist {
+  uuid: UUID!
+  exists: Boolean!
 }
 
 extend type Query {
-  getUser(uuid: UUID): User!
+  getUser(uuid: UUID): UserExist!
 }

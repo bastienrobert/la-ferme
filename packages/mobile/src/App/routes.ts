@@ -1,5 +1,8 @@
 import Home from '@/pages/Home'
-import RoomJoin from '@/pages/room/Join'
+import Room from '@/pages/Room'
+import Role from '@/pages/Role'
+import Game from '@/pages/Game'
+import GameOver from '@/pages/GameOver'
 
 export interface RootStackParamList {
   Home: undefined
@@ -14,8 +17,20 @@ export default {
       component: Home
     },
     {
-      name: 'Room:Join',
-      component: RoomJoin
+      name: 'Room',
+      component: Room
+    },
+    {
+      name: 'Role',
+      component: Role
+    },
+    {
+      name: 'Game',
+      component: Game
+    },
+    {
+      name: 'GameOver',
+      component: GameOver
     }
   ]
 }

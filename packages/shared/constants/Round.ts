@@ -1,3 +1,3 @@
 export default {
-  COMPLETE: 'COMPLETE_ROUND'
+  NEW: 'NEW_ROUND'
 }
