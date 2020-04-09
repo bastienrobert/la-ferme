@@ -1,33 +1,35 @@
+import { Collection } from 'bookshelf'
 import { ROUND } from '@la-ferme/shared/constants'
+import { NOT_ALLOWED } from '@la-ferme/shared/errors'
 import { withFilter } from 'apollo-server'
 
 import pubsub from '@/app/pubsub'
 
+import User from '@/app/models/User'
 import Room from '@/app/models/Room'
 import Round from '@/app/models/Round'
+import Player from '@/app/models/Player'
 
 import { connections } from '@/app/stores'
 
 const getGame = async boxID => {
   const room = await Room.findByBoxID(boxID)
   const lastGame = await room.getLastGame()
-  return await lastGame.fetch()
-}
-
-const getPlayers = async game => {
-  return await game.players.orderBy('id').fetch()
+  return await lastGame.fetch({
+    withRelated: [{ players: qb => qb.orderBy('id') }]
+  })
 }
 
 const getRounds = async game => {
-  return await game.rounds.orderBy('id').fetch()
+  return await game.rounds().orderBy('id').fetch()
 }
 
 const createRound = async (gameID, playerID) => {
   const round = new Round({ game_id: gameID, player_id: playerID })
   await round.save()
 
-  const player = await round.player.fetch()
-  const user = await player.user.fetch()
+  const player = await round.player().fetch({ withRelated: ['user'] })
+  const user = player.related('user') as User
 
   return {
     user: user.uuid
@@ -56,7 +58,7 @@ const resolvers = {
 
       if (everyBodyIsReady) {
         const game = await getGame(boxID)
-        const players = await getPlayers(game)
+        const players = game.related('players') as Collection<Player>
         const player = players.first()
         const round = await createRound(game.id, player.id)
         publishRound(boxID, round)
@@ -65,23 +67,32 @@ const resolvers = {
       return true
     },
     // push a confirmed round
-    async pushRound(_, { boxID }) {
+    async pushRound(_, { boxID, userUUID }) {
       const game = await getGame(boxID)
       const rounds = await getRounds(game)
-      const players = await getPlayers(game)
+      const players = game.related('players') as Collection<Player>
 
-      const lastRound = await rounds.last().fetch()
-      const player = await lastRound.player.fetch()
+      const lastRound = await rounds
+        .last()
+        .fetch({ withRelated: ['player', 'player.user'] })
+
+      const player = lastRound.related('player')
+      const user = player.related('user')
+
+      if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
 
       lastRound.completed = true
-      await lastRound.save()
 
       const serializedPlayers = players.serialize()
       const nextPlayerIndex =
         (serializedPlayers.findIndex(p => p.id === player.id) + 1) %
         players.length
-      const nextPlayer = serializedPlayers[nextPlayerIndex]
-      const round = await createRound(game.id, nextPlayer.id)
+      const nextPlayer = players.at(nextPlayerIndex)
+
+      const [round] = await Promise.all([
+        createRound(game.id, nextPlayer.id),
+        lastRound.save()
+      ])
       publishRound(boxID, round)
 
       return true

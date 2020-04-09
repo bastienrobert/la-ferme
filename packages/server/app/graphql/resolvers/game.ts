@@ -1,3 +1,4 @@
+import { Collection } from 'bookshelf'
 import { GAME } from '@la-ferme/shared/constants'
 import { NOT_ALLOWED } from '@la-ferme/shared/errors'
 import { withFilter } from 'apollo-server'
@@ -5,6 +6,9 @@ import { withFilter } from 'apollo-server'
 import pubsub from '@/app/pubsub'
 import Room from '@/app/models/Room'
 import User from '@/app/models/User'
+import Player from '@/app/models/Player'
+
+import { connections } from '@/app/stores'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
 
@@ -25,12 +29,16 @@ const resolvers = {
     // set game as ready
     async startGame(_, { userUUID, boxID }) {
       const room = await Room.findByBoxID(boxID)
-      const game = await (await room.getLastGame()).fetch()
-      const creator = await game.creator.fetch()
-      if (creator.uuid !== userUUID) throw new Error(NOT_ALLOWED)
-      await game.start().save()
+      const game = await (await room.getLastGame()).fetch({
+        withRelated: ['creator', 'players']
+      })
 
-      const players = await game.players.fetch()
+      const creator = game.related<User>('creator') as User
+      if (creator.uuid !== userUUID) throw new Error(NOT_ALLOWED)
+      game.start()
+      await game.save()
+
+      const players = game.related<Player>('players') as Collection<Player>
 
       const tmp_characters = characters
       await Promise.all(
@@ -43,6 +51,7 @@ const resolvers = {
       )
 
       const formattedPlayer = await formatPlayers(players)
+
       pubsub.publish(GAME.START, {
         gameStatus: {
           boxID,
@@ -54,14 +63,24 @@ const resolvers = {
     },
     async stopGame(_, { winnerUUID, boxID }) {
       const room = await Room.findByBoxID(boxID)
-      const game = await (await room.getLastGame()).fetch()
-      const winner = await User.findByUUID(winnerUUID)
+      const lastGame = await room.getLastGame()
+
+      const [game, winner] = await Promise.all([
+        lastGame.fetch({ withRelated: ['players', 'players.user'] }),
+        User.findByUUID(winnerUUID)
+      ])
+
       game.winner = winner.id
       await game.save()
 
-      const players = await game.players.fetch()
-
+      const players = game.related('players')
       const formattedPlayer = await formatPlayers(players)
+
+      connections.getByBoxID(boxID).forEach((_, key) => {
+        connections.reset(key)
+        console.log(key, connections.get(key))
+      })
+
       pubsub.publish(GAME.STOP, {
         gameStatus: {
           boxID,

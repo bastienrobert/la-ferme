@@ -1,4 +1,5 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useCallback } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
 import { useMutation, useSubscription, useQuery } from '@apollo/react-hooks'
 import { Typo, Button } from '@la-ferme/components/native'
 
@@ -18,9 +19,11 @@ const Game: FC<any> = ({ navigation }) => {
   const [readyForRoundMutation] = useMutation(READY_FOR_ROUND_MUTATION)
   const [pushRoundMutation] = useMutation(PUSH_ROUND_MUTATION)
 
-  useEffect(() => {
-    readyForRoundMutation({ variables: { boxID, userUUID: auth.uuid } })
-  }, [boxID, readyForRoundMutation])
+  useFocusEffect(
+    useCallback(() => {
+      readyForRoundMutation({ variables: { boxID, userUUID: auth.uuid } })
+    }, [boxID, readyForRoundMutation])
+  )
 
   const [stopGameMututation] = useMutation(STOP_GAME_MUTATION)
   const gameStatusSubscription = useSubscription(GAME_STATUS_SUBSCRIPTION, {
