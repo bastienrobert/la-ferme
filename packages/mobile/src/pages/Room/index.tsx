@@ -29,6 +29,8 @@ const CreateRoom: FC<any> = ({ navigation, route }) => {
 
   const owner = routeData?.creatorUUID === auth.uuid
 
+  // TODO
+  // subscription should be cancelled when React navigation focus blur
   useEffect(() => {
     if (!gameStatusSubscription.data) return
     if (gameStatusSubscription.data?.gameStatus?.winnerUUID) return
