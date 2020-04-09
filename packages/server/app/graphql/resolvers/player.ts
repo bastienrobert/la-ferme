@@ -9,17 +9,16 @@ import User from '@/app/models/User'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
 
-const getPlayer = async user => {
-  const players = await user.players
-  const player = await players.orderBy('id').fetch()
-  return player.last()
+const getPlayer = user => {
+  return user.related('players').orderBy('id').last()
 }
 
 const resolvers = {
   Query: {
     async getPlayer(_, { userUUID }): Promise<Player> {
-      const user = await User.findByUUID(userUUID)
-      const player = await getPlayer(user)
+      const user = await User.findByUUID(userUUID, { withRelated: ['players'] })
+
+      const player = getPlayer(user)
       const { character, skill, goal } = player.serialize()
       return {
         user: user.uuid,
@@ -31,15 +30,20 @@ const resolvers = {
   },
   Mutation: {
     async playerReady(_, { boxID, userUUID }) {
-      const user = await User.findByUUID(userUUID)
-      const player = await getPlayer(user)
+      const user = await User.findByUUID(userUUID, {
+        withRelated: [{ players: qb => qb.orderBy('id') }]
+      })
+      const player = getPlayer(user)
       player.ready()
       await player.save()
 
-      const room = await Room.findByBoxID(boxID)
-      const game = await (await room.getLastGame()).fetch()
+      const room = await Room.findByBoxID(boxID, {
+        withRelated: [{ games: qb => qb.orderBy('id') }]
+      })
 
-      const players = await game.players.fetch()
+      const game = await room.getLastGame({ withRelated: ['players'] })
+
+      const players = game.related('players')
       const formattedPlayers = await formatPlayers(players)
 
       pubsub.publish(PLAYER.READY, {

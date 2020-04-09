@@ -6,8 +6,8 @@ import User from './User'
 import Player from './Player'
 
 export default class Game extends db.bookshelf.Model<Game> {
-  static async find(id) {
-    return await new Game().where('id', id).fetch()
+  static async find(id, params?) {
+    return await new Game().where('id', id).fetch(params)
   }
 
   get tableName() {
@@ -18,34 +18,33 @@ export default class Game extends db.bookshelf.Model<Game> {
     return true
   }
 
-  get room() {
+  room() {
     return this.belongsTo(Room)
   }
 
-  get rounds() {
+  rounds() {
     return this.hasMany(Round)
   }
 
-  get creator() {
+  creator() {
     return this.hasOne(User, 'id', 'creator_id')
   }
 
-  get players() {
+  players() {
     return this.hasMany(Player)
-  }
-
-  get started() {
-    return this.get('started_at')
-  }
-
-  set winner(value: string) {
-    // should take a player in params
-    // should check player is in the game
-    this.set({ winner_id: value })
   }
 
   start() {
     this.set({ started_at: new Date(Date.now()) })
-    return this
+  }
+
+  get started_at() {
+    return this.get('started_at')
+  }
+
+  set winner(value: number) {
+    // should take a player in params
+    // should check player is in the game
+    this.set({ winner_id: value })
   }
 }

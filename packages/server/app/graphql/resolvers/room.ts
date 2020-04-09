@@ -14,7 +14,7 @@ import formatConnectedUsers from '@/app/helpers/formatConnectedUsers'
 
 const getGame = async (room, user, users) => {
   if (users.size > 0) {
-    const games = await room.games.orderBy('id').fetch()
+    const games = await room.games().orderBy('id').fetch()
     return games.last()
   } else {
     return await new Game({
@@ -32,14 +32,14 @@ const createOrJoin = async (userUUID, boxID) => {
   const room = await Room.findByBoxID(boxID)
   const game = await getGame(room, user, connectedUsers)
 
-  if (game.started) throw new Error(GAME_STARTED)
+  if (game.started_at) throw new Error(GAME_STARTED)
 
   const player = await new Player({
     game_id: game.id,
     user_id: user.id
   }).save()
 
-  const creator = await game.creator.fetch()
+  const creator = await game.creator().fetch()
 
   return { creatorUUID: creator.uuid, player }
 }

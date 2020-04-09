@@ -12,26 +12,28 @@ export interface Connection {
 
 export type ConnectionsCollection = Map<UUID, Connection>
 
+const DEFAULT_VALUE = {
+  boxID: null,
+  ready: false
+}
+
 class Connections extends Emitter {
   _connections: ConnectionsCollection = new Map()
 
   protected static async saveDisconnect(user) {
-    const connection = (await user.connections.fetch()).last()
-    connection.disconnect().save()
+    const connection = await user.connections().fetch()
+    connection.last().disconnect().save()
   }
 
   protected static async surrenderPlayer(user) {
-    const player = (await user.players.fetch()).last()
-    player.surrender().save()
+    const player = await user.players().fetch()
+    player.last().surrender().save()
   }
 
   async connect(key: UUID) {
     const user = await UserModel.findByUUID(key)
     new ConnectionModel({ user_id: user.id }).save()
-    const res = this.set(key, {
-      boxID: null,
-      ready: false
-    })
+    const res = this.reset(key)
     this.emit('connect', key, this.get(key))
     return res
   }
@@ -42,6 +44,10 @@ class Connections extends Emitter {
 
   set(key: UUID, value: Connection) {
     return this._connections.set(key, value)
+  }
+
+  reset(key: UUID) {
+    return this._connections.set(key, { ...DEFAULT_VALUE })
   }
 
   merge(userUUID, newState) {

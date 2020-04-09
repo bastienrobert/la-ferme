@@ -4,12 +4,12 @@ import Player from './Player'
 import Connection from './Connection'
 
 export default class User extends db.bookshelf.Model<User> {
-  static async find(id) {
-    return await new User().where('id', id).fetch()
+  static async find(id, params?) {
+    return await new User().where('id', id).fetch(params)
   }
 
-  static async findByUUID(uuid) {
-    return await new User().where('uuid', uuid).fetch()
+  static async findByUUID(uuid, params?) {
+    return await new User().where('uuid', uuid).fetch(params)
   }
 
   get tableName() {
@@ -24,11 +24,11 @@ export default class User extends db.bookshelf.Model<User> {
     return this.get('uuid')
   }
 
-  get players() {
+  players() {
     return this.hasMany(Player)
   }
 
-  get connections() {
+  connections() {
     return this.hasMany(Connection)
   }
 }

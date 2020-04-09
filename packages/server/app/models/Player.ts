@@ -18,15 +18,15 @@ export default class Player extends db.bookshelf.Model<Player> {
     return this
   }
 
-  get game() {
-    return this.belongsTo(Game)
-  }
-
-  get rounds() {
+  rounds() {
     return this.hasMany(Round)
   }
 
-  get user() {
+  game() {
+    return this.belongsTo(Game)
+  }
+
+  user() {
     return this.belongsTo(User)
   }
 

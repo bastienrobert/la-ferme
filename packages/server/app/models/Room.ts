@@ -3,24 +3,24 @@ import db from '@/config/database'
 import Game from './Game'
 
 export default class Room extends db.bookshelf.Model<Room> {
-  static async findByBoxID(id) {
-    return await new Room().where('box_id', id).fetch()
+  static async findByBoxID(id, params?) {
+    return await new Room().where('box_id', id).fetch(params)
   }
 
   get tableName() {
     return 'rooms'
   }
 
-  get games() {
+  get hasTimestamps() {
+    return true
+  }
+
+  games() {
     return this.hasMany(Game)
   }
 
-  async getLastGame() {
-    const games = await this.games.orderBy('id').fetch()
+  async getLastGame(params?) {
+    const games = await this.games().orderBy('id').fetch(params)
     return games.last()
-  }
-
-  get hasTimestamps() {
-    return true
   }
 }

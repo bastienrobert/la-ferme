@@ -12,11 +12,11 @@ export default class Round extends db.bookshelf.Model<Round> {
     return true
   }
 
-  get game() {
+  game() {
     return this.belongsTo(Game)
   }
 
-  get player() {
+  player() {
     return this.belongsTo(Player)
   }
 
