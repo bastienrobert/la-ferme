@@ -16,7 +16,7 @@ export default {
       'Vous venez d’arriver à la station Porc Royal. Ici c’est la jungle et les gens se comportent comme des animaux. Vous allez devoir vous frayer un chemin pour être à l’heure à votre rendez-vous.'
   },
   setup: {
-    title_first: 'Placez vos p',
+    title_first: 'Placez vos pi',
     title_second: 'ons',
     title_punctuation: '!!!',
     cta_skip: 'passer'
