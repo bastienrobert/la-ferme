@@ -1,7 +1,9 @@
 import React, { FC, useState, useEffect } from 'react'
 import { View } from 'react-native'
 import { useMutation, useApolloClient } from '@apollo/react-hooks'
-import { Typo, Button } from '@la-ferme/components/native'
+import { Typo, Icon, Button } from '@la-ferme/components/native'
+
+import Container from '@/components/Container'
 
 import { ROOM_JOIN_MUTATION } from '@/graphql/room'
 
@@ -39,7 +41,14 @@ const Home: FC<any> = ({ navigation }) => {
       <Typo size="h1">La Ferme</Typo>
       <Typo size="h5">Connected as</Typo>
       <Typo>{uuid}</Typo>
-      <Button onPress={onJoinPress}>Join room</Button>
+      <Container>
+        <Button variant="secondary" onPress={onJoinPress}>
+          Join room
+        </Button>
+      </Container>
+      <Container>
+        <Icon icon="camera" background="yellow" />
+      </Container>
     </View>
   )
 }

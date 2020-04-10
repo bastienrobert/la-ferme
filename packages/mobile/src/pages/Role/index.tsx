@@ -2,6 +2,8 @@ import React, { FC, useEffect } from 'react'
 import { useMutation, useSubscription, useQuery } from '@apollo/react-hooks'
 import { Typo, Button } from '@la-ferme/components/native'
 
+import Container from '@/components/Container'
+
 import { GET_BOX_ID } from '@/graphql/room'
 import {
   PLAYER_READY_MUTATION,
@@ -54,7 +56,9 @@ const Role: FC<any> = ({ navigation, route }) => {
           {player.ready ? 'ready' : 'not ready'} ({player.user})
         </Typo>
       ))}
-      <Button onPress={onReadyPress}>Ready</Button>
+      <Container>
+        <Button onPress={onReadyPress}>Ready</Button>
+      </Container>
     </>
   )
 }

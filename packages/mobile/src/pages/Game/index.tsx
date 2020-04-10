@@ -3,6 +3,8 @@ import { useFocusEffect } from '@react-navigation/native'
 import { useMutation, useSubscription, useQuery } from '@apollo/react-hooks'
 import { Typo, Button } from '@la-ferme/components/native'
 
+import Container from '@/components/Container'
+
 import { STOP_GAME_MUTATION, GAME_STATUS_SUBSCRIPTION } from '@/graphql/game'
 import {
   READY_FOR_ROUND_MUTATION,
@@ -58,11 +60,15 @@ const Game: FC<any> = ({ navigation }) => {
       {newRoundData && <Typo>New round for user</Typo>}
       {newRoundData && <Typo>{newRoundData.user}</Typo>}
       {newRoundData && newRoundData.user === auth.uuid && (
-        <Button onPress={onSubmitRoundPress}>Submit round</Button>
+        <Container>
+          <Button onPress={onSubmitRoundPress}>Submit round</Button>
+        </Container>
       )}
-      <Button key="game-over" onPress={onGameOverPress}>
-        Game over
-      </Button>
+      <Container>
+        <Button key="game-over" onPress={onGameOverPress}>
+          Game over
+        </Button>
+      </Container>
       {gameStatusSubscription.data?.gameStatus?.winnerUUID && <Typo>WON</Typo>}
     </>
   )

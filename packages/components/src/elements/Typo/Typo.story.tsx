@@ -1,19 +1,17 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import Typo from './'
+import Typo, { TypoProps } from './'
 
-import { Fonts } from '@/theme'
+// import { Fonts } from '@/theme'
 
 // LOCAL INTERFACES
-interface IClosureOption {
-  size?: Fonts.Sizes
-}
+type ClosureOption = Omit<TypoProps, 'children'>
 
 // CLOSURE GENERATOR
-const closure = ({ size }: IClosureOption = {}) => {
+const closure = ({ size, family }: ClosureOption = {}) => {
   return () => (
-    <Typo size={size}>
+    <Typo size={size} family={family}>
       <span>Hello</span>
     </Typo>
   )
