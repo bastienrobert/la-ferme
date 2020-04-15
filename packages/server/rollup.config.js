@@ -9,9 +9,8 @@ import json from '@rollup/plugin-json'
 import sourcemaps from 'rollup-plugin-sourcemaps'
 
 const env = JSON.stringify(
-  process.env.NODE_ENV || process.env.ROLLUP_WATCH
-    ? 'development'
-    : 'production'
+  process.env.NODE_ENV ||
+    (process.env.ROLLUP_WATCH ? 'development' : 'production')
 )
 const watch = process.env.ROLLUP_WATCH
 

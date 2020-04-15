@@ -14,6 +14,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		AA2621F786314AD245B2D42B /* libPods-LaFerme.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B1DA926547753347146C81 /* libPods-LaFerme.a */; };
 		FDE2E576686BB93EBA1AE9B7 /* libPods-LaFerme-LaFermeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 948656586C3B3FE96376C700 /* libPods-LaFerme-LaFermeTests.a */; };
+		7EB290B4C2B847BAB4E68592 /* BowlbyOneSC-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */; };
+		19DB158C95254A79BE3F1D77 /* FuturaLT-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */; };
+		179990B6E16E47CCA443222A /* THANKYOUKOBE.otf in Resources */ = {isa = PBXBuildFile; fileRef = 261E503FB90F4CC1857290AD /* THANKYOUKOBE.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,9 @@
 		E55CAE33FCC06E309A7D3447 /* Pods-LaFerme-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-tvOS.release.xcconfig"; path = "Target Support Files/Pods-LaFerme-tvOS/Pods-LaFerme-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */ = {isa = PBXFileReference; name = "BowlbyOneSC-Regular.otf"; path = "../../components/assets/fonts/native/BowlbyOneSC-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */ = {isa = PBXFileReference; name = "FuturaLT-Book.otf"; path = "../../components/assets/fonts/native/FuturaLT-Book.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		261E503FB90F4CC1857290AD /* THANKYOUKOBE.otf */ = {isa = PBXFileReference; name = "THANKYOUKOBE.otf"; path = "../../components/assets/fonts/native/THANKYOUKOBE.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +95,16 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0F53D4A040E94124B5E2E29A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */,
+				E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */,
+				261E503FB90F4CC1857290AD /* THANKYOUKOBE.otf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		13B07FAE1A68108700A75B9A /* LaFerme */ = {
@@ -134,6 +150,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				FFF237722568275E2B9D4E16 /* Pods */,
+				0F53D4A040E94124B5E2E29A /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -257,6 +274,9 @@
 			files = (
 				0B402E9B243497B600A5A39D /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				7EB290B4C2B847BAB4E68592 /* BowlbyOneSC-Regular.otf in Resources */,
+				19DB158C95254A79BE3F1D77 /* FuturaLT-Book.otf in Resources */,
+				179990B6E16E47CCA443222A /* THANKYOUKOBE.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

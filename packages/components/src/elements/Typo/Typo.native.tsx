@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components/native'
 
-import { ITypoProps } from './Typo.shared'
+import { TypoProps } from './Typo.shared'
 import generateTypoStyle from './Typo.styles'
 
-export default function Typo({ children, ...styles }: ITypoProps): JSX.Element {
+const Typo: FC<TypoProps> = ({ children, ...style }) => {
   return (
-    <StyledTypo isReactNative {...styles}>
+    <StyledTypo isReactNative {...style}>
       {children}
     </StyledTypo>
   )
 }
+
+export default Typo
 
 const StyledTypo: any = styled.Text`
   ${generateTypoStyle}
