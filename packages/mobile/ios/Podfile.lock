@@ -253,6 +253,11 @@ PODS:
   - React-jsinspector (0.62.0)
   - react-native-config (1.0.0):
     - React
+  - react-native-video (4.4.5):
+    - React
+    - react-native-video/Video (= 4.4.5)
+  - react-native-video/Video (4.4.5):
+    - React
   - React-RCTActionSheet (0.62.0):
     - React-Core/RCTActionSheetHeaders (= 0.62.0)
   - React-RCTAnimation (0.62.0):
@@ -368,6 +373,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-config (from `../node_modules/react-native-config`)
+  - react-native-video (from `../node_modules/react-native-video`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -461,6 +467,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-config:
     :path: "../node_modules/react-native-config"
+  react-native-video:
+    :path: "../node_modules/react-native-video"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -561,6 +569,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 8bf0b2707f05865113415088c398a7f98c0cf546
   React-jsinspector: 8e5913c4c6c54f0d3f9c9fc630c465a89cded65d
   react-native-config: 7db9b96479164dfd7b2be68eb9079e08279511c4
+  react-native-video: eee541262ada11bc7ffe8ec5508e6a877937c462
   React-RCTActionSheet: 674afbc8b9c76e0a83520e0a51da29a70802c03f
   React-RCTAnimation: f5f24330d09ee677fb49e0782f8321868f4df431
   React-RCTBlob: b773ce6138ab0d172ebd8a455fd4efd200a92549

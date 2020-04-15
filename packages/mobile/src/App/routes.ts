@@ -1,3 +1,4 @@
+import Introduction from '@/pages/Introduction'
 import Home from '@/pages/Home'
 import Room from '@/pages/Room'
 import Role from '@/pages/Role'
@@ -10,8 +11,12 @@ export interface RootStackParamList {
 }
 
 export default {
-  base: 'Home',
+  base: 'Introduction',
   pages: [
+    {
+      name: 'Introduction',
+      component: Introduction
+    },
     {
       name: 'Home',
       component: Home
