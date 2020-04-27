@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 
 export interface ContainerProps {
   /** Any react object */
-  children: JSX.Element | React.ComponentType<any>
+  children: JSX.Element | JSX.Element[] | React.ComponentType<any>
 }
 
 const Container: FC<ContainerProps> = ({ children, ...style }) => {

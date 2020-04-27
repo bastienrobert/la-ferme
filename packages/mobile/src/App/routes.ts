@@ -1,5 +1,6 @@
 import Introduction from '@/pages/Introduction'
 import Home from '@/pages/Home'
+import QRCode from '@/pages/Home/QRCode'
 import Room from '@/pages/Room'
 import Role from '@/pages/Role'
 import Game from '@/pages/Game'
@@ -20,6 +21,10 @@ export default {
     {
       name: 'Home',
       component: Home
+    },
+    {
+      name: 'Home:QRCode',
+      component: QRCode
     },
     {
       name: 'Room',

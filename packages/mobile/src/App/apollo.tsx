@@ -27,7 +27,9 @@ const wsLink = new WebSocketLink({
     reconnect: true,
     connectionParams: async () => {
       return new Promise(resolve => {
-        if (auth.uuid) return resolve({ user: auth.uuid })
+        if (typeof auth.uuid !== 'undefined') {
+          return resolve({ user: auth.uuid })
+        }
         auth.on('uuid', user => resolve({ user }))
       })
     }
