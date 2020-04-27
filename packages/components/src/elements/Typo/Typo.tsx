@@ -1,12 +1,14 @@
-import React, { Children, cloneElement } from 'react'
+import React, { FC, Children, cloneElement } from 'react'
 import styled from 'styled-components'
 
-import { ITypoProps } from './Typo.shared'
+import { TypoProps } from './Typo.shared'
 import generateTypoStyle from './Typo.styles'
 
-export default function Typo({ children, ...styles }: ITypoProps): JSX.Element {
-  return <StyledTypo {...styles}>{Children.only(children)}</StyledTypo>
+const Typo: FC<TypoProps> = ({ children, ...style }) => {
+  return <StyledTypo {...style}>{Children.only(children)}</StyledTypo>
 }
+
+export default Typo
 
 const StyledTypo = styled(({ children, ...props }) =>
   cloneElement(children, props)

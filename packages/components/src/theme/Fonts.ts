@@ -11,46 +11,64 @@ export interface FontDefinition {
 
 export type FontStyle = string | FontDefinition
 
-export interface FontFamily {
+export interface FontStyles {
   regular: FontStyle
   italic?: FontStyle
   medium?: FontStyle
 }
+export type FontStyleOption = keyof FontStyles
 
-export interface FontFamilies {
-  sans: FontFamily
-  mono: FontFamily
+export const fontList = ['futura', 'bowlby', 'kobe'] as const
+export type FontOption = typeof fontList[number]
+export type FontFamilies = {
+  [key in FontOption]: FontStyles
 }
 
-const sansFont = "'Helvetica Neue'"
 const sansFallback = "'Helvetica Neue', Helvetica, Arial, sans-serif"
-const monoFont = 'monospace'
-const monoFallback = "'Lucida Console', 'Courier New', monospace"
+const futuraFont = 'FuturaLT-Book'
+const futuraFallback = sansFallback
+const kobeFont = 'THANKYOUKOBE'
+const kobeFallback = sansFallback
+const bowlbyFont = 'BowlbyOneSC-Regular'
+const bowlbyFallback = sansFallback
 
-export const fontFamilies: FontFamilies = {
-  sans: {
-    regular: `${sansFont}, ${sansFallback}`,
-    italic: {
-      fontFamily: `${sansFont}, ${sansFallback}`,
-      fontStyle: 'italic'
+const generateFontFamily = (font, fallback, isReactNative) => {
+  return isReactNative ? font : `${font}, ${fallback}`
+}
+
+const generateFontFamilies = (isReactNative): FontFamilies => {
+  const futuraFamily = generateFontFamily(futuraFont, futuraFallback, isReactNative) // prettier-ignore
+  const kobeFamily = generateFontFamily(kobeFont, kobeFallback, isReactNative) // prettier-ignore
+  const bowlbyFamily = generateFontFamily(bowlbyFont, bowlbyFallback, isReactNative) // prettier-ignore
+
+  return {
+    futura: {
+      regular: futuraFamily
     },
-    medium: {
-      fontFamily: `${sansFont}, ${sansFallback}`,
-      fontWeight: 500
+    bowlby: {
+      regular: bowlbyFamily
+    },
+    kobe: {
+      regular: kobeFamily
     }
-  },
-  mono: {
-    regular: `${monoFont}, ${monoFallback}`
   }
 }
-export const defaultFontFamily = 'sans'
-export const defaultFontStyle = 'regular'
+
+export const fontFamilies = generateFontFamilies(false)
+export const fontFamiliesRN = generateFontFamilies(true)
+export const defaultFontFamily = 'futura'
+export const defaultFontVariant = 'regular'
 
 /**
  * SIZES DEFINITIONS
  */
-export const defaultSize = '16'
-export const sizes = {
+export const sizeList = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'default'] as const
+export type SizeOption = typeof sizeList[number]
+export type Sizes = {
+  [key in SizeOption]: number
+}
+export const defaultSize = 18
+export const sizes: Sizes = {
   h1: 34,
   h2: 28,
   h3: 24,
@@ -59,36 +77,25 @@ export const sizes = {
   h6: 15,
   default: defaultSize
 }
-export const sizesOptions = [...Object.keys(sizes)] as const
-export type Sizes = typeof sizesOptions[number]
 
 /**
  * COLORS DEFINITIONS
  */
-export const defaultColor = Colors.black
-export const colorsOptions = [...Object.keys(Colors), defaultColor] as const
-export type Colors = typeof colorsOptions[number]
+export const defaultColor: Colors.Typo = 'black'
 
 /**
  * HELPERS
  */
-const splitFontDefinition = (definition, isReactNative) => {
-  if (typeof definition === 'string') {
-    if (isReactNative) {
-      definition = definition.split(',', 1)[0]
-    }
-    definition = `font-family: ${definition};`
-  } else {
-    if (isReactNative) {
-      definition.fontFamily = definition.fontFamily.split(',', 1)[0]
-    }
-  }
-  return definition
+export const getFontStyle = (name?, variant?, isReactNative?): string => {
+  const ff = isReactNative ? fontFamiliesRN : fontFamilies
+  const family = ff[name] || ff[defaultFontFamily]
+  const definition = family[variant] || family[defaultFontVariant]
+
+  return typeof definition === 'string'
+    ? `font-family: ${definition};`
+    : definition
 }
 
-export const getFontStyle = (name, style, isReactNative): string => {
-  const family = fontFamilies[name] || fontFamilies[defaultFontFamily] // prettier-ignore
-  const definition = family[style] || family[defaultFontStyle] // prettier-ignore
-
-  return splitFontDefinition(definition, isReactNative)
+export const getFontSize = (size): string => {
+  return `font-size: ${size ? sizes[size] : defaultSize}px;`
 }

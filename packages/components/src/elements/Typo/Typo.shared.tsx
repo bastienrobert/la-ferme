@@ -1,13 +1,13 @@
-import { Fonts } from '@/theme'
+import { Fonts, Colors } from '@/theme'
 
-export interface ITypoProps {
-  children: any
+export interface TypoProps {
+  children: JSX.Element
   /** The size of the text */
-  size?: Fonts.Sizes
+  size?: Fonts.SizeOption
   /** The color of the text */
-  color?: Fonts.Colors
+  color?: Colors.Typo
   /** The font family of the text */
-  family?: Fonts.FontFamilies
-  /** The font family of the text */
-  style?: Fonts.FontFamily
+  family?: Fonts.FontOption
+  /** The font family variant */
+  variant?: Fonts.FontStyleOption
 }

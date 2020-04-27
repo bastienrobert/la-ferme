@@ -3,6 +3,8 @@ import { View } from 'react-native'
 import { useSubscription, useQuery, useMutation } from '@apollo/react-hooks'
 import { Typo, Button } from '@la-ferme/components/native'
 
+import Container from '@/components/Container'
+
 import { GET_BOX_ID, NEW_USER_IN_ROOM_SUBSCRIPTION } from '@/graphql/room'
 import { START_GAME_MUTATION, GAME_STATUS_SUBSCRIPTION } from '@/graphql/game'
 
@@ -10,7 +12,7 @@ import auth from '@/utils/auth'
 
 import Users from './Users'
 
-const CreateRoom: FC<any> = ({ navigation, route }) => {
+const Room: FC<any> = ({ navigation, route }) => {
   const routeData = route?.params
 
   const boxIDQuery = useQuery(GET_BOX_ID)
@@ -57,16 +59,20 @@ const CreateRoom: FC<any> = ({ navigation, route }) => {
       <Typo size="h2">{owner ? 'You own' : 'You join'}</Typo>
       <Typo size="h5">Connected to room with box id:</Typo>
       <Typo>{boxID}</Typo>
-      <Button onPress={onHomePress}>Return to home</Button>
+      <Container>
+        <Button onPress={onHomePress}>Return to home</Button>
+      </Container>
       <Typo>{streaming}</Typo>
       <Typo size="h5">Connected users:</Typo>
       {data && <Users data={data.users} />}
       {!owner && <Typo size="h1">Patientez...</Typo>}
       {owner && data && data.users?.length > 1 && (
-        <Button onPress={onStartPress}>Start the game</Button>
+        <Container>
+          <Button onPress={onStartPress}>Start the game</Button>
+        </Container>
       )}
     </View>
   )
 }
 
-export default CreateRoom
+export default Room
