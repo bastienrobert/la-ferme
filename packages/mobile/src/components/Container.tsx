@@ -6,8 +6,8 @@ export interface ContainerProps {
   children: JSX.Element | React.ComponentType<any>
 }
 
-const Container: FC<ContainerProps> = ({ children }) => {
-  return <StyledView>{children}</StyledView>
+const Container: FC<ContainerProps> = ({ children, ...style }) => {
+  return <StyledView {...style}>{children}</StyledView>
 }
 
 const StyledView = styled.View`
