@@ -37,14 +37,14 @@ const Home: FC<any> = ({ navigation }) => {
   }
 
   const onCameraIconClick = () => {
-    console.log('on camera click')
+    navigation.navigate('Home:QRCode')
 
     if (null) join('')
   }
 
   return (
     <View>
-      <Typo size="h1">La Ferme</Typo>
+      <Typo size="h1">Commencer une partie</Typo>
       <Typo size="h5">Connected as</Typo>
       <Typo>{uuid}</Typo>
       <Container>

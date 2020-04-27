@@ -7,6 +7,7 @@
         "name": "typescript-styled-plugin"
       }
     ],
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]

@@ -3,11 +3,11 @@ import styled from 'styled-components/native'
 
 export interface ContainerProps {
   /** Any react object */
-  children: JSX.Element | React.ComponentType<any>
+  children: JSX.Element | JSX.Element[] | React.ComponentType<any>
 }
 
-const Container: FC<ContainerProps> = ({ children }) => {
-  return <StyledView>{children}</StyledView>
+const Container: FC<ContainerProps> = ({ children, ...style }) => {
+  return <StyledView {...style}>{children}</StyledView>
 }
 
 const StyledView = styled.View`
