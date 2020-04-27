@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import { View } from 'react-native'
 import { useMutation, useApolloClient } from '@apollo/react-hooks'
-import { Typo, Icon, Button } from '@la-ferme/components/native'
+import { Typo, Icon } from '@la-ferme/components/native'
 
 import Container from '@/components/Container'
 
@@ -24,8 +24,8 @@ const Home: FC<any> = ({ navigation }) => {
     navigation.navigate('Room', data.joinRoom)
   }, [data, navigation])
 
-  const onJoinPress = async () => {
-    const boxID = '99719f7a-52a7-4d0e-b794-4caf71c4bcce'
+  const join = async boxID => {
+    // boxID = '99719f7a-52a7-4d0e-b794-4caf71c4bcce'
     client.writeData({ data: { boxID } })
     joinRoom({
       variables: {
@@ -36,18 +36,19 @@ const Home: FC<any> = ({ navigation }) => {
     })
   }
 
+  const onCameraIconClick = () => {
+    navigation.navigate('Home:QRCode')
+
+    if (null) join('')
+  }
+
   return (
     <View>
-      <Typo size="h1">La Ferme</Typo>
+      <Typo size="h1">Commencer une partie</Typo>
       <Typo size="h5">Connected as</Typo>
       <Typo>{uuid}</Typo>
       <Container>
-        <Button variant="secondary" onPress={onJoinPress}>
-          Join room
-        </Button>
-      </Container>
-      <Container>
-        <Icon icon="camera" background="yellow" />
+        <Icon icon="camera" background="yellow" onPress={onCameraIconClick} />
       </Container>
     </View>
   )

@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { View, TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 
 import { IconProps } from './Icon.shared'
@@ -11,11 +12,12 @@ export interface NativeIconProps extends IconProps {
 }
 
 const Icon: FC<NativeIconProps> = ({ icon, onPress, ...style }) => {
-  const Container: any = onPress ? StyledButton : StyledContainer
+  const Container: FC<any> = onPress ? StyledButton : StyledContainer
+  const as = onPress ? TouchableOpacity : View
   const Component = icons[icon]
 
   return (
-    <Container onPress={onPress} {...style}>
+    <Container as={as} onPress={onPress} {...style}>
       <StyledWrapper {...style}>
         <Component />
       </StyledWrapper>
@@ -30,9 +32,7 @@ const StyledContainer = styled.View<NativeIconProps>`
   ${props => styles.commons.background.container(props.background)}
 `
 
-const StyledButton = styled(StyledContainer).attrs({
-  as: 'TouchableOpacity'
-})`
+const StyledButton = styled(StyledContainer)`
   ${props => (props.disabled ? styles.disabled : '')}
 `
 

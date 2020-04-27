@@ -12,7 +12,7 @@ import auth from '@/utils/auth'
 
 import Users from './Users'
 
-const CreateRoom: FC<any> = ({ navigation, route }) => {
+const Room: FC<any> = ({ navigation, route }) => {
   const routeData = route?.params
 
   const boxIDQuery = useQuery(GET_BOX_ID)
@@ -75,4 +75,4 @@ const CreateRoom: FC<any> = ({ navigation, route }) => {
   )
 }
 
-export default CreateRoom
+export default Room
