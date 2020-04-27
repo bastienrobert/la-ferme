@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Typo, Button } from '@la-ferme/components/native'
 
-import Container from '@/components/Container'
+import Container from '@/components/shared/Container'
 
 const Game: FC<any> = ({ navigation, route }) => {
   const routeData = route?.params

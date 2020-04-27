@@ -10,4 +10,6 @@ export interface TypoProps {
   family?: Fonts.FontOption
   /** The font family variant */
   variant?: Fonts.FontStyleOption
+  /** Align the text */
+  textAlign?: Fonts.TextAlignOption
 }

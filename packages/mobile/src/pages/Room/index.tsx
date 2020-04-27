@@ -1,9 +1,10 @@
 import React, { FC, useEffect } from 'react'
 import { View } from 'react-native'
 import { useSubscription, useQuery, useMutation } from '@apollo/react-hooks'
-import { Typo, Button } from '@la-ferme/components/native'
+import { Button } from '@la-ferme/components/native'
 
-import Container from '@/components/Container'
+import Container from '@/components/shared/Container'
+import Text from '@/components/typo/Text'
 
 import { GET_BOX_ID, NEW_USER_IN_ROOM_SUBSCRIPTION } from '@/graphql/room'
 import { START_GAME_MUTATION, GAME_STATUS_SUBSCRIPTION } from '@/graphql/game'
@@ -54,18 +55,18 @@ const Room: FC<any> = ({ navigation, route }) => {
 
   return (
     <View>
-      <Typo size="h1">La ferme</Typo>
-      <Typo size="h2">Room</Typo>
-      <Typo size="h2">{owner ? 'You own' : 'You join'}</Typo>
-      <Typo size="h5">Connected to room with box id:</Typo>
-      <Typo>{boxID}</Typo>
+      <Text color="beige">La ferme</Text>
+      <Text color="beige">Room</Text>
+      <Text color="beige">{owner ? 'You own' : 'You join'}</Text>
+      <Text color="beige">Connected to room with box id:</Text>
+      <Text>{boxID}</Text>
       <Container>
         <Button onPress={onHomePress}>Return to home</Button>
       </Container>
-      <Typo>{streaming}</Typo>
-      <Typo size="h5">Connected users:</Typo>
+      <Text color="beige">{streaming}</Text>
+      <Text color="beige">Connected users:</Text>
       {data && <Users data={data.users} />}
-      {!owner && <Typo size="h1">Patientez...</Typo>}
+      {!owner && <Text color="beige">Patientez...</Text>}
       {owner && data && data.users?.length > 1 && (
         <Container>
           <Button onPress={onStartPress}>Start the game</Button>

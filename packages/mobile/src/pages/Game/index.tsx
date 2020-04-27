@@ -3,7 +3,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import { useMutation, useSubscription, useQuery } from '@apollo/react-hooks'
 import { Typo, Button } from '@la-ferme/components/native'
 
-import Container from '@/components/Container'
+import Container from '@/components/shared/Container'
 
 import { STOP_GAME_MUTATION, GAME_STATUS_SUBSCRIPTION } from '@/graphql/game'
 import {

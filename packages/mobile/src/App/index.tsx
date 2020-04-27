@@ -3,6 +3,7 @@ import { StatusBar, Platform } from 'react-native'
 import { ApolloProvider, useLazyQuery } from '@apollo/react-hooks'
 import BootSplash from 'react-native-bootsplash'
 import styled from 'styled-components/native'
+import { Colors } from '@la-ferme/components/native'
 
 import Router from './Router'
 import apollo from './apollo'
@@ -50,4 +51,5 @@ export default function App() {
 
 const SafeAreaView = styled.SafeAreaView`
   flex: 1;
+  background-color: ${Colors.gray};
 `

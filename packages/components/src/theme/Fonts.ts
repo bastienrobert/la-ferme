@@ -1,15 +1,28 @@
+import {
+  FontWeightProperty,
+  FontStyleProperty,
+  FontSizeProperty,
+  LineHeightProperty,
+  LetterSpacingProperty,
+  TextTransformProperty,
+  TextAlignProperty
+} from 'csstype'
+
 import { Colors } from './'
 
 /**
  * FONTS DEFINITIONS
  */
+export type FontOption = 'futura' | 'bowlby' | 'kobe'
 export interface FontDefinition {
-  fontFamily: string
-  fontWeight?: string | number
-  fontStyle?: string
+  fontFamily: FontOption
+  fontWeight?: FontWeightProperty
+  fontStyle?: FontStyleProperty
 }
 
 export type FontStyle = string | FontDefinition
+
+export type TextAlignOption = TextAlignProperty
 
 export interface FontStyles {
   regular: FontStyle
@@ -18,8 +31,6 @@ export interface FontStyles {
 }
 export type FontStyleOption = keyof FontStyles
 
-export const fontList = ['futura', 'bowlby', 'kobe'] as const
-export type FontOption = typeof fontList[number]
 export type FontFamilies = {
   [key in FontOption]: FontStyles
 }
@@ -56,32 +67,42 @@ const generateFontFamilies = (isReactNative): FontFamilies => {
 
 export const fontFamilies = generateFontFamilies(false)
 export const fontFamiliesRN = generateFontFamilies(true)
-export const defaultFontFamily = 'futura'
-export const defaultFontVariant = 'regular'
+export const defaultFontFamily: FontOption = 'futura'
+export const defaultFontVariant: FontStyleProperty = 'regular'
 
 /**
  * SIZES DEFINITIONS
  */
-export const sizeList = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'default'] as const
-export type SizeOption = typeof sizeList[number]
-export type Sizes = {
-  [key in SizeOption]: number
+export interface SizeDefinition {
+  fontSize: FontSizeProperty<string | number>
+  lineHeight?: LineHeightProperty<string | number>
+  letterSpacing?: LetterSpacingProperty<string | number>
+  textTransform?: TextTransformProperty
 }
-export const defaultSize = 18
+
+export type SizeOption = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'default'
+export type Sizes = {
+  [key in SizeOption]: string | number | SizeDefinition
+}
+export const defaultSize: string | number | SizeDefinition = 18
 export const sizes: Sizes = {
-  h1: 34,
-  h2: 28,
-  h3: 24,
-  h4: 21,
-  h5: 17,
-  h6: 15,
+  h1: {
+    fontSize: '40px',
+    lineHeight: '50px',
+    textTransform: 'uppercase'
+  },
+  h2: '28px',
+  h3: '24px',
+  h4: '22px',
+  h5: '17px',
+  h6: '15px',
   default: defaultSize
 }
 
 /**
  * COLORS DEFINITIONS
  */
-export const defaultColor: Colors.Typo = 'black'
+export const defaultColor: Colors.Typo = 'gray'
 
 /**
  * HELPERS
@@ -96,6 +117,15 @@ export const getFontStyle = (name?, variant?, isReactNative?): string => {
     : definition
 }
 
-export const getFontSize = (size): string => {
-  return `font-size: ${size ? sizes[size] : defaultSize}px;`
+const formatInlineFontSize = (size: string | number): string => {
+  const suffix = typeof size === 'number' ? 'px' : ''
+  return `font-size: ${size}${suffix};`
+}
+
+export const getFontSize = (size: string): string => {
+  const fs = sizes[size]
+  if (!fs) return formatInlineFontSize(defaultSize)
+
+  const isStringOrNumber = typeof fs === 'string' || typeof fs === 'number'
+  return isStringOrNumber ? formatInlineFontSize(fs) : fs
 }

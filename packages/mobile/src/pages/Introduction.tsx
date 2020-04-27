@@ -5,18 +5,14 @@ import { Button } from '@la-ferme/components/native'
 
 import content from '@/content/global.json'
 
-import FullView from '@/components/FullView'
-import Container from '@/components/Container'
-import FullscreenVideo from '@/components/FullscreenVideo'
+import FullView from '@/components/shared/FullView'
+import Container from '@/components/shared/Container'
+import FullscreenVideo from '@/components/shared/FullscreenVideo'
 
 const Introduction: FC<any> = ({ navigation }) => {
   const [paused, setPaused] = useState(false)
 
-  useFocusEffect(
-    useCallback(() => {
-      return () => setPaused(true)
-    }, [])
-  )
+  useFocusEffect(useCallback(() => () => setPaused(true), []))
 
   const onSkipPress = () => {
     navigation.navigate('Home')

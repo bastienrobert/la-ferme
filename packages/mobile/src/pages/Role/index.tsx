@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react'
 import { useMutation, useSubscription, useQuery } from '@apollo/react-hooks'
 import { Typo, Button } from '@la-ferme/components/native'
 
-import Container from '@/components/Container'
+import Container from '@/components/shared/Container'
 
 import { GET_BOX_ID } from '@/graphql/room'
 import {
