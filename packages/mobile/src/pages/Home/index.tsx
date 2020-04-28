@@ -7,7 +7,6 @@ import Text from '@/components/typo/Text'
 
 import FullContainer from '@/components/shared/FullContainer'
 import Container from '@/components/shared/Container'
-import Subtitle from '@/components/typo/Subtitle'
 
 const Home: FC<any> = ({ navigation }) => {
   const onCameraIconClick = () => {
@@ -17,10 +16,10 @@ const Home: FC<any> = ({ navigation }) => {
   return (
     <Component>
       <TitleContainer>
-        <Title color="beige" textAlign="center">
+        <Title preset="H1" color="beige" textAlign="center">
           commencer
         </Title>
-        <Title color="beige" textAlign="center">
+        <Title preset="H1" color="beige" textAlign="center">
           une partie
         </Title>
       </TitleContainer>
@@ -29,9 +28,9 @@ const Home: FC<any> = ({ navigation }) => {
           Placez votre téléphone devant le tag NFC de la boite.
         </Text>
         <SpacedOrContainer>
-          <Subtitle color="yellow" textAlign="center">
+          <Title preset="H3" color="yellow" textAlign="center">
             OU
-          </Subtitle>
+          </Title>
         </SpacedOrContainer>
         <Text color="beige" textAlign="center">
           Scannez le QR code en ouvrant votre appareil photo.

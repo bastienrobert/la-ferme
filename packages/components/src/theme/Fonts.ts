@@ -4,8 +4,8 @@ import {
   FontSizeProperty,
   LineHeightProperty,
   LetterSpacingProperty,
-  TextTransformProperty,
-  TextAlignProperty
+  TextAlignProperty,
+  TextTransformProperty
 } from 'csstype'
 
 import { Colors } from './'
@@ -23,6 +23,7 @@ export interface FontDefinition {
 export type FontStyle = string | FontDefinition
 
 export type TextAlignOption = TextAlignProperty
+export type TextTransformOption = TextTransformProperty
 
 export interface FontStyles {
   regular: FontStyle
@@ -77,24 +78,48 @@ export interface SizeDefinition {
   fontSize: FontSizeProperty<string | number>
   lineHeight?: LineHeightProperty<string | number>
   letterSpacing?: LetterSpacingProperty<string | number>
-  textTransform?: TextTransformProperty
 }
 
 export type SizeOption = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'default'
 export type Sizes = {
   [key in SizeOption]: string | number | SizeDefinition
 }
-export const defaultSize: string | number | SizeDefinition = 18
+
+const percToPx = (
+  fontSize: string | number,
+  multiplier: number,
+  suffix = 'px'
+): string => {
+  const fs = typeof fontSize === 'string' ? parseFloat(fontSize) : fontSize
+  return fs * multiplier + suffix
+}
+
+export const defaultSize: string | number | SizeDefinition = {
+  fontSize: '18px',
+  lineHeight: percToPx(18, 1.205)
+}
 export const sizes: Sizes = {
   h1: {
-    fontSize: '40px',
-    lineHeight: '50px',
-    textTransform: 'uppercase'
+    fontSize: '46px',
+    lineHeight: percToPx(46, 1.205),
+    letterSpacing: percToPx(46, 0.04)
   },
-  h2: '28px',
-  h3: '24px',
-  h4: '22px',
-  h5: '17px',
+  h2: {
+    fontSize: '40px',
+    lineHeight: percToPx(40, 1.105),
+    letterSpacing: percToPx(40, 0.04)
+  },
+  h3: {
+    fontSize: '22px',
+    lineHeight: percToPx(22, 1.48),
+    letterSpacing: percToPx(22, 0.04)
+  },
+  h4: {
+    fontSize: '16px',
+    lineHeight: percToPx(16, 1.3),
+    letterSpacing: percToPx(16, 0.04)
+  },
+  h5: '16px',
   h6: '15px',
   default: defaultSize
 }
@@ -123,8 +148,7 @@ const formatInlineFontSize = (size: string | number): string => {
 }
 
 export const getFontSize = (size: string): string => {
-  const fs = sizes[size]
-  if (!fs) return formatInlineFontSize(defaultSize)
+  const fs = sizes[size] ?? defaultSize
 
   const isStringOrNumber = typeof fs === 'string' || typeof fs === 'number'
   return isStringOrNumber ? formatInlineFontSize(fs) : fs

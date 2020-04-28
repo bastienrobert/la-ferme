@@ -14,7 +14,7 @@ const Introduction: FC<any> = ({ navigation }) => {
 
   useFocusEffect(useCallback(() => () => setPaused(true), []))
 
-  const onSkipPress = () => {
+  const goHome = () => {
     navigation.navigate('Home')
   }
 
@@ -22,6 +22,7 @@ const Introduction: FC<any> = ({ navigation }) => {
     <FullView>
       <FullscreenVideo
         paused={paused}
+        onEnd={goHome}
         source={{
           uri:
             'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_60fps_normal.mp4'
@@ -29,7 +30,7 @@ const Introduction: FC<any> = ({ navigation }) => {
       />
       <StyledView>
         <StyledContainer>
-          <Button variant="primary" onPress={onSkipPress}>
+          <Button variant="primary" onPress={goHome}>
             {content.skip}
           </Button>
         </StyledContainer>
