@@ -12,7 +12,8 @@ import {
   NEW_ROUND_SUBSCRIPTION
 } from '@/graphql/round'
 import { GET_BOX_ID } from '@/graphql/room'
-import auth from '@/utils/auth'
+
+import auth from '@/services/auth'
 
 const Game: FC<any> = ({ navigation }) => {
   const boxIDQuery = useQuery(GET_BOX_ID)
@@ -35,7 +36,7 @@ const Game: FC<any> = ({ navigation }) => {
   useEffect(() => {
     const winner = gameStatusSubscription.data?.gameStatus?.winnerUUID
     if (!winner) return
-    navigation.navigate('GameOver', { winner })
+    navigation.navigate('Game:GameOver', { winner })
   }, [gameStatusSubscription.data, navigation])
 
   const newRoundSubscription = useSubscription(NEW_ROUND_SUBSCRIPTION, {

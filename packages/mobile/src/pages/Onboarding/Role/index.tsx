@@ -1,8 +1,11 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useContext } from 'react'
 import { useMutation, useSubscription, useQuery } from '@apollo/react-hooks'
-import { Typo, Button } from '@la-ferme/components/native'
+import { Button } from '@la-ferme/components/native'
+
+import ThemeContext from '@/App/Theme/Context'
 
 import Container from '@/components/shared/Container'
+import Text from '@/components/typo/Text'
 
 import { GET_BOX_ID } from '@/graphql/room'
 import {
@@ -10,13 +13,16 @@ import {
   PLAYER_IS_READY_SUBSCRIPTION
 } from '@/graphql/player'
 
-import auth from '@/utils/auth'
+import auth from '@/services/auth'
 
 const Role: FC<any> = ({ navigation, route }) => {
   const routeData = route?.params
 
   const boxIDQuery = useQuery(GET_BOX_ID)
   const boxID = boxIDQuery?.data?.boxID
+
+  const { setTheme } = useContext(ThemeContext)
+  if (null) setTheme('beige')
 
   const [playerReadyMutation] = useMutation(PLAYER_READY_MUTATION)
   const playerIsReadySubscription = useSubscription(
@@ -43,18 +49,20 @@ const Role: FC<any> = ({ navigation, route }) => {
 
   return (
     <>
-      <Typo size="h1">You are</Typo>
-      <Typo>{userData.character}</Typo>
-      <Typo>{userData.goal}</Typo>
-      <Typo>{userData.skill}</Typo>
-      <Typo>{userData.ready ? 'you are ready' : 'you are not ready'}</Typo>
-      <Typo size="h2">All players</Typo>
-      <Typo size="h3">{everybodyIsReady ? 'Ready' : 'Not yet'}</Typo>
+      <Text color="beige">You are</Text>
+      <Text color="beige">{userData.character}</Text>
+      <Text color="beige">{userData.goal}</Text>
+      <Text color="beige">{userData.skill}</Text>
+      <Text color="beige">
+        {userData.ready ? 'you are ready' : 'you are not ready'}
+      </Text>
+      <Text color="beige">All players</Text>
+      <Text color="beige">{everybodyIsReady ? 'Ready' : 'Not yet'}</Text>
       {players.map((player, i) => (
-        <Typo key={`player-${i}`}>
+        <Text color="beige" key={`player-${i}`}>
           {player.character}: {player.goal} {player.skill} is{' '}
           {player.ready ? 'ready' : 'not ready'} ({player.user})
-        </Typo>
+        </Text>
       ))}
       <Container>
         <Button onPress={onReadyPress}>Ready</Button>

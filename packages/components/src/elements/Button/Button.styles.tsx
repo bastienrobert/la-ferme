@@ -46,6 +46,9 @@ const styles = {
       width: 100%;
       height: 100%;
       z-index: -1;
+    `,
+    disabled: css`
+      opacity: 0.5;
     `
   },
   web: css`

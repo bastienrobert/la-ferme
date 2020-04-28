@@ -5,7 +5,6 @@ import { Icon } from '@la-ferme/components/native'
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 
-import FullContainer from '@/components/shared/FullContainer'
 import Container from '@/components/shared/Container'
 
 const Home: FC<any> = ({ navigation }) => {
@@ -17,13 +16,14 @@ const Home: FC<any> = ({ navigation }) => {
     <Component>
       <TitleContainer>
         <Title preset="H1" color="beige" textAlign="center">
-          commencer
-        </Title>
-        <Title preset="H1" color="beige" textAlign="center">
-          une partie
+          commencer une partie
         </Title>
       </TitleContainer>
-      <FullContainer>
+      <ImagesWrapper>
+        <StyledImage source={require('@/assets/images/home/nfc.png')} />
+        <StyledImage source={require('@/assets/images/home/qrcode.png')} />
+      </ImagesWrapper>
+      <ContentWrapper>
         <Text color="beige" textAlign="center">
           Placez votre téléphone devant le tag NFC de la boite.
         </Text>
@@ -35,7 +35,7 @@ const Home: FC<any> = ({ navigation }) => {
         <Text color="beige" textAlign="center">
           Scannez le QR code en ouvrant votre appareil photo.
         </Text>
-      </FullContainer>
+      </ContentWrapper>
       <ButtonView>
         <ButtonContainer>
           <Icon icon="camera" background="yellow" onPress={onCameraIconClick} />
@@ -46,18 +46,39 @@ const Home: FC<any> = ({ navigation }) => {
 }
 
 const Component = styled.View`
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 `
 
-const TitleContainer = styled(FullContainer)`
+const TitleContainer = styled(Container)`
+  width: 100%;
   margin-top: 30px;
-  flex: auto;
 `
 
-const SpacedOrContainer = styled(FullContainer)`
-  margin: 40px 0;
+const ImagesWrapper = styled.View`
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`
+
+const StyledImage = styled.Image`
+  width: 50%;
+  max-width: 200px;
+`
+
+const ContentWrapper = styled.View`
+  flex: 1;
+  width: 70%;
+  max-width: 500px;
+  align-items: center;
+  justify-content: center;
+`
+
+const SpacedOrContainer = styled(Container)`
+  margin: 30px 0;
+  width: 100%;
 `
 
 const ButtonContainer = styled(Container)`
@@ -65,8 +86,6 @@ const ButtonContainer = styled(Container)`
 `
 
 const ButtonView = styled.View`
-  flex: 1;
-  justify-content: flex-end;
   margin-bottom: 40px;
   z-index: 2;
 `

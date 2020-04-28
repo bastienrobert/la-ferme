@@ -11,10 +11,10 @@ import { ROOM_JOIN_MUTATION } from '@/graphql/room'
 
 import content from '@/content/global.json'
 
+import Scan from './Scan'
 import Container from '@/components/shared/Container'
-import FullContainer from '@/components/shared/FullContainer'
 
-import auth from '@/utils/auth'
+import auth from '@/services/auth'
 
 const QRCode: FC<any> = ({ navigation }) => {
   const client = useApolloClient()
@@ -22,7 +22,7 @@ const QRCode: FC<any> = ({ navigation }) => {
 
   useEffect(() => {
     if (!data) return
-    navigation.navigate('Room', data.joinRoom)
+    navigation.navigate('Onboarding:Room', data.joinRoom)
   }, [data, navigation])
 
   // TODO: set boxID from NFC tag
@@ -45,7 +45,7 @@ const QRCode: FC<any> = ({ navigation }) => {
   }
 
   return (
-    <FullContainer>
+    <Component>
       <CameraContainer>
         <QRCodeScanner
           onRead={onSuccess}
@@ -56,16 +56,27 @@ const QRCode: FC<any> = ({ navigation }) => {
           cameraProps={{ ratio: '1:1' }}
         />
       </CameraContainer>
+      <Scan />
       <ButtonView>
         <ButtonContainer>
           <Button variant="primary" onPress={onBackPress}>
             {content.back}
           </Button>
+          {/* REMOVE THIS */}
+          <Button
+            variant="primary"
+            onPress={() => join('99719f7a-52a7-4d0e-b794-4caf71c4bcce')}>
+            JOIN
+          </Button>
         </ButtonContainer>
       </ButtonView>
-    </FullContainer>
+    </Component>
   )
 }
+
+const Component = styled.View`
+  flex: 1;
+`
 
 const CameraStyle: any = {
   position: 'absolute',
@@ -94,7 +105,6 @@ const ButtonContainer = styled(Container)`
 `
 
 const ButtonView = styled.View`
-  flex: 1;
   justify-content: flex-end;
   margin-bottom: 40px;
   z-index: 2;
