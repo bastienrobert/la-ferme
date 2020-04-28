@@ -106,7 +106,7 @@ export const sizes: Sizes = {
   },
   h2: {
     fontSize: '40px',
-    lineHeight: percToPx(40, 1.105),
+    lineHeight: percToPx(40, 1.205),
     letterSpacing: percToPx(40, 0.04)
   },
   h3: {
