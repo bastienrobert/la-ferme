@@ -13,6 +13,7 @@ import content from '@/content/global.json'
 
 import Scan from './Scan'
 import Container from '@/components/shared/Container'
+import FullContainer from '@/components/shared/FullContainer'
 
 import auth from '@/services/auth'
 
@@ -22,7 +23,7 @@ const QRCode: FC<any> = ({ navigation }) => {
 
   useEffect(() => {
     if (!data) return
-    navigation.navigate('Onboarding:Room', data.joinRoom)
+    navigation.navigate('Home:Room', data.joinRoom)
   }, [data, navigation])
 
   // TODO: set boxID from NFC tag
@@ -74,7 +75,7 @@ const QRCode: FC<any> = ({ navigation }) => {
   )
 }
 
-const Component = styled.View`
+const Component = styled(FullContainer)`
   flex: 1;
 `
 

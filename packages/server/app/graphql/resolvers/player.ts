@@ -19,9 +19,10 @@ const resolvers = {
       const user = await User.findByUUID(userUUID, { withRelated: ['players'] })
 
       const player = getPlayer(user)
-      const { character, skill, goal } = player.serialize()
+      const { ready, character, skill, goal } = player.serialize()
       return {
         user: user.uuid,
+        ready,
         character,
         skill,
         goal

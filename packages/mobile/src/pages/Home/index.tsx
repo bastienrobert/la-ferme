@@ -1,13 +1,22 @@
-import React, { FC } from 'react'
+import React, { FC, useContext, useEffect } from 'react'
 import styled from 'styled-components/native'
 import { Icon } from '@la-ferme/components/native'
+
+import ThemeContext from '@/App/Theme/Context'
 
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 
 import Container from '@/components/shared/Container'
+import FullContainer from '@/components/shared/FullContainer'
 
 const Home: FC<any> = ({ navigation }) => {
+  const { setTheme } = useContext(ThemeContext)
+
+  useEffect(() => {
+    setTheme('gray')
+  }, [setTheme])
+
   const onCameraIconClick = () => {
     navigation.navigate('Home:QRCode')
   }
@@ -45,7 +54,7 @@ const Home: FC<any> = ({ navigation }) => {
   )
 }
 
-const Component = styled.View`
+const Component = styled(FullContainer)`
   flex: 1;
   justify-content: center;
   align-items: center;

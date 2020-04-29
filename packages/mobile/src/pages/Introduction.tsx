@@ -5,7 +5,7 @@ import { Button } from '@la-ferme/components/native'
 
 import content from '@/content/global.json'
 
-import FullView from '@/components/shared/FullView'
+import FullContainer from '@/components/shared/FullContainer'
 import Container from '@/components/shared/Container'
 import FullscreenVideo from '@/components/shared/FullscreenVideo'
 
@@ -19,13 +19,13 @@ const Introduction: FC<any> = ({ navigation }) => {
   }
 
   return (
-    <FullView>
+    <FullContainer>
       <FullscreenVideo
         paused={paused}
         onEnd={goHome}
         source={{
-          uri:
-            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          uri: 'https://aura.app/videos/developer-hevc-bounce-5319b8308f.mov'
+          // 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
         }}
       />
       <StyledView>
@@ -35,7 +35,7 @@ const Introduction: FC<any> = ({ navigation }) => {
           </Button>
         </StyledContainer>
       </StyledView>
-    </FullView>
+    </FullContainer>
   )
 }
 

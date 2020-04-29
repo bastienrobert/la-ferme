@@ -17,7 +17,7 @@ import Users from './Users'
 
 const Owner: FC<any> = ({ data }) => {
   return (
-    <StyledContainer>
+    <>
       <TitleContainer>
         <Title preset="H1" color="beige" textAlign="center">
           indiquez que tout le monde est là !
@@ -37,13 +37,13 @@ const Owner: FC<any> = ({ data }) => {
         </Title>
       </ContentContainer>
       {data && <Users data={data.users} />}
-    </StyledContainer>
+    </>
   )
 }
 
 const Player: FC<any> = ({ data }) => {
   return (
-    <StyledContainer>
+    <>
       <TitleContainer>
         <Title preset="H1" color="beige" textAlign="center">
           attendez
@@ -55,7 +55,7 @@ const Player: FC<any> = ({ data }) => {
         </Text>
       </ContentContainer>
       {data && <Users data={data.users} />}
-    </StyledContainer>
+    </>
   )
 }
 
@@ -81,12 +81,10 @@ const Room: FC<any> = ({ navigation, route }) => {
   // TODO
   // subscription should be cancelled when React navigation focus blur
   useEffect(() => {
+    console.log('JUST RECEIVED DATA')
     if (!gameStatusSubscription.data) return
     if (gameStatusSubscription.data?.gameStatus?.winnerUUID) return
-    navigation.navigate(
-      'Onboarding:Role',
-      gameStatusSubscription.data?.gameStatus
-    )
+    navigation.navigate('Onboarding:Hello')
   }, [gameStatusSubscription.data, navigation])
 
   const onStartPress = () => {
@@ -97,7 +95,9 @@ const Room: FC<any> = ({ navigation, route }) => {
 
   return (
     <Component>
-      {owner ? <Owner data={data} /> : <Player data={data} />}
+      <StyledContainer>
+        {owner ? <Owner data={data} /> : <Player data={data} />}
+      </StyledContainer>
       {owner && (
         <ButtonView>
           <ButtonContainer>
