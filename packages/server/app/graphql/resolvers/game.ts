@@ -101,7 +101,6 @@ const resolvers = {
 
       connections.getByBoxID(boxID).forEach((_, key) => {
         connections.reset(key)
-        console.log(key, connections.get(key))
       })
 
       pubsub.publish(GAME.STOP, {

@@ -28,7 +28,6 @@ const Pending: FC<any> = ({ navigation }) => {
     PLAYER_IS_READY_SUBSCRIPTION,
     { variables: { boxID } }
   )
-  if (null) console.log(playerIsReadySubscription)
 
   const players =
     playerIsReadySubscription.data?.playerIsReady?.players ??

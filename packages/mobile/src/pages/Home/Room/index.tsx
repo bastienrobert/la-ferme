@@ -81,9 +81,7 @@ const Room: FC<any> = ({ navigation, route }) => {
   // TODO
   // subscription should be cancelled when React navigation focus blur
   useEffect(() => {
-    console.log('JUST RECEIVED DATA')
-    if (!gameStatusSubscription.data) return
-    if (gameStatusSubscription.data?.gameStatus?.winnerUUID) return
+    if (!gameStatusSubscription.data || !navigation.isFocused) return
     navigation.navigate('Onboarding:Hello')
   }, [gameStatusSubscription.data, navigation])
 

@@ -32,7 +32,9 @@ const Role: FC<any> = ({ navigation }) => {
     navigation.navigate('Onboarding:Pending')
   }
 
-  const userData = playerQuery?.data?.getPlayer ?? {}
+  const userData = playerQuery?.data?.getPlayer
+
+  if (!userData) return <Text color="gray">Fetching user</Text>
 
   return (
     <>
