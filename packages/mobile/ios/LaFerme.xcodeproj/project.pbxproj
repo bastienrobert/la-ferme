@@ -12,11 +12,11 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		179990B6E16E47CCA443222A /* THANKYOUKOBE.otf in Resources */ = {isa = PBXBuildFile; fileRef = 261E503FB90F4CC1857290AD /* THANKYOUKOBE.otf */; };
+		19DB158C95254A79BE3F1D77 /* FuturaLT-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */; };
+		7EB290B4C2B847BAB4E68592 /* BowlbyOneSC-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */; };
 		AA2621F786314AD245B2D42B /* libPods-LaFerme.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B1DA926547753347146C81 /* libPods-LaFerme.a */; };
 		FDE2E576686BB93EBA1AE9B7 /* libPods-LaFerme-LaFermeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 948656586C3B3FE96376C700 /* libPods-LaFerme-LaFermeTests.a */; };
-		7EB290B4C2B847BAB4E68592 /* BowlbyOneSC-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */; };
-		19DB158C95254A79BE3F1D77 /* FuturaLT-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */; };
-		179990B6E16E47CCA443222A /* THANKYOUKOBE.otf in Resources */ = {isa = PBXBuildFile; fileRef = 261E503FB90F4CC1857290AD /* THANKYOUKOBE.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +44,8 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LaFerme/main.m; sourceTree = "<group>"; };
 		16D9C1453BD0C80F6544EEA6 /* Pods-LaFerme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme.release.xcconfig"; path = "Target Support Files/Pods-LaFerme/Pods-LaFerme.release.xcconfig"; sourceTree = "<group>"; };
 		1A93BF65822B9FD46EE9A023 /* Pods-LaFerme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme/Pods-LaFerme.debug.xcconfig"; sourceTree = "<group>"; };
+		261E503FB90F4CC1857290AD /* THANKYOUKOBE.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = THANKYOUKOBE.otf; path = ../../components/assets/fonts/native/THANKYOUKOBE.otf; sourceTree = "<group>"; };
+		7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BowlbyOneSC-Regular.otf"; path = "../../components/assets/fonts/native/BowlbyOneSC-Regular.otf"; sourceTree = "<group>"; };
 		79B1DA926547753347146C81 /* libPods-LaFerme.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFerme.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C42AC2C069FBB7E417C5690 /* Pods-LaFerme-LaFermeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-LaFermeTests.release.xcconfig"; path = "Target Support Files/Pods-LaFerme-LaFermeTests/Pods-LaFerme-LaFermeTests.release.xcconfig"; sourceTree = "<group>"; };
 		948656586C3B3FE96376C700 /* libPods-LaFerme-LaFermeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFerme-LaFermeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,11 +55,9 @@
 		E3988D294BA7BCDBA4EE4D43 /* Pods-LaFerme-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme-tvOS/Pods-LaFerme-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E48378D74CFFB7AF27555E59 /* Pods-LaFerme-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme-tvOSTests/Pods-LaFerme-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E55CAE33FCC06E309A7D3447 /* Pods-LaFerme-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-tvOS.release.xcconfig"; path = "Target Support Files/Pods-LaFerme-tvOS/Pods-LaFerme-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FuturaLT-Book.otf"; path = "../../components/assets/fonts/native/FuturaLT-Book.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */ = {isa = PBXFileReference; name = "BowlbyOneSC-Regular.otf"; path = "../../components/assets/fonts/native/BowlbyOneSC-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */ = {isa = PBXFileReference; name = "FuturaLT-Book.otf"; path = "../../components/assets/fonts/native/FuturaLT-Book.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		261E503FB90F4CC1857290AD /* THANKYOUKOBE.otf */ = {isa = PBXFileReference; name = "THANKYOUKOBE.otf"; path = "../../components/assets/fonts/native/THANKYOUKOBE.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,7 +236,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = Y3SM94AVSQ;
+						DevelopmentTeam = ZB3TZTKBXT;
 						LastSwiftMigration = 1130;
 					};
 				};
@@ -441,7 +441,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Y3SM94AVSQ;
+				DEVELOPMENT_TEAM = ZB3TZTKBXT;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -454,7 +454,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mathieuharribey.LaFerme;
+				PRODUCT_BUNDLE_IDENTIFIER = com.petitjaune.LaFerme;
 				PRODUCT_NAME = LaFerme;
 				SWIFT_OBJC_BRIDGING_HEADER = "LaFerme-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -470,7 +470,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Y3SM94AVSQ;
+				DEVELOPMENT_TEAM = ZB3TZTKBXT;
 				INFOPLIST_FILE = LaFerme/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -478,7 +478,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mathieuharribey.LaFerme;
+				PRODUCT_BUNDLE_IDENTIFIER = com.petitjaune.LaFerme;
 				PRODUCT_NAME = LaFerme;
 				SWIFT_OBJC_BRIDGING_HEADER = "LaFerme-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

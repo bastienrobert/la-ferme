@@ -1,6 +1,7 @@
 import { Collection } from 'bookshelf'
 import { GAME } from '@la-ferme/shared/constants'
 import { NOT_ALLOWED } from '@la-ferme/shared/errors'
+import { characters, goals, skills } from '@la-ferme/shared/data'
 import { withFilter } from 'apollo-server'
 
 import pubsub from '@/app/pubsub'
@@ -12,11 +13,21 @@ import { connections } from '@/app/stores'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
 
-const characters = ['peter', 'monique', 'leon', 'isabelle']
+const getRandomPlayerSpecifications = () => {
+  const tmp_characters = characters.slice()
+  const tmp_skills = goals.slice()
+  const tmp_goals = skills.slice()
 
-const getRandomCharacter = tmp => {
-  const character = tmp.splice(Math.floor(Math.random() * tmp.length), 1)
-  return character[0]
+  const getAndSplice = tmp => () => {
+    const res = tmp.splice(Math.floor(Math.random() * tmp.length), 1)
+    return res.length > 0 ? res[0].name : null
+  }
+
+  return {
+    getCharacter: getAndSplice(tmp_characters),
+    getSkill: getAndSplice(tmp_skills),
+    getGoal: getAndSplice(tmp_goals)
+  }
 }
 
 const resolvers = {
@@ -40,12 +51,17 @@ const resolvers = {
 
       const players = game.related<Player>('players') as Collection<Player>
 
-      const tmp_characters = characters
+      const {
+        getCharacter,
+        getSkill,
+        getGoal
+      } = getRandomPlayerSpecifications()
+
       await Promise.all(
         players.map(player => {
-          player.character = getRandomCharacter(tmp_characters)
-          player.skill = 'skill'
-          player.goal = 'goal'
+          player.character = getCharacter()
+          player.skill = getSkill()
+          player.goal = getGoal()
           return player.save()
         })
       )
