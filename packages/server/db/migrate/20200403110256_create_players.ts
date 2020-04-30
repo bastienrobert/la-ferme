@@ -15,7 +15,7 @@ export async function up(knex: Knex): Promise<any> {
   })
 
   await knex.schema.table('games', table => {
-    table.integer('winner_id').references('players.id').onDelete('cascade')
+    table.integer('winner_player_id').references('players.id').onDelete('cascade') // prettier-ignore
   })
 
   return

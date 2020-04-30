@@ -5,11 +5,11 @@ export async function up(knex: Knex): Promise<any> {
     table.increments('id').primary()
     table.integer('game_id').references('games.id').onDelete('cascade')
     table.integer('player_id').references('players.id').onDelete('cascade')
-    table.integer('target_id').references('players.id').onDelete('cascade')
+    table.integer('target_player_id').references('players.id').onDelete('cascade') // prettier-ignore
     table.boolean('completed').defaultTo(false)
-    table.integer('civil_card_id')
-    table.integer('uncivil_card_id')
-    table.integer('chosen_card_id')
+    table.string('civil_card')
+    table.string('uncivil_card')
+    table.string('chosen_card')
 
     table.timestamps(true, true)
   })

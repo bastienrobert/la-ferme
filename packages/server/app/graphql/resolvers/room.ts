@@ -19,7 +19,7 @@ const getGame = async (room, user, users) => {
   } else {
     return await new Game({
       room_id: room.id,
-      creator_id: user.id
+      creator_user_id: user.id
     }).save()
   }
 }
