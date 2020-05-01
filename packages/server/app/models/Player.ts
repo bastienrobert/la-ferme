@@ -4,6 +4,7 @@ import Game from './Game'
 import Round from './Round'
 import User from './User'
 import Event from './Event'
+import Skill from './Skill'
 import Report from './Report'
 
 export default class Player extends db.bookshelf.Model<Player> {
@@ -18,6 +19,10 @@ export default class Player extends db.bookshelf.Model<Player> {
   surrender() {
     this.set('surrender', true)
     return this
+  }
+
+  skill() {
+    return this.hasOne(Skill)
   }
 
   rounds() {
@@ -70,14 +75,6 @@ export default class Player extends db.bookshelf.Model<Player> {
 
   get character() {
     return this.get('character')
-  }
-
-  set skill(skill) {
-    this.set({ skill })
-  }
-
-  get skill() {
-    return this.get('skill')
   }
 
   set goal(goal) {

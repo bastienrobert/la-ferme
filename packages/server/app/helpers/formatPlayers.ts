@@ -1,11 +1,13 @@
 export const formatPlayer = async player => {
-  const user = await player.user().fetch()
-  const { ready, character, skill, goal } = player.serialize()
+  const skill = await player.skill().fetch()
+  const user = player.related('user')
+  const { ready, character, goal } = player.serialize()
+
   return {
     user: user.uuid,
+    skill: skill.type,
     ready,
     character,
-    skill,
     goal
   }
 }

@@ -6,7 +6,6 @@ export async function up(knex: Knex): Promise<any> {
     table.integer('game_id').references('games.id').onDelete('cascade')
     table.integer('user_id').references('users.id').onDelete('cascade')
     table.string('character')
-    table.string('skill')
     table.string('goal')
     table.boolean('ready').defaultTo(false)
     table.boolean('surrender').defaultTo(false)

@@ -7,6 +7,7 @@ import { withFilter } from 'apollo-server'
 import pubsub from '@/app/pubsub'
 import Room from '@/app/models/Room'
 import User from '@/app/models/User'
+import Skill from '@/app/models/Skill'
 import Player from '@/app/models/Player'
 
 import { connections } from '@/app/stores'
@@ -16,8 +17,8 @@ import getPlayer from '@/app/helpers/getPlayer'
 
 const getRandomPlayerSpecifications = () => {
   const tmp_characters = characters.slice()
-  const tmp_skills = goals.slice()
-  const tmp_goals = skills.slice()
+  const tmp_goals = goals.slice()
+  const tmp_skills = skills.slice()
 
   const getAndSplice = tmp => () => {
     const res = tmp.splice(Math.floor(Math.random() * tmp.length), 1)
@@ -41,31 +42,22 @@ const resolvers = {
     async getReadyPlayers(_, { boxID }) {
       const room = await Room.findByBoxID(boxID)
       const game = await (await room.getLastGame()).fetch({
-        withRelated: ['players']
+        withRelated: ['players', 'players.user']
       })
 
       const players = game.related<Player>('players') as Collection<Player>
-      const res = players.map(async player => {
-        const user = await player.user().fetch()
-        const { ready, character, skill, goal } = player.serialize()
-        return {
-          user: user.uuid,
-          ready,
-          character,
-          skill,
-          goal
-        }
-      })
+      const formattedPlayers = await formatPlayers(players)
 
-      return res
+      return formattedPlayers
     }
   },
   Mutation: {
     // set game as ready
     async startGame(_, { userUUID, boxID }) {
       const room = await Room.findByBoxID(boxID)
-      const game = await (await room.getLastGame()).fetch({
-        withRelated: ['creator', 'players']
+      const lastGame = await room.getLastGame()
+      const game = await lastGame.fetch({
+        withRelated: ['creator', 'players', 'players.user']
       })
 
       const creator = game.related<User>('creator') as User
@@ -82,9 +74,12 @@ const resolvers = {
       } = getRandomPlayerSpecifications()
 
       await Promise.all(
-        players.map(player => {
+        players.map(async player => {
+          const skill = new Skill({ type: getSkill() })
+          skill.setPlayer(player.id)
+          await skill.save()
+
           player.character = getCharacter()
-          player.skill = getSkill()
           player.goal = getGoal()
           return player.save()
         })
@@ -109,7 +104,9 @@ const resolvers = {
       // COMPUTE STATISTICS
 
       const [game, winnerUser] = await Promise.all([
-        lastGame.fetch({ withRelated: ['players', 'players.user'] }),
+        lastGame.fetch({
+          withRelated: ['players', 'players.user']
+        }),
         User.findByUUID(winnerUUID, {
           withRelated: [{ players: qb => qb.orderBy('created_at') }]
         })
