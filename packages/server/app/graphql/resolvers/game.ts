@@ -12,6 +12,7 @@ import Player from '@/app/models/Player'
 import { connections } from '@/app/stores'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
+import getPlayer from '@/app/helpers/getPlayer'
 
 const getRandomPlayerSpecifications = () => {
   const tmp_characters = characters.slice()
@@ -104,16 +105,24 @@ const resolvers = {
       const room = await Room.findByBoxID(boxID)
       const lastGame = await room.getLastGame()
 
-      const [game, winner] = await Promise.all([
-        lastGame.fetch({ withRelated: ['players', 'players.user'] }),
-        User.findByUUID(winnerUUID)
-      ])
+      // TODO
+      // COMPUTE STATISTICS
 
-      game.winner = winner.id
+      const [game, winnerUser] = await Promise.all([
+        lastGame.fetch({ withRelated: ['players', 'players.user'] }),
+        User.findByUUID(winnerUUID, {
+          withRelated: [{ players: qb => qb.orderBy('created_at') }]
+        })
+      ])
+      const winnerPlayer = getPlayer(winnerUser)
+
+      game.winner = winnerPlayer.id
       await game.save()
 
       const players = game.related('players')
       const formattedPlayer = await formatPlayers(players)
+
+      console.log(formattedPlayer)
 
       connections.getByBoxID(boxID).forEach((_, key) => {
         connections.reset(key)

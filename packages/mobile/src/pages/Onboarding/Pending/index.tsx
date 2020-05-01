@@ -45,6 +45,11 @@ const Pending: FC<any> = ({ navigation }) => {
   return (
     <FullContainer>
       <Title preset="H1">PENDING</Title>
+      {players.map((p, i) => (
+        <Title preset="H4" key={i}>
+          {`${p.user}: ${p.character} - ${p.ready}`}
+        </Title>
+      ))}
     </FullContainer>
   )
 }

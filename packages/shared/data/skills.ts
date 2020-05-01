@@ -10,7 +10,7 @@ const skills: Skill[] = [
     effect: 'Vous pouvez piocher deux cartes pendant un tour !'
   },
   {
-    name: 'pregnant',
+    name: 'speaker',
     displayName: 'Enceinte',
     description: '#Bouse',
     text:

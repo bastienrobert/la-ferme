@@ -23,7 +23,7 @@ const getGame = async (
       .orderBy('created_at', 'DESC')
       .query(qb => qb.limit(1))
       .fetch()
-    return games.first()
+    return games.last()
   } else {
     return await new Game({
       room_id: room.id,

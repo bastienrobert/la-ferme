@@ -5,6 +5,8 @@ import merge from 'lodash.merge'
 import ConnectionModel from '@/app/models/Connection'
 import UserModel from '@/app/models/User'
 
+import getPlayer from '@/app/helpers/getPlayer'
+
 export interface Connection {
   boxID: UUID | null
   ready: boolean
@@ -21,24 +23,18 @@ class Connections extends Emitter {
   _connections: ConnectionsCollection = new Map()
 
   protected static async saveDisconnect(user: UserModel) {
-    const connection = await user.connections().fetch()
-    connection
-      .orderBy('created_at', 'DESC')
+    const connections = await user
+      .connections()
+      .orderBy('connected_at', 'DESC')
       .query(qb => qb.limit(1))
-      .first()
-      .disconnect()
-      .save()
+      .fetch()
+    connections.last().disconnect().save()
   }
 
   protected static async surrenderPlayer(user: UserModel) {
-    const player = await user
-      .players()
-      .orderBy('created_at', 'DESC')
-      .query(qb => qb.limit(1))
-      .fetch()
-    const last = player.first()
-    if (!last) return false
-    await last.surrender().save()
+    const player = getPlayer(user)
+    if (!player) return false
+    await player.surrender().save()
     return true
   }
 
@@ -83,7 +79,9 @@ class Connections extends Emitter {
     const value = this.get(key)
     if (!value) return
     this.emit('disconnecting', key, value)
-    const user = await UserModel.findByUUID(key)
+    const user = await UserModel.findByUUID(key, {
+      withRelated: [{ players: qb => qb.orderBy('created_at') }]
+    })
     await Promise.all([
       Connections.saveDisconnect(user),
       Connections.surrenderPlayer(user)

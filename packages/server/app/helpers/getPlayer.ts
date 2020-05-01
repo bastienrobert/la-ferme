@@ -6,5 +6,5 @@ export default (user: User): Player => {
     .related('players')
     .orderBy('created_at', 'DESC')
     .query(qb => qb.limit(1))
-    .first()
+    .last()
 }
