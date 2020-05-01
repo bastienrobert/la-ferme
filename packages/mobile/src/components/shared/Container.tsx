@@ -5,7 +5,7 @@ import { AlignSelfProperty } from 'csstype'
 
 export interface ContainerProps {
   /** Any react object */
-  children: JSX.Element | JSX.Element[] | React.ComponentType<any>
+  children: any
   /** How you want to align your items */
   alignSelf?: AlignSelfProperty
 }

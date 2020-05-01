@@ -9,12 +9,20 @@ import OnboardingSetup from '@/pages/Onboarding/Setup'
 import OnboardingRole from '@/pages/Onboarding/Role'
 import OnboardingPending from '@/pages/Onboarding/Pending'
 
-import Game from '@/pages/Game'
-import GameOver from '@/pages/Game/GameOver'
+import GameMain, { GameMainParams } from '@/pages/Game/GameMain'
+import GameOver, { GameOverParams } from '@/pages/Game/GameOver'
 
-export interface RootStackParamList {
+export type RootStackParamList = {
+  Introduction: undefined
   Home: undefined
-  RoomJoin: undefined
+  HomeQRCode: undefined
+  HomeRoom: undefined
+  OnboardingHello: undefined
+  OnboardingSetup: undefined
+  OnboardingRole: undefined
+  OnboardingPending: undefined
+  GameMain: GameMainParams
+  GameOver: GameOverParams
 }
 
 export default {
@@ -53,8 +61,8 @@ export default {
       component: OnboardingPending
     },
     {
-      name: 'Game',
-      component: Game
+      name: 'Game:Main',
+      component: GameMain
     },
     {
       name: 'Game:GameOver',

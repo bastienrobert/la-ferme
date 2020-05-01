@@ -39,8 +39,8 @@ const Pending: FC<any> = ({ navigation }) => {
 
   useEffect(() => {
     if (!everybodyIsReady) return
-    navigation.navigate('Game')
-  }, [navigation, everybodyIsReady])
+    navigation.navigate('Game:Main', { players })
+  }, [players, navigation, everybodyIsReady])
 
   return (
     <FullContainer>

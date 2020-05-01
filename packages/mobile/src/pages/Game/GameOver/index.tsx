@@ -1,9 +1,24 @@
 import React, { FC } from 'react'
+import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { Typo, Button } from '@la-ferme/components/native'
+
+import { RootStackParamList } from '@/App/routes'
 
 import Container from '@/components/shared/Container'
 
-const Game: FC<any> = ({ navigation, route }) => {
+export interface GameOverParams {
+  winner: string
+}
+
+type GameRouteProp = RouteProp<RootStackParamList, 'GameOver'>
+type GameNavigationProp = NavigationProp<RootStackParamList, 'GameOver'>
+
+export interface GameOverProps {
+  route: GameRouteProp
+  navigation: GameNavigationProp
+}
+
+const Game: FC<GameOverProps> = ({ navigation, route }) => {
   const routeData = route?.params
 
   const onHomePress = () => {
