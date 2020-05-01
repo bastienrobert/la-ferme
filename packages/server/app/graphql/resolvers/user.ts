@@ -6,7 +6,6 @@ import User from '@/app/models/User'
 const resolvers = {
   Query: {
     async getUser(_, { uuid }): Promise<UserType> {
-      console.log('GET USER')
       try {
         if (!uuid) throw new Error(USER_UUID_UNDEFINED)
         const user = await User.findByUUID(uuid)

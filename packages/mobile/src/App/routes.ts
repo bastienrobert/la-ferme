@@ -1,10 +1,16 @@
 import Introduction from '@/pages/Introduction'
+
 import Home from '@/pages/Home'
-import QRCode from '@/pages/Home/QRCode'
-import Room from '@/pages/Room'
-import Role from '@/pages/Role'
+import HomeQRCode from '@/pages/Home/QRCode'
+import HomeRoom from '@/pages/Home/Room'
+
+import OnboardingHello from '@/pages/Onboarding/Hello'
+import OnboardingSetup from '@/pages/Onboarding/Setup'
+import OnboardingRole from '@/pages/Onboarding/Role'
+import OnboardingPending from '@/pages/Onboarding/Pending'
+
 import Game from '@/pages/Game'
-import GameOver from '@/pages/GameOver'
+import GameOver from '@/pages/Game/GameOver'
 
 export interface RootStackParamList {
   Home: undefined
@@ -24,22 +30,34 @@ export default {
     },
     {
       name: 'Home:QRCode',
-      component: QRCode
+      component: HomeQRCode
     },
     {
-      name: 'Room',
-      component: Room
+      name: 'Home:Room',
+      component: HomeRoom
     },
     {
-      name: 'Role',
-      component: Role
+      name: 'Onboarding:Hello',
+      component: OnboardingHello
+    },
+    {
+      name: 'Onboarding:Setup',
+      component: OnboardingSetup
+    },
+    {
+      name: 'Onboarding:Role',
+      component: OnboardingRole
+    },
+    {
+      name: 'Onboarding:Pending',
+      component: OnboardingPending
     },
     {
       name: 'Game',
       component: Game
     },
     {
-      name: 'GameOver',
+      name: 'Game:GameOver',
       component: GameOver
     }
   ]

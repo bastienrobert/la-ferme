@@ -34,14 +34,14 @@ Button.defaultProps = {
 export default Button
 
 const StyledButton = styled.button<any>`
-  ${() => styles.box(true)}
+  ${styles.box(true)}
   ${props => styles.text(props.size)}
   ${styles.web}
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
 
   &:disabled {
-    opacity: 0.5;
+    ${styles.commons.disabled}
     pointer-events: none;
     cursor: not-allowed;
   }

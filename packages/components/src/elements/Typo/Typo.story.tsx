@@ -3,8 +3,6 @@ import { storiesOf } from '@storybook/react'
 
 import Typo, { TypoProps } from './'
 
-// import { Fonts } from '@/theme'
-
 // LOCAL INTERFACES
 type ClosureOption = Omit<TypoProps, 'children'>
 

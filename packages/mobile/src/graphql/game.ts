@@ -1,4 +1,14 @@
 import gql from 'graphql-tag'
+import { fragments as playerFragments } from './player'
+
+const READY_PLAYERS_QUERY = gql`
+  query GetReadyPlayers($boxID: UUID!) {
+    getReadyPlayers(boxID: $boxID) {
+      ...PlayerInfos
+    }
+  }
+  ${playerFragments.playerInfos}
+`
 
 const START_GAME_MUTATION = gql`
   mutation StartGame($userUUID: UUID!, $boxID: UUID!) {
@@ -28,4 +38,9 @@ const GAME_STATUS_SUBSCRIPTION = gql`
   }
 `
 
-export { START_GAME_MUTATION, STOP_GAME_MUTATION, GAME_STATUS_SUBSCRIPTION }
+export {
+  READY_PLAYERS_QUERY,
+  START_GAME_MUTATION,
+  STOP_GAME_MUTATION,
+  GAME_STATUS_SUBSCRIPTION
+}

@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import styled from 'styled-components/native'
-import Video from 'react-native-video'
+import Video, { VideoProperties } from 'react-native-video'
 
-const FullscreenVideo: FC<any> = props => {
+const FullscreenVideo: FC<VideoProperties> = props => {
   return <StyledVideo resizeMode="cover" {...props} />
 }
 

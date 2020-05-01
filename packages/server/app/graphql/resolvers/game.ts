@@ -36,6 +36,29 @@ const resolvers = {
       return game.winnerUUID ? 'WonGame' : 'NewGame'
     }
   },
+  Query: {
+    async getReadyPlayers(_, { boxID }) {
+      const room = await Room.findByBoxID(boxID)
+      const game = await (await room.getLastGame()).fetch({
+        withRelated: ['players']
+      })
+
+      const players = game.related<Player>('players') as Collection<Player>
+      const res = players.map(async player => {
+        const user = await player.user().fetch()
+        const { ready, character, skill, goal } = player.serialize()
+        return {
+          user: user.uuid,
+          ready,
+          character,
+          skill,
+          goal
+        }
+      })
+
+      return res
+    }
+  },
   Mutation: {
     // set game as ready
     async startGame(_, { userUUID, boxID }) {
@@ -94,7 +117,6 @@ const resolvers = {
 
       connections.getByBoxID(boxID).forEach((_, key) => {
         connections.reset(key)
-        console.log(key, connections.get(key))
       })
 
       pubsub.publish(GAME.STOP, {

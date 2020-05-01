@@ -14,6 +14,10 @@ type WonGame implements Game {
   winnerUUID: UUID
 }
 
+extend type Query {
+  getReadyPlayers(boxID: UUID!): [Player]!
+}
+
 extend type Mutation {
   startGame(boxID: UUID!, userUUID: UUID!): Boolean!
   stopGame(boxID: UUID!, winnerUUID: UUID!): Boolean!

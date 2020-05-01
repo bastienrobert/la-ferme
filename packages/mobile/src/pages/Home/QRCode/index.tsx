@@ -1,19 +1,44 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 import QRCodeScanner, {
   Event as QRCodeScannerEvent
 } from 'react-native-qrcode-scanner'
+import { useMutation, useApolloClient } from '@apollo/react-hooks'
 import { Button } from '@la-ferme/components/native'
+
+import { ROOM_JOIN_MUTATION } from '@/graphql/room'
 
 import content from '@/content/global.json'
 
-import Container from '@/components/Container'
-import FullContainer from '@/components/FullContainer'
+import Scan from './Scan'
+import Container from '@/components/shared/Container'
+import FullContainer from '@/components/shared/FullContainer'
+
+import auth from '@/services/auth'
 
 const QRCode: FC<any> = ({ navigation }) => {
+  const client = useApolloClient()
+  const [joinRoom, { data }] = useMutation(ROOM_JOIN_MUTATION)
+
+  useEffect(() => {
+    if (!data) return
+    navigation.navigate('Home:Room', data.joinRoom)
+  }, [data, navigation])
+
+  // TODO: set boxID from NFC tag
+  const join = async (boxID: string) => {
+    client.writeData({ data: { boxID } })
+    joinRoom({
+      variables: {
+        boxID,
+        userUUID: auth.uuid
+      }
+    })
+  }
+
   const onSuccess = (e: QRCodeScannerEvent) => {
-    console.log(e.data)
+    join(e.data)
   }
 
   const onBackPress = () => {
@@ -21,7 +46,7 @@ const QRCode: FC<any> = ({ navigation }) => {
   }
 
   return (
-    <FullContainer>
+    <Component>
       <CameraContainer>
         <QRCodeScanner
           onRead={onSuccess}
@@ -32,16 +57,27 @@ const QRCode: FC<any> = ({ navigation }) => {
           cameraProps={{ ratio: '1:1' }}
         />
       </CameraContainer>
+      <Scan />
       <ButtonView>
         <ButtonContainer>
           <Button variant="primary" onPress={onBackPress}>
             {content.back}
           </Button>
+          {/* REMOVE THIS */}
+          <Button
+            variant="primary"
+            onPress={() => join('99719f7a-52a7-4d0e-b794-4caf71c4bcce')}>
+            JOIN
+          </Button>
         </ButtonContainer>
       </ButtonView>
-    </FullContainer>
+    </Component>
   )
 }
+
+const Component = styled(FullContainer)`
+  flex: 1;
+`
 
 const CameraStyle: any = {
   position: 'absolute',
@@ -70,7 +106,6 @@ const ButtonContainer = styled(Container)`
 `
 
 const ButtonView = styled.View`
-  flex: 1;
   justify-content: flex-end;
   margin-bottom: 40px;
   z-index: 2;
