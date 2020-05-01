@@ -122,8 +122,6 @@ const resolvers = {
       const players = game.related('players')
       const formattedPlayer = await formatPlayers(players)
 
-      console.log(formattedPlayer)
-
       connections.getByBoxID(boxID).forEach((_, key) => {
         connections.reset(key)
       })

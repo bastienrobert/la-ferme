@@ -90,6 +90,8 @@ const resolvers = {
         players.length
       const nextPlayer = players.at(nextPlayerIndex)
 
+      // check events before creating round to assign it to the good person
+      // get events from Game.events() WHERE status IS NEW AND WHERE player IS nextPlayer
       const [round] = await Promise.all([
         createRound(game.id, nextPlayer.id),
         lastRound.save()
