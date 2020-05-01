@@ -45,6 +45,6 @@ export default class Game extends db.bookshelf.Model<Game> {
   set winner(value: number) {
     // should take a player in params
     // should check player is in the game
-    this.set({ winner_player_id: value })
+    this.set({ winner_player_id: value, won_at: new Date(Date.now()) })
   }
 }
