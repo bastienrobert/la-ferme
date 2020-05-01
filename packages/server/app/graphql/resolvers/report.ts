@@ -4,7 +4,7 @@ import { withFilter } from 'apollo-server'
 import pubsub from '@/app/pubsub'
 
 import User from '@/app/models/User'
-import Report from '@/app/models/Report'
+import Report, { ReportStatus } from '@/app/models/Report'
 
 import getPlayer from '@/app/helpers/getPlayer'
 
@@ -22,29 +22,54 @@ const resolvers = {
       const fromPlayer = getPlayer(from)
       const toPlayer = getPlayer(to)
 
+      const existingReportsByFrom = await Report.where<Report>({
+        from_player_id: fromPlayer.id
+      }).fetch()
+
+      // const [uncompletedReportsByFrom, existsWithTo] = await Promise.all([
+      //   existingReportsByFrom
+      //     .where({
+      //       status: ReportStatus.NEW
+      //     })
+      //     .count(),
+      //   existingReportsByFrom
+      //     .where({
+      //       to_player_id: toPlayer.id
+      //     })
+      //     .count()
+      // ])
+
+      // const reject = uncompletedReportsByFrom > 2 || existsWithTo > 2
+      const count = await existingReportsByFrom.count()
+      const reject = count > 0
+
       const report = new Report({
         from_player_id: fromPlayer.id,
         to_player_id: toPlayer.id,
-        score: 0 // TODO: set default score to 1 or -1 if user civil cards > or < to uncivil cards
+        score: toPlayer.score <= 0 ? 1 : 0,
+        status: reject ? ReportStatus.REJECTED : ReportStatus.NEW
       })
       report.save()
 
-      console.log(
-        'NEW REPORT == FROM',
-        fromPlayer.character,
-        'TO',
-        toPlayer.character
-      )
+      // for each report, user score is dicreased
+      // if (reject) {
+      //   fromPlayer.decreaseScore()
+      //   fromPlayer.save()
+      // }
 
-      pubsub.publish(REPORT.CREATE, {
-        playerIsReport: {
-          boxID,
-          fromPlayer,
-          toPlayer
-        }
-      })
+      if (!reject) {
+        pubsub.publish(REPORT.CREATE, {
+          playerIsReport: {
+            boxID,
+            fromPlayer,
+            toPlayer
+          }
+        })
 
-      return true
+        return true
+      }
+
+      return false
     }
   },
   Subscription: {

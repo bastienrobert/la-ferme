@@ -6,7 +6,9 @@ export async function up(knex: Knex): Promise<any> {
     table.integer('from_player_id').references('players.id').onDelete('cascade')
     table.integer('to_player_id').references('players.id').onDelete('cascade')
     table.float('score').defaultTo(0)
-    table.enu('status', ['new', 'confirmed', 'canceled']).defaultTo('new')
+    table
+      .enu('status', ['rejected', 'new', 'confirmed', 'canceled'])
+      .defaultTo('new')
 
     table.timestamps(true, true)
   })

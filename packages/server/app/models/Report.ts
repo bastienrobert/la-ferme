@@ -3,6 +3,7 @@ import db from '@/config/database'
 import Player from './Player'
 
 export enum ReportStatus {
+  REJECTED = 'rejected',
   NEW = 'new',
   CONFIRMED = 'confirmed',
   CANCELED = 'canceled'
