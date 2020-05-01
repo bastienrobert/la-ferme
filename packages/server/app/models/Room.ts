@@ -20,7 +20,10 @@ export default class Room extends db.bookshelf.Model<Room> {
   }
 
   async getLastGame(params?) {
-    const games = await this.games().orderBy('id').fetch(params)
-    return games.last()
+    const games = await this.games()
+      .orderBy('created_at', 'desc')
+      .query(qb => qb.limit(1))
+      .fetch(params)
+    return games.first()
   }
 }

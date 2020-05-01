@@ -5,11 +5,10 @@ export async function up(knex: Knex): Promise<any> {
     table.increments('id').primary()
     table.integer('from_player_id').references('players.id').onDelete('cascade')
     table.integer('to_player_id').references('users.id').onDelete('cascade')
-    table.float('score')
+    table.float('score').defaultTo(0)
     table.enu('status', ['new', 'confirmed', 'canceled'])
 
-    table.timestamp('connected_at').defaultTo(knex.fn.now())
-    table.timestamp('disconnected_at')
+    table.timestamps(true, true)
   })
 
   return

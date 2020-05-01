@@ -20,14 +20,26 @@ const DEFAULT_VALUE = {
 class Connections extends Emitter {
   _connections: ConnectionsCollection = new Map()
 
-  protected static async saveDisconnect(user) {
+  protected static async saveDisconnect(user: UserModel) {
     const connection = await user.connections().fetch()
-    connection.last().disconnect().save()
+    connection
+      .orderBy('created_at', 'DESC')
+      .query(qb => qb.limit(1))
+      .first()
+      .disconnect()
+      .save()
   }
 
-  protected static async surrenderPlayer(user) {
-    const player = await user.players().fetch()
-    player.last().surrender().save()
+  protected static async surrenderPlayer(user: UserModel) {
+    const player = await user
+      .players()
+      .orderBy('created_at', 'DESC')
+      .query(qb => qb.limit(1))
+      .fetch()
+    const last = player.first()
+    if (!last) return false
+    await last.surrender().save()
+    return true
   }
 
   async connect(key: UUID) {
@@ -59,7 +71,7 @@ class Connections extends Emitter {
     return this.merge(userUUID, { boxID })
   }
 
-  setReady(userUUID) {
+  setReady(userUUID: UUID) {
     return this.merge(userUUID, { ready: true })
   }
 

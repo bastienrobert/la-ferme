@@ -8,10 +8,7 @@ import Room from '@/app/models/Room'
 import User from '@/app/models/User'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
-
-const getPlayer = user => {
-  return user.related('players').orderBy('id').last()
-}
+import getPlayer from '@/app/helpers/getPlayer'
 
 const resolvers = {
   Query: {
@@ -31,14 +28,14 @@ const resolvers = {
   Mutation: {
     async playerReady(_, { boxID, userUUID }) {
       const user = await User.findByUUID(userUUID, {
-        withRelated: [{ players: qb => qb.orderBy('id') }]
+        withRelated: [{ players: qb => qb.orderBy('created_at') }]
       })
       const player = getPlayer(user)
       player.ready()
       await player.save()
 
       const room = await Room.findByBoxID(boxID, {
-        withRelated: [{ games: qb => qb.orderBy('id') }]
+        withRelated: [{ games: qb => qb.orderBy('created_at') }]
       })
 
       const game = await room.getLastGame({ withRelated: ['players'] })

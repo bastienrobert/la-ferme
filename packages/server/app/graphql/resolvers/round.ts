@@ -11,17 +11,18 @@ import Round from '@/app/models/Round'
 import Player from '@/app/models/Player'
 
 import { connections } from '@/app/stores'
+import Game from '@/app/models/Game'
 
 const getGame = async boxID => {
   const room = await Room.findByBoxID(boxID)
   const lastGame = await room.getLastGame()
   return await lastGame.fetch({
-    withRelated: [{ players: qb => qb.orderBy('id') }]
+    withRelated: [{ players: qb => qb.orderBy('created_at') }]
   })
 }
 
-const getRounds = async game => {
-  return await game.rounds().orderBy('id').fetch()
+const getRounds = async (game: Game) => {
+  return await game.rounds().orderBy('created_at').fetch()
 }
 
 const createRound = async (gameID, playerID) => {
@@ -76,8 +77,8 @@ const resolvers = {
         .last()
         .fetch({ withRelated: ['player', 'player.user'] })
 
-      const player = lastRound.related('player')
-      const user = player.related('user')
+      const player = lastRound.related('player') as Player
+      const user = player.related('user') as User
 
       if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
 

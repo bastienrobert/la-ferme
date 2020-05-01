@@ -9,13 +9,21 @@ import User from '@/app/models/User'
 import Player from '@/app/models/Player'
 
 import pubsub from '@/app/pubsub'
-import { connections } from '@/app/stores'
+import connections, { ConnectionsCollection } from '@/app/stores/connections'
 import formatConnectedUsers from '@/app/helpers/formatConnectedUsers'
 
-const getGame = async (room, user, users) => {
+const getGame = async (
+  room: Room,
+  user: User,
+  users: ConnectionsCollection
+) => {
   if (users.size > 0) {
-    const games = await room.games().orderBy('id').fetch()
-    return games.last()
+    const games = await room
+      .games()
+      .orderBy('created_at', 'DESC')
+      .query(qb => qb.limit(1))
+      .fetch()
+    return games.first()
   } else {
     return await new Game({
       room_id: room.id,
