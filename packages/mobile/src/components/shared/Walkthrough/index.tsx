@@ -2,6 +2,8 @@ import React, { FC, useState } from 'react'
 import { Animated, PanResponder } from 'react-native'
 import styled from 'styled-components/native'
 
+import background from '@/assets/images/role/ticket_01.png'
+
 import FullContainer from '@/components/shared/FullContainer'
 
 import WalkthroughCard from './WalkthroughCard'
@@ -148,6 +150,10 @@ const Walkthrough: FC<any> = () => {
 
   return (
     <Component>
+      <BackCard>
+        <StyledImageOne source={background} />
+        <StyledImageTwo source={background} />
+      </BackCard>
       {datas.map((card, i) => renderCard(card, i)).reverse()}
     </Component>
   )
@@ -164,4 +170,29 @@ const StyledView = styled.View`
   width: 100%;
   height: 100%;
   position: absolute;
+`
+
+const BackCard = styled.View`
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  margin-top: 8%;
+  flex-direction: column;
+  align-items: center;
+`
+
+const StyledImageOne = styled.Image`
+  width: 95%;
+  height: 85%;
+  resize-mode: stretch;
+  position: absolute;
+  transform: rotate(2deg);
+`
+
+const StyledImageTwo = styled.Image`
+  width: 95%;
+  height: 85%;
+  resize-mode: stretch;
+  position: absolute;
+  transform: translate(2px, 1px) rotate(-1deg);
 `
