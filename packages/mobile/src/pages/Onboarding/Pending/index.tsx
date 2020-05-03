@@ -6,7 +6,7 @@ import ThemeContext from '@/App/Theme/Context'
 import FullContainer from '@/components/shared/FullContainer'
 import Title from '@/components/typo/Title'
 
-import { GET_BOX_ID } from '@/graphql/room'
+import { GET_BOX_ID } from '@/graphql/local'
 import { READY_PLAYERS_QUERY } from '@/graphql/game'
 import { PLAYER_IS_READY_SUBSCRIPTION } from '@/graphql/player'
 

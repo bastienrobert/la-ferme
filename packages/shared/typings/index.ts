@@ -1,5 +1,10 @@
 export type UUID = string & { readonly _: unique symbol }
 
+export enum Gender {
+  MALE = 1,
+  FEMALE = 2
+}
+
 export interface User {
   uuid: UUID
   exists?: boolean
@@ -19,6 +24,7 @@ export interface Character {
   secondaryColor: string
   displayName: string
   description: string
+  gender: Gender
   text: string
 }
 

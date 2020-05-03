@@ -7,7 +7,7 @@ import ThemeContext from '@/App/Theme/Context'
 import Container from '@/components/shared/Container'
 import Text from '@/components/typo/Text'
 
-import { GET_BOX_ID } from '@/graphql/room'
+import { GET_BOX_ID } from '@/graphql/local'
 import { GET_PLAYER, PLAYER_READY_MUTATION } from '@/graphql/player'
 
 import auth from '@/services/auth'

@@ -10,8 +10,8 @@ export interface GameOverParams {
   winner: string
 }
 
-type GameRouteProp = RouteProp<RootStackParamList, 'GameOver'>
-type GameNavigationProp = NavigationProp<RootStackParamList, 'GameOver'>
+type GameRouteProp = RouteProp<RootStackParamList, 'Game:GameOver'>
+type GameNavigationProp = NavigationProp<RootStackParamList, 'Game:GameOver'>
 
 export interface GameOverProps {
   route: GameRouteProp
@@ -22,7 +22,7 @@ const Game: FC<GameOverProps> = ({ navigation, route }) => {
   const routeData = route?.params
 
   const onHomePress = () => {
-    navigation.navigate('Home')
+    navigation.navigate('Home:Main')
   }
 
   return (

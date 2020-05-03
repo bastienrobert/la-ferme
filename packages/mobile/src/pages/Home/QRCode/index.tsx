@@ -42,7 +42,7 @@ const QRCode: FC<any> = ({ navigation }) => {
   }
 
   const onBackPress = () => {
-    navigation.navigate('Home')
+    navigation.navigate('Home:Main')
   }
 
   return (

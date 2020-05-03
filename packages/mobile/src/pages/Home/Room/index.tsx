@@ -8,7 +8,8 @@ import FullContainer from '@/components/shared/FullContainer'
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 
-import { GET_BOX_ID, NEW_USER_IN_ROOM_SUBSCRIPTION } from '@/graphql/room'
+import { GET_BOX_ID } from '@/graphql/local'
+import { NEW_USER_IN_ROOM_SUBSCRIPTION } from '@/graphql/room'
 import { START_GAME_MUTATION, GAME_STATUS_SUBSCRIPTION } from '@/graphql/game'
 
 import auth from '@/services/auth'

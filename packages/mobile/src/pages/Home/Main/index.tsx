@@ -1,6 +1,5 @@
 import React, { FC, useContext, useEffect } from 'react'
 import styled from 'styled-components/native'
-import { Icon } from '@la-ferme/components/native'
 
 import ThemeContext from '@/App/Theme/Context'
 
@@ -29,8 +28,12 @@ const Home: FC<any> = ({ navigation }) => {
         </Title>
       </TitleContainer>
       <ImagesWrapper>
-        <StyledImage source={require('@/assets/images/home/nfc.png')} />
-        <StyledImage source={require('@/assets/images/home/qrcode.png')} />
+        <TouchableImageContainer onPress={() => console.log('NFC')}>
+          <StyledImage source={require('@/assets/images/home/nfc.png')} />
+        </TouchableImageContainer>
+        <TouchableImageContainer onPress={onCameraIconClick}>
+          <StyledImage source={require('@/assets/images/home/qrcode.png')} />
+        </TouchableImageContainer>
       </ImagesWrapper>
       <ContentWrapper>
         <Text color="beige" textAlign="center">
@@ -45,11 +48,6 @@ const Home: FC<any> = ({ navigation }) => {
           Scannez le QR code en ouvrant votre appareil photo.
         </Text>
       </ContentWrapper>
-      <ButtonView>
-        <ButtonContainer>
-          <Icon icon="camera" background="yellow" onPress={onCameraIconClick} />
-        </ButtonContainer>
-      </ButtonView>
     </Component>
   )
 }
@@ -72,9 +70,13 @@ const ImagesWrapper = styled.View`
   justify-content: center;
 `
 
-const StyledImage = styled.Image`
+const TouchableImageContainer = styled.TouchableOpacity`
   width: 50%;
   max-width: 200px;
+`
+
+const StyledImage = styled.Image`
+  width: 100%;
 `
 
 const ContentWrapper = styled.View`
@@ -88,15 +90,6 @@ const ContentWrapper = styled.View`
 const SpacedOrContainer = styled(Container)`
   margin: 30px 0;
   width: 100%;
-`
-
-const ButtonContainer = styled(Container)`
-  align-self: center;
-`
-
-const ButtonView = styled.View`
-  margin-bottom: 40px;
-  z-index: 2;
 `
 
 export default Home

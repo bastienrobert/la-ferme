@@ -14,6 +14,7 @@ import gameDefs from './types/game.graphql'
 import playerDefs from './types/player.graphql'
 import roundDefs from './types/round.graphql'
 import reportDefs from './types/report.graphql'
+import skillDefs from './types/skill.graphql'
 
 // Import resolvers
 import roomResolvers from './resolvers/room'
@@ -22,6 +23,7 @@ import gameResolvers from './resolvers/game'
 import playerResolvers from './resolvers/player'
 import roundResolvers from './resolvers/round'
 import reportResolvers from './resolvers/report'
+import skillResolvers from './resolvers/skill'
 
 const Query = `
   type Query {
@@ -45,7 +47,8 @@ export default makeExecutableSchema({
     gameDefs,
     playerDefs,
     roundDefs,
-    reportDefs
+    reportDefs,
+    skillDefs
   ],
   resolvers: merge(
     uuidScalarResolvers,
@@ -54,6 +57,7 @@ export default makeExecutableSchema({
     gameResolvers,
     playerResolvers,
     roundResolvers,
-    reportResolvers
+    reportResolvers,
+    skillResolvers
   )
 })
