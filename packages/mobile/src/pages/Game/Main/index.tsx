@@ -68,6 +68,7 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
       <Menu setPopup={setPopup} />
       {popup && (
         <Popups
+          set={setPopup}
           type={popup}
           players={players}
           boxID={boxID}

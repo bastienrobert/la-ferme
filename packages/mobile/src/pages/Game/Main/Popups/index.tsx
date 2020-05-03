@@ -5,10 +5,12 @@ export enum PopupType {
   REPORT = 'report'
 }
 
-const Popups: FC<any> = ({ type, players, boxID, userUUID }) => {
+const Popups: FC<any> = props => {
+  const { type } = props
+
   switch (type) {
     case PopupType.REPORT:
-      return <Report players={players} boxID={boxID} userUUID={userUUID} />
+      return <Report {...props} />
     default:
       return null
   }
