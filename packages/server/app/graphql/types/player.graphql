@@ -13,7 +13,3 @@ extend type Query {
 extend type Mutation {
   playerReady(boxID: UUID!, userUUID: UUID!): Boolean!
 }
-
-extend type Subscription {
-  playerIsReady(boxID: UUID!): Game!
-}

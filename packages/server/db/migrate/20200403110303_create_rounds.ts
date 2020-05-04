@@ -5,10 +5,11 @@ export async function up(knex: Knex): Promise<any> {
     table.increments('id').primary()
     table.integer('game_id').references('games.id').onDelete('cascade')
     table.integer('player_id').references('players.id').onDelete('cascade')
-    table.boolean('completed').defaultTo(false)
+    table.enu('step', ['new', 'board', 'complete']).defaultTo('new')
+    table.enu('type', ['classic', 'replay', 'pass']).defaultTo('classic')
     table.string('civil_card')
     table.string('uncivil_card')
-    table.string('chosen_card')
+    table.enu('choice', ['civil', 'uncivil'])
 
     table.timestamps(true, true)
   })

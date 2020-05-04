@@ -2,11 +2,10 @@ import React, { FC, useEffect, useCallback, useState } from 'react'
 import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { useFocusEffect } from '@react-navigation/native'
 import { useMutation, useSubscription, useQuery } from '@apollo/react-hooks'
-import { Player } from '@la-ferme/shared/typings'
+import { Player, GameStatusType } from '@la-ferme/shared/typings'
 
 import { RootStackParamList } from '@/App/routes'
 
-import Over from './Over'
 import Round from './Round'
 import Menu from './Menu'
 import Popups, { PopupType } from './Popups'
@@ -14,7 +13,7 @@ import FullContainer from '@/components/shared/FullContainer'
 import Title from '@/components/typo/Title'
 
 import { GET_BOX_ID } from '@/graphql/local'
-import { GAME_STATUS_SUBSCRIPTION } from '@/graphql/game'
+import { GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
 import { READY_FOR_ROUND_MUTATION } from '@/graphql/round'
 
 import auth from '@/services/auth'
@@ -51,21 +50,24 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   /**
    * navigate to GameOver screen if winner
    */
-  const gameStatusSubscription = useSubscription(GAME_STATUS_SUBSCRIPTION, {
+  const gameUpdatedSubscription = useSubscription(GAME_UPDATED_SUBSCRIPTION, {
     variables: { boxID }
   })
+  const data = gameUpdatedSubscription.data?.gameUpdated
+
   useEffect(() => {
-    const winner = gameStatusSubscription.data?.gameStatus?.winnerUUID
-    if (!winner) return
+    if (!data || data.type !== GameStatusType.END) return
+    const winner = data.winnerUUID
     navigation.navigate('Game:GameOver', { winner })
-  }, [gameStatusSubscription.data, navigation])
+  }, [data, navigation])
 
   return (
     <FullContainer>
       <Title preset="H1">Game</Title>
-      <Round boxID={boxID} userUUID={auth.uuid} />
-      <Over boxID={boxID} userUUID={auth.uuid} />
-      <Menu setPopup={setPopup} />
+      {data && data.type === GameStatusType.ROUND && (
+        <Round boxID={boxID} userUUID={auth.uuid} data={data.round} />
+      )}
+      <Menu boxID={boxID} userUUID={auth.uuid} setPopup={setPopup} />
       {popup && (
         <Popups
           set={setPopup}

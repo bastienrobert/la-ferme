@@ -1,7 +1,8 @@
 import { Collection } from 'bookshelf'
-import { GAME } from '@la-ferme/shared/constants'
+import { GAME, PLAYER, ROUND } from '@la-ferme/shared/constants'
 import { NOT_ALLOWED } from '@la-ferme/shared/errors'
 import { characters, goals, skills } from '@la-ferme/shared/data'
+import { GameStatusType } from '@la-ferme/shared/typings'
 import { withFilter } from 'apollo-server'
 
 import pubsub from '@/app/pubsub'
@@ -12,30 +13,31 @@ import Player from '@/app/models/Player'
 
 import { connections } from '@/app/stores'
 
+import getAndSplice from '@/app/helpers/getAndSplice'
 import formatPlayers from '@/app/helpers/formatPlayers'
 import getPlayer from '@/app/helpers/getPlayer'
 
-const getRandomPlayerSpecifications = () => {
-  const tmp_characters = characters.slice()
-  const tmp_goals = goals.slice()
-  const tmp_skills = skills.slice()
-
-  const getAndSplice = tmp => () => {
-    const res = tmp.splice(Math.floor(Math.random() * tmp.length), 1)
-    return res.length > 0 ? res[0].name : null
-  }
-
-  return {
-    getCharacter: getAndSplice(tmp_characters),
-    getSkill: getAndSplice(tmp_skills),
-    getGoal: getAndSplice(tmp_goals)
-  }
-}
-
 const resolvers = {
-  Game: {
-    __resolveType(game) {
-      return game.winnerUUID ? 'WonGame' : 'NewGame'
+  GameStatusType: {
+    start: GameStatusType.START,
+    end: GameStatusType.END,
+    report: GameStatusType.REPORT,
+    ready: GameStatusType.READY,
+    round: GameStatusType.ROUND,
+    skill: GameStatusType.SKILL
+  },
+  GameStatus: {
+    __resolveType({ type }) {
+      switch (type) {
+        case GameStatusType.END:
+          return 'GameStatusWon'
+        case GameStatusType.READY:
+          return 'GameStatusReady'
+        case GameStatusType.ROUND:
+          return 'GameStatusRound'
+        default:
+          return 'GameStatusDefault'
+      }
     }
   },
   Query: {
@@ -67,11 +69,9 @@ const resolvers = {
 
       const players = game.related<Player>('players') as Collection<Player>
 
-      const {
-        getCharacter,
-        getSkill,
-        getGoal
-      } = getRandomPlayerSpecifications()
+      const getCharacter = getAndSplice(characters)
+      const getSkill = getAndSplice(goals)
+      const getGoal = getAndSplice(skills)
 
       await Promise.all(
         players.map(async player => {
@@ -88,7 +88,8 @@ const resolvers = {
       const formattedPlayer = await formatPlayers(players)
 
       pubsub.publish(GAME.START, {
-        gameStatus: {
+        gameUpdated: {
+          type: GameStatusType.START,
           boxID,
           players: formattedPlayer
         }
@@ -124,7 +125,8 @@ const resolvers = {
       })
 
       pubsub.publish(GAME.STOP, {
-        gameStatus: {
+        gameUpdated: {
+          type: GameStatusType.END,
           boxID,
           winnerUUID,
           players: formattedPlayer
@@ -135,11 +137,17 @@ const resolvers = {
     }
   },
   Subscription: {
-    gameStatus: {
+    gameUpdated: {
       subscribe: withFilter(
-        () => pubsub.asyncIterator([GAME.START, GAME.STOP]),
-        ({ gameStatus }, variables) => {
-          return gameStatus.boxID === variables.boxID
+        () =>
+          pubsub.asyncIterator([
+            GAME.START,
+            GAME.STOP,
+            PLAYER.READY,
+            ROUND.UPDATE
+          ]),
+        ({ gameUpdated }, variables) => {
+          return gameUpdated.boxID === variables.boxID
         }
       )
     }

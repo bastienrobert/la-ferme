@@ -1,5 +1,4 @@
 import { REPORT } from '@la-ferme/shared/constants'
-import { withFilter } from 'apollo-server'
 
 import pubsub from '@/app/pubsub'
 
@@ -70,19 +69,6 @@ const resolvers = {
       }
 
       return false
-    }
-  },
-  Subscription: {
-    playerIsReport: {
-      subscribe: withFilter(
-        () => pubsub.asyncIterator(REPORT.CREATE),
-        ({ playerIsReport }, variables) => {
-          return (
-            playerIsReport.boxID === variables.boxID &&
-            playerIsReport.fromPlayer === variables.userUUID
-          )
-        }
-      )
     }
   }
 }

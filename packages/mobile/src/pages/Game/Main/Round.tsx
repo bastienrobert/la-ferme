@@ -1,44 +1,67 @@
 import React, { FC } from 'react'
-import { useMutation, useSubscription } from '@apollo/react-hooks'
-import { UUID } from '@la-ferme/shared/typings'
+import { useMutation } from '@apollo/react-hooks'
+import { UUID, RoundChoice, RoundStep } from '@la-ferme/shared/typings'
 import { Button } from '@la-ferme/components/native'
 
 import Container from '@/components/shared/Container'
 import Text from '@/components/typo/Text'
 
-import { PUSH_ROUND_MUTATION, NEW_ROUND_SUBSCRIPTION } from '@/graphql/round'
+import { SET_ROUND_MUTATION } from '@/graphql/round'
 
 export interface RoundProps {
+  data: any
   boxID: UUID
   userUUID: UUID
 }
 
-const Over: FC<RoundProps> = ({ boxID, userUUID }) => {
-  const [pushRoundMutation] = useMutation(PUSH_ROUND_MUTATION)
+const Submit: FC<any> = ({ boxID, userUUID, data }) => {
+  const [setRoundMutation] = useMutation(SET_ROUND_MUTATION)
 
-  const onSubmitRoundPress = () => {
-    pushRoundMutation({ variables: { boxID, userUUID: userUUID } })
+  const onBoardPress = () => {
+    setRoundMutation({
+      variables: { boxID, userUUID, step: RoundStep.BOARD }
+    })
   }
 
-  const newRoundSubscription = useSubscription(NEW_ROUND_SUBSCRIPTION, {
-    variables: { boxID }
-  })
+  const onChoicePress = (choice: RoundChoice) => {
+    setRoundMutation({
+      variables: { boxID, userUUID, step: RoundStep.COMPLETE, choice }
+    })
+  }
 
-  const newRoundData = newRoundSubscription.data?.newRound?.round
+  return data.step === RoundStep.NEW ? (
+    <Container>
+      <Button onPress={() => onBoardPress()}>Step board</Button>
+    </Container>
+  ) : (
+    <>
+      <Container>
+        <Button onPress={() => onChoicePress(RoundChoice.CIVIL)}>
+          Choose civil card
+        </Button>
+      </Container>
+      <Container>
+        <Button onPress={() => onChoicePress(RoundChoice.UNCIVIL)}>
+          Choose uncivil card
+        </Button>
+      </Container>
+    </>
+  )
+}
 
+const Round: FC<RoundProps> = ({ data, boxID, userUUID }) => {
   return (
     <Container>
       <Text>Round</Text>
-      {!newRoundData && <Text>No round data yet</Text>}
-      {newRoundData && <Text>New round for user</Text>}
-      {newRoundData && <Text>{newRoundData.user}</Text>}
-      {newRoundData && newRoundData.user === userUUID && (
-        <Container>
-          <Button onPress={onSubmitRoundPress}>Submit round</Button>
-        </Container>
+      {!data && <Text>No round data yet</Text>}
+      {data && <Text>New round for user</Text>}
+      {data && <Text>{data.user}</Text>}
+      {data && <Text>Step : {data.step}</Text>}
+      {data && data.user === userUUID && (
+        <Submit boxID={boxID} userUUID={userUUID} data={data} />
       )}
     </Container>
   )
 }
 
-export default Over
+export default Round

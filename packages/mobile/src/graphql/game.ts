@@ -22,17 +22,29 @@ const STOP_GAME_MUTATION = gql`
   }
 `
 
-const GAME_STATUS_SUBSCRIPTION = gql`
-  subscription GameStatus($boxID: UUID!) {
-    gameStatus(boxID: $boxID) {
+const GAME_UPDATED_SUBSCRIPTION = gql`
+  subscription GameUpdated($boxID: UUID!) {
+    gameUpdated(boxID: $boxID) {
+      type
       players {
         user
         character
         skill
         goal
       }
-      ... on WonGame {
+      ... on GameStatusWon {
         winnerUUID
+      }
+      ... on GameStatusReady {
+        players {
+          ready
+        }
+      }
+      ... on GameStatusRound {
+        round {
+          user
+          step
+        }
       }
     }
   }
@@ -42,5 +54,5 @@ export {
   READY_PLAYERS_QUERY,
   START_GAME_MUTATION,
   STOP_GAME_MUTATION,
-  GAME_STATUS_SUBSCRIPTION
+  GAME_UPDATED_SUBSCRIPTION
 }

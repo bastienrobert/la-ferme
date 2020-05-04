@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import styled from 'styled-components/native'
 import { useSubscription, useQuery, useMutation } from '@apollo/react-hooks'
+import { GameStatusType } from '@la-ferme/shared/typings'
 import { Button } from '@la-ferme/components/native'
 
 import Container from '@/components/shared/Container'
@@ -10,7 +11,7 @@ import Text from '@/components/typo/Text'
 
 import { GET_BOX_ID } from '@/graphql/local'
 import { NEW_USER_IN_ROOM_SUBSCRIPTION } from '@/graphql/room'
-import { START_GAME_MUTATION, GAME_STATUS_SUBSCRIPTION } from '@/graphql/game'
+import { START_GAME_MUTATION, GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
 
 import auth from '@/services/auth'
 
@@ -52,7 +53,7 @@ const Player: FC<any> = ({ data }) => {
       </TitleContainer>
       <ContentContainer>
         <Text color="beige" textAlign="center">
-          Un peu de patience ! Les joueurs rejoignent la partie !
+          Un peu de patience ! Les joueurs rejoignent la partie !
         </Text>
       </ContentContainer>
       {data && <Users data={data.users} />}
@@ -67,7 +68,7 @@ const Room: FC<any> = ({ navigation, route }) => {
   const boxID = boxIDQuery?.data?.boxID
 
   const [startGameMututation] = useMutation(START_GAME_MUTATION)
-  const gameStatusSubscription = useSubscription(GAME_STATUS_SUBSCRIPTION, {
+  const gameUpdatedSubscription = useSubscription(GAME_UPDATED_SUBSCRIPTION, {
     variables: { boxID }
   })
   const newUserInRoomSubscription = useSubscription(
@@ -82,9 +83,11 @@ const Room: FC<any> = ({ navigation, route }) => {
   // TODO
   // subscription should be cancelled when React navigation focus blur
   useEffect(() => {
-    if (!gameStatusSubscription.data || !navigation.isFocused) return
+    if (!navigation.isFocused) return
+    const data = gameUpdatedSubscription.data?.gameUpdated
+    if (!data || data.type !== GameStatusType.START) return
     navigation.navigate('Onboarding:Hello')
-  }, [gameStatusSubscription.data, navigation])
+  }, [gameUpdatedSubscription.data, navigation])
 
   const onStartPress = () => {
     startGameMututation({ variables: { boxID, userUUID: auth.uuid } })

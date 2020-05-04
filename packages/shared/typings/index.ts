@@ -42,3 +42,28 @@ export interface Skill {
   text: string
   effect: string
 }
+
+export enum RoundStep {
+  NEW = 'new',
+  BOARD = 'board',
+  COMPLETE = 'complete'
+}
+
+export enum RoundChoice {
+  CIVIL = 'civil',
+  UNCIVIL = 'uncivil'
+}
+
+export enum GameStatusType {
+  START = 'start',
+  END = 'end',
+  REPORT = 'report',
+  READY = 'ready',
+  ROUND = 'round',
+  SKILL = 'skill'
+}
+
+export interface GameStatus {
+  type: GameStatusType
+  players: Player[]
+}

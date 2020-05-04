@@ -7,8 +7,7 @@ import FullContainer from '@/components/shared/FullContainer'
 import Title from '@/components/typo/Title'
 
 import { GET_BOX_ID } from '@/graphql/local'
-import { READY_PLAYERS_QUERY } from '@/graphql/game'
-import { PLAYER_IS_READY_SUBSCRIPTION } from '@/graphql/player'
+import { READY_PLAYERS_QUERY, GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
 
 const Pending: FC<any> = ({ navigation }) => {
   const { setTheme } = useContext(ThemeContext)
@@ -24,13 +23,12 @@ const Pending: FC<any> = ({ navigation }) => {
     variables: { boxID }
   })
 
-  const playerIsReadySubscription = useSubscription(
-    PLAYER_IS_READY_SUBSCRIPTION,
-    { variables: { boxID } }
-  )
+  const gameUpdatedSubscription = useSubscription(GAME_UPDATED_SUBSCRIPTION, {
+    variables: { boxID }
+  })
 
   const players =
-    playerIsReadySubscription.data?.playerIsReady?.players ??
+    gameUpdatedSubscription.data?.gameUpdated?.players ??
     playerIsReadyQuery.data?.getReadyPlayers ??
     []
 

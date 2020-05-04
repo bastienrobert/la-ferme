@@ -5,23 +5,25 @@ import { PopupType } from './Popups'
 
 import Container from '@/components/shared/Container'
 import { Colors, Icon } from '@la-ferme/components/native'
+import { useMutation } from '@apollo/react-hooks'
+import { STOP_GAME_MUTATION } from '@/graphql/game'
 
-const Menu: FC<any> = ({ setPopup }) => {
+const Menu: FC<any> = ({ boxID, userUUID, setPopup }) => {
   const [visible, setVisible] = useState(false)
+  const [stopGameMututation] = useMutation(STOP_GAME_MUTATION)
 
   const onShowPress = () => setVisible(true)
   const onHidePress = () => setVisible(false)
   const onReportPress = () => setPopup(PopupType.REPORT)
+  const onGameOverPress = () => {
+    stopGameMututation({ variables: { boxID, winnerUUID: userUUID } })
+  }
 
   return (
     <Component>
       {visible ? (
         <VisibleWrapper>
-          <Icon
-            icon="end"
-            background="gray"
-            onPress={() => console.log('GAME OVER')}
-          />
+          <Icon icon="end" background="gray" onPress={onGameOverPress} />
           <Icon icon="brigade" background="gray" onPress={onReportPress} />
           <Icon
             icon="lightning"

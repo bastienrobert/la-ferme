@@ -1,17 +1,31 @@
-type Round {
-  user: UUID!
+type Cards {
+  civil: String
+  uncivil: String
 }
 
-type NewRound {
-  boxID: UUID!
-  round: Round!
+type Round {
+  user: UUID!
+  step: RoundStep!
+  cards: Cards
+}
+
+enum RoundStep {
+  new
+  board
+  complete
+}
+
+enum RoundChoice {
+  civil
+  uncivil
 }
 
 extend type Mutation {
   readyForRound(boxID: UUID!, userUUID: UUID!): Boolean!
-  pushRound(boxID: UUID!, userUUID: UUID!): Boolean!
-}
-
-extend type Subscription {
-  newRound(boxID: UUID!): NewRound!
+  setRound(
+    boxID: UUID!
+    userUUID: UUID!
+    choice: RoundChoice
+    step: RoundStep!
+  ): Boolean!
 }

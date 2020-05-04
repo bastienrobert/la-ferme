@@ -3,15 +3,45 @@ interface Game {
   players: [Player]!
 }
 
-type NewGame implements Game {
+enum GameStatusType {
+  start
+  end
+  report
+  ready
+  round
+  skill
+}
+
+interface GameStatus {
+  type: GameStatusType!
   boxID: UUID!
   players: [Player]!
 }
 
-type WonGame implements Game {
+type GameStatusDefault implements GameStatus {
+  type: GameStatusType!
   boxID: UUID!
   players: [Player]!
-  winnerUUID: UUID
+}
+
+type GameStatusRound implements GameStatus {
+  type: GameStatusType!
+  boxID: UUID!
+  players: [Player]!
+  round: Round!
+}
+
+type GameStatusReady implements GameStatus {
+  type: GameStatusType!
+  boxID: UUID!
+  players: [Player]!
+}
+
+type GameStatusWon implements GameStatus {
+  type: GameStatusType!
+  boxID: UUID!
+  players: [Player]!
+  winnerUUID: UUID!
 }
 
 extend type Query {
@@ -24,5 +54,5 @@ extend type Mutation {
 }
 
 extend type Subscription {
-  gameStatus(boxID: UUID!): Game!
+  gameUpdated(boxID: UUID!): GameStatus!
 }

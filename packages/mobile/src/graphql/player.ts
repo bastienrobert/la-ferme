@@ -27,20 +27,4 @@ const PLAYER_READY_MUTATION = gql`
   }
 `
 
-const PLAYER_IS_READY_SUBSCRIPTION = gql`
-  subscription PlayerIsReady($boxID: UUID!) {
-    playerIsReady(boxID: $boxID) {
-      players {
-        ...PlayerInfos
-      }
-    }
-  }
-  ${fragments.playerInfos}
-`
-
-export {
-  fragments,
-  GET_PLAYER,
-  PLAYER_READY_MUTATION,
-  PLAYER_IS_READY_SUBSCRIPTION
-}
+export { fragments, GET_PLAYER, PLAYER_READY_MUTATION }

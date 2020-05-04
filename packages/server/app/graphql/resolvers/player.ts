@@ -1,6 +1,5 @@
 import { PLAYER } from '@la-ferme/shared/constants'
-import { Player } from '@la-ferme/shared/typings'
-import { withFilter } from 'apollo-server'
+import { Player, GameStatusType } from '@la-ferme/shared/typings'
 
 import pubsub from '@/app/pubsub'
 
@@ -46,23 +45,14 @@ const resolvers = {
       const formattedPlayers = await formatPlayers(players)
 
       pubsub.publish(PLAYER.READY, {
-        playerIsReady: {
+        gameUpdated: {
+          type: GameStatusType.READY,
           boxID,
           players: formattedPlayers
         }
       })
 
       return true
-    }
-  },
-  Subscription: {
-    playerIsReady: {
-      subscribe: withFilter(
-        () => pubsub.asyncIterator(PLAYER.READY),
-        ({ playerIsReady }, variables) => {
-          return playerIsReady.boxID === variables.boxID
-        }
-      )
     }
   }
 }

@@ -6,20 +6,30 @@ const READY_FOR_ROUND_MUTATION = gql`
   }
 `
 
-const PUSH_ROUND_MUTATION = gql`
-  mutation PushRound($userUUID: UUID!, $boxID: UUID!) {
-    pushRound(userUUID: $userUUID, boxID: $boxID)
+const SET_ROUND_MUTATION = gql`
+  mutation SetRound(
+    $userUUID: UUID!
+    $boxID: UUID!
+    $step: RoundStep!
+    $choice: RoundChoice
+  ) {
+    setRound(userUUID: $userUUID, boxID: $boxID, step: $step, choice: $choice)
   }
 `
 
-const NEW_ROUND_SUBSCRIPTION = gql`
-  subscription NewRound($boxID: UUID!) {
-    newRound(boxID: $boxID) {
+const ROUND_UPDATED_SUBSCRIPTION = gql`
+  subscription RoundUpdated($boxID: UUID!) {
+    roundUpdated(boxID: $boxID) {
       round {
         user
+        step
       }
     }
   }
 `
 
-export { READY_FOR_ROUND_MUTATION, PUSH_ROUND_MUTATION, NEW_ROUND_SUBSCRIPTION }
+export {
+  READY_FOR_ROUND_MUTATION,
+  SET_ROUND_MUTATION,
+  ROUND_UPDATED_SUBSCRIPTION
+}
