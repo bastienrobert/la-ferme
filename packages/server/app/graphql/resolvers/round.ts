@@ -69,7 +69,7 @@ const publishRound = (boxID, { players, round }) => {
 const resolvers = {
   RoundStep: {
     new: RoundStep.NEW,
-    board: RoundStep.BOARD,
+    card: RoundStep.CARD,
     complete: RoundStep.COMPLETE
   },
   RoundChoice: {
@@ -100,8 +100,7 @@ const resolvers = {
 
       return true
     },
-    // set a round status with given infos
-    async setRound(_, { boxID, userUUID, choice, step }) {
+    async confirmBoardRound(_, { boxID, userUUID }) {
       const game = await getGame(boxID)
       const rounds = await getRounds(game)
       const players = game.related('players') as Collection<Player>
@@ -115,41 +114,53 @@ const resolvers = {
 
       if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
 
-      lastRound.step = step
+      lastRound.step = RoundStep.CARD
+      await lastRound.save()
 
-      if (step === RoundStep.BOARD) {
-        await lastRound.save()
-        const formattedRound = formatRound(lastRound)
-        publishRound(boxID, {
-          players: formatPlayers(players),
-          round: formattedRound
-        })
-        return true
-      } else {
-        const serializedPlayers = players.serialize()
-        const nextPlayerIndex =
-          (serializedPlayers.findIndex(p => p.id === player.id) + 1) %
-          players.length
-        const nextPlayer = players.at(nextPlayerIndex)
+      const formattedRound = formatRound(lastRound)
+      publishRound(boxID, {
+        players: formatPlayers(players),
+        round: formattedRound
+      })
+      return true
+    },
+    // set a round status with given infos
+    async setCardRound(_, { boxID, userUUID, choice }) {
+      const game = await getGame(boxID)
+      const rounds = await getRounds(game)
+      const players = game.related('players') as Collection<Player>
 
-        lastRound.choice = choice
+      const lastRound = await rounds
+        .last()
+        .fetch({ withRelated: ['player', 'player.user'] })
 
-        console.log('ROUND CHOICE', choice)
+      const player = lastRound.related('player') as Player
+      const user = player.related('user') as User
 
-        // check events before creating round to assign it to the good person
-        // get events from Game.events() WHERE status IS NEW AND WHERE player IS nextPlayer
-        const [round] = await Promise.all([
-          createRound(game.id, nextPlayer.id),
-          lastRound.save()
-        ])
-        const formattedRound = formatRound(round)
-        publishRound(boxID, {
-          players: formatPlayers(players),
-          round: formattedRound
-        })
+      if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
 
-        return true
-      }
+      lastRound.step = RoundStep.COMPLETE
+      lastRound.choice = choice
+
+      const serializedPlayers = players.serialize()
+      const nextPlayerIndex =
+        (serializedPlayers.findIndex(p => p.id === player.id) + 1) %
+        players.length
+      const nextPlayer = players.at(nextPlayerIndex)
+
+      // check events before creating round to assign it to the good person
+      // get events from Game.events() WHERE status IS NEW AND WHERE player IS nextPlayer
+      const [round] = await Promise.all([
+        createRound(game.id, nextPlayer.id),
+        lastRound.save()
+      ])
+      const formattedRound = formatRound(round)
+      publishRound(boxID, {
+        players: formatPlayers(players),
+        round: formattedRound
+      })
+
+      return true
     }
   }
 }

@@ -6,7 +6,10 @@ import { Button } from '@la-ferme/components/native'
 import Container from '@/components/shared/Container'
 import Text from '@/components/typo/Text'
 
-import { SET_ROUND_MUTATION } from '@/graphql/round'
+import {
+  CONFIRM_BOARD_ROUND_MUTATION,
+  SET_CARD_ROUND_MUTATION
+} from '@/graphql/round'
 
 export interface RoundProps {
   data: any
@@ -15,17 +18,18 @@ export interface RoundProps {
 }
 
 const Submit: FC<any> = ({ boxID, userUUID, data }) => {
-  const [setRoundMutation] = useMutation(SET_ROUND_MUTATION)
+  const [confirmBoardRoundMutation] = useMutation(CONFIRM_BOARD_ROUND_MUTATION)
+  const [setCardRoundMutation] = useMutation(SET_CARD_ROUND_MUTATION)
 
   const onBoardPress = () => {
-    setRoundMutation({
-      variables: { boxID, userUUID, step: RoundStep.BOARD }
+    confirmBoardRoundMutation({
+      variables: { boxID, userUUID }
     })
   }
 
   const onChoicePress = (choice: RoundChoice) => {
-    setRoundMutation({
-      variables: { boxID, userUUID, step: RoundStep.COMPLETE, choice }
+    setCardRoundMutation({
+      variables: { boxID, userUUID, choice }
     })
   }
 

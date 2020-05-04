@@ -45,7 +45,7 @@ export interface Skill {
 
 export enum RoundStep {
   NEW = 'new',
-  BOARD = 'board',
+  CARD = 'card',
   COMPLETE = 'complete'
 }
 

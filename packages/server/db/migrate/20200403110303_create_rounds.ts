@@ -5,7 +5,7 @@ export async function up(knex: Knex): Promise<any> {
     table.increments('id').primary()
     table.integer('game_id').references('games.id').onDelete('cascade')
     table.integer('player_id').references('players.id').onDelete('cascade')
-    table.enu('step', ['new', 'board', 'complete']).defaultTo('new')
+    table.enu('step', ['new', 'card', 'complete']).defaultTo('new')
     table.enu('type', ['classic', 'replay', 'pass']).defaultTo('classic')
     table.string('civil_card')
     table.string('uncivil_card')

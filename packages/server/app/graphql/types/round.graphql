@@ -3,15 +3,9 @@ type Cards {
   uncivil: String
 }
 
-type Round {
-  user: UUID!
-  step: RoundStep!
-  cards: Cards
-}
-
 enum RoundStep {
   new
-  board
+  card
   complete
 }
 
@@ -20,12 +14,14 @@ enum RoundChoice {
   uncivil
 }
 
+type Round {
+  user: UUID!
+  step: RoundStep!
+  cards: Cards
+}
+
 extend type Mutation {
   readyForRound(boxID: UUID!, userUUID: UUID!): Boolean!
-  setRound(
-    boxID: UUID!
-    userUUID: UUID!
-    choice: RoundChoice
-    step: RoundStep!
-  ): Boolean!
+  confirmBoardRound(boxID: UUID!, userUUID: UUID!): Boolean!
+  setCardRound(boxID: UUID!, userUUID: UUID!, choice: RoundChoice): Boolean!
 }
