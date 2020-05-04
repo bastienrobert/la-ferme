@@ -55,9 +55,9 @@ const Role: FC<any> = ({ navigation }) => {
         </Text>
       ))} */}
 
-      <Container>
+      {/* <Container>
         <Button onPress={onReadyPress}>Ready</Button>
-      </Container>
+      </Container> */}
     </>
   )
 }

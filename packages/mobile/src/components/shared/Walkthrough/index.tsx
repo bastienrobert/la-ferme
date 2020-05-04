@@ -2,20 +2,40 @@ import React, { FC, useState } from 'react'
 import { Animated, PanResponder } from 'react-native'
 import styled from 'styled-components/native'
 
-import background from '@/assets/images/role/ticket_01.png'
-
 import FullContainer from '@/components/shared/FullContainer'
 
 import WalkthroughCard from './WalkthroughCard'
 import viewport from '@/services/viewport'
 
 const Walkthrough: FC<any> = () => {
-  const [pan] = useState(new Animated.ValueXY())
-  let currentIndex = 0
-  let rotate = null
-
   // const datas = [this.props.data.character, this.props.data.skill, this.props.data.goal]
   const datas = ['character_test', 'skill_test', 'goal_test']
+
+  const [pan] = useState(new Animated.ValueXY())
+  let [currentIndex, setIndex] = useState(0)
+
+  const rotate = pan.x.interpolate({
+    inputRange: [-viewport.width / 2, 0, viewport.width / 2],
+    outputRange: ['-10deg', '0deg', '10deg'],
+    extrapolate: 'clamp'
+  })
+
+  const opacity = pan.x.interpolate({
+    inputRange: [-viewport.width, 0, viewport.width],
+    outputRange: [0, 1, 0],
+    extrapolate: 'clamp'
+  })
+
+  const cardStyle = {
+    transform: [
+      {
+        rotate: rotate
+      },
+      ...pan.getTranslateTransform()
+    ],
+    opacity: opacity
+  }
+
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: Animated.event([
@@ -26,57 +46,20 @@ const Walkthrough: FC<any> = () => {
       }
     ]),
     onPanResponderRelease: (evt, gestureState) => {
-      switch (currentIndex) {
-        case 0:
-          if (gestureState.dx > 120) {
-            swipeCardRight(gestureState)
-            currentIndex += 1
-          } else {
-            clampToCenter()
-          }
-          break
-        case 1:
-          if (gestureState.dx > 120) {
-            swipeCardRight(gestureState)
-            currentIndex += 1
-          } else if (gestureState.dx < -120) {
-            swipeCardLeft(gestureState)
-            getCardBack(currentIndex)
-            currentIndex -= 1
-          } else {
-            clampToCenter()
-          }
-          break
-        case 2:
-          if (gestureState.dx < -120 && currentIndex === 2) {
-            swipeCardLeft(gestureState)
-            getCardBack(currentIndex)
-            currentIndex -= 1
-          } else {
-            clampToCenter()
-          }
-          break
+      if (currentIndex >= 0 && currentIndex <= 2) {
+        if (gestureState.dx > 120 || gestureState.dx < -120) {
+          swipeCard(gestureState, Math.sign(gestureState.dx))
+          setIndex(currentIndex + 1)
+        } else {
+          clampToCenter()
+        }
       }
-
-      if (currentIndex > 2) {
-        currentIndex = 0
-      }
-
-      setTimeout(() => {
-        console.log(currentIndex)
-      }, 1000)
     }
   })
 
-  const swipeCardLeft = gest => {
+  const swipeCard = (gest, dir) => {
     Animated.spring(pan, {
-      toValue: { x: -viewport.width - 100, y: gest.dy },
-      useNativeDriver: true
-    }).start()
-  }
-  const swipeCardRight = gest => {
-    Animated.spring(pan, {
-      toValue: { x: viewport.width + 100, y: gest.dy },
+      toValue: { x: (viewport.width + 100) * dir, y: gest.dy },
       useNativeDriver: true
     }).start()
   }
@@ -89,110 +72,50 @@ const Walkthrough: FC<any> = () => {
     }).start()
   }
 
-  const getCardBack = cardId => {
-    console.log(cardId)
-  }
-
-  const renderCard = (card, i) => {
-    switch (i) {
-      case 0:
-        rotate = pan.x.interpolate({
-          inputRange: [-viewport.width / 2, 0, viewport.width / 2],
-          outputRange: ['0deg', '0deg', '10deg'],
-          extrapolate: 'clamp'
-        })
-        break
-      case 1:
-        rotate = pan.x.interpolate({
-          inputRange: [-viewport.width / 2, 0, viewport.width / 2],
-          outputRange: ['-10deg', '0deg', '10deg'],
-          extrapolate: 'clamp'
-        })
-        break
-      case 2:
-        rotate = pan.x.interpolate({
-          inputRange: [-viewport.width / 2, 0, viewport.width / 2],
-          outputRange: ['-10deg', '0deg', '0deg'],
-          extrapolate: 'clamp'
-        })
-        break
-    }
-
-    const rotateAndTranslate = {
-      transform: [
-        {
-          rotate: rotate
-        },
-        ...pan.getTranslateTransform()
-      ]
-    }
-
-    if (i < currentIndex) {
-      return null
-    } else if (i === currentIndex) {
-      return (
-        <StyledView
-          key={i}
-          as={Animated.View}
-          style={rotateAndTranslate}
-          {...panResponder.panHandlers}>
-          <WalkthroughCard data={card} />
-        </StyledView>
-      )
-    } else {
-      return (
-        <StyledView key={i} as={Animated.View}>
-          <WalkthroughCard data={card} />
-        </StyledView>
-      )
-    }
-  }
+  // const getCardBack = cardId => {
+  //   currentIndex -= 1
+  //   console.log(cardId)
+  // }
 
   return (
-    <Component>
-      <BackCard>
-        <StyledImageOne source={background} />
-        <StyledImageTwo source={background} />
-      </BackCard>
-      {datas.map((card, i) => renderCard(card, i)).reverse()}
-    </Component>
+    <CardContainer>
+      {datas
+        .map((card, i) => {
+          if (i < currentIndex) {
+            return null
+          } else if (i === currentIndex) {
+            return (
+              <StyledView
+                key={i}
+                as={Animated.View}
+                style={cardStyle}
+                {...panResponder.panHandlers}>
+                <WalkthroughCard data={card} />
+              </StyledView>
+            )
+          } else {
+            return (
+              <StyledView key={i} as={Animated.View}>
+                <WalkthroughCard data={card} />
+              </StyledView>
+            )
+          }
+        })
+        .reverse()}
+    </CardContainer>
   )
 }
 
 export default Walkthrough
 
-const Component = styled(FullContainer)`
+const CardContainer = styled(FullContainer)`
   height: ${viewport.height}px;
   width: ${viewport.width}px;
+  flex: 1;
 `
 
 const StyledView = styled.View`
   width: 100%;
   height: 100%;
   position: absolute;
-`
-
-const BackCard = styled.View`
-  width: 100%;
-  height: 100%;
-  margin: auto;
-  margin-top: 8%;
-  flex-direction: column;
-  align-items: center;
-`
-
-const StyledImageOne = styled.Image`
-  width: 95%;
-  height: 85%;
-  resize-mode: stretch;
-  position: absolute;
-  transform: rotate(2deg);
-`
-
-const StyledImageTwo = styled.Image`
-  width: 95%;
-  height: 85%;
-  resize-mode: stretch;
-  position: absolute;
-  transform: translate(2px, 1px) rotate(-1deg);
 `
