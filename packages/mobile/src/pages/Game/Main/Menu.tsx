@@ -1,22 +1,28 @@
 import React, { FC, useState } from 'react'
 import styled from 'styled-components/native'
+import { useMutation } from '@apollo/react-hooks'
+import { Colors, Icon } from '@la-ferme/components/native'
 
 import { PopupType } from './Popups'
 
 import Container from '@/components/shared/Container'
-import { Colors, Icon } from '@la-ferme/components/native'
-import { useMutation } from '@apollo/react-hooks'
+
 import { STOP_GAME_MUTATION } from '@/graphql/game'
+import { USE_SKILL_MUTATION } from '@/graphql/skill'
 
 const Menu: FC<any> = ({ boxID, userUUID, setPopup }) => {
   const [visible, setVisible] = useState(false)
   const [stopGameMututation] = useMutation(STOP_GAME_MUTATION)
+  const [skillMutation] = useMutation(USE_SKILL_MUTATION)
 
   const onShowPress = () => setVisible(true)
   const onHidePress = () => setVisible(false)
   const onReportPress = () => setPopup(PopupType.REPORT)
   const onGameOverPress = () => {
     stopGameMututation({ variables: { boxID, winnerUUID: userUUID } })
+  }
+  const onSkillPress = () => {
+    skillMutation({ variables: { userUUID } })
   }
 
   return (
@@ -25,11 +31,7 @@ const Menu: FC<any> = ({ boxID, userUUID, setPopup }) => {
         <VisibleWrapper>
           <Icon icon="end" background="gray" onPress={onGameOverPress} />
           <Icon icon="brigade" background="gray" onPress={onReportPress} />
-          <Icon
-            icon="lightning"
-            background="gray"
-            onPress={() => console.log('SPECIAL')}
-          />
+          <Icon icon="lightning" background="gray" onPress={onSkillPress} />
           <Icon icon="cross" background="red" onPress={onHidePress} />
         </VisibleWrapper>
       ) : (

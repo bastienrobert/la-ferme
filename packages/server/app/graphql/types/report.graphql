@@ -7,7 +7,3 @@ type Report {
 extend type Mutation {
   reportPlayer(boxID: UUID!, fromUUID: UUID!, toUUID: UUID!): Boolean!
 }
-
-extend type Subscription {
-  playerIsReport(boxID: UUID!): Report!
-}

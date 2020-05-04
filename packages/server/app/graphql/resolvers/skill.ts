@@ -10,8 +10,12 @@ const resolvers = {
       })
 
       const player = getPlayer(user)
-      const skill = player.skill().fetch()
-      console.log(skill)
+      const skill = await player.skill().fetch()
+      skill.used()
+      await skill.save()
+
+      // TODO
+      // create event for skill use
 
       return true
     }
