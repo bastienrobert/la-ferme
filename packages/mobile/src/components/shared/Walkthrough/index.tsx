@@ -120,7 +120,9 @@ const Walkthrough: FC<any> = ({ data, onReadyPress }) => {
                 <StyledView key={i}>
                   <WalkthroughCard data={card} />
                   <Component as={Animated.View} style={{ opacity: fadeAnim }}>
-                    <Button onPress={onReadyPress}>PRÊÊÊÊT</Button>
+                    <Button variant="secondary" onPress={onReadyPress}>
+                      PRÊÊÊÊT
+                    </Button>
                   </Component>
                 </StyledView>
               )
@@ -138,7 +140,7 @@ const Walkthrough: FC<any> = ({ data, onReadyPress }) => {
       <Navigation
         changeCard={changeCard}
         currentIndex={currentIndex}
-        titles={['01 PERSO', '02 OBJECT', 'O3 OBJECTIF']}
+        titles={['01 PERSO', '02 OBJET', 'O3 OBJECTIF']}
       />
     </CardContainer>
   )
@@ -167,5 +169,5 @@ const StyledView = styled.View`
   width: 100%;
   height: 100%;
   position: absolute;
-  transform: rotate(${random(-1, 2)}deg);
+  transform: rotate(${random(-2, 3)}deg);
 `

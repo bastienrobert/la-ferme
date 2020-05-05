@@ -28,7 +28,11 @@ const Navigation: FC<any> = ({ changeCard, currentIndex, titles }) => {
               onPress={() => {
                 changeCard(i)
               }}>
-              <Title preset="H4">{title}</Title>
+              <StyledTitle>
+                <Title preset="H4" color="beige">
+                  {title}
+                </Title>
+              </StyledTitle>
             </StyledButton>
           )
         }
@@ -48,4 +52,10 @@ const NavigationContainer = styled(Container)`
   justify-content: space-between;
 `
 
-const StyledButton = styled.TouchableOpacity``
+const StyledButton = styled.TouchableOpacity`
+  margin: 0;
+`
+
+const StyledTitle = styled(Container)`
+  opacity: 0.5;
+`
