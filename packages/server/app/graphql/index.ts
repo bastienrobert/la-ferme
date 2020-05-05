@@ -13,6 +13,7 @@ import userDefs from './types/user.graphql'
 import gameDefs from './types/game.graphql'
 import playerDefs from './types/player.graphql'
 import roundDefs from './types/round.graphql'
+import eventDefs from './types/event.graphql'
 import reportDefs from './types/report.graphql'
 import skillDefs from './types/skill.graphql'
 
@@ -22,6 +23,7 @@ import userResolvers from './resolvers/user'
 import gameResolvers from './resolvers/game'
 import playerResolvers from './resolvers/player'
 import roundResolvers from './resolvers/round'
+import eventResolvers from './resolvers/event'
 import reportResolvers from './resolvers/report'
 import skillResolvers from './resolvers/skill'
 
@@ -47,6 +49,7 @@ export default makeExecutableSchema({
     gameDefs,
     playerDefs,
     roundDefs,
+    eventDefs,
     reportDefs,
     skillDefs
   ],
@@ -57,6 +60,7 @@ export default makeExecutableSchema({
     gameResolvers,
     playerResolvers,
     roundResolvers,
+    eventResolvers,
     reportResolvers,
     skillResolvers
   )

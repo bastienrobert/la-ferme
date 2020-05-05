@@ -85,7 +85,7 @@ const Room: FC<any> = ({ navigation, route }) => {
   useEffect(() => {
     if (!navigation.isFocused) return
     const data = gameUpdatedSubscription.data?.gameUpdated
-    if (!data || data.type !== GameStatusType.START) return
+    if (!data || data.type !== GameStatusType.Start) return
     navigation.navigate('Onboarding:Hello')
   }, [gameUpdatedSubscription.data, navigation])
 

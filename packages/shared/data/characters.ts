@@ -7,7 +7,7 @@ const characters: Character[] = [
     color: 'pink',
     secondaryColor: 'blue',
     description: '#la vieille bique',
-    gender: Gender.FEMALE,
+    gender: Gender.Female,
     text:
       'Monique adore prendre son temps. Elle a l’expérience de l’âge mais aussi le caractère qui va avec. Son petit plaisir ? Ruminer au téléphone avec Henriette la biquette la biquette.'
   },
@@ -17,7 +17,7 @@ const characters: Character[] = [
     color: 'blue',
     secondaryColor: 'yellow',
     description: '#la boule de coton',
-    gender: Gender.MALE,
+    gender: Gender.Male,
     text:
       'Léon est un vrai glouton. Il passe son temps à manger pour rassasier son appetit de loup.'
   },
@@ -27,7 +27,7 @@ const characters: Character[] = [
     color: 'yellow',
     secondaryColor: 'blue',
     description: '#le globe-trotter',
-    gender: Gender.MALE,
+    gender: Gender.Male,
     text:
       'Pour ne pas devenir chèvre, Peter, le globe trotteur est toujours paré dune boussole et d’une carte sur lui. Prêt pour l’aventure ? '
   },
@@ -37,7 +37,7 @@ const characters: Character[] = [
     color: 'red',
     secondaryColor: 'yellow',
     description: '#la rebêeellle',
-    gender: Gender.FEMALE,
+    gender: Gender.Female,
     text:
       'Isabelle n’est pas commode. N’allez pas lui cherchez des poux où elle vous enverra vous faire tondre. Après tout, les béliers sont connus pour leur caractère bien trempé.'
   }

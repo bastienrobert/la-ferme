@@ -5,9 +5,9 @@ import Game from './Game'
 import Player from './Player'
 
 export enum RoundType {
-  CLASSIC = 'classic',
-  REPLAY = 'replay',
-  PASS = 'pass'
+  Classic = 'classic',
+  Replay = 'replay',
+  Pass = 'pass'
 }
 
 export default class Round extends db.bookshelf.Model<Round> {

@@ -46,7 +46,7 @@ const resolvers = {
 
       pubsub.publish(PLAYER.READY, {
         gameUpdated: {
-          type: GameStatusType.READY,
+          type: GameStatusType.Ready,
           boxID,
           players: formattedPlayers
         }

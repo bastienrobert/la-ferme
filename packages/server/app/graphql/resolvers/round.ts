@@ -18,6 +18,8 @@ import Player from '@/app/models/Player'
 import Game from '@/app/models/Game'
 
 import { connections } from '@/app/stores'
+import setReports from '@/app/engine/setReports'
+
 import formatPlayers from '@/app/helpers/formatPlayers'
 import getRandom from '@/app/helpers/getRandom'
 
@@ -26,7 +28,7 @@ const formatRound = async (round: Round, step): Promise<RoundType> => {
   const user = player.related('user') as User
 
   switch (step) {
-    case RoundStep.CONFIRM:
+    case RoundStep.Confirm:
       return {
         user: user.uuid,
         step: round.step,
@@ -36,7 +38,7 @@ const formatRound = async (round: Round, step): Promise<RoundType> => {
         },
         choice: round.choice
       }
-    case RoundStep.CARD:
+    case RoundStep.Card:
       return {
         user: user.uuid,
         step: round.step,
@@ -81,7 +83,7 @@ const createRound = async (gameID, playerID) => {
 const publishRound = (boxID, { players, round, numberOfRounds }) => {
   pubsub.publish(ROUND.UPDATE, {
     gameUpdated: {
-      type: GameStatusType.ROUND,
+      type: GameStatusType.Round,
       boxID,
       numberOfRounds,
       players,
@@ -94,9 +96,9 @@ const resolvers = {
   Round: {
     __resolveType({ step }) {
       switch (step) {
-        case RoundStep.CONFIRM:
+        case RoundStep.Confirm:
           return 'RoundStepConfirm'
-        case RoundStep.CARD:
+        case RoundStep.Card:
           return 'RoundStepCard'
         default:
           return 'RoundStepDefault'
@@ -104,14 +106,14 @@ const resolvers = {
     }
   },
   RoundStep: {
-    new: RoundStep.NEW,
-    card: RoundStep.CARD,
-    confirm: RoundStep.CONFIRM,
-    complete: RoundStep.COMPLETE
+    new: RoundStep.New,
+    card: RoundStep.Card,
+    confirm: RoundStep.Confirm,
+    complete: RoundStep.Complete
   },
   RoundChoice: {
-    civil: RoundChoice.CIVIL,
-    uncivil: RoundChoice.UNCIVIL
+    civil: RoundChoice.Civil,
+    uncivil: RoundChoice.Uncivil
   },
   Mutation: {
     // user in the game
@@ -129,7 +131,7 @@ const resolvers = {
         const player = players.first()
         const round = await createRound(game.id, player.id)
         const numberOfRounds = await game.numberOfRounds()
-        const formattedRound = formatRound(round, RoundStep.NEW)
+        const formattedRound = formatRound(round, RoundStep.New)
         publishRound(boxID, {
           players: formatPlayers(players),
           round: formattedRound,
@@ -153,7 +155,7 @@ const resolvers = {
 
       if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
 
-      const step = RoundStep.CARD
+      const step = RoundStep.Card
       lastRound.step = step
       await lastRound.save()
 
@@ -180,7 +182,13 @@ const resolvers = {
 
       if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
 
-      const step = RoundStep.CONFIRM
+      setReports(boxID, {
+        game,
+        player,
+        delta: choice === RoundChoice.Civil ? 1 : -2
+      })
+
+      const step = RoundStep.Confirm
       lastRound.step = step
       lastRound.choice = choice
       await lastRound.save()
@@ -209,7 +217,7 @@ const resolvers = {
 
       if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
 
-      lastRound.step = RoundStep.COMPLETE
+      lastRound.step = RoundStep.Complete
 
       const serializedPlayers = players.serialize()
       const nextPlayerIndex =
@@ -224,7 +232,7 @@ const resolvers = {
         lastRound.save()
       ])
       const numberOfRounds = await game.numberOfRounds()
-      const formattedRound = formatRound(round, RoundStep.NEW)
+      const formattedRound = formatRound(round, RoundStep.New)
       publishRound(boxID, {
         players: formatPlayers(players),
         round: formattedRound,

@@ -16,6 +16,7 @@ import Text from '@/components/typo/Text'
 import { GET_BOX_ID } from '@/graphql/local'
 import { GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
 import { READY_FOR_ROUND_MUTATION } from '@/graphql/round'
+import { EVENT_TRIGGERED_SUBSCRIPTION } from '@/graphql/event'
 
 import auth from '@/services/auth'
 
@@ -49,19 +50,31 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   )
 
   /**
-   * navigate to GameOver screen if winner
+   * event update subscription
+   */
+  const eventTriggeredSubscription = useSubscription(
+    EVENT_TRIGGERED_SUBSCRIPTION,
+    {
+      variables: { boxID }
+    }
+  )
+  const eventData = eventTriggeredSubscription.data?.eventTriggered
+  console.log(eventTriggeredSubscription)
+
+  /**
+   * game update subscription
    */
   const gameUpdatedSubscription = useSubscription(GAME_UPDATED_SUBSCRIPTION, {
     variables: { boxID }
   })
-  const data = gameUpdatedSubscription.data?.gameUpdated
-  const numberOfRounds = data?.numberOfRounds
+  const gameData = gameUpdatedSubscription.data?.gameUpdated
+  const numberOfRounds = gameData?.numberOfRounds
 
   useEffect(() => {
-    if (!data || data.type !== GameStatusType.END) return
-    const winner = data.winnerUUID
+    if (!gameData || gameData.type !== GameStatusType.End) return
+    const winner = gameData.winnerUUID
     navigation.navigate('Game:GameOver', { winner })
-  }, [data, navigation])
+  }, [gameData, navigation])
 
   return (
     <FullContainer>
@@ -71,14 +84,15 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
           CURRENT ROUND: {Math.floor((numberOfRounds - 1) / players.length) + 1}
         </Text>
       ) : null}
-      {data && data.type === GameStatusType.ROUND && (
+      {gameData && gameData.type === GameStatusType.Round && (
         <Round
           boxID={boxID}
           userUUID={auth.uuid}
           players={players}
-          data={data.round}
+          data={gameData.round}
         />
       )}
+      {eventData ? <Text>EVENT: {eventData.type}</Text> : null}
       <Menu boxID={boxID} userUUID={auth.uuid} setPopup={setPopup} />
       {popup && (
         <Popups

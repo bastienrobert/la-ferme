@@ -29,19 +29,19 @@ const Watcher: FC<RoundProps> = ({ players, data }) => {
   const current = players.find(player => player.user === data.user)
 
   switch (data.step) {
-    case RoundStep.NEW:
+    case RoundStep.New:
       return (
         <Container>
           <Text>{current.character} décide davancer ou de tourner</Text>
         </Container>
       )
-    case RoundStep.CARD:
+    case RoundStep.Card:
       return (
         <Container>
           <Text>{current.character} choisi une carte</Text>
         </Container>
       )
-    case RoundStep.CONFIRM:
+    case RoundStep.Confirm:
       return (
         <Container>
           <Text>{current.character} est en train de confirmer</Text>
@@ -79,7 +79,7 @@ const Player: FC<RoundProps> = ({ boxID, userUUID, data }) => {
   }
 
   switch (data.step) {
-    case RoundStep.NEW:
+    case RoundStep.New:
       return (
         <Container>
           <Text>Avancer ou tourner une case</Text>
@@ -88,13 +88,13 @@ const Player: FC<RoundProps> = ({ boxID, userUUID, data }) => {
           </Container>
         </Container>
       )
-    case RoundStep.CARD:
+    case RoundStep.Card:
       return (
         <>
           <Container>
             <Text>Civil: {data.cards.civil}</Text>
             <Container>
-              <Button onPress={() => onChoicePress(RoundChoice.CIVIL)}>
+              <Button onPress={() => onChoicePress(RoundChoice.Civil)}>
                 Choose civil card
               </Button>
             </Container>
@@ -102,14 +102,14 @@ const Player: FC<RoundProps> = ({ boxID, userUUID, data }) => {
           <Container>
             <Text>Civil: {data.cards.uncivil}</Text>
             <Container>
-              <Button onPress={() => onChoicePress(RoundChoice.UNCIVIL)}>
+              <Button onPress={() => onChoicePress(RoundChoice.Uncivil)}>
                 Choose uncivil card
               </Button>
             </Container>
           </Container>
         </>
       )
-    case RoundStep.CONFIRM:
+    case RoundStep.Confirm:
       return (
         <Container>
           <Text>

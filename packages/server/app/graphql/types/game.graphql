@@ -1,15 +1,8 @@
-interface Game {
-  boxID: UUID!
-  players: [Player]!
-}
-
 enum GameStatusType {
   start
   end
-  report
   ready
   round
-  skill
 }
 
 interface GameStatus {
@@ -24,18 +17,18 @@ type GameStatusDefault implements GameStatus {
   players: [Player]!
 }
 
+type GameStatusReady implements GameStatus {
+  type: GameStatusType!
+  boxID: UUID!
+  players: [Player]!
+}
+
 type GameStatusRound implements GameStatus {
   type: GameStatusType!
   boxID: UUID!
   numberOfRounds: Int!
   players: [Player]!
   round: Round!
-}
-
-type GameStatusReady implements GameStatus {
-  type: GameStatusType!
-  boxID: UUID!
-  players: [Player]!
 }
 
 type GameStatusWon implements GameStatus {

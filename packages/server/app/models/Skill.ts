@@ -3,8 +3,8 @@ import db from '@/config/database'
 import Player from './Player'
 
 export enum SkillStatus {
-  USABLE = 'usable',
-  USED = 'used'
+  Usable = 'usable',
+  Used = 'used'
 }
 
 export default class Skill extends db.bookshelf.Model<Skill> {
@@ -33,7 +33,7 @@ export default class Skill extends db.bookshelf.Model<Skill> {
   }
 
   used() {
-    this.set({ status: SkillStatus.USED })
+    this.set({ status: SkillStatus.Used })
     return this
   }
 }

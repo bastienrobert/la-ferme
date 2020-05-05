@@ -4,9 +4,9 @@ import Game from './Game'
 import Player from './Player'
 
 enum EventStatus {
-  NEW = 'new',
-  CONFIRMED = 'confirmed',
-  CANCELED = 'canceled'
+  New = 'new',
+  Confirmed = 'confirmed',
+  Canceled = 'canceled'
 }
 
 // TODO:
@@ -49,12 +49,12 @@ export default class Event extends db.bookshelf.Model<Event> {
   }
 
   cancel() {
-    this.set('status', EventStatus.CANCELED)
+    this.set('status', EventStatus.Canceled)
     return this
   }
 
   confirm() {
-    this.set('status', EventStatus.CONFIRMED)
+    this.set('status', EventStatus.Confirmed)
     return this
   }
 }

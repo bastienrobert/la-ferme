@@ -1,12 +1,13 @@
 import db from '@/config/database'
 
 import Player from './Player'
+import Game from './Game'
 
 export enum ReportStatus {
-  REJECTED = 'rejected',
-  NEW = 'new',
-  CONFIRMED = 'confirmed',
-  CANCELED = 'canceled'
+  Rejected = 'rejected',
+  New = 'new',
+  Confirmed = 'confirmed',
+  Canceled = 'canceled'
 }
 
 export default class Report extends db.bookshelf.Model<Player> {
@@ -18,6 +19,10 @@ export default class Report extends db.bookshelf.Model<Player> {
     return true
   }
 
+  game() {
+    return this.hasOne(Game)
+  }
+
   from() {
     return this.hasOne(Player, 'from_player_id')
   }
@@ -26,12 +31,8 @@ export default class Report extends db.bookshelf.Model<Player> {
     return this.hasOne(Player, 'to_player_id')
   }
 
-  increaseScore(delta = 1) {
+  increase(delta = 1) {
     this.set({ score: this.score + delta })
-  }
-
-  decreaseScore(delta = 1) {
-    this.set({ score: this.score - delta })
   }
 
   set score(score: number) {

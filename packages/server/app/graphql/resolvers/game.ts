@@ -19,21 +19,19 @@ import getPlayer from '@/app/helpers/getPlayer'
 
 const resolvers = {
   GameStatusType: {
-    start: GameStatusType.START,
-    end: GameStatusType.END,
-    report: GameStatusType.REPORT,
-    ready: GameStatusType.READY,
-    round: GameStatusType.ROUND,
-    skill: GameStatusType.SKILL
+    start: GameStatusType.Start,
+    end: GameStatusType.End,
+    ready: GameStatusType.Ready,
+    round: GameStatusType.Round
   },
   GameStatus: {
     __resolveType({ type }) {
       switch (type) {
-        case GameStatusType.END:
+        case GameStatusType.End:
           return 'GameStatusWon'
-        case GameStatusType.READY:
+        case GameStatusType.Ready:
           return 'GameStatusReady'
-        case GameStatusType.ROUND:
+        case GameStatusType.Round:
           return 'GameStatusRound'
         default:
           return 'GameStatusDefault'
@@ -89,7 +87,7 @@ const resolvers = {
 
       pubsub.publish(GAME.START, {
         gameUpdated: {
-          type: GameStatusType.START,
+          type: GameStatusType.Start,
           boxID,
           players: formattedPlayer
         }
@@ -129,7 +127,7 @@ const resolvers = {
 
       pubsub.publish(GAME.STOP, {
         gameUpdated: {
-          type: GameStatusType.END,
+          type: GameStatusType.End,
           boxID,
           numberOfRounds,
           winnerUUID,

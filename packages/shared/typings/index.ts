@@ -1,8 +1,8 @@
 export type UUID = string & { readonly _: unique symbol }
 
 export enum Gender {
-  MALE = 1,
-  FEMALE = 2
+  Male = 1,
+  Female = 2
 }
 
 export interface User {
@@ -74,24 +74,29 @@ export interface Round {
 }
 
 export enum RoundStep {
-  NEW = 'new',
-  CARD = 'card',
-  CONFIRM = 'confirm',
-  COMPLETE = 'complete'
+  New = 'new',
+  Card = 'card',
+  Confirm = 'confirm',
+  Complete = 'complete'
 }
 
 export enum RoundChoice {
-  CIVIL = 'civil',
-  UNCIVIL = 'uncivil'
+  Civil = 'civil',
+  Uncivil = 'uncivil'
 }
 
 export enum GameStatusType {
-  START = 'start',
-  END = 'end',
-  REPORT = 'report',
-  READY = 'ready',
-  ROUND = 'round',
-  SKILL = 'skill'
+  Start = 'start',
+  End = 'end',
+  Ready = 'ready',
+  Round = 'round'
+}
+
+export enum EventType {
+  ReportAll = 'report_all',
+  Report = 'report',
+  Skill = 'skill',
+  MiniGame = 'mini_game'
 }
 
 export interface GameStatus {

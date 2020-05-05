@@ -15,6 +15,10 @@ export default class Room extends db.bookshelf.Model<Room> {
     return true
   }
 
+  get boxID() {
+    return this.get('box_id')
+  }
+
   games() {
     return this.hasMany(Game)
   }

@@ -4,6 +4,7 @@ import Room from './Room'
 import Round, { RoundType } from './Round'
 import Event from './Event'
 import User from './User'
+import Report from './Report'
 import Player from './Player'
 
 export default class Game extends db.bookshelf.Model<Game> {
@@ -27,6 +28,10 @@ export default class Game extends db.bookshelf.Model<Game> {
     return this.hasMany(Round)
   }
 
+  reports() {
+    return this.hasMany(Report)
+  }
+
   events() {
     return this.hasMany(Event)
   }
@@ -40,7 +45,7 @@ export default class Game extends db.bookshelf.Model<Game> {
   }
 
   async numberOfRounds() {
-    return await this.rounds().where({ type: RoundType.CLASSIC }, false).count()
+    return await this.rounds().where({ type: RoundType.Classic }, false).count()
   }
 
   start() {
