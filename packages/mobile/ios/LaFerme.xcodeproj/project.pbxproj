@@ -454,7 +454,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.matharribey.LaFerme;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathieuharribey.LaFerme;
 				PRODUCT_NAME = LaFerme;
 				SWIFT_OBJC_BRIDGING_HEADER = "LaFerme-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -478,7 +478,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.matharribey.LaFerme;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathieuharribey.LaFerme;
 				PRODUCT_NAME = LaFerme;
 				SWIFT_OBJC_BRIDGING_HEADER = "LaFerme-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

@@ -1,18 +1,23 @@
 import React, { FC, useState } from 'react'
+import { Button } from '@la-ferme/components/native'
 import { Animated, PanResponder } from 'react-native'
+
 import styled from 'styled-components/native'
 
+import Navigation from '@/components/shared/Navigation'
+
 import FullContainer from '@/components/shared/FullContainer'
+import Container from '@/components/shared/Container'
 
 import WalkthroughCard from './WalkthroughCard'
 import viewport from '@/services/viewport'
 
-const Walkthrough: FC<any> = () => {
-  // const datas = [this.props.data.character, this.props.data.skill, this.props.data.goal]
-  const datas = ['character_test', 'skill_test', 'goal_test']
+const Walkthrough: FC<any> = ({ data, onReadyPress }) => {
+  const datas = [data.character, data.skill, data.goal]
 
-  const [pan] = useState(new Animated.ValueXY())
-  let [currentIndex, setIndex] = useState(0)
+  const [pan, setPan] = useState(new Animated.ValueXY())
+  const [currentIndex, setIndex] = useState(0)
+  const [fadeAnim] = useState(new Animated.Value(0))
 
   const rotate = pan.x.interpolate({
     inputRange: [-viewport.width / 2, 0, viewport.width / 2],
@@ -38,18 +43,24 @@ const Walkthrough: FC<any> = () => {
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: Animated.event([
-      null,
+    onPanResponderMove: Animated.event(
+      [
+        null,
+        {
+          dx: pan.x,
+          dy: pan.y
+        }
+      ],
       {
-        dx: pan.x,
-        dy: pan.y
+        useNativeDriver: false
       }
-    ]),
-    onPanResponderRelease: (evt, gestureState) => {
+    ),
+    onPanResponderRelease: (_, gestureState) => {
       if (currentIndex >= 0 && currentIndex <= 2) {
         if (gestureState.dx > 120 || gestureState.dx < -120) {
           swipeCard(gestureState, Math.sign(gestureState.dx))
-          setIndex(currentIndex + 1)
+          setPan(new Animated.ValueXY())
+          setActiveButton(currentIndex + 1)
         } else {
           clampToCenter()
         }
@@ -61,7 +72,9 @@ const Walkthrough: FC<any> = () => {
     Animated.spring(pan, {
       toValue: { x: (viewport.width + 100) * dir, y: gest.dy },
       useNativeDriver: true
-    }).start()
+    }).start(() => {
+      setIndex(currentIndex + 1)
+    })
   }
 
   const clampToCenter = () => {
@@ -72,10 +85,13 @@ const Walkthrough: FC<any> = () => {
     }).start()
   }
 
-  // const getCardBack = cardId => {
-  //   currentIndex -= 1
-  //   console.log(cardId)
-  // }
+  const changeCard = cardId => {
+    setIndex(cardId)
+  }
+
+  const setActiveButton = index => {
+    console.log(index)
+  }
 
   return (
     <CardContainer>
@@ -83,7 +99,7 @@ const Walkthrough: FC<any> = () => {
         .map((card, i) => {
           if (i < currentIndex) {
             return null
-          } else if (i === currentIndex) {
+          } else if (i === currentIndex && i !== datas.length - 1) {
             return (
               <StyledView
                 key={i}
@@ -94,19 +110,47 @@ const Walkthrough: FC<any> = () => {
               </StyledView>
             )
           } else {
-            return (
-              <StyledView key={i} as={Animated.View}>
-                <WalkthroughCard data={card} />
-              </StyledView>
-            )
+            if (currentIndex === datas.length - 1) {
+              Animated.timing(fadeAnim, {
+                toValue: 1,
+                useNativeDriver: true
+              }).start()
+
+              return (
+                <StyledView key={i}>
+                  <WalkthroughCard data={card} />
+                  <Component as={Animated.View} style={{ opacity: fadeAnim }}>
+                    <Button onPress={onReadyPress}>PRÊÊÊÊT</Button>
+                  </Component>
+                </StyledView>
+              )
+            } else {
+              return (
+                <StyledView key={i}>
+                  <WalkthroughCard data={card} />
+                </StyledView>
+              )
+            }
           }
         })
         .reverse()}
+
+      <Navigation
+        changeCard={changeCard}
+        currentIndex={currentIndex}
+        titles={['01 PERSO', '02 OBJECT', 'O3 OBJECTIF']}
+      />
     </CardContainer>
   )
 }
 
 export default Walkthrough
+
+const random = (min, max) => {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min)) + min
+}
 
 const CardContainer = styled(FullContainer)`
   height: ${viewport.height}px;
@@ -114,8 +158,14 @@ const CardContainer = styled(FullContainer)`
   flex: 1;
 `
 
+const Component = styled(Container)`
+  display: flex;
+  margin: 10px auto 35%;
+`
+
 const StyledView = styled.View`
   width: 100%;
   height: 100%;
   position: absolute;
+  transform: rotate(${random(-1, 2)}deg);
 `
