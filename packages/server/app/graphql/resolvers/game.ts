@@ -118,9 +118,12 @@ const resolvers = {
       await game.save()
 
       const players = game.related('players')
-      const formattedPlayer = await formatPlayers(players)
+      const [numberOfRounds, formattedPlayer] = await Promise.all([
+        game.numberOfRounds(),
+        formatPlayers(players)
+      ])
 
-      connections.getByBoxID(boxID).forEach((_, key) => {
+      connections.getByBoxID(boxID).forEach((__, key) => {
         connections.reset(key)
       })
 
@@ -128,6 +131,7 @@ const resolvers = {
         gameUpdated: {
           type: GameStatusType.END,
           boxID,
+          numberOfRounds,
           winnerUUID,
           players: formattedPlayer
         }

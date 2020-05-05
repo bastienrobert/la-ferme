@@ -4,7 +4,8 @@ import { cards } from '@la-ferme/shared/data'
 import {
   RoundChoice,
   RoundStep,
-  GameStatusType
+  GameStatusType,
+  Round as RoundType
 } from '@la-ferme/shared/typings'
 import { NOT_ALLOWED } from '@la-ferme/shared/errors'
 
@@ -18,14 +19,37 @@ import Game from '@/app/models/Game'
 
 import { connections } from '@/app/stores'
 import formatPlayers from '@/app/helpers/formatPlayers'
+import getRandom from '@/app/helpers/getRandom'
 
-const formatRound = async round => {
+const formatRound = async (round: Round, step): Promise<RoundType> => {
   const player = await round.player().fetch({ withRelated: ['user'] })
   const user = player.related('user') as User
 
-  return {
-    user: user.uuid,
-    step: round.step
+  switch (step) {
+    case RoundStep.CONFIRM:
+      return {
+        user: user.uuid,
+        step: round.step,
+        cards: {
+          civil: round.civilCard,
+          uncivil: round.uncivilCard
+        },
+        choice: round.choice
+      }
+    case RoundStep.CARD:
+      return {
+        user: user.uuid,
+        step: round.step,
+        cards: {
+          civil: round.civilCard,
+          uncivil: round.uncivilCard
+        }
+      }
+    default:
+      return {
+        user: user.uuid,
+        step: round.step
+      }
   }
 }
 
@@ -42,9 +66,8 @@ const getRounds = async (game: Game) => {
 }
 
 const createRound = async (gameID, playerID) => {
-  const civil = cards.civil[Math.floor(Math.random() * cards.civil.length)]
-  const uncivil =
-    cards.uncivil[Math.floor(Math.random() * cards.uncivil.length)]
+  const civil = getRandom(cards.civil)
+  const uncivil = getRandom(cards.uncivil)
 
   const round = new Round({
     game_id: gameID,
@@ -55,11 +78,12 @@ const createRound = async (gameID, playerID) => {
   return await round.save()
 }
 
-const publishRound = (boxID, { players, round }) => {
+const publishRound = (boxID, { players, round, numberOfRounds }) => {
   pubsub.publish(ROUND.UPDATE, {
     gameUpdated: {
       type: GameStatusType.ROUND,
       boxID,
+      numberOfRounds,
       players,
       round
     }
@@ -67,9 +91,22 @@ const publishRound = (boxID, { players, round }) => {
 }
 
 const resolvers = {
+  Round: {
+    __resolveType({ step }) {
+      switch (step) {
+        case RoundStep.CONFIRM:
+          return 'RoundStepConfirm'
+        case RoundStep.CARD:
+          return 'RoundStepCard'
+        default:
+          return 'RoundStepDefault'
+      }
+    }
+  },
   RoundStep: {
     new: RoundStep.NEW,
     card: RoundStep.CARD,
+    confirm: RoundStep.CONFIRM,
     complete: RoundStep.COMPLETE
   },
   RoundChoice: {
@@ -91,10 +128,12 @@ const resolvers = {
         const players = game.related('players') as Collection<Player>
         const player = players.first()
         const round = await createRound(game.id, player.id)
-        const formattedRound = await formatRound(round)
+        const numberOfRounds = await game.numberOfRounds()
+        const formattedRound = formatRound(round, RoundStep.NEW)
         publishRound(boxID, {
           players: formatPlayers(players),
-          round: formattedRound
+          round: formattedRound,
+          numberOfRounds
         })
       }
 
@@ -114,17 +153,19 @@ const resolvers = {
 
       if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
 
-      lastRound.step = RoundStep.CARD
+      const step = RoundStep.CARD
+      lastRound.step = step
       await lastRound.save()
 
-      const formattedRound = formatRound(lastRound)
+      const formattedRound = formatRound(lastRound, step)
+      const numberOfRounds = await game.numberOfRounds()
       publishRound(boxID, {
         players: formatPlayers(players),
-        round: formattedRound
+        round: formattedRound,
+        numberOfRounds
       })
       return true
     },
-    // set a round status with given infos
     async setCardRound(_, { boxID, userUUID, choice }) {
       const game = await getGame(boxID)
       const rounds = await getRounds(game)
@@ -139,8 +180,36 @@ const resolvers = {
 
       if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
 
-      lastRound.step = RoundStep.COMPLETE
+      const step = RoundStep.CONFIRM
+      lastRound.step = step
       lastRound.choice = choice
+      await lastRound.save()
+
+      const formattedRound = formatRound(lastRound, step)
+      const numberOfRounds = await game.numberOfRounds()
+      publishRound(boxID, {
+        players: formatPlayers(players),
+        round: formattedRound,
+        numberOfRounds
+      })
+      return true
+    },
+    // set a round status with given infos
+    async completeCardRound(_, { boxID, userUUID }) {
+      const game = await getGame(boxID)
+      const rounds = await getRounds(game)
+      const players = game.related('players') as Collection<Player>
+
+      const lastRound = await rounds
+        .last()
+        .fetch({ withRelated: ['player', 'player.user'] })
+
+      const player = lastRound.related('player') as Player
+      const user = player.related('user') as User
+
+      if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
+
+      lastRound.step = RoundStep.COMPLETE
 
       const serializedPlayers = players.serialize()
       const nextPlayerIndex =
@@ -154,10 +223,12 @@ const resolvers = {
         createRound(game.id, nextPlayer.id),
         lastRound.save()
       ])
-      const formattedRound = formatRound(round)
+      const numberOfRounds = await game.numberOfRounds()
+      const formattedRound = formatRound(round, RoundStep.NEW)
       publishRound(boxID, {
         players: formatPlayers(players),
-        round: formattedRound
+        round: formattedRound,
+        numberOfRounds
       })
 
       return true

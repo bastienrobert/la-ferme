@@ -27,6 +27,14 @@ export default class Round extends db.bookshelf.Model<Round> {
     return this.belongsTo(Player)
   }
 
+  get civilCard() {
+    return this.get('civil_card')
+  }
+
+  get uncivilCard() {
+    return this.get('uncivil_card')
+  }
+
   get choice(): RoundChoice {
     return this.get('choice')
   }

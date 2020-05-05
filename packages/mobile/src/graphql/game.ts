@@ -41,9 +41,23 @@ const GAME_UPDATED_SUBSCRIPTION = gql`
         }
       }
       ... on GameStatusRound {
+        numberOfRounds
         round {
           user
           step
+          ... on RoundStepCard {
+            cards {
+              civil
+              uncivil
+            }
+          }
+          ... on RoundStepConfirm {
+            choice
+            cards {
+              civil
+              uncivil
+            }
+          }
         }
       }
     }

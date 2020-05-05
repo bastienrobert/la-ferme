@@ -1,4 +1,6 @@
-export default [
+import { Card } from '../../typings'
+
+const civil: Card[] = [
   {
     name: 'get-up',
     displayName: 'Lève-toi!',
@@ -39,3 +41,5 @@ export default [
     }
   }
 ]
+
+export default civil

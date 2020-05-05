@@ -38,7 +38,22 @@ export default class Event extends db.bookshelf.Model<Event> {
     return this.hasOne(Player, 'to_player_id')
   }
 
-  confirmed() {
+  reverse() {
+    const from = this.get('from_player_id')
+    const to = this.get('to_player_id')
+    this.set({
+      from_player_id: to,
+      to_player_id: from
+    })
+    return this
+  }
+
+  cancel() {
+    this.set('status', EventStatus.CANCELED)
+    return this
+  }
+
+  confirm() {
     this.set('status', EventStatus.CONFIRMED)
     return this
   }

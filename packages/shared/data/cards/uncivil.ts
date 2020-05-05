@@ -1,4 +1,6 @@
-export default [
+import { Card } from '../../typings'
+
+const uncivil: Card[] = [
   {
     name: 'new-route',
     displayName: 'Nouvel itinéraire',
@@ -37,3 +39,5 @@ export default [
     }
   }
 ]
+
+export default uncivil

@@ -1,14 +1,14 @@
 import db from '@/config/database'
 
 import Room from './Room'
-import Round from './Round'
+import Round, { RoundType } from './Round'
 import Event from './Event'
 import User from './User'
 import Player from './Player'
 
 export default class Game extends db.bookshelf.Model<Game> {
   static async find(id, params?) {
-    return await new Game().where('id', id).fetch(params)
+    return await new Game().where({ id }).fetch(params)
   }
 
   get tableName() {
@@ -39,17 +39,28 @@ export default class Game extends db.bookshelf.Model<Game> {
     return this.hasMany(Player)
   }
 
+  async numberOfRounds() {
+    return await this.rounds().where({ type: RoundType.CLASSIC }, false).count()
+  }
+
   start() {
     this.set({ started_at: new Date(Date.now()) })
   }
 
-  get started_at() {
+  get startedAt() {
     return this.get('started_at')
   }
 
   set winner(value: number) {
     // should take a player in params
     // should check player is in the game
-    this.set({ winner_player_id: value, won_at: new Date(Date.now()) })
+    this.set({
+      winner_player_id: value,
+      won_at: new Date(Date.now())
+    })
+  }
+
+  get won() {
+    return this.get('won_at')
   }
 }

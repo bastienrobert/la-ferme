@@ -26,9 +26,8 @@ class Connections extends Emitter {
     const connections = await user
       .connections()
       .orderBy('connected_at', 'DESC')
-      .query(qb => qb.limit(1))
-      .fetch()
-    connections.last().disconnect().save()
+      .fetchOne()
+    connections.disconnect().save()
   }
 
   protected static async surrenderPlayer(user: UserModel) {

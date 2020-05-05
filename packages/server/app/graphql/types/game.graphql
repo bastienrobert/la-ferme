@@ -27,6 +27,7 @@ type GameStatusDefault implements GameStatus {
 type GameStatusRound implements GameStatus {
   type: GameStatusType!
   boxID: UUID!
+  numberOfRounds: Int!
   players: [Player]!
   round: Round!
 }
@@ -40,6 +41,7 @@ type GameStatusReady implements GameStatus {
 type GameStatusWon implements GameStatus {
   type: GameStatusType!
   boxID: UUID!
+  numberOfRounds: Int!
   players: [Player]!
   winnerUUID: UUID!
 }

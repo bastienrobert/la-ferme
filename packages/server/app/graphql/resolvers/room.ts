@@ -17,19 +17,12 @@ const getGame = async (
   user: User,
   users: ConnectionsCollection
 ) => {
-  if (users.size > 0) {
-    const games = await room
-      .games()
-      .orderBy('created_at', 'DESC')
-      .query(qb => qb.limit(1))
-      .fetch()
-    return games.last()
-  } else {
-    return await new Game({
-      room_id: room.id,
-      creator_user_id: user.id
-    }).save()
-  }
+  return users.size > 0
+    ? await room.getLastGame()
+    : await new Game({
+        room_id: room.id,
+        creator_user_id: user.id
+      }).save()
 }
 
 const createOrJoin = async (userUUID, boxID) => {
@@ -40,7 +33,7 @@ const createOrJoin = async (userUUID, boxID) => {
   const room = await Room.findByBoxID(boxID)
   const game = await getGame(room, user, connectedUsers)
 
-  if (game.started_at) throw new Error(GAME_STARTED)
+  if (game.startedAt) throw new Error(GAME_STARTED)
 
   const player = await new Player({
     game_id: game.id,

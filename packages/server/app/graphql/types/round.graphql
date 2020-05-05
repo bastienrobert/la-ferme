@@ -6,6 +6,7 @@ type Cards {
 enum RoundStep {
   new
   card
+  confirm
   complete
 }
 
@@ -14,14 +15,32 @@ enum RoundChoice {
   uncivil
 }
 
-type Round {
+interface Round {
   user: UUID!
   step: RoundStep!
-  cards: Cards
+}
+
+type RoundStepDefault implements Round {
+  user: UUID!
+  step: RoundStep!
+}
+
+type RoundStepCard implements Round {
+  user: UUID!
+  step: RoundStep!
+  cards: Cards!
+}
+
+type RoundStepConfirm implements Round {
+  user: UUID!
+  step: RoundStep!
+  cards: Cards!
+  choice: String!
 }
 
 extend type Mutation {
   readyForRound(boxID: UUID!, userUUID: UUID!): Boolean!
   confirmBoardRound(boxID: UUID!, userUUID: UUID!): Boolean!
   setCardRound(boxID: UUID!, userUUID: UUID!, choice: RoundChoice): Boolean!
+  completeCardRound(boxID: UUID!, userUUID: UUID!): Boolean!
 }

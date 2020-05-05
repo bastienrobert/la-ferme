@@ -236,7 +236,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = ZB3TZTKBXT;
+						DevelopmentTeam = Y87978A2JM;
 						LastSwiftMigration = 1130;
 					};
 				};
@@ -441,7 +441,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ZB3TZTKBXT;
+				DEVELOPMENT_TEAM = Y87978A2JM;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -454,7 +454,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.petitjaune.LaFerme;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bastienrobert.LaFerme;
 				PRODUCT_NAME = LaFerme;
 				SWIFT_OBJC_BRIDGING_HEADER = "LaFerme-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -470,7 +470,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = ZB3TZTKBXT;
+				DEVELOPMENT_TEAM = Y87978A2JM;
 				INFOPLIST_FILE = LaFerme/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -478,7 +478,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.petitjaune.LaFerme;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bastienrobert.LaFerme;
 				PRODUCT_NAME = LaFerme;
 				SWIFT_OBJC_BRIDGING_HEADER = "LaFerme-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

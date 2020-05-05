@@ -4,7 +4,7 @@ import User from './User'
 
 export default class Connection extends db.bookshelf.Model<Connection> {
   static async find(id) {
-    return await new Connection().where('id', id).fetch()
+    return await new Connection().where({ id }).fetch()
   }
 
   get tableName() {

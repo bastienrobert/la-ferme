@@ -18,8 +18,15 @@ const SET_CARD_ROUND_MUTATION = gql`
   }
 `
 
+const COMPLETE_CARD_ROUND_MUTATION = gql`
+  mutation CompleteCardRound($userUUID: UUID!, $boxID: UUID!) {
+    completeCardRound(userUUID: $userUUID, boxID: $boxID)
+  }
+`
+
 export {
   READY_FOR_ROUND_MUTATION,
   CONFIRM_BOARD_ROUND_MUTATION,
-  SET_CARD_ROUND_MUTATION
+  SET_CARD_ROUND_MUTATION,
+  COMPLETE_CARD_ROUND_MUTATION
 }
