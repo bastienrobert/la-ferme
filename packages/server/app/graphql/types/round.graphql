@@ -16,36 +16,36 @@ enum RoundChoice {
 }
 
 interface Round {
-  user: UUID!
+  player: UUID!
   step: RoundStep!
 }
 
 type RoundStepDefault implements Round {
-  user: UUID!
+  player: UUID!
   step: RoundStep!
 }
 
 type RoundStepCard implements Round {
-  user: UUID!
+  player: UUID!
   step: RoundStep!
   cards: Cards!
 }
 
 type RoundStepConfirm implements Round {
-  user: UUID!
+  player: UUID!
   step: RoundStep!
   cards: Cards!
   choice: String!
+  targets: [UUID]
 }
 
 extend type Mutation {
-  readyForRound(boxID: UUID!, userUUID: UUID!): Boolean!
-  confirmBoardRound(boxID: UUID!, userUUID: UUID!): Boolean!
+  readyForRound(playerUUID: UUID!): Boolean!
+  confirmBoardRound(playerUUID: UUID!): Boolean!
   setCardRound(
-    boxID: UUID!
-    userUUID: UUID!
+    playerUUID: UUID
     choice: RoundChoice!
     targets: [UUID]
   ): Boolean!
-  completeCardRound(boxID: UUID!, userUUID: UUID!): Boolean!
+  completeCardRound(playerUUID: UUID!): Boolean!
 }

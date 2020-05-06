@@ -4,6 +4,7 @@ const fragments = {
   playerInfos: gql`
     fragment PlayerInfos on Player {
       user
+      uuid
       ready
       character
       skill
@@ -13,8 +14,8 @@ const fragments = {
 }
 
 const GET_PLAYER = gql`
-  query GetPlayer($userUUID: UUID!) {
-    getPlayer(userUUID: $userUUID) {
+  query GetPlayer($playerUUID: UUID!) {
+    getPlayer(playerUUID: $playerUUID) {
       ...PlayerInfos
     }
   }
@@ -22,8 +23,8 @@ const GET_PLAYER = gql`
 `
 
 const PLAYER_READY_MUTATION = gql`
-  mutation PlayerReady($userUUID: UUID!, $boxID: UUID!) {
-    playerReady(boxID: $boxID, userUUID: $userUUID)
+  mutation PlayerReady($playerUUID: UUID!) {
+    playerReady(playerUUID: $playerUUID)
   }
 `
 

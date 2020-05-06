@@ -11,5 +11,5 @@ type Event {
 }
 
 extend type Subscription {
-  eventTriggered(boxID: UUID!): Event!
+  eventTriggered(gameUUID: UUID!): Event!
 }

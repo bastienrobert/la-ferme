@@ -1,8 +1,11 @@
 import Knex from 'knex'
 
 export async function up(knex: Knex): Promise<any> {
+  await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
+
   await knex.schema.createTable('players', table => {
     table.increments('id').primary()
+    table.uuid('uuid').defaultTo(knex.raw('uuid_generate_v4()'))
     table.integer('game_id').references('games.id').onDelete('cascade')
     table.integer('user_id').references('users.id').onDelete('cascade')
     table.string('character')

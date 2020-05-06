@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 const USE_SKILL_MUTATION = gql`
-  mutation UseSkill($userUUID: UUID!) {
-    useSkill(userUUID: $userUUID)
+  mutation UseSkill($playerUUID: UUID!) {
+    useSkill(playerUUID: $playerUUID)
   }
 `
 

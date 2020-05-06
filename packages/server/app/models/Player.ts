@@ -8,6 +8,10 @@ import Skill from './Skill'
 import Report from './Report'
 
 export default class Player extends db.bookshelf.Model<Player> {
+  static async findByUUID(uuid, params?) {
+    return await new Player().where({ uuid }).fetch(params)
+  }
+
   get tableName() {
     return 'players'
   }
@@ -63,6 +67,10 @@ export default class Player extends db.bookshelf.Model<Player> {
 
   decreaseScore(delta = 1) {
     this.set({ score: this.score - delta })
+  }
+
+  get uuid() {
+    return this.get('uuid')
   }
 
   get score() {

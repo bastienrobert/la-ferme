@@ -22,13 +22,14 @@ const QRCode: FC<any> = ({ navigation }) => {
   const [joinRoom, { data }] = useMutation(ROOM_JOIN_MUTATION)
 
   useEffect(() => {
-    if (!data) return
+    if (!data?.joinRoom) return
+    const { boxID, playerUUID, gameUUID } = data.joinRoom
+    client.writeData({ data: { boxID, playerUUID, gameUUID } })
     navigation.navigate('Home:Room', data.joinRoom)
-  }, [data, navigation])
+  }, [client, data, navigation])
 
   // TODO: set boxID from NFC tag
   const join = async (boxID: string) => {
-    client.writeData({ data: { boxID } })
     joinRoom({
       variables: {
         boxID,

@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 const EVENT_TRIGGERED_SUBSCRIPTION = gql`
-  subscription EventTriggered($boxID: UUID!) {
-    eventTriggered(boxID: $boxID) {
+  subscription EventTriggered($gameUUID: UUID!) {
+    eventTriggered(gameUUID: $gameUUID) {
       type
     }
   }

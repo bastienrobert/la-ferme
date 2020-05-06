@@ -4,7 +4,10 @@ import { fragments as userFragments } from './user'
 const ROOM_JOIN_MUTATION = gql`
   mutation JoinRoom($userUUID: UUID!, $boxID: UUID!) {
     joinRoom(userUUID: $userUUID, boxID: $boxID) {
+      boxID
       creatorUUID
+      playerUUID
+      gameUUID
       users {
         ...UserUUID
       }

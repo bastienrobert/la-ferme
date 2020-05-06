@@ -1,37 +1,34 @@
 import { SKILL } from '@la-ferme/shared/constants'
 import { EventType } from '@la-ferme/shared/typings'
+import { SKILL_ALREADY_USED } from '@la-ferme/shared/errors'
 
-import Room from '@/app/models/Room'
-import User from '@/app/models/User'
+import Player from '@/app/models/Player'
+import Skill from '@/app/models/Skill'
+import Game from '@/app/models/Game'
 
 import pubsub from '@/app/pubsub'
 
-import getPlayer from '@/app/helpers/getPlayer'
-
 const resolvers = {
   Mutation: {
-    async useSkill(_, { userUUID }) {
-      const user = await User.findByUUID(userUUID, {
-        withRelated: [{ players: qb => qb.orderBy('created_at') }]
+    async useSkill(_, { playerUUID }) {
+      const player = await Player.findByUUID(playerUUID, {
+        withRelated: ['skill', 'game']
       })
 
-      const player = getPlayer(user)
-      const [skill, game] = await Promise.all([
-        player.skill().fetch(),
-        player.game().fetch({
-          withRelated: ['room']
-        })
-      ])
-      skill.used()
-      await skill.save()
+      const skill = player.related('skill') as Skill
+      const game = player.related('game') as Game
 
-      const room = game.related('room') as Room
-      const boxID = room.boxID
+      if (skill.used()) {
+        throw new Error(SKILL_ALREADY_USED)
+      }
+
+      skill.use()
+      await skill.save()
 
       pubsub.publish(SKILL.USE, {
         eventTriggered: {
           type: EventType.Skill,
-          boxID
+          gameUUID: game.uuid
         }
       })
 

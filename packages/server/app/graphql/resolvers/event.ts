@@ -16,7 +16,7 @@ const resolvers = {
       subscribe: withFilter(
         () => pubsub.asyncIterator([REPORT.CREATE, SKILL.USE]),
         ({ eventTriggered }, variables) => {
-          return eventTriggered.boxID === variables.boxID
+          return eventTriggered.gameUUID === variables.gameUUID
         }
       )
     }

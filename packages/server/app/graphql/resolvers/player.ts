@@ -1,53 +1,44 @@
 import { PLAYER } from '@la-ferme/shared/constants'
-import { Player, GameStatusType } from '@la-ferme/shared/typings'
+import { Player as PlayerType, GameStatusType } from '@la-ferme/shared/typings'
 
 import pubsub from '@/app/pubsub'
 
-import Room from '@/app/models/Room'
-import User from '@/app/models/User'
+import Game from '@/app/models/Game'
+import Player from '@/app/models/Player'
 
 import formatPlayers, { formatPlayer } from '@/app/helpers/formatPlayers'
-import getPlayer from '@/app/helpers/getPlayer'
 
 const resolvers = {
   Query: {
-    async getPlayer(_, { userUUID }): Promise<Player> {
-      const user = await User.findByUUID(userUUID, {
-        withRelated: ['players', 'players.user']
+    async getPlayer(_, { playerUUID }): Promise<PlayerType> {
+      const player = await Player.findByUUID(playerUUID, {
+        withRelated: ['user']
       })
 
-      const player = getPlayer(user)
       const formattedPlayer = await formatPlayer(player)
       return formattedPlayer
     }
   },
   Mutation: {
-    async playerReady(_, { boxID, userUUID }) {
-      const user = await User.findByUUID(userUUID, {
-        withRelated: [
-          { players: qb => qb.orderBy('created_at') },
-          'players.user'
-        ]
+    async playerReady(_, { playerUUID }) {
+      const player = await Player.findByUUID(playerUUID, {
+        withRelated: ['user', 'game']
       })
-      const player = getPlayer(user)
+
+      const game = player.related('game') as Game
+
       player.ready()
       await player.save()
 
-      const room = await Room.findByBoxID(boxID, {
-        withRelated: [{ games: qb => qb.orderBy('created_at') }]
+      const players = await game.players().fetch({
+        withRelated: ['user']
       })
-
-      const game = await room.getLastGame({
-        withRelated: ['players', 'players.user']
-      })
-
-      const players = game.related('players')
       const formattedPlayers = await formatPlayers(players)
 
       pubsub.publish(PLAYER.READY, {
         gameUpdated: {
+          gameUUID: game.uuid,
           type: GameStatusType.Ready,
-          boxID,
           players: formattedPlayers
         }
       })

@@ -7,25 +7,25 @@ enum GameStatusType {
 
 interface GameStatus {
   type: GameStatusType!
-  boxID: UUID!
+  gameUUID: UUID!
   players: [Player]!
 }
 
 type GameStatusDefault implements GameStatus {
   type: GameStatusType!
-  boxID: UUID!
+  gameUUID: UUID!
   players: [Player]!
 }
 
 type GameStatusReady implements GameStatus {
   type: GameStatusType!
-  boxID: UUID!
+  gameUUID: UUID!
   players: [Player]!
 }
 
 type GameStatusRound implements GameStatus {
   type: GameStatusType!
-  boxID: UUID!
+  gameUUID: UUID!
   numberOfRounds: Int!
   players: [Player]!
   round: Round!
@@ -33,21 +33,21 @@ type GameStatusRound implements GameStatus {
 
 type GameStatusWon implements GameStatus {
   type: GameStatusType!
-  boxID: UUID!
+  gameUUID: UUID!
   numberOfRounds: Int!
   players: [Player]!
   winnerUUID: UUID!
 }
 
 extend type Query {
-  getReadyPlayers(boxID: UUID!): [Player]!
+  getReadyPlayers(gameUUID: UUID!): [Player]!
 }
 
 extend type Mutation {
-  startGame(boxID: UUID!, userUUID: UUID!): Boolean!
-  stopGame(boxID: UUID!, winnerUUID: UUID!): Boolean!
+  startGame(playerUUID: UUID!): Boolean!
+  stopGame(winnerUUID: UUID!): Boolean!
 }
 
 extend type Subscription {
-  gameUpdated(boxID: UUID!): GameStatus!
+  gameUpdated(gameUUID: UUID!): GameStatus!
 }

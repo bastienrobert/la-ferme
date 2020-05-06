@@ -5,6 +5,7 @@ export const formatPlayer = async player => {
 
   return {
     user: user.uuid,
+    uuid: player.uuid,
     skill: skill.type,
     ready,
     character,

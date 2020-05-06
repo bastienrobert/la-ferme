@@ -33,6 +33,10 @@ export default class Skill extends db.bookshelf.Model<Skill> {
   }
 
   used() {
+    return this.get('status') === SkillStatus.Used
+  }
+
+  use() {
     this.set({ status: SkillStatus.Used })
     return this
   }

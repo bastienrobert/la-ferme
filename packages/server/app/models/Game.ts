@@ -12,6 +12,10 @@ export default class Game extends db.bookshelf.Model<Game> {
     return await new Game().where({ id }).fetch(params)
   }
 
+  static async findByUUID(uuid, params?) {
+    return await new Game().where({ uuid }).fetch(params)
+  }
+
   get tableName() {
     return 'games'
   }
@@ -50,6 +54,10 @@ export default class Game extends db.bookshelf.Model<Game> {
 
   start() {
     this.set({ started_at: new Date(Date.now()) })
+  }
+
+  get uuid() {
+    return this.get('uuid')
   }
 
   get startedAt() {

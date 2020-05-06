@@ -5,7 +5,7 @@ import {
   RoundChoice,
   RoundStep,
   GameStatusType,
-  Round as RoundType
+  UUID
 } from '@la-ferme/shared/typings'
 import { NOT_ALLOWED } from '@la-ferme/shared/errors'
 
@@ -18,56 +18,12 @@ import Player from '@/app/models/Player'
 import Game from '@/app/models/Game'
 
 import { connections } from '@/app/stores'
-import setReports from '@/app/engine/setReports'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
+import formatRound from '@/app/helpers/formatRound'
 import getRandom from '@/app/helpers/getRandom'
 
-const formatRound = async (round: Round, step): Promise<RoundType> => {
-  const player = await round.player().fetch({ withRelated: ['user'] })
-  const user = player.related('user') as User
-
-  switch (step) {
-    case RoundStep.Confirm:
-      return {
-        user: user.uuid,
-        step: round.step,
-        cards: {
-          civil: round.civilCard,
-          uncivil: round.uncivilCard
-        },
-        choice: round.choice
-      }
-    case RoundStep.Card:
-      return {
-        user: user.uuid,
-        step: round.step,
-        cards: {
-          civil: round.civilCard,
-          uncivil: round.uncivilCard
-        }
-      }
-    default:
-      return {
-        user: user.uuid,
-        step: round.step
-      }
-  }
-}
-
-const getGame = async boxID => {
-  const room = await Room.findByBoxID(boxID)
-  const lastGame = await room.getLastGame()
-  return await lastGame.fetch({
-    withRelated: [{ players: qb => qb.orderBy('created_at') }, 'players.user']
-  })
-}
-
-const getRounds = async (game: Game) => {
-  return await game.rounds().orderBy('created_at').fetch()
-}
-
-const createRound = async (gameID, playerID) => {
+const createRound = async (gameID: UUID, playerID: UUID) => {
   const civil = getRandom(cards.civil)
   const uncivil = getRandom(cards.uncivil)
 
@@ -80,16 +36,23 @@ const createRound = async (gameID, playerID) => {
   return await round.save()
 }
 
-const publishRound = (boxID, { players, round, numberOfRounds }) => {
+const publishRound = (gameUUID: UUID, { players, round, numberOfRounds }) => {
   pubsub.publish(ROUND.UPDATE, {
     gameUpdated: {
+      gameUUID,
       type: GameStatusType.Round,
-      boxID,
       numberOfRounds,
       players,
       round
     }
   })
+}
+
+const getNextPlayer = (players: Collection<Player>, current: Player) => {
+  const serializedPlayers = players.serialize()
+  const nextPlayerIndex =
+    (serializedPlayers.findIndex(p => p.id === current.id) + 1) % players.length
+  return players.at(nextPlayerIndex)
 }
 
 const resolvers = {
@@ -117,22 +80,33 @@ const resolvers = {
   },
   Mutation: {
     // user in the game
-    async readyForRound(_, { boxID, userUUID }) {
-      connections.setReady(userUUID)
+    async readyForRound(_, { playerUUID }) {
+      const player = await Player.findByUUID(playerUUID, {
+        withRelated: [
+          'user',
+          'game',
+          'game.room',
+          { 'game.players': qb => qb.orderBy('created_at') }
+        ]
+      })
+      const user = player.related('user') as User
+      const game = player.related('game') as Game
+      const room = game.related('room') as Room
 
-      const users = connections.getByBoxID(boxID)
+      connections.setReady(user.uuid)
+
+      const users = connections.getByBoxID(room.boxID)
       const everyBodyIsReady = Array.from(users).every(
         ({ 1: val }) => val.ready === true
       )
 
       if (everyBodyIsReady) {
-        const game = await getGame(boxID)
         const players = game.related('players') as Collection<Player>
-        const player = players.first()
-        const round = await createRound(game.id, player.id)
+        const firstPlayer = players.first()
+        const round = await createRound(game.id, firstPlayer.id)
         const numberOfRounds = await game.numberOfRounds()
         const formattedRound = formatRound(round, RoundStep.New)
-        publishRound(boxID, {
+        publishRound(game.uuid, {
           players: formatPlayers(players),
           round: formattedRound,
           numberOfRounds
@@ -141,19 +115,27 @@ const resolvers = {
 
       return true
     },
-    async confirmBoardRound(_, { boxID, userUUID }) {
-      const game = await getGame(boxID)
-      const rounds = await getRounds(game)
+    async confirmBoardRound(_, { playerUUID }) {
+      const player = await Player.findByUUID(playerUUID, {
+        withRelated: [
+          'game',
+          'user',
+          'rounds',
+          {
+            'game.rounds': qb => qb.orderBy('created_at'),
+            'game.players': qb => qb.orderBy('created_at')
+          }
+        ]
+      })
+
+      const game = player.related('game') as Game
+      const rounds = player.related('rounds') as Collection<Round>
       const players = game.related('players') as Collection<Player>
 
-      const lastRound = await rounds
-        .last()
-        .fetch({ withRelated: ['player', 'player.user'] })
+      const lastRound = await rounds.last().fetch({ withRelated: ['player'] })
+      const lastRoundPlayer = lastRound.related('player') as Player
 
-      const player = lastRound.related('player') as Player
-      const user = player.related('user') as User
-
-      if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
+      if (playerUUID !== lastRoundPlayer.uuid) throw new Error(NOT_ALLOWED)
 
       const step = RoundStep.Card
       lastRound.step = step
@@ -161,41 +143,48 @@ const resolvers = {
 
       const formattedRound = formatRound(lastRound, step)
       const numberOfRounds = await game.numberOfRounds()
-      publishRound(boxID, {
+      publishRound(game.uuid, {
         players: formatPlayers(players),
         round: formattedRound,
         numberOfRounds
       })
       return true
     },
-    async setCardRound(_, { boxID, userUUID, choice, targets }) {
-      const game = await getGame(boxID)
-      const rounds = await getRounds(game)
+    async setCardRound(_, { playerUUID, choice, targets }) {
+      const player = await Player.findByUUID(playerUUID, {
+        withRelated: [
+          'game',
+          'user',
+          'rounds',
+          {
+            'game.rounds': qb => qb.orderBy('created_at'),
+            'game.players': qb => qb.orderBy('created_at')
+          }
+        ]
+      })
+
+      const game = player.related('game') as Game
+      const rounds = player.related('rounds') as Collection<Round>
       const players = game.related('players') as Collection<Player>
 
-      const lastRound = await rounds
-        .last()
-        .fetch({ withRelated: ['player', 'player.user'] })
+      const lastRound = await rounds.last().fetch({ withRelated: ['player'] })
+      const lastRoundPlayer = lastRound.related('player') as Player
 
-      const users = await Promise.all(
+      if (playerUUID !== lastRoundPlayer.uuid) throw new Error(NOT_ALLOWED)
+
+      const targettedPlayers = await Promise.all(
         targets.map(async target => {
-          const user = await User.findByUUID(target)
-          const p = await user.getLastPlayer()
+          const p = await Player.findByUUID(target)
           return p.id
         })
       )
-      await lastRound.targets().attach(users)
+      await lastRound.targets().attach(targettedPlayers)
 
-      const player = lastRound.related('player') as Player
-      const user = player.related('user') as User
-
-      if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
-
-      setReports(boxID, {
-        game,
-        player,
-        delta: choice === RoundChoice.Civil ? 1 : -2
-      })
+      // setReports(boxID, {
+      //   game,
+      //   player,
+      //   delta: choice === RoundChoice.Civil ? 1 : -2
+      // })
 
       const step = RoundStep.Confirm
       lastRound.step = step
@@ -204,35 +193,41 @@ const resolvers = {
 
       const formattedRound = formatRound(lastRound, step)
       const numberOfRounds = await game.numberOfRounds()
-      publishRound(boxID, {
+
+      publishRound(game.uuid, {
         players: formatPlayers(players),
         round: formattedRound,
         numberOfRounds
       })
+
       return true
     },
     // set a round status with given infos
-    async completeCardRound(_, { boxID, userUUID }) {
-      const game = await getGame(boxID)
-      const rounds = await getRounds(game)
+    async completeCardRound(_, { playerUUID }) {
+      const player = await Player.findByUUID(playerUUID, {
+        withRelated: [
+          'game',
+          'user',
+          'rounds',
+          {
+            'game.rounds': qb => qb.orderBy('created_at'),
+            'game.players': qb => qb.orderBy('created_at')
+          }
+        ]
+      })
+
+      const game = player.related('game') as Game
+      const rounds = player.related('rounds') as Collection<Round>
       const players = game.related('players') as Collection<Player>
 
-      const lastRound = await rounds
-        .last()
-        .fetch({ withRelated: ['player', 'player.user'] })
+      const lastRound = await rounds.last().fetch({ withRelated: ['player'] })
+      const lastRoundPlayer = lastRound.related('player') as Player
 
-      const player = lastRound.related('player') as Player
-      const user = player.related('user') as User
-
-      if (user.uuid !== userUUID) throw new Error(NOT_ALLOWED)
+      if (playerUUID !== lastRoundPlayer.uuid) throw new Error(NOT_ALLOWED)
 
       lastRound.step = RoundStep.Complete
 
-      const serializedPlayers = players.serialize()
-      const nextPlayerIndex =
-        (serializedPlayers.findIndex(p => p.id === player.id) + 1) %
-        players.length
-      const nextPlayer = players.at(nextPlayerIndex)
+      const nextPlayer = getNextPlayer(players, player)
 
       // check events before creating round to assign it to the good person
       // get events from Game.events() WHERE status IS NEW AND WHERE player IS nextPlayer
@@ -242,7 +237,8 @@ const resolvers = {
       ])
       const numberOfRounds = await game.numberOfRounds()
       const formattedRound = formatRound(round, RoundStep.New)
-      publishRound(boxID, {
+
+      publishRound(game.uuid, {
         players: formatPlayers(players),
         round: formattedRound,
         numberOfRounds

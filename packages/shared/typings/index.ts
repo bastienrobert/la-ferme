@@ -12,6 +12,7 @@ export interface User {
 
 export interface Player {
   user: UUID
+  uuid: UUID
   ready: boolean
   character?: string
   skill?: string
@@ -67,7 +68,7 @@ export interface RoundCards {
 }
 
 export interface Round {
-  user: UUID
+  player: UUID
   step: RoundStep
   cards?: RoundCards
   choice?: string

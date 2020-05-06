@@ -14,23 +14,22 @@ import { REPORT_PLAYER_MUTATION } from '@/graphql/report'
 
 export interface ReportProps {
   set: (type?: PopupType) => void
-  userUUID: UUID
-  boxID: UUID
+  playerUUID: UUID
   players: Player[]
 }
 
-const Report: FC<ReportProps> = ({ set, players, boxID, userUUID }) => {
+const Report: FC<ReportProps> = ({ set, players, playerUUID }) => {
   const [used, setUsed] = useState(false)
   const [reportPlayerMutation] = useMutation(REPORT_PLAYER_MUTATION)
 
   const onPlayerPress = (player: Player) => {
     setUsed(true)
     reportPlayerMutation({
-      variables: { boxID, userUUID, targetUUID: player.user }
+      variables: { playerUUID, targetUUID: player.uuid }
     })
   }
 
-  const filteredPlayers = players.filter(player => player.user !== userUUID)
+  const filteredPlayers = players.filter(player => player.uuid !== playerUUID)
 
   const onClosePress = () => set(null)
 

@@ -9,6 +9,8 @@ import getPlayer from '@/app/helpers/getPlayer'
 
 export interface Connection {
   boxID: UUID | null
+  gameUUID: UUID | null
+  playerUUID: UUID | null
   ready: boolean
 }
 
@@ -16,6 +18,8 @@ export type ConnectionsCollection = Map<UUID, Connection>
 
 const DEFAULT_VALUE = {
   boxID: null,
+  gameUUID: null,
+  playerUUID: null,
   ready: false
 }
 
@@ -60,10 +64,6 @@ class Connections extends Emitter {
   merge(userUUID, newState) {
     const state = this._connections.get(userUUID)
     return this._connections.set(userUUID, merge(state, newState))
-  }
-
-  setBoxID(userUUID: UUID, boxID: UUID) {
-    return this.merge(userUUID, { boxID })
   }
 
   setReady(userUUID: UUID) {

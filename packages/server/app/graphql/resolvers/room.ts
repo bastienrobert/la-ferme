@@ -42,7 +42,11 @@ const createOrJoin = async (userUUID, boxID) => {
 
   const creator = await game.creator().fetch()
 
-  return { creatorUUID: creator.uuid, player }
+  return {
+    playerUUID: player.uuid,
+    gameUUID: game.uuid,
+    creatorUUID: creator.uuid
+  }
 }
 
 const resolvers = {
@@ -50,10 +54,20 @@ const resolvers = {
     // join room
     async joinRoom(_, { userUUID, boxID }) {
       try {
-        const { creatorUUID } = await createOrJoin(userUUID, boxID)
-        connections.setBoxID(userUUID, boxID)
+        const { playerUUID, gameUUID, creatorUUID } = await createOrJoin(
+          userUUID,
+          boxID
+        )
+        connections.merge(userUUID, {
+          boxID,
+          playerUUID,
+          gameUUID
+        })
         const connectedUsers = {
+          boxID,
           creatorUUID,
+          gameUUID,
+          playerUUID,
           ...formatConnectedUsers(boxID, connections.getByBoxID(boxID))
         }
         pubsub.publish(ROOM.JOIN, {
@@ -61,6 +75,7 @@ const resolvers = {
         })
         return connectedUsers
       } catch (error) {
+        console.log(error)
         return error
       }
     }

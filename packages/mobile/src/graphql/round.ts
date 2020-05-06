@@ -1,36 +1,30 @@
 import gql from 'graphql-tag'
 
 const READY_FOR_ROUND_MUTATION = gql`
-  mutation ReadyForRound($userUUID: UUID!, $boxID: UUID!) {
-    readyForRound(userUUID: $userUUID, boxID: $boxID)
+  mutation ReadyForRound($playerUUID: UUID!) {
+    readyForRound(playerUUID: $playerUUID)
   }
 `
 
 const CONFIRM_BOARD_ROUND_MUTATION = gql`
-  mutation ConfirmBoardRound($userUUID: UUID!, $boxID: UUID!) {
-    confirmBoardRound(userUUID: $userUUID, boxID: $boxID)
+  mutation ConfirmBoardRound($playerUUID: UUID!) {
+    confirmBoardRound(playerUUID: $playerUUID)
   }
 `
 
 const SET_CARD_ROUND_MUTATION = gql`
   mutation SetCardRound(
-    $userUUID: UUID!
-    $boxID: UUID!
+    $playerUUID: UUID!
     $choice: RoundChoice!
-    $targets: [UUID]
+    $targets: [UUID] = []
   ) {
-    setCardRound(
-      userUUID: $userUUID
-      boxID: $boxID
-      choice: $choice
-      targets: $targets
-    )
+    setCardRound(playerUUID: $playerUUID, choice: $choice, targets: $targets)
   }
 `
 
 const COMPLETE_CARD_ROUND_MUTATION = gql`
-  mutation CompleteCardRound($userUUID: UUID!, $boxID: UUID!) {
-    completeCardRound(userUUID: $userUUID, boxID: $boxID)
+  mutation CompleteCardRound($playerUUID: UUID!) {
+    completeCardRound(playerUUID: $playerUUID)
   }
 `
 

@@ -13,12 +13,10 @@ import FullContainer from '@/components/shared/FullContainer'
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 
-import { GET_BOX_ID } from '@/graphql/local'
+import { GET_GAME_INFOS } from '@/graphql/local'
 import { GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
 import { READY_FOR_ROUND_MUTATION } from '@/graphql/round'
 import { EVENT_TRIGGERED_SUBSCRIPTION } from '@/graphql/event'
-
-import auth from '@/services/auth'
 
 export interface GameMainParams {
   players: Player[]
@@ -33,8 +31,8 @@ export interface GameMainProps {
 }
 
 const Game: FC<GameMainProps> = ({ navigation, route }) => {
-  const boxIDQuery = useQuery(GET_BOX_ID)
-  const boxID = boxIDQuery?.data?.boxID
+  const playerIDQuery = useQuery(GET_GAME_INFOS)
+  const { gameUUID, playerUUID } = playerIDQuery?.data ?? {}
   const players = route.params?.players ?? []
 
   const [popup, setPopup] = useState<PopupType>(null)
@@ -45,8 +43,8 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   const [readyForRoundMutation] = useMutation(READY_FOR_ROUND_MUTATION)
   useFocusEffect(
     useCallback(() => {
-      readyForRoundMutation({ variables: { boxID, userUUID: auth.uuid } })
-    }, [boxID, readyForRoundMutation])
+      readyForRoundMutation({ variables: { playerUUID } })
+    }, [playerUUID, readyForRoundMutation])
   )
 
   /**
@@ -55,17 +53,16 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   const eventTriggeredSubscription = useSubscription(
     EVENT_TRIGGERED_SUBSCRIPTION,
     {
-      variables: { boxID }
+      variables: { gameUUID }
     }
   )
   const eventData = eventTriggeredSubscription.data?.eventTriggered
-  console.log(eventTriggeredSubscription)
 
   /**
    * game update subscription
    */
   const gameUpdatedSubscription = useSubscription(GAME_UPDATED_SUBSCRIPTION, {
-    variables: { boxID }
+    variables: { gameUUID }
   })
   const gameData = gameUpdatedSubscription.data?.gameUpdated
   const numberOfRounds = gameData?.numberOfRounds
@@ -87,20 +84,19 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
       {eventData ? <Text>EVENT: {eventData.type}</Text> : null}
       {gameData && gameData.type === GameStatusType.Round && (
         <Round
-          boxID={boxID}
-          userUUID={auth.uuid}
+          gameUUID={gameUUID}
+          playerUUID={playerUUID}
           players={players}
           data={gameData.round}
         />
       )}
-      <Menu boxID={boxID} userUUID={auth.uuid} setPopup={setPopup} />
+      <Menu playerUUID={playerUUID} setPopup={setPopup} />
       {popup && (
         <Popups
           set={setPopup}
           type={popup}
           players={players}
-          boxID={boxID}
-          userUUID={auth.uuid}
+          playerUUID={playerUUID}
         />
       )}
     </FullContainer>

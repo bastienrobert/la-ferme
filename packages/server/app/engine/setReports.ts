@@ -14,7 +14,7 @@ export interface ReportsOptions {
   delta: number
 }
 
-export default async (boxID, { game, player, delta }: ReportsOptions) => {
+export default async (gameUUID, { game, player, delta }: ReportsOptions) => {
   try {
     const reportQuery = game
       .reports()
@@ -32,7 +32,7 @@ export default async (boxID, { game, player, delta }: ReportsOptions) => {
         pubsub.publish(REPORT.CREATE, {
           eventTriggered: {
             type: EventType.Report,
-            boxID
+            gameUUID
           }
         })
       }

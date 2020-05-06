@@ -6,7 +6,7 @@ import ThemeContext from '@/App/Theme/Context'
 import FullContainer from '@/components/shared/FullContainer'
 import Title from '@/components/typo/Title'
 
-import { GET_BOX_ID } from '@/graphql/local'
+import { GET_GAME_INFOS } from '@/graphql/local'
 import { READY_PLAYERS_QUERY, GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
 
 const Pending: FC<any> = ({ navigation }) => {
@@ -16,15 +16,15 @@ const Pending: FC<any> = ({ navigation }) => {
     setTheme('red')
   }, [setTheme])
 
-  const boxIDQuery = useQuery(GET_BOX_ID)
-  const boxID = boxIDQuery?.data?.boxID
+  const playerIDQuery = useQuery(GET_GAME_INFOS)
+  const { gameUUID } = playerIDQuery?.data ?? {}
 
   const playerIsReadyQuery = useQuery(READY_PLAYERS_QUERY, {
-    variables: { boxID }
+    variables: { gameUUID }
   })
 
   const gameUpdatedSubscription = useSubscription(GAME_UPDATED_SUBSCRIPTION, {
-    variables: { boxID }
+    variables: { gameUUID }
   })
 
   const players =
@@ -45,7 +45,7 @@ const Pending: FC<any> = ({ navigation }) => {
       <Title preset="H1">PENDING</Title>
       {players.map((p, i) => (
         <Title preset="H4" key={i}>
-          {`${p.user}: ${p.character} - ${p.ready}`}
+          {`${p.uuid}: ${p.character} - ${p.ready}`}
         </Title>
       ))}
     </FullContainer>
