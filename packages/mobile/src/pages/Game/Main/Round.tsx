@@ -50,6 +50,11 @@ const Watcher: FC<RoundProps> = ({ players, data }) => {
         <Container>
           <Text>{current.character} est en train de confirmer</Text>
           <Text>Carte choisie: {card.displayName}</Text>
+          {data.targets?.length > 0 &&
+            data.targets.map((target, i) => {
+              const player = players.find(p => p.uuid === target)
+              return <Text key={i}>Cible(s): {player.character}</Text>
+            })}
         </Container>
       )
     default:
@@ -161,6 +166,11 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
           <Text>
             Carte choisie: {data.choice} {data.cards[data.choice]}
           </Text>
+          {data.targets?.length > 0 &&
+            data.targets.map((target, i) => {
+              const player = players.find(p => p.uuid === target)
+              return <Text key={i}>Cible(s): {player.character}</Text>
+            })}
           <Container>
             <Button onPress={() => onCompletePress()}>OK</Button>
           </Container>

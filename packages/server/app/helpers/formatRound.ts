@@ -8,6 +8,8 @@ export default async (round: Round, step): Promise<RoundType> => {
 
   switch (step) {
     case RoundStep.Confirm:
+      const targets = await round.targets().fetch()
+      const formattedTargets = targets.map(target => target.uuid)
       return {
         player: player.uuid,
         step: round.step,
@@ -15,7 +17,8 @@ export default async (round: Round, step): Promise<RoundType> => {
           civil: round.civilCard,
           uncivil: round.uncivilCard
         },
-        choice: round.choice
+        choice: round.choice,
+        targets: formattedTargets
       }
     case RoundStep.Card:
       return {

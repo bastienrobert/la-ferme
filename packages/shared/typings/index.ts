@@ -11,7 +11,6 @@ export interface User {
 }
 
 export interface Player {
-  user: UUID
   uuid: UUID
   ready: boolean
   character?: string
@@ -72,6 +71,7 @@ export interface Round {
   step: RoundStep
   cards?: RoundCards
   choice?: string
+  targets?: UUID[]
 }
 
 export enum RoundStep {

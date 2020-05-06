@@ -53,6 +53,7 @@ const GAME_UPDATED_SUBSCRIPTION = gql`
           }
           ... on RoundStepConfirm {
             choice
+            targets
             cards {
               civil
               uncivil
