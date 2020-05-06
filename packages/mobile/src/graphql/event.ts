@@ -4,6 +4,7 @@ const EVENT_TRIGGERED_SUBSCRIPTION = gql`
   subscription EventTriggered($gameUUID: UUID!) {
     eventTriggered(gameUUID: $gameUUID) {
       type
+      player
     }
   }
 `

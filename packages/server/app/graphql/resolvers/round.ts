@@ -18,6 +18,7 @@ import Player from '@/app/models/Player'
 import Game from '@/app/models/Game'
 
 import { connections } from '@/app/stores'
+import setReports from '@/app/engine/setReports'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
 import formatRound from '@/app/helpers/formatRound'
@@ -180,11 +181,11 @@ const resolvers = {
       )
       await lastRound.targets().attach(targettedPlayers)
 
-      // setReports(boxID, {
-      //   game,
-      //   player,
-      //   delta: choice === RoundChoice.Civil ? 1 : -2
-      // })
+      setReports(game.uuid, {
+        game,
+        player,
+        delta: choice === RoundChoice.Civil ? 1 : -2
+      })
 
       const step = RoundStep.Confirm
       lastRound.step = step

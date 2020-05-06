@@ -1,8 +1,14 @@
 import React, { FC, useEffect, useCallback, useState } from 'react'
+import { Alert } from 'react-native'
 import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { useFocusEffect } from '@react-navigation/native'
 import { useMutation, useSubscription, useQuery } from '@apollo/react-hooks'
-import { Player, GameStatusType } from '@la-ferme/shared/typings'
+import {
+  Player,
+  GameStatusType,
+  EventType,
+  UUID
+} from '@la-ferme/shared/typings'
 
 import { RootStackParamList } from '@/App/routes'
 
@@ -28,6 +34,11 @@ type GameNavigationProp = NavigationProp<RootStackParamList, 'Game:Main'>
 export interface GameMainProps {
   route: GameRouteProp
   navigation: GameNavigationProp
+}
+
+const getPlayerCharacter = (players: Player[], uuid: UUID) => {
+  const player = players.find(p => p.uuid === uuid)
+  return player ? player.character : null
 }
 
 const Game: FC<GameMainProps> = ({ navigation, route }) => {
@@ -57,6 +68,16 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
     }
   )
   const eventData = eventTriggeredSubscription.data?.eventTriggered
+  console.log(eventData)
+
+  useEffect(() => {
+    if (
+      eventData?.type === EventType.Report &&
+      eventData?.player === playerUUID
+    ) {
+      Alert.alert('You have been reported')
+    }
+  }, [eventData, playerUUID])
 
   /**
    * game update subscription
@@ -81,7 +102,12 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
           CURRENT ROUND: {Math.floor((numberOfRounds - 1) / players.length) + 1}
         </Text>
       ) : null}
-      {eventData ? <Text>EVENT: {eventData.type}</Text> : null}
+      {eventData ? (
+        <Text>
+          LAST EVENT: {eventData.type} TARGET{' '}
+          {getPlayerCharacter(players, eventData.player)}
+        </Text>
+      ) : null}
       {gameData && gameData.type === GameStatusType.Round && (
         <Round
           gameUUID={gameUUID}

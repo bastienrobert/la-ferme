@@ -31,8 +31,9 @@ export default async (gameUUID, { game, player, delta }: ReportsOptions) => {
 
         pubsub.publish(REPORT.CREATE, {
           eventTriggered: {
+            gameUUID,
             type: EventType.Report,
-            gameUUID
+            player: player.uuid
           }
         })
       }
