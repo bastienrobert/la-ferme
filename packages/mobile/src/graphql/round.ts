@@ -13,8 +13,18 @@ const CONFIRM_BOARD_ROUND_MUTATION = gql`
 `
 
 const SET_CARD_ROUND_MUTATION = gql`
-  mutation SetCardRound($userUUID: UUID!, $boxID: UUID!, $choice: RoundChoice) {
-    setCardRound(userUUID: $userUUID, boxID: $boxID, choice: $choice)
+  mutation SetCardRound(
+    $userUUID: UUID!
+    $boxID: UUID!
+    $choice: RoundChoice!
+    $targets: [UUID]
+  ) {
+    setCardRound(
+      userUUID: $userUUID
+      boxID: $boxID
+      choice: $choice
+      targets: $targets
+    )
   }
 `
 

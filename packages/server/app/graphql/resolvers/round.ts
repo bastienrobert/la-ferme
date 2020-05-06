@@ -168,7 +168,7 @@ const resolvers = {
       })
       return true
     },
-    async setCardRound(_, { boxID, userUUID, choice }) {
+    async setCardRound(_, { boxID, userUUID, choice, targets }) {
       const game = await getGame(boxID)
       const rounds = await getRounds(game)
       const players = game.related('players') as Collection<Player>
@@ -176,6 +176,15 @@ const resolvers = {
       const lastRound = await rounds
         .last()
         .fetch({ withRelated: ['player', 'player.user'] })
+
+      const users = await Promise.all(
+        targets.map(async target => {
+          const user = await User.findByUUID(target)
+          const p = await user.getLastPlayer()
+          return p.id
+        })
+      )
+      await lastRound.targets().attach(users)
 
       const player = lastRound.related('player') as Player
       const user = player.related('user') as User

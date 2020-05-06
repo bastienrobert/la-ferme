@@ -27,6 +27,10 @@ export default class Round extends db.bookshelf.Model<Round> {
     return this.belongsTo(Player)
   }
 
+  targets() {
+    return this.belongsToMany(Player, 'targeted_players_rounds')
+  }
+
   get civilCard() {
     return this.get('civil_card')
   }

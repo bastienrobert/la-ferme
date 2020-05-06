@@ -1,16 +1,19 @@
-import React, { FC } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import {
   UUID,
   RoundChoice,
   RoundStep,
   Round as RoundType,
-  Player as PlayerType
+  Player as PlayerType,
+  Card as CardType
 } from '@la-ferme/shared/typings'
+import { getCard } from '@la-ferme/shared/data/cards'
 import { Button } from '@la-ferme/components/native'
 
-import Container from '@/components/shared/Container'
 import Text from '@/components/typo/Text'
+import Container from '@/components/shared/Container'
+import PlayerSelect from '@/components/shared/PlayerSelect'
 
 import {
   CONFIRM_BOARD_ROUND_MUTATION,
@@ -42,12 +45,11 @@ const Watcher: FC<RoundProps> = ({ players, data }) => {
         </Container>
       )
     case RoundStep.Confirm:
+      const card = getCard(data.cards[data.choice])
       return (
         <Container>
           <Text>{current.character} est en train de confirmer</Text>
-          <Text>
-            Carte choisie: {data.choice} {data.cards[data.choice]}
-          </Text>
+          <Text>Carte choisie: {card.displayName}</Text>
         </Container>
       )
     default:
@@ -55,7 +57,10 @@ const Watcher: FC<RoundProps> = ({ players, data }) => {
   }
 }
 
-const Player: FC<RoundProps> = ({ boxID, userUUID, data }) => {
+const Player: FC<RoundProps> = ({ boxID, userUUID, players, data }) => {
+  const [playerSelect, setPlayerSelect] = useState<RoundChoice>(null)
+  const [selectedPlayers, setSelectedPlayers] = useState<PlayerType[]>([])
+
   const [confirmBoardRoundMutation] = useMutation(CONFIRM_BOARD_ROUND_MUTATION)
   const [setCardRoundMutation] = useMutation(SET_CARD_ROUND_MUTATION)
   const [completeCardRoundMutation] = useMutation(COMPLETE_CARD_ROUND_MUTATION)
@@ -66,10 +71,12 @@ const Player: FC<RoundProps> = ({ boxID, userUUID, data }) => {
     })
   }
 
-  const onChoicePress = (choice: RoundChoice) => {
-    setCardRoundMutation({
-      variables: { boxID, userUUID, choice }
-    })
+  const onChoicePress = (choice: RoundChoice, card: CardType) => {
+    card.reward.params?.target
+      ? setPlayerSelect(choice)
+      : setCardRoundMutation({
+          variables: { boxID, userUUID, choice }
+        })
   }
 
   const onCompletePress = () => {
@@ -77,6 +84,30 @@ const Player: FC<RoundProps> = ({ boxID, userUUID, data }) => {
       variables: { boxID, userUUID }
     })
   }
+
+  const onTargetClick = target => {
+    setSelectedPlayers(selectedPlayers.concat(target))
+  }
+
+  useEffect(() => {
+    if (!playerSelect) return
+    const card = getCard(data.cards[playerSelect])
+    if (selectedPlayers.length === card.reward.params.target) {
+      const targets = selectedPlayers.map(player => player.user)
+      setCardRoundMutation({
+        variables: { boxID, userUUID, choice: playerSelect, targets }
+      })
+      setSelectedPlayers([])
+      setPlayerSelect(null)
+    }
+  }, [
+    boxID,
+    data.cards,
+    playerSelect,
+    selectedPlayers,
+    setCardRoundMutation,
+    userUUID
+  ])
 
   switch (data.step) {
     case RoundStep.New:
@@ -89,20 +120,34 @@ const Player: FC<RoundProps> = ({ boxID, userUUID, data }) => {
         </Container>
       )
     case RoundStep.Card:
-      return (
+      const cards = {
+        civil: getCard(data.cards.civil),
+        uncivil: getCard(data.cards.uncivil)
+      }
+      const filteredPlayers = players.filter(player => player.user !== userUUID)
+      return playerSelect ? (
+        <Container>
+          <Text>Selected: {cards[playerSelect].displayName}</Text>
+          <PlayerSelect players={filteredPlayers} onPress={onTargetClick} />
+        </Container>
+      ) : (
         <>
           <Container>
-            <Text>Civil: {data.cards.civil}</Text>
+            <Text>Civil: {cards.civil.displayName}</Text>
             <Container>
-              <Button onPress={() => onChoicePress(RoundChoice.Civil)}>
+              <Button
+                onPress={() => onChoicePress(RoundChoice.Civil, cards.civil)}>
                 Choose civil card
               </Button>
             </Container>
           </Container>
           <Container>
-            <Text>Civil: {data.cards.uncivil}</Text>
+            <Text>Civil: {cards.uncivil.displayName}</Text>
             <Container>
-              <Button onPress={() => onChoicePress(RoundChoice.Uncivil)}>
+              <Button
+                onPress={() =>
+                  onChoicePress(RoundChoice.Uncivil, cards.uncivil)
+                }>
                 Choose uncivil card
               </Button>
             </Container>

@@ -84,6 +84,7 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
           CURRENT ROUND: {Math.floor((numberOfRounds - 1) / players.length) + 1}
         </Text>
       ) : null}
+      {eventData ? <Text>EVENT: {eventData.type}</Text> : null}
       {gameData && gameData.type === GameStatusType.Round && (
         <Round
           boxID={boxID}
@@ -92,7 +93,6 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
           data={gameData.round}
         />
       )}
-      {eventData ? <Text>EVENT: {eventData.type}</Text> : null}
       <Menu boxID={boxID} userUUID={auth.uuid} setPopup={setPopup} />
       {popup && (
         <Popups

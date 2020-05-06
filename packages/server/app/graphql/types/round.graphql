@@ -41,6 +41,11 @@ type RoundStepConfirm implements Round {
 extend type Mutation {
   readyForRound(boxID: UUID!, userUUID: UUID!): Boolean!
   confirmBoardRound(boxID: UUID!, userUUID: UUID!): Boolean!
-  setCardRound(boxID: UUID!, userUUID: UUID!, choice: RoundChoice): Boolean!
+  setCardRound(
+    boxID: UUID!
+    userUUID: UUID!
+    choice: RoundChoice!
+    targets: [UUID]
+  ): Boolean!
   completeCardRound(boxID: UUID!, userUUID: UUID!): Boolean!
 }
