@@ -27,7 +27,9 @@ export default async (gameUUID, { game, player, delta }: ReportsOptions) => {
     if (report) {
       report.increase(delta)
       if (report.score < -2) {
-        report.status = ReportStatus.Confirmed
+        report.status = ReportStatus.Completed
+
+        console.log('PASSED IN REPORT SCORE')
 
         pubsub.publish(REPORT.CREATE, {
           eventTriggered: {

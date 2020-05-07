@@ -1,5 +1,4 @@
 type Player {
-  user: UUID!
   uuid: UUID!
   ready: Boolean
   character: String

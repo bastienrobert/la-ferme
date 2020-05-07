@@ -44,13 +44,6 @@ const Role: FC<any> = ({ navigation }) => {
       <Text color="gray">{userData.character}</Text>
       <Text color="gray">{userData.goal}</Text>
       <Text color="gray">{userData.skill}</Text>
-      {/* <Text color="beige">{everybodyIsReady ? 'Ready' : 'Not yet'}</Text>
-      {players.map((player, i) => (
-        <Text color="beige" key={`player-${i}`}>
-          {player.character}: {player.goal} {player.skill} is{' '}
-          {player.ready ? 'ready' : 'not ready'} ({player.user})
-        </Text>
-      ))} */}
       <Container>
         <Button onPress={onReadyPress}>Ready</Button>
       </Container>

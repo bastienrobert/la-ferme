@@ -3,7 +3,6 @@ import gql from 'graphql-tag'
 const fragments = {
   playerInfos: gql`
     fragment PlayerInfos on Player {
-      user
       uuid
       ready
       character

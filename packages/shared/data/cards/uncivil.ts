@@ -1,4 +1,4 @@
-import { Card } from '../../typings'
+import { Card, CardRewardType } from '../../typings'
 
 const uncivil: Card[] = [
   {
@@ -7,7 +7,8 @@ const uncivil: Card[] = [
     text:
       "Monsieur Caramel paraît doux au premier bord. C'est pourtant lui qui a crevé les pneux de tous les velibs de votre station, pour le fun.",
     reward: {
-      type: 'turn',
+      type: CardRewardType.Turn,
+      score: -1,
       params: {
         target: 1
       },
@@ -20,7 +21,8 @@ const uncivil: Card[] = [
     text:
       "C'est la fièvre du samedi soir chez votre voisinne! Vous montez sur vos grands chevaux et décidez d'appeler la brigade!",
     reward: {
-      type: 'backward',
+      type: CardRewardType.Backward,
+      score: -1,
       params: {
         cases: 1,
         target: 1
@@ -34,8 +36,23 @@ const uncivil: Card[] = [
     text:
       'Chèr(e) voyageur le train rentre à quai gare de Lion. Monsieur Bourguignon ne laisse pas les passagers descendre et force le passage comme un boeuf. Les portes se referment, vous avez raté votre arrêt.',
     reward: {
-      type: 'restart',
+      type: CardRewardType.Restart,
+      score: -1,
       text: 'Retour à la case départ'
+    }
+  },
+  {
+    name: 'double-in-the-queue',
+    displayName: 'Doubler dans la file d’attente',
+    text:
+      'Monsieur Ponpon est très en retard. Hop! Ni vu ni connu il fait des petits bonds et vous double dans la file du supermarché aux champs.',
+    reward: {
+      type: CardRewardType.LoseRound,
+      score: -1,
+      params: {
+        target: 1
+      },
+      text: 'Un joueur passe son tour'
     }
   }
 ]

@@ -11,9 +11,7 @@ import formatPlayers, { formatPlayer } from '@/app/helpers/formatPlayers'
 const resolvers = {
   Query: {
     async getPlayer(_, { playerUUID }): Promise<PlayerType> {
-      const player = await Player.findByUUID(playerUUID, {
-        withRelated: ['user']
-      })
+      const player = await Player.findByUUID(playerUUID)
 
       const formattedPlayer = await formatPlayer(player)
       return formattedPlayer
@@ -30,9 +28,7 @@ const resolvers = {
       player.ready()
       await player.save()
 
-      const players = await game.players().fetch({
-        withRelated: ['user']
-      })
+      const players = await game.players().fetch()
       const formattedPlayers = await formatPlayers(players)
 
       pubsub.publish(PLAYER.READY, {

@@ -3,7 +3,6 @@ import db from '@/config/database'
 import Game from './Game'
 import Round from './Round'
 import User from './User'
-import Event from './Event'
 import Skill from './Skill'
 import Report from './Report'
 
@@ -53,20 +52,8 @@ export default class Player extends db.bookshelf.Model<Player> {
     this.hasMany(Report, 'id', 'to_player_id')
   }
 
-  givenEvents() {
-    return this.hasMany(Event, 'id', 'from_player_id')
-  }
-
-  receivedEvents() {
-    return this.hasMany(Event, 'id', 'to_player_id')
-  }
-
-  increaseScore(delta = 1) {
+  increase(delta = 1) {
     this.set({ score: this.score + delta })
-  }
-
-  decreaseScore(delta = 1) {
-    this.set({ score: this.score - delta })
   }
 
   get uuid() {

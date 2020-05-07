@@ -41,7 +41,7 @@ const resolvers = {
   Query: {
     async getReadyPlayers(_, { gameUUID }) {
       const game = await Game.findByUUID(gameUUID, {
-        withRelated: ['players', 'players.user']
+        withRelated: ['players']
       })
 
       const players = game.related<Player>('players') as Collection<Player>
@@ -80,7 +80,7 @@ const resolvers = {
       await Promise.all(
         players.map(async p => {
           const skill = new Skill()
-          skill.type = getSkill()
+          skill.name = getSkill()
           skill.setPlayer(p.id)
           await skill.save()
 

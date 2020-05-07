@@ -19,10 +19,12 @@ import Game from '@/app/models/Game'
 
 import { connections } from '@/app/stores'
 import setReports from '@/app/engine/setReports'
+import setEvent from '@/app/engine/setEvent'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
 import formatRound from '@/app/helpers/formatRound'
 import getRandom from '@/app/helpers/getRandom'
+import getChosenCard from '@/app/helpers/getChosenCard'
 
 const createRound = async (gameID: UUID, playerID: UUID) => {
   const civil = getRandom(cards.civil)
@@ -47,6 +49,36 @@ const publishRound = (gameUUID: UUID, { players, round, numberOfRounds }) => {
       round
     }
   })
+}
+
+const getPlayerData = async playerUUID => {
+  const player = await Player.findByUUID(playerUUID, {
+    withRelated: [
+      'game',
+      'rounds',
+      {
+        'game.rounds': qb => qb.orderBy('created_at'),
+        'game.players': qb => qb.orderBy('created_at')
+      }
+    ]
+  })
+
+  const game = player.related('game') as Game
+  const rounds = player.related('rounds') as Collection<Round>
+  const players = game.related('players') as Collection<Player>
+
+  const lastRound = await rounds.last().fetch({ withRelated: ['player'] })
+  const lastRoundPlayer = lastRound.related('player') as Player
+
+  if (playerUUID !== lastRoundPlayer.uuid) throw new Error(NOT_ALLOWED)
+
+  return {
+    player,
+    game,
+    rounds,
+    players,
+    lastRound
+  }
 }
 
 const getNextPlayer = (players: Collection<Player>, current: Player) => {
@@ -117,26 +149,7 @@ const resolvers = {
       return true
     },
     async confirmBoardRound(_, { playerUUID }) {
-      const player = await Player.findByUUID(playerUUID, {
-        withRelated: [
-          'game',
-          'user',
-          'rounds',
-          {
-            'game.rounds': qb => qb.orderBy('created_at'),
-            'game.players': qb => qb.orderBy('created_at')
-          }
-        ]
-      })
-
-      const game = player.related('game') as Game
-      const rounds = player.related('rounds') as Collection<Round>
-      const players = game.related('players') as Collection<Player>
-
-      const lastRound = await rounds.last().fetch({ withRelated: ['player'] })
-      const lastRoundPlayer = lastRound.related('player') as Player
-
-      if (playerUUID !== lastRoundPlayer.uuid) throw new Error(NOT_ALLOWED)
+      const { game, players, lastRound } = await getPlayerData(playerUUID)
 
       const step = RoundStep.Card
       lastRound.step = step
@@ -152,45 +165,46 @@ const resolvers = {
       return true
     },
     async setCardRound(_, { playerUUID, choice, targets }) {
-      const player = await Player.findByUUID(playerUUID, {
-        withRelated: [
-          'game',
-          'user',
-          'rounds',
-          {
-            'game.rounds': qb => qb.orderBy('created_at'),
-            'game.players': qb => qb.orderBy('created_at')
-          }
-        ]
-      })
+      const { game, player, players, lastRound } = await getPlayerData(
+        playerUUID
+      )
 
-      const game = player.related('game') as Game
-      const rounds = player.related('rounds') as Collection<Round>
-      const players = game.related('players') as Collection<Player>
+      const lastChoosenCard = getChosenCard(
+        {
+          civil: lastRound.civilCard,
+          uncivil: lastRound.uncivilCard
+        },
+        choice
+      )
 
-      const lastRound = await rounds.last().fetch({ withRelated: ['player'] })
-      const lastRoundPlayer = lastRound.related('player') as Player
-
-      if (playerUUID !== lastRoundPlayer.uuid) throw new Error(NOT_ALLOWED)
-
-      const targettedPlayers = await Promise.all(
+      const targettedPlayers: number[] = await Promise.all(
         targets.map(async target => {
           const p = await Player.findByUUID(target)
           return p.id
         })
       )
-      await lastRound.targets().attach(targettedPlayers)
 
-      setReports(game.uuid, {
-        game,
-        player,
-        delta: choice === RoundChoice.Civil ? 1 : -2
-      })
+      player.increase(lastChoosenCard.reward.score)
 
       const step = RoundStep.Confirm
       lastRound.step = step
       lastRound.choice = choice
-      await lastRound.save()
+
+      await Promise.all([
+        player.save(),
+        lastRound.save(),
+        lastRound.targets().attach(targettedPlayers),
+        setEvent({
+          card: lastChoosenCard,
+          targets: targettedPlayers
+        })
+      ])
+
+      setReports(game.uuid, {
+        game,
+        player,
+        delta: lastChoosenCard.reward.score
+      })
 
       const formattedRound = formatRound(lastRound, step)
       const numberOfRounds = await game.numberOfRounds()
@@ -205,26 +219,9 @@ const resolvers = {
     },
     // set a round status with given infos
     async completeCardRound(_, { playerUUID }) {
-      const player = await Player.findByUUID(playerUUID, {
-        withRelated: [
-          'game',
-          'user',
-          'rounds',
-          {
-            'game.rounds': qb => qb.orderBy('created_at'),
-            'game.players': qb => qb.orderBy('created_at')
-          }
-        ]
-      })
-
-      const game = player.related('game') as Game
-      const rounds = player.related('rounds') as Collection<Round>
-      const players = game.related('players') as Collection<Player>
-
-      const lastRound = await rounds.last().fetch({ withRelated: ['player'] })
-      const lastRoundPlayer = lastRound.related('player') as Player
-
-      if (playerUUID !== lastRoundPlayer.uuid) throw new Error(NOT_ALLOWED)
+      const { game, player, players, lastRound } = await getPlayerData(
+        playerUUID
+      )
 
       lastRound.step = RoundStep.Complete
 

@@ -40,7 +40,7 @@ const resolvers = {
         score: to.score <= 0 ? -1 : 1,
         status: reject ? ReportStatus.Rejected : ReportStatus.New
       })
-      report.save()
+      await report.save()
 
       if (rejectForFrom) throw new Error(TOO_MANY_REPORTS)
       if (rejectForTo) throw new Error(ALREADY_REPORT)

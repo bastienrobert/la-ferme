@@ -6,8 +6,8 @@ import Game from './Game'
 export enum ReportStatus {
   Rejected = 'rejected',
   New = 'new',
-  Confirmed = 'confirmed',
-  Canceled = 'canceled'
+  Canceled = 'canceled',
+  Completed = 'completed'
 }
 
 export default class Report extends db.bookshelf.Model<Player> {

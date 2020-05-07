@@ -1,4 +1,4 @@
-import { Card } from '../../typings'
+import { Card, CardRewardType } from '../../typings'
 
 const civil: Card[] = [
   {
@@ -7,7 +7,8 @@ const civil: Card[] = [
     text:
       "Aujourd'hui, Monsieur Lane fait sa tête de mûle et ne veut pas cèder sa place prioritaire. Peter cède sa place à Madame Henriette la biquette et elle le remercie.",
     reward: {
-      type: 'forward',
+      type: CardRewardType.Forward,
+      score: 1,
       params: {
         cases: 2
       },
@@ -20,7 +21,8 @@ const civil: Card[] = [
     text:
       'Quel temps de chien! Il pleut des cordes! Mr Fisher ouvre son parapluie sans prendre garde autour de lui. Les baleines de son parapluie piquent, vous changez de trottoir et evitez tout le monde !',
     reward: {
-      type: 'forward',
+      type: CardRewardType.Forward,
+      score: 1,
       params: {
         cases: 1
       },
@@ -33,11 +35,26 @@ const civil: Card[] = [
     text:
       'Miss Grisette est futée mais surtout préssée. Ni vu ni connu, elle décide de doubler la file. Vous changez de file pour une qui avance plus vite.',
     reward: {
-      type: 'swich-place',
+      type: CardRewardType.SwichPlace,
+      score: 1,
       params: {
         target: 1
       },
       text: 'Echangez de place avec un joueur'
+    }
+  },
+  {
+    name: 'block-escalators',
+    displayName: 'Bloquer les escalators',
+    text:
+      "Monsieur Tartare s'essouffle! Il décide de faire une pause et s'arrête en plein milieu de l'escalator. Aucun moyen de le doubler, vous êtes bloqués.",
+    reward: {
+      type: CardRewardType.LoseRound,
+      score: 1,
+      params: {
+        self: true
+      },
+      text: 'Vous passez votre tour'
     }
   }
 ]

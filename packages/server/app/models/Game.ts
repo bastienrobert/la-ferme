@@ -2,7 +2,6 @@ import db from '@/config/database'
 
 import Room from './Room'
 import Round, { RoundType } from './Round'
-import Event from './Event'
 import User from './User'
 import Report from './Report'
 import Player from './Player'
@@ -34,10 +33,6 @@ export default class Game extends db.bookshelf.Model<Game> {
 
   reports() {
     return this.hasMany(Report)
-  }
-
-  events() {
-    return this.hasMany(Event)
   }
 
   creator() {

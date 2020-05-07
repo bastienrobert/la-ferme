@@ -43,14 +43,25 @@ export interface Skill {
   effect: string
 }
 
+export enum CardRewardType {
+  Turn = 'turn',
+  Backward = 'backward',
+  Forward = 'forward',
+  Restart = 'restart',
+  LoseRound = 'lose_round',
+  SwichPlace = 'swich_place'
+}
+
 export interface CardRewardParams {
+  self?: boolean
   cases?: number
   target?: number
 }
 
 export interface CardReward {
-  type: string
+  type: CardRewardType
   text: string
+  score: number
   params?: CardRewardParams
 }
 
@@ -94,6 +105,8 @@ export enum GameStatusType {
 }
 
 export enum EventType {
+  TurnLose = 'turn_lose',
+  Replay = 'replay',
   ReportAll = 'report_all',
   Report = 'report',
   Skill = 'skill',
