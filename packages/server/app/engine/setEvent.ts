@@ -5,6 +5,6 @@ interface SetEventOptions {
   targets: number[]
 }
 
-export default ({ card, targets }: SetEventOptions) => {
-  console.log(card, 'players', targets)
+export default ({}: SetEventOptions) => {
+  // console.log(card, 'players', targets)
 }

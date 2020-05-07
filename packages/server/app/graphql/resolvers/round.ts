@@ -19,12 +19,13 @@ import Game from '@/app/models/Game'
 
 import { connections } from '@/app/stores'
 import setReports from '@/app/engine/setReports'
-import setEvent from '@/app/engine/setEvent'
+// import setEvent from '@/app/engine/setEvent'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
 import formatRound from '@/app/helpers/formatRound'
 import getRandom from '@/app/helpers/getRandom'
 import getChosenCard from '@/app/helpers/getChosenCard'
+import checkReports from '@/app/engine/checkReports'
 
 const createRound = async (gameID: UUID, playerID: UUID) => {
   const civil = getRandom(cards.civil)
@@ -193,14 +194,14 @@ const resolvers = {
       await Promise.all([
         player.save(),
         lastRound.save(),
-        lastRound.targets().attach(targettedPlayers),
-        setEvent({
-          card: lastChoosenCard,
-          targets: targettedPlayers
-        })
+        lastRound.targets().attach(targettedPlayers)
+        // setEvent({
+        //   card: lastChoosenCard,
+        //   targets: targettedPlayers
+        // })
       ])
 
-      setReports(game.uuid, {
+      setReports({
         game,
         player,
         delta: lastChoosenCard.reward.score
@@ -235,6 +236,8 @@ const resolvers = {
       ])
       const numberOfRounds = await game.numberOfRounds()
       const formattedRound = formatRound(round, RoundStep.New)
+
+      checkReports(game.uuid, { game })
 
       publishRound(game.uuid, {
         players: formatPlayers(players),

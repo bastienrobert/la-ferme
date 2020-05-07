@@ -45,11 +45,11 @@ export default class Player extends db.bookshelf.Model<Player> {
   }
 
   givenAccusations() {
-    this.hasMany(Report, 'id', 'from_player_id')
+    this.hasMany(Report, 'from_player_id')
   }
 
   receivedAccusations() {
-    this.hasMany(Report, 'id', 'to_player_id')
+    this.hasMany(Report, 'to_player_id')
   }
 
   increase(delta = 1) {

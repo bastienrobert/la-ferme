@@ -6,6 +6,7 @@ import Game from './Game'
 export enum ReportStatus {
   Rejected = 'rejected',
   New = 'new',
+  Confirmed = 'confirmed',
   Canceled = 'canceled',
   Completed = 'completed'
 }
@@ -24,11 +25,11 @@ export default class Report extends db.bookshelf.Model<Player> {
   }
 
   from() {
-    return this.hasOne(Player, 'from_player_id')
+    return this.hasOne(Player, 'id', 'from_player_id')
   }
 
   to() {
-    return this.hasOne(Player, 'to_player_id')
+    return this.hasOne(Player, 'id', 'to_player_id')
   }
 
   increase(delta = 1) {
