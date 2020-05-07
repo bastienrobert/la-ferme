@@ -10,8 +10,9 @@ import { getMainDefinition } from 'apollo-utilities'
 import unfetch from 'unfetch'
 import ws from 'isomorphic-ws'
 
+import auth from '@/services/auth'
+
 import config from '@/utils/config'
-import auth from '@/utils/auth'
 
 // Create an http link:
 const httpLink = new HttpLink({

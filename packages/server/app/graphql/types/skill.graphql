@@ -1,0 +1,3 @@
+extend type Mutation {
+  useSkill(playerUUID: UUID!): Boolean!
+}

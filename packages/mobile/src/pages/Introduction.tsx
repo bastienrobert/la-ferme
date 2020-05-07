@@ -5,40 +5,37 @@ import { Button } from '@la-ferme/components/native'
 
 import content from '@/content/global.json'
 
-import FullView from '@/components/FullView'
-import Container from '@/components/Container'
-import FullscreenVideo from '@/components/FullscreenVideo'
+import FullContainer from '@/components/shared/FullContainer'
+import Container from '@/components/shared/Container'
+import FullscreenVideo from '@/components/shared/FullscreenVideo'
 
 const Introduction: FC<any> = ({ navigation }) => {
   const [paused, setPaused] = useState(false)
 
-  useFocusEffect(
-    useCallback(() => {
-      return () => setPaused(true)
-    }, [])
-  )
+  useFocusEffect(useCallback(() => () => setPaused(true), []))
 
-  const onSkipPress = () => {
-    navigation.navigate('Home')
+  const goHome = () => {
+    navigation.navigate('Home:Main')
   }
 
   return (
-    <FullView>
+    <FullContainer>
       <FullscreenVideo
         paused={paused}
+        onEnd={goHome}
         source={{
-          uri:
-            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_60fps_normal.mp4'
+          uri: 'https://aura.app/videos/developer-hevc-bounce-5319b8308f.mov'
+          // 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
         }}
       />
       <StyledView>
         <StyledContainer>
-          <Button variant="primary" onPress={onSkipPress}>
+          <Button variant="primary" onPress={goHome}>
             {content.skip}
           </Button>
         </StyledContainer>
       </StyledView>
-    </FullView>
+    </FullContainer>
   )
 }
 

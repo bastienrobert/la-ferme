@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StatusBar, Platform } from 'react-native'
 import { ApolloProvider, useLazyQuery } from '@apollo/react-hooks'
 import BootSplash from 'react-native-bootsplash'
 import styled from 'styled-components/native'
+import { Colors } from '@la-ferme/components/native'
 
 import Router from './Router'
+import ThemeContext from './Theme/Context'
+import useTheme from './Theme/hook'
 import apollo from './apollo'
 import routes from './routes'
 
 import { GET_USER_QUERY } from '@/graphql/user'
 
-import auth from '@/utils/auth'
+import auth from '@/services/auth'
 
 function Main() {
   const [ready, setReady] = useState(false)
   const [getUser, { data }] = useLazyQuery(GET_USER_QUERY)
+  const { theme } = useContext(ThemeContext)
 
   useEffect(() => {
     auth.local().then(uuid => getUser({ variables: { uuid } }))
@@ -32,22 +36,29 @@ function Main() {
     BootSplash.hide({ duration: 250 })
   }, [ready])
 
-  return <Router routes={routes} />
+  return (
+    <GlobalSafeAreaView background={theme}>
+      <Router routes={routes} />
+    </GlobalSafeAreaView>
+  )
 }
 
 export default function App() {
+  const theme = useTheme()
+
   return (
     <>
       {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
-      <SafeAreaView>
-        <ApolloProvider client={apollo}>
+      <ApolloProvider client={apollo}>
+        <ThemeContext.Provider value={theme}>
           <Main />
-        </ApolloProvider>
-      </SafeAreaView>
+        </ThemeContext.Provider>
+      </ApolloProvider>
     </>
   )
 }
 
-const SafeAreaView = styled.SafeAreaView`
+const GlobalSafeAreaView = styled.SafeAreaView<any>`
   flex: 1;
+  background-color: ${props => Colors[props.background] || Colors.gray};
 `

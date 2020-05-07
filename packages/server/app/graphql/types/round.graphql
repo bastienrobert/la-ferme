@@ -1,17 +1,51 @@
-type Round {
-  user: UUID!
+type Cards {
+  civil: String
+  uncivil: String
 }
 
-type NewRound {
-  boxID: UUID!
-  round: Round!
+enum RoundStep {
+  new
+  card
+  confirm
+  complete
+}
+
+enum RoundChoice {
+  civil
+  uncivil
+}
+
+interface Round {
+  player: UUID!
+  step: RoundStep!
+}
+
+type RoundStepDefault implements Round {
+  player: UUID!
+  step: RoundStep!
+}
+
+type RoundStepCard implements Round {
+  player: UUID!
+  step: RoundStep!
+  cards: Cards!
+}
+
+type RoundStepConfirm implements Round {
+  player: UUID!
+  step: RoundStep!
+  cards: Cards!
+  choice: String!
+  targets: [UUID]
 }
 
 extend type Mutation {
-  readyForRound(boxID: UUID!, userUUID: UUID!): Boolean!
-  pushRound(boxID: UUID!, userUUID: UUID!): Boolean!
-}
-
-extend type Subscription {
-  newRound(boxID: UUID!): NewRound!
+  readyForRound(playerUUID: UUID!): Boolean!
+  confirmBoardRound(playerUUID: UUID!): Boolean!
+  setCardRound(
+    playerUUID: UUID
+    choice: RoundChoice!
+    targets: [UUID]
+  ): Boolean!
+  completeCardRound(playerUUID: UUID!): Boolean!
 }

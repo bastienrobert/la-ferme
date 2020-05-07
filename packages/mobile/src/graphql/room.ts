@@ -1,16 +1,13 @@
 import gql from 'graphql-tag'
 import { fragments as userFragments } from './user'
 
-const GET_BOX_ID = gql`
-  {
-    boxID @client
-  }
-`
-
 const ROOM_JOIN_MUTATION = gql`
   mutation JoinRoom($userUUID: UUID!, $boxID: UUID!) {
     joinRoom(userUUID: $userUUID, boxID: $boxID) {
+      boxID
       creatorUUID
+      playerUUID
+      gameUUID
       users {
         ...UserUUID
       }
@@ -30,4 +27,4 @@ const NEW_USER_IN_ROOM_SUBSCRIPTION = gql`
   ${userFragments.userUUID}
 `
 
-export { GET_BOX_ID, ROOM_JOIN_MUTATION, NEW_USER_IN_ROOM_SUBSCRIPTION }
+export { ROOM_JOIN_MUTATION, NEW_USER_IN_ROOM_SUBSCRIPTION }

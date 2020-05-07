@@ -1,0 +1,8 @@
+type Report {
+  from: Player!
+  to: Player!
+}
+
+extend type Mutation {
+  reportPlayer(fromUUID: UUID!, toUUID: UUID!): Boolean!
+}

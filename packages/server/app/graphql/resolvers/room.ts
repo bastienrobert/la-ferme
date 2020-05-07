@@ -9,19 +9,20 @@ import User from '@/app/models/User'
 import Player from '@/app/models/Player'
 
 import pubsub from '@/app/pubsub'
-import { connections } from '@/app/stores'
+import connections, { ConnectionsCollection } from '@/app/stores/connections'
 import formatConnectedUsers from '@/app/helpers/formatConnectedUsers'
 
-const getGame = async (room, user, users) => {
-  if (users.size > 0) {
-    const games = await room.games().orderBy('id').fetch()
-    return games.last()
-  } else {
-    return await new Game({
-      room_id: room.id,
-      creator_id: user.id
-    }).save()
-  }
+const getGame = async (
+  room: Room,
+  user: User,
+  users: ConnectionsCollection
+) => {
+  return users.size > 0
+    ? await room.getLastGame()
+    : await new Game({
+        room_id: room.id,
+        creator_user_id: user.id
+      }).save()
 }
 
 const createOrJoin = async (userUUID, boxID) => {
@@ -32,7 +33,7 @@ const createOrJoin = async (userUUID, boxID) => {
   const room = await Room.findByBoxID(boxID)
   const game = await getGame(room, user, connectedUsers)
 
-  if (game.started_at) throw new Error(GAME_STARTED)
+  if (game.startedAt) throw new Error(GAME_STARTED)
 
   const player = await new Player({
     game_id: game.id,
@@ -41,7 +42,11 @@ const createOrJoin = async (userUUID, boxID) => {
 
   const creator = await game.creator().fetch()
 
-  return { creatorUUID: creator.uuid, player }
+  return {
+    playerUUID: player.uuid,
+    gameUUID: game.uuid,
+    creatorUUID: creator.uuid
+  }
 }
 
 const resolvers = {
@@ -49,10 +54,20 @@ const resolvers = {
     // join room
     async joinRoom(_, { userUUID, boxID }) {
       try {
-        const { creatorUUID } = await createOrJoin(userUUID, boxID)
-        connections.setBoxID(userUUID, boxID)
+        const { playerUUID, gameUUID, creatorUUID } = await createOrJoin(
+          userUUID,
+          boxID
+        )
+        connections.merge(userUUID, {
+          boxID,
+          playerUUID,
+          gameUUID
+        })
         const connectedUsers = {
+          boxID,
           creatorUUID,
+          gameUUID,
+          playerUUID,
           ...formatConnectedUsers(boxID, connections.getByBoxID(boxID))
         }
         pubsub.publish(ROOM.JOIN, {
@@ -60,6 +75,7 @@ const resolvers = {
         })
         return connectedUsers
       } catch (error) {
+        console.log(error)
         return error
       }
     }

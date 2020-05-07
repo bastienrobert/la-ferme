@@ -31,4 +31,11 @@ export default class User extends db.bookshelf.Model<User> {
   connections() {
     return this.hasMany(Connection)
   }
+
+  async getLastPlayer(params?) {
+    const player = await this.players()
+      .orderBy('created_at', 'DESC')
+      .fetchOne(params)
+    return player
+  }
 }

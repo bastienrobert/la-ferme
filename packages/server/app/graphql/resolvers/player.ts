@@ -1,69 +1,45 @@
 import { PLAYER } from '@la-ferme/shared/constants'
-import { Player } from '@la-ferme/shared/typings'
-import { withFilter } from 'apollo-server'
+import { Player as PlayerType, GameStatusType } from '@la-ferme/shared/typings'
 
 import pubsub from '@/app/pubsub'
 
-import Room from '@/app/models/Room'
-import User from '@/app/models/User'
+import Game from '@/app/models/Game'
+import Player from '@/app/models/Player'
 
-import formatPlayers from '@/app/helpers/formatPlayers'
-
-const getPlayer = user => {
-  return user.related('players').orderBy('id').last()
-}
+import formatPlayers, { formatPlayer } from '@/app/helpers/formatPlayers'
 
 const resolvers = {
   Query: {
-    async getPlayer(_, { userUUID }): Promise<Player> {
-      const user = await User.findByUUID(userUUID, { withRelated: ['players'] })
+    async getPlayer(_, { playerUUID }): Promise<PlayerType> {
+      const player = await Player.findByUUID(playerUUID)
 
-      const player = getPlayer(user)
-      const { character, skill, goal } = player.serialize()
-      return {
-        user: user.uuid,
-        character,
-        skill,
-        goal
-      }
+      const formattedPlayer = await formatPlayer(player)
+      return formattedPlayer
     }
   },
   Mutation: {
-    async playerReady(_, { boxID, userUUID }) {
-      const user = await User.findByUUID(userUUID, {
-        withRelated: [{ players: qb => qb.orderBy('id') }]
+    async playerReady(_, { playerUUID }) {
+      const player = await Player.findByUUID(playerUUID, {
+        withRelated: ['user', 'game']
       })
-      const player = getPlayer(user)
+
+      const game = player.related('game') as Game
+
       player.ready()
       await player.save()
 
-      const room = await Room.findByBoxID(boxID, {
-        withRelated: [{ games: qb => qb.orderBy('id') }]
-      })
-
-      const game = await room.getLastGame({ withRelated: ['players'] })
-
-      const players = game.related('players')
+      const players = await game.players().fetch()
       const formattedPlayers = await formatPlayers(players)
 
       pubsub.publish(PLAYER.READY, {
-        playerIsReady: {
-          boxID,
+        gameUpdated: {
+          gameUUID: game.uuid,
+          type: GameStatusType.Ready,
           players: formattedPlayers
         }
       })
 
       return true
-    }
-  },
-  Subscription: {
-    playerIsReady: {
-      subscribe: withFilter(
-        () => pubsub.asyncIterator(PLAYER.READY),
-        ({ playerIsReady }, variables) => {
-          return playerIsReady.boxID === variables.boxID
-        }
-      )
     }
   }
 }

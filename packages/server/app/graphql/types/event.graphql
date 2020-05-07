@@ -1,0 +1,16 @@
+enum EventType {
+  reportAll
+  report
+  skill
+  miniGame
+}
+
+type Event {
+  type: EventType!
+  gameUUID: UUID!
+  player: UUID
+}
+
+extend type Subscription {
+  eventTriggered(gameUUID: UUID!): Event!
+}

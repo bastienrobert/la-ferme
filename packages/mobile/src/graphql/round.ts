@@ -1,25 +1,36 @@
 import gql from 'graphql-tag'
 
 const READY_FOR_ROUND_MUTATION = gql`
-  mutation ReadyForRound($userUUID: UUID!, $boxID: UUID!) {
-    readyForRound(userUUID: $userUUID, boxID: $boxID)
+  mutation ReadyForRound($playerUUID: UUID!) {
+    readyForRound(playerUUID: $playerUUID)
   }
 `
 
-const PUSH_ROUND_MUTATION = gql`
-  mutation PushRound($userUUID: UUID!, $boxID: UUID!) {
-    pushRound(userUUID: $userUUID, boxID: $boxID)
+const CONFIRM_BOARD_ROUND_MUTATION = gql`
+  mutation ConfirmBoardRound($playerUUID: UUID!) {
+    confirmBoardRound(playerUUID: $playerUUID)
   }
 `
 
-const NEW_ROUND_SUBSCRIPTION = gql`
-  subscription NewRound($boxID: UUID!) {
-    newRound(boxID: $boxID) {
-      round {
-        user
-      }
-    }
+const SET_CARD_ROUND_MUTATION = gql`
+  mutation SetCardRound(
+    $playerUUID: UUID!
+    $choice: RoundChoice!
+    $targets: [UUID] = []
+  ) {
+    setCardRound(playerUUID: $playerUUID, choice: $choice, targets: $targets)
   }
 `
 
-export { READY_FOR_ROUND_MUTATION, PUSH_ROUND_MUTATION, NEW_ROUND_SUBSCRIPTION }
+const COMPLETE_CARD_ROUND_MUTATION = gql`
+  mutation CompleteCardRound($playerUUID: UUID!) {
+    completeCardRound(playerUUID: $playerUUID)
+  }
+`
+
+export {
+  READY_FOR_ROUND_MUTATION,
+  CONFIRM_BOARD_ROUND_MUTATION,
+  SET_CARD_ROUND_MUTATION,
+  COMPLETE_CARD_ROUND_MUTATION
+}

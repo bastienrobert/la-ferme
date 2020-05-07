@@ -1,14 +1,28 @@
 import Introduction from '@/pages/Introduction'
-import Home from '@/pages/Home'
-import QRCode from '@/pages/Home/QRCode'
-import Room from '@/pages/Room'
-import Role from '@/pages/Role'
-import Game from '@/pages/Game'
-import GameOver from '@/pages/GameOver'
 
-export interface RootStackParamList {
-  Home: undefined
-  RoomJoin: undefined
+import HomeMain from '@/pages/Home/Main'
+import HomeQRCode from '@/pages/Home/QRCode'
+import HomeRoom from '@/pages/Home/Room'
+
+import OnboardingHello from '@/pages/Onboarding/Hello'
+import OnboardingSetup from '@/pages/Onboarding/Setup'
+import OnboardingRole from '@/pages/Onboarding/Role'
+import OnboardingPending from '@/pages/Onboarding/Pending'
+
+import GameMain, { GameMainParams } from '@/pages/Game/Main'
+import GameOver, { GameOverParams } from '@/pages/Game/GameOver'
+
+export type RootStackParamList = {
+  Introduction: undefined
+  'Home:Main': undefined
+  'Home:QRCode': undefined
+  'Home:Room': undefined
+  'Onboarding:Hello': undefined
+  'Onboarding:Setup': undefined
+  'Onboarding:Role': undefined
+  'Onboarding:Pending': undefined
+  'Game:Main': GameMainParams
+  'Game:GameOver': GameOverParams
 }
 
 export default {
@@ -19,27 +33,39 @@ export default {
       component: Introduction
     },
     {
-      name: 'Home',
-      component: Home
+      name: 'Home:Main',
+      component: HomeMain
     },
     {
       name: 'Home:QRCode',
-      component: QRCode
+      component: HomeQRCode
     },
     {
-      name: 'Room',
-      component: Room
+      name: 'Home:Room',
+      component: HomeRoom
     },
     {
-      name: 'Role',
-      component: Role
+      name: 'Onboarding:Hello',
+      component: OnboardingHello
     },
     {
-      name: 'Game',
-      component: Game
+      name: 'Onboarding:Setup',
+      component: OnboardingSetup
     },
     {
-      name: 'GameOver',
+      name: 'Onboarding:Role',
+      component: OnboardingRole
+    },
+    {
+      name: 'Onboarding:Pending',
+      component: OnboardingPending
+    },
+    {
+      name: 'Game:Main',
+      component: GameMain
+    },
+    {
+      name: 'Game:GameOver',
       component: GameOver
     }
   ]

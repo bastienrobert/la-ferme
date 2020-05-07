@@ -1,16 +1,22 @@
 import React, { FC } from 'react'
 import styled from 'styled-components/native'
 
-import { TypoProps } from './Typo.shared'
+import { TypoProps, Presets, presets } from './Typo.shared'
 import generateTypoStyle from './Typo.styles'
 
-const Typo: FC<TypoProps> = ({ children, ...style }) => {
+interface TypoFC extends FC<TypoProps> {
+  presets: Presets
+}
+
+const Typo: TypoFC = ({ children, ...style }) => {
   return (
     <StyledTypo isReactNative {...style}>
       {children}
     </StyledTypo>
   )
 }
+
+Typo.presets = presets
 
 export default Typo
 
