@@ -8,8 +8,14 @@ export default async (round: Round, step): Promise<RoundType> => {
 
   switch (step) {
     case RoundStep.Confirm:
-      const targets = await round.targets().fetch()
-      const formattedTargets = targets.map(target => target.uuid)
+      const targets = await round.targets().fetch({
+        withRelated: ['player']
+      })
+
+      const formattedTargets = targets.map(target => {
+        const p = target.related('player') as Player
+        return p.uuid
+      })
       return {
         player: player.uuid,
         step: round.step,

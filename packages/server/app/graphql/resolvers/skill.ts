@@ -1,5 +1,5 @@
 import { SKILL } from '@la-ferme/shared/constants'
-import { EventType } from '@la-ferme/shared/typings'
+import { EventType, UUID } from '@la-ferme/shared/typings'
 import { SKILL_ALREADY_USED } from '@la-ferme/shared/errors'
 
 import Player from '@/app/models/Player'
@@ -8,19 +8,33 @@ import Game from '@/app/models/Game'
 
 import pubsub from '@/app/pubsub'
 
-const getActionBySkillName = name => {
-  switch (name) {
-    case 'happy':
-      console.log('HAPPY TRIGGERED')
-      break
-    default:
-      break
-  }
+import getActionBySkill from '@/app/engine/getActionBySkill'
+import getResponseBySkill from '@/app/engine/getResponseBySkill'
+
+const createTargets = async (skill: Skill, targets: UUID[]) => {
+  const instances = targets.map(async target => {
+    const p = await Player.findByUUID(target)
+    await skill.targets().attach(p.id)
+  })
+  return Promise.all(instances)
 }
 
 const resolvers = {
+  UseSkill: {
+    __resolveType({ name }) {
+      switch (name) {
+        case 'speaker':
+        case 'shepherds-stick':
+          return 'UseSkillWithTargets'
+        case 'cellphone':
+          return 'UseSkillWithTargetsData'
+        default:
+          return 'UseSkillDefault'
+      }
+    }
+  },
   Mutation: {
-    async useSkill(_, { playerUUID }) {
+    async useSkill(_, { playerUUID, targets }) {
       const player = await Player.findByUUID(playerUUID, {
         withRelated: ['skill', 'game']
       })
@@ -32,7 +46,8 @@ const resolvers = {
         throw new Error(SKILL_ALREADY_USED)
       }
 
-      getActionBySkillName(skill.name)
+      await getActionBySkill(skill)
+      if (targets) await createTargets(skill, targets)
 
       skill.use()
       await skill.save()
@@ -44,10 +59,7 @@ const resolvers = {
         }
       })
 
-      // TODO
-      // create event for skill use
-
-      return true
+      return await getResponseBySkill(skill)
     }
   }
 }

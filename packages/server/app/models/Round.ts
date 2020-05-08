@@ -3,9 +3,10 @@ import { RoundChoice, RoundStep } from '@la-ferme/shared/typings'
 
 import Game from './Game'
 import Player from './Player'
+import RoundTarget from './RoundTarget'
 
 export enum RoundType {
-  Classic = 'classic',
+  Default = 'default',
   Replay = 'replay',
   Pass = 'pass'
 }
@@ -28,7 +29,7 @@ export default class Round extends db.bookshelf.Model<Round> {
   }
 
   targets() {
-    return this.belongsToMany(Player, 'targeted_players_rounds')
+    return this.hasMany(RoundTarget)
   }
 
   get civilCard() {
@@ -45,6 +46,14 @@ export default class Round extends db.bookshelf.Model<Round> {
 
   set choice(choice: RoundChoice) {
     this.set({ choice })
+  }
+
+  get watch() {
+    return this.get('watch')
+  }
+
+  set watch(watch: boolean) {
+    this.set({ watch })
   }
 
   get type(): RoundType {

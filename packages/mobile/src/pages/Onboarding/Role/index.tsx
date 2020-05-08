@@ -35,6 +35,7 @@ const Role: FC<any> = ({ navigation }) => {
   }, [data, navigation])
 
   const userData = playerQuery?.data?.getPlayer
+  console.log(playerQuery)
 
   if (!userData) return <Text color="gray">Fetching user</Text>
 

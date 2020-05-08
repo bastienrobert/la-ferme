@@ -4,13 +4,13 @@ import Game from '@/app/models/Game'
 import Player from '@/app/models/Player'
 import Report, { ReportStatus } from '@/app/models/Report'
 
-export interface ReportsOptions {
+export interface SetReportsOptions {
   game: Game
   player: Player
   delta: number
 }
 
-export default async ({ game, player, delta }: ReportsOptions) => {
+export default async ({ game, player, delta }: SetReportsOptions) => {
   try {
     const reportQuery = game
       .reports()

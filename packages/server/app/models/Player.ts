@@ -5,6 +5,7 @@ import Round from './Round'
 import User from './User'
 import Skill from './Skill'
 import Report from './Report'
+import RoundTarget from './RoundTarget'
 
 export default class Player extends db.bookshelf.Model<Player> {
   static async findByUUID(uuid, params?) {
@@ -42,6 +43,10 @@ export default class Player extends db.bookshelf.Model<Player> {
 
   ready() {
     this.set({ ready: true })
+  }
+
+  targetted() {
+    return this.hasMany(RoundTarget)
   }
 
   givenAccusations() {

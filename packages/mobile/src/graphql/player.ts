@@ -6,8 +6,6 @@ const fragments = {
       uuid
       ready
       character
-      skill
-      goal
     }
   `
 }
@@ -16,6 +14,8 @@ const GET_PLAYER = gql`
   query GetPlayer($playerUUID: UUID!) {
     getPlayer(playerUUID: $playerUUID) {
       ...PlayerInfos
+      skill
+      goal
     }
   }
   ${fragments.playerInfos}

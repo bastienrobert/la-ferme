@@ -13,7 +13,7 @@ import { USE_SKILL_MUTATION } from '@/graphql/skill'
 const Menu: FC<any> = ({ playerUUID, setPopup }) => {
   const [visible, setVisible] = useState(false)
   const [stopGameMututation] = useMutation(STOP_GAME_MUTATION)
-  const [skillMutation] = useMutation(USE_SKILL_MUTATION)
+  const [skillMutation, { data }] = useMutation(USE_SKILL_MUTATION)
 
   const onShowPress = () => setVisible(true)
   const onHidePress = () => setVisible(false)
@@ -24,6 +24,8 @@ const Menu: FC<any> = ({ playerUUID, setPopup }) => {
   const onSkillPress = () => {
     skillMutation({ variables: { playerUUID } })
   }
+
+  console.log('RECEIVED', data)
 
   return (
     <Component>
