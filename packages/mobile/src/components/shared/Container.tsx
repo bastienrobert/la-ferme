@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
 import { AlignSelfProperty } from 'csstype'
@@ -8,6 +9,8 @@ export interface ContainerProps {
   children: any
   /** How you want to align your items */
   alignSelf?: AlignSelfProperty
+  /** Custom inline style */
+  style?: ViewStyle
 }
 
 const Container: FC<ContainerProps> = ({ children, ...style }) => {

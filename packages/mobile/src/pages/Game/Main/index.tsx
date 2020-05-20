@@ -4,10 +4,9 @@ import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { useFocusEffect } from '@react-navigation/native'
 import { useMutation, useSubscription, useQuery } from '@apollo/react-hooks'
 import {
-  Player,
+  Player as PlayerType,
   GameStatusType,
-  EventType,
-  UUID
+  EventType
 } from '@la-ferme/shared/typings'
 
 import { RootStackParamList } from '@/App/routes'
@@ -17,7 +16,6 @@ import Round from './Round'
 import Menu from './Menu'
 import Popups, { PopupType } from './Popups'
 import FullContainer from '@/components/shared/FullContainer'
-import Text from '@/components/typo/Text'
 
 import { GAME_PLAYER_INFOS_QUERY } from '@/graphql/local'
 import { GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
@@ -25,7 +23,7 @@ import { READY_FOR_ROUND_MUTATION } from '@/graphql/round'
 import { EVENT_TRIGGERED_SUBSCRIPTION } from '@/graphql/event'
 
 export interface GameMainParams {
-  players: Player[]
+  players: PlayerType[]
 }
 
 type GameRouteProp = RouteProp<RootStackParamList, 'Game:Main'>
@@ -36,16 +34,9 @@ export interface GameMainProps {
   navigation: GameNavigationProp
 }
 
-const getPlayerCharacter = (players: Player[], uuid: UUID) => {
-  const player = players.find(p => p.uuid === uuid)
-  return player ? player.character : null
-}
-
 const Game: FC<GameMainProps> = ({ navigation, route }) => {
   const gamePlayerInfosQuery = useQuery(GAME_PLAYER_INFOS_QUERY)
-
   const { gameUUID, player } = gamePlayerInfosQuery?.data ?? {}
-
   const players = route.params?.players ?? []
 
   const [popup, setPopup] = useState<PopupType>(null)
@@ -70,12 +61,12 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
     }
   )
   const eventData = eventTriggeredSubscription.data?.eventTriggered
-  // console.log(eventData)
+  console.log(eventData)
 
   useEffect(() => {
     if (
       eventData?.type === EventType.Report &&
-      eventData?.player === player.uuid
+      eventData?.player === player?.uuid
     ) {
       Alert.alert('You have been reported')
     }
@@ -91,7 +82,7 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   const numberOfRounds = gameData?.numberOfRounds
 
   useEffect(() => {
-    if (!gameData || gameData.type !== GameStatusType.End) return
+    if (gameData?.type !== GameStatusType.End) return
     const winner = gameData.winnerUUID
     navigation.navigate('Game:GameOver', { winner })
   }, [gameData, navigation])
@@ -99,12 +90,6 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   return (
     <FullContainer>
       <RoundNumber players={players} numberOfRounds={numberOfRounds} />
-      {eventData ? (
-        <Text>
-          LAST EVENT: {eventData.type} TARGET{' '}
-          {getPlayerCharacter(players, eventData.player)}
-        </Text>
-      ) : null}
       {gameData && gameData.type === GameStatusType.Round && (
         <Round
           gameUUID={gameUUID}

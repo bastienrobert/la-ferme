@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react'
 import styled from 'styled-components/native'
-import { useMutation } from '@apollo/react-hooks'
 import { Icon, Colors } from '@la-ferme/components/native'
 import { Player as PlayerType } from '@la-ferme/shared/typings'
 
@@ -10,19 +9,29 @@ import Container from '@/components/shared/Container'
 import FullContainer from '@/components/shared/FullContainer'
 import PlayerSelect from '@/components/shared/PlayerSelect'
 
-import { REPORT_PLAYER_MUTATION } from '@/graphql/report'
-
 import { getAllExceptCurrent } from '@/utils/helpers/players'
 
-const Report: FC<PopupProps> = ({ set, players, player }) => {
+// get skill
+// -> phone: select player and send him as target
+// -> happy: just close the popup on OK button and submit
+// -> speaker & shepard stick: should register last target data in a store and get it here
+
+const Skill: FC<PopupProps> = ({ set, players, player }) => {
   const [used, setUsed] = useState(false)
-  const [reportPlayerMutation] = useMutation(REPORT_PLAYER_MUTATION)
 
   const onTargetPress = (target: PlayerType) => {
     setUsed(true)
-    reportPlayerMutation({
-      variables: { playerUUID: target.uuid, targetUUID: player.uuid }
-    })
+    console.log(
+      'player',
+      player.character,
+      'want to use',
+      player.skill,
+      'on target',
+      target
+    )
+    // reportPlayerMutation({
+    //   variables: { playerUUID: target.uuid, targetUUID: player.uuid }
+    // })
   }
 
   const onClosePress = () => set(null)
@@ -30,7 +39,7 @@ const Report: FC<PopupProps> = ({ set, players, player }) => {
   return (
     <Component>
       {used ? (
-        <Text>Report has already been used</Text>
+        <Text>Skill has already been used</Text>
       ) : (
         <PlayerSelect
           onPress={onTargetPress}
@@ -64,4 +73,4 @@ const CloseView = styled.View`
   z-index: 2;
 `
 
-export default Report
+export default Skill
