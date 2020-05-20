@@ -14,6 +14,7 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 const DEFAULT_STATE = {
   boxID: null,
   gameUUID: null,
+  targeter: null,
   player: {
     __typename: 'Player',
     uuid: null

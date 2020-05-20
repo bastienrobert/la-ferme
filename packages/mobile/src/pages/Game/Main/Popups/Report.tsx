@@ -30,7 +30,7 @@ const Report: FC<PopupProps> = ({ set, players, player }) => {
   return (
     <Component>
       {used ? (
-        <Text>Report has already been used</Text>
+        <Text color="beige">Report has already been used</Text>
       ) : (
         <PlayerSelect
           onPress={onTargetPress}

@@ -1,4 +1,5 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
+import { useMutation } from '@apollo/react-hooks'
 import { RoundStep } from '@la-ferme/shared/typings'
 import { getCard } from '@la-ferme/shared/data/cards'
 
@@ -6,8 +7,19 @@ import { RoundProps } from './'
 import Text from '@/components/typo/Text'
 import Container from '@/components/shared/Container'
 
-const Watcher: FC<RoundProps> = ({ players, data }) => {
-  const current = players.find(player => player.uuid === data.player)
+import { SET_LAST_TARGETER_MUTATION } from '@/graphql/local'
+
+const Watcher: FC<RoundProps> = ({ player, players, data }) => {
+  const [setLastTargeter] = useMutation(SET_LAST_TARGETER_MUTATION)
+
+  const current = players.find(p => p.uuid === data.player)
+
+  useEffect(() => {
+    if (data.step !== RoundStep.Confirm) return
+    if (data.targets && data.targets.includes(player.uuid)) {
+      setLastTargeter({ variables: { targeter: data.player } })
+    }
+  }, [data, player.uuid, setLastTargeter])
 
   switch (data.step) {
     case RoundStep.New:
@@ -24,15 +36,14 @@ const Watcher: FC<RoundProps> = ({ players, data }) => {
       )
     case RoundStep.Confirm:
       const card = getCard(data.cards[data.choice])
-      // if i'm targetted, should register last in store to use sheapard-stick/speaker skill
       return (
         <Container>
           <Text>{current.character} est en train de confirmer</Text>
           <Text>Carte choisie: {card.displayName}</Text>
           {data.targets?.length > 0 &&
             data.targets.map((target, i) => {
-              const player = players.find(p => p.uuid === target)
-              return <Text key={i}>Cible(s): {player.character}</Text>
+              const { character } = players.find(p => p.uuid === target)
+              return <Text key={i}>Cible(s): {character}</Text>
             })}
         </Container>
       )

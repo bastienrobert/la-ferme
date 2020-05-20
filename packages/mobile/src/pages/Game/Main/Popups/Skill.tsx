@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react'
 import styled from 'styled-components/native'
+import { useQuery } from '@apollo/react-hooks'
 import { Icon, Colors } from '@la-ferme/components/native'
 import { Player as PlayerType } from '@la-ferme/shared/typings'
 
@@ -11,6 +12,8 @@ import PlayerSelect from '@/components/shared/PlayerSelect'
 
 import { getAllExceptCurrent } from '@/utils/helpers/players'
 
+import { LAST_TARGETER_QUERY } from '@/graphql/local'
+
 // get skill
 // -> phone: select player and send him as target
 // -> happy: just close the popup on OK button and submit
@@ -18,6 +21,14 @@ import { getAllExceptCurrent } from '@/utils/helpers/players'
 
 const Skill: FC<PopupProps> = ({ set, players, player }) => {
   const [used, setUsed] = useState(false)
+
+  const lastTargeterQuery = useQuery(LAST_TARGETER_QUERY)
+
+  const lastTargeter = lastTargeterQuery?.data
+    ? players.find(p => p.uuid === lastTargeterQuery?.data?.targeter)
+    : undefined
+
+  console.log('last targeter', lastTargeterQuery?.data)
 
   const onTargetPress = (target: PlayerType) => {
     setUsed(true)
@@ -38,8 +49,11 @@ const Skill: FC<PopupProps> = ({ set, players, player }) => {
 
   return (
     <Component>
+      {lastTargeter && (
+        <Text color="beige">Last targeter was {lastTargeter.character}</Text>
+      )}
       {used ? (
-        <Text>Skill has already been used</Text>
+        <Text color="beige">Skill has already been used</Text>
       ) : (
         <PlayerSelect
           onPress={onTargetPress}

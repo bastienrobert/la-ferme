@@ -23,6 +23,12 @@ const GAME_PLAYER_INFOS_QUERY = gql`
   }
 `
 
+const LAST_TARGETER_QUERY = gql`
+  {
+    targeter @client
+  }
+`
+
 const GAME_INFOS_MUTATION = gql`
   mutation SetGameInfos($boxID: UUID!, $gameUUID: UUID!, $playerUUID: UUID!) {
     setGameInfos(boxID: $boxID, gameUUID: $gameUUID, playerUUID: $playerUUID)
@@ -46,10 +52,18 @@ const SET_PLAYER_INFOS_MUTATION = gql`
   }
 `
 
+const SET_LAST_TARGETER_MUTATION = gql`
+  mutation SetLastTargeter($targeter: UUID!) {
+    setLastTargeter(targeter: $targeter) @client
+  }
+`
+
 export {
   GAME_INFOS_QUERY,
   GAME_PLAYER_INFOS_QUERY,
+  LAST_TARGETER_QUERY,
   GAME_INFOS_MUTATION,
   CLEAR_PLAYER_MUTATION,
+  SET_LAST_TARGETER_MUTATION,
   SET_PLAYER_INFOS_MUTATION
 }

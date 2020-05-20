@@ -61,7 +61,6 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
     }
   )
   const eventData = eventTriggeredSubscription.data?.eventTriggered
-  console.log(eventData)
 
   useEffect(() => {
     if (

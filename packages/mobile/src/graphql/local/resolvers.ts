@@ -34,6 +34,14 @@ export default {
         }
       })
       return true
+    },
+    setLastTargeter: (_, { targeter }, { cache }) => {
+      cache.writeData({
+        data: {
+          targeter
+        }
+      })
+      return true
     }
   }
 }
