@@ -1,36 +1,41 @@
 import React, { FC, useState } from 'react'
+import { useMutation } from '@apollo/react-hooks'
 import styled from 'styled-components/native'
-import { useQuery } from '@apollo/react-hooks'
 import { Icon, Colors } from '@la-ferme/components/native'
 import { Player as PlayerType } from '@la-ferme/shared/typings'
 
-import { PopupProps } from './'
+import { PopupProps } from '../'
+import ConfirmSkill from './ConfirmSkill'
+import TargetSkill from './TargetSkill'
 import Text from '@/components/typo/Text'
 import Container from '@/components/shared/Container'
 import FullContainer from '@/components/shared/FullContainer'
-import PlayerSelect from '@/components/shared/PlayerSelect'
+import ConfirmSkillOnLastTargeter from './ConfirmSkillOnLastTargeter'
 
-import { getAllExceptCurrent } from '@/utils/helpers/players'
-
-import { LAST_TARGETER_QUERY } from '@/graphql/local'
+import { USE_SKILL_MUTATION } from '@/graphql/skill'
 
 // get skill
 // -> phone: select player and send him as target
 // -> happy: just close the popup on OK button and submit
 // -> speaker & shepard stick: should register last target data in a store and get it here
 
+const getSkillComponent = type => {
+  switch (type) {
+    case 'cellphone':
+      return TargetSkill
+    case 'speaker':
+    case 'shepherds-stick':
+      return ConfirmSkillOnLastTargeter
+    default:
+      return ConfirmSkill
+  }
+}
+
 const Skill: FC<PopupProps> = ({ set, players, player }) => {
   const [used, setUsed] = useState(false)
+  const [skillMutation, skillMutationResponse] = useMutation(USE_SKILL_MUTATION)
 
-  const lastTargeterQuery = useQuery(LAST_TARGETER_QUERY)
-
-  const lastTargeter = lastTargeterQuery?.data
-    ? players.find(p => p.uuid === lastTargeterQuery?.data?.targeter)
-    : undefined
-
-  console.log('last targeter', lastTargeterQuery?.data)
-
-  const onTargetPress = (target: PlayerType) => {
+  const confirm = (target: PlayerType) => {
     setUsed(true)
     console.log(
       'player',
@@ -40,25 +45,29 @@ const Skill: FC<PopupProps> = ({ set, players, player }) => {
       'on target',
       target
     )
-    // reportPlayerMutation({
-    //   variables: { playerUUID: target.uuid, targetUUID: player.uuid }
-    // })
+
+    const targets = target ? [target] : undefined
+    skillMutation({ variables: { playerUUID: player.uuid, targets } })
   }
+
+  console.log(
+    skillMutationResponse?.data,
+    'GET',
+    skillMutationResponse?.data?.useSkill?.data
+  )
 
   const onClosePress = () => set(null)
 
+  const SkillComponent = getSkillComponent(player.skill)
+
   return (
     <Component>
-      {lastTargeter && (
-        <Text color="beige">Last targeter was {lastTargeter.character}</Text>
-      )}
       {used ? (
         <Text color="beige">Skill has already been used</Text>
       ) : (
-        <PlayerSelect
-          onPress={onTargetPress}
-          players={getAllExceptCurrent(players, player)}
-        />
+        SkillComponent && (
+          <SkillComponent confirm={confirm} players={players} player={player} />
+        )
       )}
       <CloseView>
         <CloseContainer>
