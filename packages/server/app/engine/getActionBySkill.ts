@@ -36,14 +36,13 @@ const editLastRoundTarget = async (skill: Skill) => {
   const round = await last.round().fetch()
   await checkUnwatch(round)
 
+  await skill.complete().save()
+
   return last.save()
 }
 
 export default async (skill: Skill) => {
   switch (skill.name) {
-    case 'happy':
-      skill.use()
-      return await skill.save()
     case 'speaker':
     case 'shepherds-stick':
       return await editLastRoundTarget(skill)

@@ -10,22 +10,20 @@ import Container from '@/components/shared/Container'
 import { STOP_GAME_MUTATION } from '@/graphql/game'
 import { USE_SKILL_MUTATION } from '@/graphql/skill'
 
-const Menu: FC<any> = ({ playerUUID, setPopup }) => {
+const Menu: FC<any> = ({ player, setPopup }) => {
   const [visible, setVisible] = useState(false)
   const [stopGameMututation] = useMutation(STOP_GAME_MUTATION)
-  const [skillMutation, { data }] = useMutation(USE_SKILL_MUTATION)
+  const [skillMutation] = useMutation(USE_SKILL_MUTATION)
 
   const onShowPress = () => setVisible(true)
   const onHidePress = () => setVisible(false)
   const onReportPress = () => setPopup(PopupType.REPORT)
   const onGameOverPress = () => {
-    stopGameMututation({ variables: { winnerUUID: playerUUID } })
+    stopGameMututation({ variables: { winnerUUID: player.uuid } })
   }
   const onSkillPress = () => {
-    skillMutation({ variables: { playerUUID } })
+    skillMutation({ variables: { playerUUID: player.uuid } })
   }
-
-  console.log('RECEIVED', data)
 
   return (
     <Component>

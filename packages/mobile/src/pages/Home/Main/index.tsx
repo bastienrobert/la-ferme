@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react'
+import React, { FC, useContext, useLayoutEffect } from 'react'
 import styled from 'styled-components/native'
 
 import ThemeContext from '@/App/Theme/Context'
@@ -12,7 +12,7 @@ import FullContainer from '@/components/shared/FullContainer'
 const Home: FC<any> = ({ navigation }) => {
   const { setTheme } = useContext(ThemeContext)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setTheme('gray')
   }, [setTheme])
 

@@ -33,18 +33,27 @@ const activeTargetAction = async (player: Player, round: Round) => {
 }
 
 const getReversed = async (player: Player) => {
-  const rounds = await player
+  const rounds = (await player
     .rounds()
     .where({ watch: true }, false)
     .orderBy('created_at')
     .fetch({
-      withRelated: ['targets']
-    })
-  const targets = (rounds as Round)
-    .related('targets')
-    .where({ status: RoundTargetStatus.Reversed }, false)
+      withRelated: [
+        // @ts-ignore
+        {
+          targets: qb => qb.where({ status: RoundTargetStatus.Reversed })
+        }
+      ]
+    })) as Collection<Round>
 
-  return targets.first()
+  const targets: Collection<RoundTarget>[] = rounds.reduce((acc, round) => {
+    const related = round.related('targets')
+    const length = related.serialize().length
+    return length > 0 ? acc.concat(related) : acc
+  }, [])
+
+  if (targets.length <= 0) return
+  return targets[0].first()
 }
 
 const getTargeted = async (player: Player) => {
@@ -68,7 +77,7 @@ const isAbleToPlay = async (player: Player) => {
     target.status = RoundTargetStatus.Completed
     await target.save()
 
-    const round = target.related('round') as Round
+    const round = await target.round().fetch()
     await checkUnwatch(round)
 
     return await activeTargetAction(player, round)
@@ -79,7 +88,9 @@ const isAbleToPlay = async (player: Player) => {
 
 const checkIfCurrentPlayerReplay = async (player: Player) => {
   const skill = await player.skill().fetch()
-  return skill.name === 'happy' && skill.using
+  const ability = skill.name === 'happy' && skill.using
+  skill.complete().save()
+  return ability
 }
 
 export default async (
@@ -103,16 +114,3 @@ export default async (
 
   return nextPlayer
 }
-
-// should loop: check for NextPlayer, if reject, check for player after him...
-
-// take last player, event list and ordered players
-
-// check in Round where watch === true, get card params
-// if card reward type === CardRewardType.LoseRound, reject this player
-
-// get next player from ordered and last
-//  if events
-//    PASS => return next next item
-//    REPLAY => return same item
-//  else return next player

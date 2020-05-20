@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import styled from 'styled-components/native'
 import { useMutation } from '@apollo/react-hooks'
 import { Icon, Colors } from '@la-ferme/components/native'
-import { UUID, Player } from '@la-ferme/shared/typings'
+import { Player as PlayerType } from '@la-ferme/shared/typings'
 
 import { PopupType } from '.'
 import Text from '@/components/typo/Text'
@@ -14,22 +14,22 @@ import { REPORT_PLAYER_MUTATION } from '@/graphql/report'
 
 export interface ReportProps {
   set: (type?: PopupType) => void
-  playerUUID: UUID
-  players: Player[]
+  player: PlayerType
+  players: PlayerType[]
 }
 
-const Report: FC<ReportProps> = ({ set, players, playerUUID }) => {
+const Report: FC<ReportProps> = ({ set, players, player }) => {
   const [used, setUsed] = useState(false)
   const [reportPlayerMutation] = useMutation(REPORT_PLAYER_MUTATION)
 
-  const onPlayerPress = (player: Player) => {
+  const onTargetPress = (target: PlayerType) => {
     setUsed(true)
     reportPlayerMutation({
-      variables: { playerUUID, targetUUID: player.uuid }
+      variables: { playerUUID: target.uuid, targetUUID: player.uuid }
     })
   }
 
-  const filteredPlayers = players.filter(player => player.uuid !== playerUUID)
+  const filteredPlayers = players.filter(p => player.uuid !== p.uuid)
 
   const onClosePress = () => set(null)
 
@@ -38,7 +38,7 @@ const Report: FC<ReportProps> = ({ set, players, playerUUID }) => {
       {used ? (
         <Text>Report has already been used</Text>
       ) : (
-        <PlayerSelect onPress={onPlayerPress} players={filteredPlayers} />
+        <PlayerSelect onPress={onTargetPress} players={filteredPlayers} />
       )}
       <CloseView>
         <CloseContainer>

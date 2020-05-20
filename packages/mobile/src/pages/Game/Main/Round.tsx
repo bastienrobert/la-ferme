@@ -25,7 +25,7 @@ export interface RoundProps {
   data: RoundType
   players: PlayerType[]
   gameUUID: UUID
-  playerUUID: UUID
+  player: PlayerType
 }
 
 const Watcher: FC<RoundProps> = ({ players, data }) => {
@@ -62,7 +62,7 @@ const Watcher: FC<RoundProps> = ({ players, data }) => {
   }
 }
 
-const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
+const Player: FC<RoundProps> = ({ player, players, data }) => {
   const [playerSelect, setPlayerSelect] = useState<RoundChoice>(null)
   const [selectedPlayers, setSelectedPlayers] = useState<PlayerType[]>([])
 
@@ -72,7 +72,7 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
 
   const onBoardPress = () => {
     confirmBoardRoundMutation({
-      variables: { playerUUID }
+      variables: { playerUUID: player.uuid }
     })
   }
 
@@ -80,13 +80,13 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
     card.reward.params?.target
       ? setPlayerSelect(choice)
       : setCardRoundMutation({
-          variables: { playerUUID, choice }
+          variables: { playerUUID: player.uuid, choice }
         })
   }
 
   const onCompletePress = () => {
     completeCardRoundMutation({
-      variables: { playerUUID }
+      variables: { playerUUID: player.uuid }
     })
   }
 
@@ -98,20 +98,14 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
     if (!playerSelect) return
     const card = getCard(data.cards[playerSelect])
     if (selectedPlayers.length === card.reward.params.target) {
-      const targets = selectedPlayers.map(player => player.uuid)
+      const targets = selectedPlayers.map(p => p.uuid)
       setCardRoundMutation({
-        variables: { playerUUID, choice: playerSelect, targets }
+        variables: { playerUUID: player.uuid, choice: playerSelect, targets }
       })
       setSelectedPlayers([])
       setPlayerSelect(null)
     }
-  }, [
-    data.cards,
-    playerSelect,
-    playerUUID,
-    selectedPlayers,
-    setCardRoundMutation
-  ])
+  }, [data.cards, playerSelect, player, selectedPlayers, setCardRoundMutation])
 
   switch (data.step) {
     case RoundStep.New:
@@ -128,9 +122,7 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
         civil: getCard(data.cards.civil),
         uncivil: getCard(data.cards.uncivil)
       }
-      const filteredPlayers = players.filter(
-        player => player.uuid !== playerUUID
-      )
+      const filteredPlayers = players.filter(p => player.uuid !== p.uuid)
       return playerSelect ? (
         <Container>
           <Text>Selected: {cards[playerSelect].displayName}</Text>
@@ -168,8 +160,8 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
           </Text>
           {data.targets?.length > 0 &&
             data.targets.map((target, i) => {
-              const player = players.find(p => p.uuid === target)
-              return <Text key={i}>Cible(s): {player.character}</Text>
+              const targettedPlayer = players.find(p => p.uuid === target)
+              return <Text key={i}>Cible(s): {targettedPlayer.character}</Text>
             })}
           <Container>
             <Button onPress={() => onCompletePress()}>OK</Button>
@@ -182,7 +174,7 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
 }
 
 const Round: FC<RoundProps> = props => {
-  const { data, playerUUID } = props
+  const { data, player } = props
   return (
     <Container>
       <Text>Round</Text>
@@ -191,7 +183,7 @@ const Round: FC<RoundProps> = props => {
       {data && <Text>{data.player}</Text>}
       {data && <Text>Step : {data.step}</Text>}
       {data &&
-        (data.player === playerUUID ? (
+        (data.player === player.uuid ? (
           <Player {...props} />
         ) : (
           <Watcher {...props} />

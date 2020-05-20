@@ -12,7 +12,7 @@ export interface User {
 
 export interface Player {
   uuid: UUID
-  ready: boolean
+  ready?: boolean
   character?: string
   skill?: string
   goal?: string

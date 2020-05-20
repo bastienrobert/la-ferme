@@ -7,26 +7,27 @@ import ThemeContext from '@/App/Theme/Context'
 import Container from '@/components/shared/Container'
 import Text from '@/components/typo/Text'
 
-import { GET_GAME_INFOS } from '@/graphql/local'
+import { GAME_INFOS_QUERY, SET_PLAYER_INFOS_MUTATION } from '@/graphql/local'
 import { GET_PLAYER, PLAYER_READY_MUTATION } from '@/graphql/player'
 
 const Role: FC<any> = ({ navigation }) => {
   const { setTheme } = useContext(ThemeContext)
+  const [playerInfosMutation] = useMutation(SET_PLAYER_INFOS_MUTATION)
 
   useEffect(() => {
     setTheme('red')
   }, [setTheme])
 
-  const playerIDQuery = useQuery(GET_GAME_INFOS)
-  const { playerUUID } = playerIDQuery?.data ?? {}
+  const gameInfosQuery = useQuery(GAME_INFOS_QUERY)
+  const { player } = gameInfosQuery?.data ?? {}
 
   const playerQuery = useQuery(GET_PLAYER, {
-    variables: { playerUUID }
+    variables: { playerUUID: player.uuid }
   })
   const [playerReadyMutation, { data }] = useMutation(PLAYER_READY_MUTATION)
 
   const onReadyPress = () => {
-    playerReadyMutation({ variables: { playerUUID } })
+    playerReadyMutation({ variables: { playerUUID: player.uuid } })
   }
 
   useEffect(() => {
@@ -35,7 +36,12 @@ const Role: FC<any> = ({ navigation }) => {
   }, [data, navigation])
 
   const userData = playerQuery?.data?.getPlayer
-  console.log(playerQuery)
+
+  useEffect(() => {
+    if (!userData) return
+    const { character, goal, skill } = userData
+    playerInfosMutation({ variables: { character, goal, skill } })
+  }, [playerInfosMutation, userData])
 
   if (!userData) return <Text color="gray">Fetching user</Text>
 
