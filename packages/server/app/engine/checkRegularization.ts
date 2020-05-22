@@ -5,6 +5,7 @@ import { EventType, RegularizationName } from '@la-ferme/shared/typings'
 
 import Player from '@/app/models/Player'
 import Game from '@/app/models/Game'
+import Regularization from '@/app/models/Regularization'
 
 import pubsub from '@/app/pubsub'
 
@@ -40,6 +41,11 @@ export default async (game: Game, players: Collection<Player>) => {
   const name = getName(average)
 
   if (name) {
+    await new Regularization({
+      game_id: game.id,
+      name
+    }).save()
+
     pubsub.publish(REGULARIZATION.CREATE, {
       eventTriggered: {
         gameUUID: game.uuid,
