@@ -68,9 +68,12 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   useEffect(() => {
     switch (eventData?.type) {
       case EventType.Report:
-        if (eventData?.player === player?.uuid) {
-          Alert.alert('You have been reported')
+        if (eventData.targets.includes(player?.uuid)) {
+          Alert.alert(`You have been reported ${eventData.status}`)
         }
+        break
+      case EventType.Regularization:
+        Alert.alert(`Regularization ${eventData.name}`)
         break
       case EventType.Skill:
         const from = players.find(p => p.uuid === eventData.player)

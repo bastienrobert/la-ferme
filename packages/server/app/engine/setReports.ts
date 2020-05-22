@@ -1,34 +1,47 @@
 import { Collection } from 'bookshelf'
+import { ReportStatus } from '@la-ferme/shared/typings'
 
 import Game from '@/app/models/Game'
 import Player from '@/app/models/Player'
-import Report, { ReportStatus } from '@/app/models/Report'
+import Report from '@/app/models/Report'
 
 export interface SetReportsOptions {
-  game: Game
   player: Player
   delta: number
 }
 
-export default async ({ game, player, delta }: SetReportsOptions) => {
+const CONFIRM_REPORT = -1
+const REVERSE_REPORT = 1
+const MAX_ROUNDS = 3
+
+export default async (game: Game, { player, delta }: SetReportsOptions) => {
   try {
-    const reportQuery = game
-      .reports()
-      .where(
-        { status: ReportStatus.New, to_player_id: player.id },
-        false
-      ) as Collection<Report>
-    const report = await reportQuery.fetchOne()
+    const reportsQuery = game.reports().where(
+      {
+        status: ReportStatus.New,
+        to_player_id: player.id
+      },
+      false
+    ) as Collection<Report>
+    const reports = await reportsQuery.fetch()
 
-    if (report) {
+    const promises = reports.map(report => {
       report.increase(delta)
-      if (report.score < -2) report.status = ReportStatus.Confirmed
-      if (report.score > 1) report.status = ReportStatus.Canceled
-      await report.save()
-    }
+      report.completeRound()
+      if (report.score < CONFIRM_REPORT) {
+        console.log('CONFIRM REPORT', player.character, report.score)
+        report.status = ReportStatus.Confirmed
+      } else if (report.score > REVERSE_REPORT || report.rounds > MAX_ROUNDS) {
+        console.log('REVERSE REPORT', player.character, report.score)
+        report.status = ReportStatus.Reversed
+      } else {
+        console.log('REPORT', player.character, report.score)
+      }
+      return report.save()
+    })
 
-    console.log('REPORT', player.character, report.score)
+    await Promise.all(promises)
   } catch (err) {
-    return
+    return err
   }
 }

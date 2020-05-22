@@ -31,6 +31,7 @@ import {
   getChosenCard
 } from '@/app/helpers/getChosenCard'
 import checkReports from '@/app/engine/checkReports'
+import checkRegularization from '@/app/engine/checkRegularization'
 import RoundTarget from '@/app/models/RoundTarget'
 
 interface SaveTargetsParams {
@@ -218,8 +219,7 @@ const resolvers = {
         })
       ])
 
-      setReports({
-        game,
+      setReports(game, {
         player,
         delta: lastChoosenCard.reward.score
       })
@@ -253,7 +253,8 @@ const resolvers = {
       const numberOfRounds = await game.numberOfRounds()
       const formattedRound = await getRoundData(round, RoundStep.New)
 
-      checkReports(game.uuid, { game })
+      await checkReports(game)
+      await checkRegularization(game, players)
 
       publishRound(game.uuid, {
         players: formatPlayers(players),

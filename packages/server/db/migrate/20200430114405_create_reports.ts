@@ -4,11 +4,19 @@ export async function up(knex: Knex): Promise<any> {
   await knex.schema.createTable('reports', table => {
     table.increments('id').primary()
     table.integer('game_id').references('games.id').onDelete('cascade')
+    table.integer('duplicate_id').references('reports.id').onDelete('cascade')
     table.integer('from_player_id').references('players.id').onDelete('cascade')
     table.integer('to_player_id').references('players.id').onDelete('cascade')
+    table.float('rounds').defaultTo(0)
     table.float('score').defaultTo(0)
     table
-      .enu('status', ['rejected', 'new', 'confirmed', 'canceled', 'completed'])
+      .enu('status', [
+        'new',
+        'confirmed',
+        'duplicated',
+        'reversed',
+        'completed'
+      ])
       .defaultTo('new')
 
     table.timestamps(true, true)
