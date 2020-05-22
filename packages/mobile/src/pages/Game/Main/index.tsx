@@ -72,6 +72,9 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
           Alert.alert(`You have been reported ${eventData.status}`)
         }
         break
+      case EventType.Regularization:
+        Alert.alert(`Regularization ${eventData.name}`)
+        break
       case EventType.Skill:
         const from = players.find(p => p.uuid === eventData.player)
         const targets = eventData.targets

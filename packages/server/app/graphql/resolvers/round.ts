@@ -31,7 +31,7 @@ import {
   getChosenCard
 } from '@/app/helpers/getChosenCard'
 import checkReports from '@/app/engine/checkReports'
-// import checkReportAll from '@/app/engine/checkReportAll'
+import checkRegularization from '@/app/engine/checkRegularization'
 import RoundTarget from '@/app/models/RoundTarget'
 
 interface SaveTargetsParams {
@@ -253,8 +253,8 @@ const resolvers = {
       const numberOfRounds = await game.numberOfRounds()
       const formattedRound = await getRoundData(round, RoundStep.New)
 
-      checkReports(game)
-      // checkReportAll(game, players)
+      await checkReports(game)
+      await checkRegularization(game, players)
 
       publishRound(game.uuid, {
         players: formatPlayers(players),

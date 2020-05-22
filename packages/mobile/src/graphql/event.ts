@@ -4,13 +4,17 @@ const EVENT_TRIGGERED_SUBSCRIPTION = gql`
   subscription EventTriggered($gameUUID: UUID!) {
     eventTriggered(gameUUID: $gameUUID) {
       type
-      player
       ... on EventSkill {
         skill
+        player
         targets
       }
       ... on EventReport {
+        player
         status
+      }
+      ... on EventRegularization {
+        name
       }
     }
   }

@@ -8,13 +8,17 @@ enum EventType {
 interface Event {
   type: EventType!
   gameUUID: UUID!
-  player: UUID
 }
 
 type EventDefault implements Event {
   type: EventType!
   gameUUID: UUID!
-  player: UUID
+}
+
+type EventRegularization implements Event {
+  type: EventType!
+  gameUUID: UUID!
+  name: String
 }
 
 type EventSkill implements Event {

@@ -14,3 +14,8 @@ export enum ReportStatus {
   Reversed = 'reversed',
   Completed = 'completed'
 }
+
+export enum RegularizationName {
+  Reward = 'reward',
+  Penalty = 'penalty'
+}
