@@ -21,7 +21,7 @@ const Report: FC<PopupProps> = ({ set, players, player }) => {
   const onTargetPress = (target: PlayerType) => {
     setUsed(true)
     reportPlayerMutation({
-      variables: { playerUUID: target.uuid, targetUUID: player.uuid }
+      variables: { playerUUID: player.uuid, targetUUID: target.uuid }
     })
   }
 

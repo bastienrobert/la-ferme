@@ -113,6 +113,14 @@ export enum EventType {
   MiniGame = 'mini_game'
 }
 
+export enum ReportStatus {
+  New = 'new',
+  Confirmed = 'confirmed',
+  Duplicated = 'duplicated',
+  Reversed = 'reversed',
+  Completed = 'completed'
+}
+
 export interface GameStatus {
   type: GameStatusType
   players: Player[]

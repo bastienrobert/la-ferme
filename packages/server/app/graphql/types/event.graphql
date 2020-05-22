@@ -25,6 +25,13 @@ type EventSkill implements Event {
   targets: [UUID]!
 }
 
+type EventReport implements Event {
+  type: EventType!
+  gameUUID: UUID!
+  player: UUID!
+  status: ReportStatus!
+}
+
 extend type Subscription {
   eventTriggered(gameUUID: UUID!): Event!
 }

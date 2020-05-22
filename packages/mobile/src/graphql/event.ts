@@ -9,6 +9,9 @@ const EVENT_TRIGGERED_SUBSCRIPTION = gql`
         skill
         targets
       }
+      ... on EventReport {
+        status
+      }
     }
   }
 `

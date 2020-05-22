@@ -10,6 +10,8 @@ const resolvers = {
       switch (type) {
         case EventType.Skill:
           return 'EventSkill'
+        case EventType.Report:
+          return 'EventReport'
         default:
           return 'EventDefault'
       }

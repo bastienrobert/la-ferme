@@ -1,3 +1,11 @@
+enum ReportStatus {
+  new
+  confirmed
+  duplicated
+  reversed
+  completed
+}
+
 type Report {
   from: Player!
   to: Player!

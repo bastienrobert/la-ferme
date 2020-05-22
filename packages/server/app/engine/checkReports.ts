@@ -1,40 +1,47 @@
 import { Collection } from 'bookshelf'
 
 import { REPORT } from '@la-ferme/shared/constants'
-import { UUID, EventType } from '@la-ferme/shared/typings'
+import { EventType, ReportStatus } from '@la-ferme/shared/typings'
 
-import Report, { ReportStatus } from '@/app/models/Report'
+import Report from '@/app/models/Report'
 import Player from '@/app/models/Player'
 import Game from '@/app/models/Game'
 
 import pubsub from '@/app/pubsub'
 
-export interface CheckReportsOptions {
-  game: Game
-}
-
-export default async (gameUUID: UUID, { game }: CheckReportsOptions) => {
-  const reportQuery = game
-    .reports()
-    .where({ status: ReportStatus.Confirmed }, false) as Collection<Report>
+export default async (game: Game) => {
+  const reportQuery = game.reports().query({
+    where: { status: ReportStatus.Confirmed },
+    orWhere: { status: ReportStatus.Reversed }
+  }) as Collection<Report>
   const reports = await reportQuery.fetch({
-    withRelated: ['to']
+    withRelated: ['from', 'to', 'duplications']
   })
 
-  const report = reports.last()
+  const report = reports.first()
 
   if (report) {
-    const player = report.related('to') as Player
+    const reversed = report.status === ReportStatus.Reversed
+    const player = (reversed
+      ? report.related('from')
+      : report.related('to')) as Player
 
-    report.status = ReportStatus.Completed
-    await report.save()
+    if (reversed) {
+      const duplications = report.related('duplications') as Collection<Report>
+      // should publish in pubsub all other players
+      console.log(duplications.serialize())
+    }
 
     pubsub.publish(REPORT.CREATE, {
       eventTriggered: {
-        gameUUID,
+        gameUUID: game.uuid,
+        status: report.status,
         type: EventType.Report,
         player: player.uuid
       }
     })
+
+    report.status = ReportStatus.Completed
+    await report.save()
   }
 }
