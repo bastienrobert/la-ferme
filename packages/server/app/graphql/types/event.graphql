@@ -1,5 +1,5 @@
 enum EventType {
-  reportAll
+  regularization
   report
   skill
   miniGame

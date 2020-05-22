@@ -18,7 +18,7 @@ const resolvers = {
     }
   },
   EventType: {
-    reportAll: EventType.ReportAll,
+    regularization: EventType.Regularization,
     report: EventType.Report,
     skill: EventType.Skill,
     miniGame: EventType.MiniGame
