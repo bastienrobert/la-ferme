@@ -22,7 +22,7 @@ import { connections } from '@/app/stores'
 import getRoundData from '@/app/engine/getRoundData'
 import setReports from '@/app/engine/setReports'
 import getNextPlayer from '@/app/engine/getNextPlayer'
-import shouldWatch from '@/app/engine/shouldWatch'
+import roundShouldWatch from '@/app/engine/roundShouldWatch'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
 import getRandom from '@/app/helpers/getRandom'
@@ -244,7 +244,7 @@ const resolvers = {
       const lastChoosenCard = getChosenCardFromRound(lastRound)
 
       lastRound.step = RoundStep.Complete
-      lastRound.watch = shouldWatch(lastChoosenCard)
+      lastRound.watch = roundShouldWatch(lastChoosenCard)
       await lastRound.save()
 
       const nextPlayer = await getNextPlayer(players, player)

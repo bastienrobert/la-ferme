@@ -1,7 +1,9 @@
 import { Collection } from 'bookshelf'
 import { SKILL_UNAVAILABLE } from '@la-ferme/shared/errors'
+import { UUID } from '@la-ferme/shared/typings'
 
 import Skill from '@/app/models/Skill'
+import Player from '@/app/models/Player'
 import RoundTarget, { RoundTargetStatus } from '@/app/models/RoundTarget'
 
 import checkUnwatch from './checkUnwatch'
@@ -11,19 +13,19 @@ const editLastRoundTarget = async (skill: Skill) => {
   const player = await skill.player().fetch({
     withRelated: [
       {
-        targetted: qb => qb.where({ status: RoundTargetStatus.New })
+        targeted: qb => qb.where({ status: RoundTargetStatus.New })
       },
-      'targetted.round'
+      'targeted.round'
     ]
   })
 
   // get last target
   const target = player
-    .related('targetted')
+    .related('targeted')
     .orderBy('round.created_at') as Collection<RoundTarget>
   const last = target.last()
 
-  // if player is not targetted, reject skill use
+  // if player is not targeted, reject skill use
   if (!last) throw new Error(SKILL_UNAVAILABLE)
 
   // assign a new state to the target
@@ -33,19 +35,27 @@ const editLastRoundTarget = async (skill: Skill) => {
       : RoundTargetStatus.Canceled
 
   // check if round should watch or not
-  const round = await last.round().fetch()
+  const round = await last.round().fetch({ withRelated: ['player'] })
   await checkUnwatch(round)
 
   await skill.complete().save()
+  await last.save()
 
-  return last.save()
+  const targeter = round.related('player') as Player
+  return [targeter.uuid]
 }
 
-export default async (skill: Skill) => {
+/**
+ * should return automatic targets
+ */
+export default async (skill: Skill): Promise<UUID[]> => {
   switch (skill.name) {
     case 'speaker':
     case 'shepherds-stick':
       return await editLastRoundTarget(skill)
+    case 'cellphone':
+      await skill.complete().save()
+      return []
     default:
       return
   }

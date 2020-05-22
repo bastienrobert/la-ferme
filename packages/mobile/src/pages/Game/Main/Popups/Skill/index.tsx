@@ -14,11 +14,6 @@ import ConfirmSkillOnLastTargeter from './ConfirmSkillOnLastTargeter'
 
 import { USE_SKILL_MUTATION } from '@/graphql/skill'
 
-// get skill
-// -> phone: select player and send him as target
-// -> happy: just close the popup on OK button and submit
-// -> speaker & shepard stick: should register last target data in a store and get it here
-
 const getSkillComponent = type => {
   switch (type) {
     case 'cellphone':
@@ -34,27 +29,18 @@ const getSkillComponent = type => {
 const Skill: FC<PopupProps> = ({ set, players, player }) => {
   const [used, setUsed] = useState(false)
   const [skillMutation, skillMutationResponse] = useMutation(USE_SKILL_MUTATION)
+  const skillData = skillMutationResponse?.data?.useSkill?.data
 
   const confirm = (target: PlayerType) => {
     setUsed(true)
-    console.log(
-      'player',
-      player.character,
-      'want to use',
-      player.skill,
-      'on target',
-      target
-    )
 
-    const targets = target ? [target] : undefined
+    let log = 'player ' + player.character + ' want to use ' + player.skill
+    if (target) log += ' on target ' + target?.character
+    console.log(log)
+
+    const targets = target ? [target.uuid] : undefined
     skillMutation({ variables: { playerUUID: player.uuid, targets } })
   }
-
-  console.log(
-    skillMutationResponse?.data,
-    'GET',
-    skillMutationResponse?.data?.useSkill?.data
-  )
 
   const onClosePress = () => set(null)
 
@@ -69,6 +55,15 @@ const Skill: FC<PopupProps> = ({ set, players, player }) => {
           <SkillComponent confirm={confirm} players={players} player={player} />
         )
       )}
+      {skillData?.length > 0 &&
+        skillData.map((d, i) => {
+          console.log(d)
+          return (
+            <Text key={`skill-data-${i}`} color="beige">
+              {d.character} - {d.goal}
+            </Text>
+          )
+        })}
       <CloseView>
         <CloseContainer>
           <Icon icon="cross" background="red" onPress={onClosePress} />

@@ -7,7 +7,7 @@ import { getAllExceptCurrent } from '@/utils/helpers/players'
 
 const TargetSkill: FC<any> = ({ player, players, confirm }) => {
   const onTargetPress = (target: PlayerType) => {
-    confirm(target.uuid)
+    confirm(target)
   }
 
   return (

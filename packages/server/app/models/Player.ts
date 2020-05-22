@@ -45,7 +45,7 @@ export default class Player extends db.bookshelf.Model<Player> {
     this.set({ ready: true })
   }
 
-  targetted() {
+  targeted() {
     return this.hasMany(RoundTarget)
   }
 

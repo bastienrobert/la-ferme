@@ -19,13 +19,10 @@ const createTargets = async (skill: Skill, targets: UUID[]) => {
   return Promise.all(instances)
 }
 
-// TODO
-// Query to get informations about skill target
-// => check if usable
-// => skills
-//   -> cellphone: return player list
-//   -> happy: return true
-//   -> speaker & shepherds-stick: get last targetted->rounds->player
+const EMITTED_SKILLS: string[] = ['happy', 'speaker', 'shepherds-stick']
+const skillShouldEmit = (skill: string): boolean => {
+  return EMITTED_SKILLS.includes(skill)
+}
 
 const resolvers = {
   UseSkill: {
@@ -50,22 +47,27 @@ const resolvers = {
       const skill = player.related('skill') as Skill
       const game = player.related('game') as Game
 
-      if (skill.used || skill.using) {
+      if (skill.using || skill.used) {
         throw new Error(SKILL_ALREADY_USED)
       }
 
       skill.use()
       await skill.save()
 
-      await getActionBySkill(skill)
+      const autoTargets = await getActionBySkill(skill)
       if (targets) await createTargets(skill, targets)
 
-      pubsub.publish(SKILL.USE, {
-        eventTriggered: {
-          type: EventType.Skill,
-          gameUUID: game.uuid
-        }
-      })
+      if (skillShouldEmit(skill.name)) {
+        pubsub.publish(SKILL.USE, {
+          eventTriggered: {
+            type: EventType.Skill,
+            gameUUID: game.uuid,
+            player: playerUUID,
+            skill: skill.name,
+            targets: [].concat(autoTargets || [], targets || [])
+          }
+        })
+      }
 
       return await getResponseBySkill(skill)
     }

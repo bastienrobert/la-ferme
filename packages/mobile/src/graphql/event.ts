@@ -5,6 +5,10 @@ const EVENT_TRIGGERED_SUBSCRIPTION = gql`
     eventTriggered(gameUUID: $gameUUID) {
       type
       player
+      ... on EventSkill {
+        skill
+        targets
+      }
     }
   }
 `

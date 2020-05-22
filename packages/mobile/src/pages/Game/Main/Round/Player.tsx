@@ -123,8 +123,8 @@ const Player: FC<RoundProps> = ({ player, players, data }) => {
           </Text>
           {data.targets?.length > 0 &&
             data.targets.map((target, i) => {
-              const targettedPlayer = players.find(p => p.uuid === target)
-              return <Text key={i}>Cible(s): {targettedPlayer.character}</Text>
+              const targetedPlayer = players.find(p => p.uuid === target)
+              return <Text key={i}>Cible(s): {targetedPlayer.character}</Text>
             })}
           <Container>
             <Button onPress={() => onCompletePress()}>OK</Button>

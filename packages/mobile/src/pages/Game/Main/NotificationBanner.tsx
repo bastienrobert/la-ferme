@@ -10,11 +10,13 @@ const NotificationBanner: FC<any> = ({ content }) => {
   const fadeAnim = useRef(new Animated.Value(0))
 
   useEffect(() => {
+    if (!content) return
     fadeAnim.current.setValue(0)
     Animated.sequence([
       Animated.timing(fadeAnim.current, {
         toValue: 1,
-        duration: 2000
+        duration: 2000,
+        useNativeDriver: true
       }),
       Animated.timing(fadeAnim.current, {
         toValue: 0,
@@ -28,7 +30,7 @@ const NotificationBanner: FC<any> = ({ content }) => {
 
   return (
     <Component as={Animated.View} style={{ opacity: fadeAnim.current }}>
-      <Text>{content}</Text>
+      <Text color="beige">{content}</Text>
     </Component>
   )
 }

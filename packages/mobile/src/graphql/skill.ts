@@ -12,7 +12,7 @@ const USE_SKILL_MUTATION = gql`
         targets
         data {
           uuid
-          skill
+          character
           goal
         }
       }

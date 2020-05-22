@@ -57,21 +57,21 @@ const getReversed = async (player: Player) => {
 }
 
 const getTargeted = async (player: Player) => {
-  const targetted = await player
-    .targetted()
+  const targeted = await player
+    .targeted()
     .where({ status: RoundTargetStatus.New }, false)
     .fetch({
       withRelated: ['round']
     })
 
-  const ordered = targetted.orderBy('round.created_at') as Collection<RoundTarget> // prettier-ignore
+  const ordered = targeted.orderBy('round.created_at') as Collection<RoundTarget> // prettier-ignore
   return ordered.first()
 }
 
 const isAbleToPlay = async (player: Player) => {
   const reversed = await getReversed(player)
-  const targetted = await getTargeted(player)
-  const target = reversed || targetted
+  const targeted = await getTargeted(player)
+  const target = reversed || targeted
 
   if (target) {
     target.status = RoundTargetStatus.Completed
@@ -89,7 +89,7 @@ const isAbleToPlay = async (player: Player) => {
 const checkIfCurrentPlayerReplay = async (player: Player) => {
   const skill = await player.skill().fetch()
   const ability = skill.name === 'happy' && skill.using
-  skill.complete().save()
+  if (skill.using) await skill.complete().save()
   return ability
 }
 

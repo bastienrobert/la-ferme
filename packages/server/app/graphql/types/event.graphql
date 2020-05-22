@@ -5,10 +5,24 @@ enum EventType {
   miniGame
 }
 
-type Event {
+interface Event {
   type: EventType!
   gameUUID: UUID!
   player: UUID
+}
+
+type EventDefault implements Event {
+  type: EventType!
+  gameUUID: UUID!
+  player: UUID
+}
+
+type EventSkill implements Event {
+  type: EventType!
+  gameUUID: UUID!
+  player: UUID!
+  skill: String!
+  targets: [UUID]!
 }
 
 extend type Subscription {
