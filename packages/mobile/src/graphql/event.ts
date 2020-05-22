@@ -10,8 +10,8 @@ const EVENT_TRIGGERED_SUBSCRIPTION = gql`
         targets
       }
       ... on EventReport {
-        player
         status
+        targets
       }
       ... on EventRegularization {
         name

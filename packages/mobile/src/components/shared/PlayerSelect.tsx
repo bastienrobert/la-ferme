@@ -3,6 +3,7 @@ import { Player } from '@la-ferme/shared/typings'
 import { Button } from '@la-ferme/components/native'
 
 import Container from '@/components/shared/Container'
+import Text from '@/components/typo/Text'
 import CircleImage from '@/components/shared/CircleImage'
 
 export interface PlayerSelectProps {
@@ -31,11 +32,14 @@ const PlayerSelect: FC<PlayerSelectProps> = ({
     <Container>
       {players.map((player, i) => {
         return (
-          <CircleImage
-            key={i}
-            source={require('@/assets/tmp/leon_icone.png')}
-            onPress={() => onImagePress(player)}
-          />
+          <>
+            <Text color="beige">{player.character}</Text>
+            <CircleImage
+              key={i}
+              source={require('@/assets/tmp/leon_icone.png')}
+              onPress={() => onImagePress(player)}
+            />
+          </>
         )
       })}
       {confirmation && <Button onPress={onButtonPress} />}

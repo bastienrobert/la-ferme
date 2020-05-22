@@ -27,7 +27,7 @@ export default class Report extends db.bookshelf.Model<Player> {
   }
 
   duplications() {
-    return this.hasOne(Report, 'id', 'duplicate_id')
+    return this.hasMany(Report, 'duplicate_id', 'id')
   }
 
   increase(delta = 1) {

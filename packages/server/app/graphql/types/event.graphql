@@ -32,7 +32,7 @@ type EventSkill implements Event {
 type EventReport implements Event {
   type: EventType!
   gameUUID: UUID!
-  player: UUID!
+  targets: [UUID]!
   status: ReportStatus!
 }
 
