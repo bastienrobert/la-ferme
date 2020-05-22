@@ -29,8 +29,6 @@ const GAME_UPDATED_SUBSCRIPTION = gql`
       players {
         uuid
         character
-        skill
-        goal
       }
       ... on GameStatusWon {
         winnerUUID

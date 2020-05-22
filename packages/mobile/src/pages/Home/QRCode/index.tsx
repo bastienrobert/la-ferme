@@ -4,10 +4,11 @@ import styled from 'styled-components/native'
 import QRCodeScanner, {
   Event as QRCodeScannerEvent
 } from 'react-native-qrcode-scanner'
-import { useMutation, useApolloClient } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/react-hooks'
 import { Button } from '@la-ferme/components/native'
 
 import { ROOM_JOIN_MUTATION } from '@/graphql/room'
+import { GAME_INFOS_MUTATION } from '@/graphql/local'
 
 import content from '@/content/global.json'
 
@@ -18,15 +19,21 @@ import FullContainer from '@/components/shared/FullContainer'
 import auth from '@/services/auth'
 
 const QRCode: FC<any> = ({ navigation }) => {
-  const client = useApolloClient()
-  const [joinRoom, { data }] = useMutation(ROOM_JOIN_MUTATION)
+  const [joinRoom, joinRoomResult] = useMutation(ROOM_JOIN_MUTATION)
+  const [setGameInfos, setGameInfosResult] = useMutation(GAME_INFOS_MUTATION)
 
   useEffect(() => {
+    const { data } = joinRoomResult
     if (!data?.joinRoom) return
     const { boxID, playerUUID, gameUUID } = data.joinRoom
-    client.writeData({ data: { boxID, playerUUID, gameUUID } })
+    setGameInfos({ variables: { boxID, playerUUID, gameUUID } })
+  }, [joinRoomResult, setGameInfos])
+
+  useEffect(() => {
+    if (!setGameInfosResult.data) return
+    const { data } = joinRoomResult
     navigation.navigate('Home:Room', data.joinRoom)
-  }, [client, data, navigation])
+  }, [navigation, joinRoomResult, setGameInfosResult])
 
   // TODO: set boxID from NFC tag
   const join = async (boxID: string) => {
@@ -52,7 +59,7 @@ const QRCode: FC<any> = ({ navigation }) => {
         <QRCodeScanner
           onRead={onSuccess}
           fadeIn={false}
-          vibrate={Platform.OS === 'android'}
+          vibrate={Platform.OS !== 'android'}
           topViewStyle={TopViewStyle}
           cameraStyle={CameraStyle}
           cameraProps={{ ratio: '1:1' }}

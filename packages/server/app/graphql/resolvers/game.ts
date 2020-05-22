@@ -79,9 +79,10 @@ const resolvers = {
 
       await Promise.all(
         players.map(async p => {
-          const skill = new Skill()
+          const skill = new Skill({
+            player_id: p.id
+          })
           skill.name = getSkill()
-          skill.setPlayer(p.id)
           await skill.save()
 
           p.character = getCharacter()

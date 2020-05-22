@@ -1,16 +1,15 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import {
-  UUID,
   RoundChoice,
   RoundStep,
-  Round as RoundType,
   Player as PlayerType,
   Card as CardType
 } from '@la-ferme/shared/typings'
 import { getCard } from '@la-ferme/shared/data/cards'
 import { Button } from '@la-ferme/components/native'
 
+import { RoundProps } from './'
 import Text from '@/components/typo/Text'
 import Container from '@/components/shared/Container'
 import PlayerSelect from '@/components/shared/PlayerSelect'
@@ -21,48 +20,9 @@ import {
   COMPLETE_CARD_ROUND_MUTATION
 } from '@/graphql/round'
 
-export interface RoundProps {
-  data: RoundType
-  players: PlayerType[]
-  gameUUID: UUID
-  playerUUID: UUID
-}
+import { getAllExceptCurrent } from '@/utils/helpers/players'
 
-const Watcher: FC<RoundProps> = ({ players, data }) => {
-  const current = players.find(player => player.uuid === data.player)
-
-  switch (data.step) {
-    case RoundStep.New:
-      return (
-        <Container>
-          <Text>{current.character} décide davancer ou de tourner</Text>
-        </Container>
-      )
-    case RoundStep.Card:
-      return (
-        <Container>
-          <Text>{current.character} choisi une carte</Text>
-        </Container>
-      )
-    case RoundStep.Confirm:
-      const card = getCard(data.cards[data.choice])
-      return (
-        <Container>
-          <Text>{current.character} est en train de confirmer</Text>
-          <Text>Carte choisie: {card.displayName}</Text>
-          {data.targets?.length > 0 &&
-            data.targets.map((target, i) => {
-              const player = players.find(p => p.uuid === target)
-              return <Text key={i}>Cible(s): {player.character}</Text>
-            })}
-        </Container>
-      )
-    default:
-      return null
-  }
-}
-
-const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
+const Player: FC<RoundProps> = ({ player, players, data }) => {
   const [playerSelect, setPlayerSelect] = useState<RoundChoice>(null)
   const [selectedPlayers, setSelectedPlayers] = useState<PlayerType[]>([])
 
@@ -72,7 +32,7 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
 
   const onBoardPress = () => {
     confirmBoardRoundMutation({
-      variables: { playerUUID }
+      variables: { playerUUID: player.uuid }
     })
   }
 
@@ -80,13 +40,13 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
     card.reward.params?.target
       ? setPlayerSelect(choice)
       : setCardRoundMutation({
-          variables: { playerUUID, choice }
+          variables: { playerUUID: player.uuid, choice }
         })
   }
 
   const onCompletePress = () => {
     completeCardRoundMutation({
-      variables: { playerUUID }
+      variables: { playerUUID: player.uuid }
     })
   }
 
@@ -98,20 +58,14 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
     if (!playerSelect) return
     const card = getCard(data.cards[playerSelect])
     if (selectedPlayers.length === card.reward.params.target) {
-      const targets = selectedPlayers.map(player => player.uuid)
+      const targets = selectedPlayers.map(p => p.uuid)
       setCardRoundMutation({
-        variables: { playerUUID, choice: playerSelect, targets }
+        variables: { playerUUID: player.uuid, choice: playerSelect, targets }
       })
       setSelectedPlayers([])
       setPlayerSelect(null)
     }
-  }, [
-    data.cards,
-    playerSelect,
-    playerUUID,
-    selectedPlayers,
-    setCardRoundMutation
-  ])
+  }, [data.cards, playerSelect, player, selectedPlayers, setCardRoundMutation])
 
   switch (data.step) {
     case RoundStep.New:
@@ -128,13 +82,14 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
         civil: getCard(data.cards.civil),
         uncivil: getCard(data.cards.uncivil)
       }
-      const filteredPlayers = players.filter(
-        player => player.uuid !== playerUUID
-      )
+
       return playerSelect ? (
         <Container>
           <Text>Selected: {cards[playerSelect].displayName}</Text>
-          <PlayerSelect players={filteredPlayers} onPress={onTargetClick} />
+          <PlayerSelect
+            players={getAllExceptCurrent(players, player)}
+            onPress={onTargetClick}
+          />
         </Container>
       ) : (
         <>
@@ -168,8 +123,8 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
           </Text>
           {data.targets?.length > 0 &&
             data.targets.map((target, i) => {
-              const player = players.find(p => p.uuid === target)
-              return <Text key={i}>Cible(s): {player.character}</Text>
+              const targetedPlayer = players.find(p => p.uuid === target)
+              return <Text key={i}>Cible(s): {targetedPlayer.character}</Text>
             })}
           <Container>
             <Button onPress={() => onCompletePress()}>OK</Button>
@@ -181,23 +136,4 @@ const Player: FC<RoundProps> = ({ playerUUID, players, data }) => {
   }
 }
 
-const Round: FC<RoundProps> = props => {
-  const { data, playerUUID } = props
-  return (
-    <Container>
-      <Text>Round</Text>
-      {!data && <Text>No round data yet</Text>}
-      {data && <Text>New round for user</Text>}
-      {data && <Text>{data.player}</Text>}
-      {data && <Text>Step : {data.step}</Text>}
-      {data &&
-        (data.player === playerUUID ? (
-          <Player {...props} />
-        ) : (
-          <Watcher {...props} />
-        ))}
-    </Container>
-  )
-}
-
-export default Round
+export default Player

@@ -5,6 +5,16 @@ import { EventType } from '@la-ferme/shared/typings'
 import pubsub from '@/app/pubsub'
 
 const resolvers = {
+  Event: {
+    __resolveType({ type }) {
+      switch (type) {
+        case EventType.Skill:
+          return 'EventSkill'
+        default:
+          return 'EventDefault'
+      }
+    }
+  },
   EventType: {
     reportAll: EventType.ReportAll,
     report: EventType.Report,

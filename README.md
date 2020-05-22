@@ -46,7 +46,7 @@ yarn lerna add YOUR_DEPENDENCY --scope=@la-ferme/TARGET
 
 You should add dependency one by one until [this issue](https://github.com/lerna/lerna/issues/2004) has been reseolved.
 
-Or you can add your packages using the `yarn add` command in the targetted package dir, but you should run `lerna clean`, `rm -rf node_modules` and `yarn` at root.
+Or you can add your packages using the `yarn add` command in the targeted package dir, but you should run `lerna clean`, `rm -rf node_modules` and `yarn` at root.
 
 ## Workspaces
 

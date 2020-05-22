@@ -1,14 +1,13 @@
 import { ApolloClient } from 'apollo-client'
-import {
-  InMemoryCache,
-  IntrospectionFragmentMatcher
-} from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
 import { WebSocketLink } from 'apollo-link-ws'
 import { split } from 'apollo-link'
 import { getMainDefinition } from 'apollo-utilities'
 import unfetch from 'unfetch'
 import ws from 'isomorphic-ws'
+
+import cache from '@/graphql/local/cache'
+import resolvers from '@/graphql/local/resolvers'
 
 import auth from '@/services/auth'
 
@@ -52,18 +51,10 @@ const link = split(
   httpLink
 )
 
-const fragmentMatcher = new IntrospectionFragmentMatcher({
-  introspectionQueryResultData: {
-    __schema: {
-      types: []
-    }
-  }
-})
-
 const client = new ApolloClient({
   link,
-  resolvers: {},
-  cache: new InMemoryCache({ fragmentMatcher })
+  resolvers,
+  cache
 })
 
 export default client

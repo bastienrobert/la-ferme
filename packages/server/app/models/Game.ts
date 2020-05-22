@@ -44,7 +44,7 @@ export default class Game extends db.bookshelf.Model<Game> {
   }
 
   async numberOfRounds() {
-    return await this.rounds().where({ type: RoundType.Classic }, false).count()
+    return await this.rounds().where({ type: RoundType.Default }, false).count()
   }
 
   start() {

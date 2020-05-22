@@ -9,7 +9,7 @@ import FullContainer from '@/components/shared/FullContainer'
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 
-import { GET_GAME_INFOS } from '@/graphql/local'
+import { GAME_INFOS_QUERY } from '@/graphql/local'
 import { NEW_USER_IN_ROOM_SUBSCRIPTION } from '@/graphql/room'
 import { START_GAME_MUTATION, GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
 
@@ -66,8 +66,8 @@ const Player: FC<any> = ({ data }) => {
 const Room: FC<any> = ({ navigation, route }) => {
   const routeData = route?.params
 
-  const playerIDQuery = useQuery(GET_GAME_INFOS)
-  const { boxID, playerUUID, gameUUID } = playerIDQuery?.data ?? {}
+  const gameInfosQuery = useQuery(GAME_INFOS_QUERY)
+  const { boxID, player, gameUUID } = gameInfosQuery?.data ?? {}
 
   const [startGameMututation] = useMutation(START_GAME_MUTATION)
   const gameUpdatedSubscription = useSubscription(GAME_UPDATED_SUBSCRIPTION, {
@@ -92,7 +92,7 @@ const Room: FC<any> = ({ navigation, route }) => {
   }, [gameUpdatedSubscription.data, navigation])
 
   const onStartPress = () => {
-    startGameMututation({ variables: { playerUUID } })
+    startGameMututation({ variables: { playerUUID: player.uuid } })
   }
 
   const data = newUserInRoomSubscription.data?.connectedUsers || routeData

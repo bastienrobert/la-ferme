@@ -5,7 +5,8 @@ import {
   RoundChoice,
   RoundStep,
   GameStatusType,
-  UUID
+  UUID,
+  Card
 } from '@la-ferme/shared/typings'
 import { NOT_ALLOWED } from '@la-ferme/shared/errors'
 
@@ -18,14 +19,25 @@ import Player from '@/app/models/Player'
 import Game from '@/app/models/Game'
 
 import { connections } from '@/app/stores'
+import getRoundData from '@/app/engine/getRoundData'
 import setReports from '@/app/engine/setReports'
-// import setEvent from '@/app/engine/setEvent'
+import getNextPlayer from '@/app/engine/getNextPlayer'
+import roundShouldWatch from '@/app/engine/roundShouldWatch'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
-import formatRound from '@/app/helpers/formatRound'
 import getRandom from '@/app/helpers/getRandom'
-import getChosenCard from '@/app/helpers/getChosenCard'
+import {
+  getChosenCardFromRound,
+  getChosenCard
+} from '@/app/helpers/getChosenCard'
 import checkReports from '@/app/engine/checkReports'
+import RoundTarget from '@/app/models/RoundTarget'
+
+interface SaveTargetsParams {
+  card: Card
+  player: Player
+  round: Round
+}
 
 const createRound = async (gameID: UUID, playerID: UUID) => {
   const civil = getRandom(cards.civil)
@@ -82,11 +94,26 @@ const getPlayerData = async playerUUID => {
   }
 }
 
-const getNextPlayer = (players: Collection<Player>, current: Player) => {
-  const serializedPlayers = players.serialize()
-  const nextPlayerIndex =
-    (serializedPlayers.findIndex(p => p.id === current.id) + 1) % players.length
-  return players.at(nextPlayerIndex)
+const createTarget = async (player: Player, round: Round) => {
+  const roundTarget = new RoundTarget({
+    player_id: player.id,
+    round_id: round.id
+  })
+  return roundTarget.save()
+}
+
+const saveTargets = async (
+  targets: UUID[],
+  { round, player, card }: SaveTargetsParams
+) => {
+  return card.reward.params?.self
+    ? createTarget(player, round)
+    : Promise.all(
+        targets.map(async target => {
+          const p = await Player.findByUUID(target)
+          return createTarget(p, round)
+        })
+      )
 }
 
 const resolvers = {
@@ -139,7 +166,7 @@ const resolvers = {
         const firstPlayer = players.first()
         const round = await createRound(game.id, firstPlayer.id)
         const numberOfRounds = await game.numberOfRounds()
-        const formattedRound = formatRound(round, RoundStep.New)
+        const formattedRound = await getRoundData(round, RoundStep.New)
         publishRound(game.uuid, {
           players: formatPlayers(players),
           round: formattedRound,
@@ -156,7 +183,7 @@ const resolvers = {
       lastRound.step = step
       await lastRound.save()
 
-      const formattedRound = formatRound(lastRound, step)
+      const formattedRound = await getRoundData(lastRound, step)
       const numberOfRounds = await game.numberOfRounds()
       publishRound(game.uuid, {
         players: formatPlayers(players),
@@ -171,18 +198,8 @@ const resolvers = {
       )
 
       const lastChoosenCard = getChosenCard(
-        {
-          civil: lastRound.civilCard,
-          uncivil: lastRound.uncivilCard
-        },
+        { civil: lastRound.civilCard, uncivil: lastRound.uncivilCard },
         choice
-      )
-
-      const targettedPlayers: number[] = await Promise.all(
-        targets.map(async target => {
-          const p = await Player.findByUUID(target)
-          return p.id
-        })
       )
 
       player.increase(lastChoosenCard.reward.score)
@@ -194,11 +211,11 @@ const resolvers = {
       await Promise.all([
         player.save(),
         lastRound.save(),
-        lastRound.targets().attach(targettedPlayers)
-        // setEvent({
-        //   card: lastChoosenCard,
-        //   targets: targettedPlayers
-        // })
+        saveTargets(targets, {
+          player,
+          round: lastRound,
+          card: lastChoosenCard
+        })
       ])
 
       setReports({
@@ -207,7 +224,7 @@ const resolvers = {
         delta: lastChoosenCard.reward.score
       })
 
-      const formattedRound = formatRound(lastRound, step)
+      const formattedRound = await getRoundData(lastRound, step)
       const numberOfRounds = await game.numberOfRounds()
 
       publishRound(game.uuid, {
@@ -224,18 +241,17 @@ const resolvers = {
         playerUUID
       )
 
+      const lastChoosenCard = getChosenCardFromRound(lastRound)
+
       lastRound.step = RoundStep.Complete
+      lastRound.watch = roundShouldWatch(lastChoosenCard)
+      await lastRound.save()
 
-      const nextPlayer = getNextPlayer(players, player)
+      const nextPlayer = await getNextPlayer(players, player)
 
-      // check events before creating round to assign it to the good person
-      // get events from Game.events() WHERE status IS NEW AND WHERE player IS nextPlayer
-      const [round] = await Promise.all([
-        createRound(game.id, nextPlayer.id),
-        lastRound.save()
-      ])
+      const round = await createRound(game.id, nextPlayer.id)
       const numberOfRounds = await game.numberOfRounds()
-      const formattedRound = formatRound(round, RoundStep.New)
+      const formattedRound = await getRoundData(round, RoundStep.New)
 
       checkReports(game.uuid, { game })
 
