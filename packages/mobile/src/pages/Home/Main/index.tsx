@@ -8,6 +8,7 @@ import Text from '@/components/typo/Text'
 
 import Container from '@/components/shared/Container'
 import FullContainer from '@/components/shared/FullContainer'
+import Audio from '@/components/shared/Audio'
 
 const Home: FC<any> = ({ navigation }) => {
   const { setTheme } = useContext(ThemeContext)
@@ -22,6 +23,7 @@ const Home: FC<any> = ({ navigation }) => {
 
   return (
     <Component>
+      <Audio source={require('@/assets/tmp/sample.mp3')} paused={true} />
       <TitleContainer>
         <Title preset="H1" color="beige" textAlign="center">
           commencer une partie
