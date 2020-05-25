@@ -24,8 +24,8 @@ const Introduction: FC<any> = ({ navigation }) => {
         paused={paused}
         onEnd={goHome}
         source={{
-          uri: 'https://aura.app/videos/developer-hevc-bounce-5319b8308f.mov'
-          // 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          uri:
+            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
         }}
       />
       <StyledView>

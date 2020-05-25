@@ -16087,6 +16087,11 @@ react-native-video@^4.4.5:
     prop-types "^15.5.10"
     shaka-player "^2.4.4"
 
+react-native-webp-format@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-webp-format/-/react-native-webp-format-1.0.1.tgz#00d7e2d173ab98f273d703f2eaebcb7839a2847a"
+  integrity sha512-aU2DTaRvpeBSheE9FEzPqJ2BXgn+Us1rCPD6/zg86Z8NEeAMMdOx9fHAzTqZZM3+np5YYDJI+HgfTw410iBeWg==
+
 react-native@~0.62.0:
   version "0.62.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.62.0.tgz#166dcab76f0b5ae36a4d7046de2cbfecfdc610f1"

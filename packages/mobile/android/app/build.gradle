@@ -194,6 +194,13 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
+    // WebP implementation
+    implementation 'com.facebook.fresco:webpsupport:2.0.0' // From node_modules
+    implementation 'com.facebook.fresco:animated-webp:2.0.0' // animated WebP
+
+    // Lottie implementation
+    implementation project(':lottie-react-native')
+
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
