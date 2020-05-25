@@ -18,7 +18,7 @@ export interface RootStackParamList {
 }
 
 export default {
-  base: 'Onboarding:Setup',
+  base: 'Introduction',
   pages: [
     {
       name: 'Introduction',
