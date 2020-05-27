@@ -19,6 +19,7 @@ export interface RoundProps {
 
 const Round: FC<RoundProps> = props => {
   const { data, player } = props
+
   return (
     <Container>
       <Text>Round</Text>
