@@ -12,6 +12,10 @@ import OnboardingPending from '@/pages/Onboarding/Pending'
 import GameMain, { GameMainParams } from '@/pages/Game/Main'
 import GameOver, { GameOverParams } from '@/pages/Game/GameOver'
 
+import Samples from '@/pages/samples'
+import SamplePending from '@/pages/samples/Pending'
+import SampleGame from '@/pages/samples/Game'
+
 export type RootStackParamList = {
   Introduction: undefined
   'Home:Main': undefined
@@ -23,10 +27,15 @@ export type RootStackParamList = {
   'Onboarding:Pending': undefined
   'Game:Main': GameMainParams
   'Game:GameOver': GameOverParams
+  // samples
+  Sample: undefined
+  SamplePending: undefined
+  SampleGame: undefined
 }
 
 export default {
-  base: 'Introduction',
+  base: 'Samples',
+  // base: 'Introduction',
   pages: [
     {
       name: 'Introduction',
@@ -67,6 +76,19 @@ export default {
     {
       name: 'Game:GameOver',
       component: GameOver
+    },
+    // samples
+    {
+      name: 'Samples',
+      component: Samples
+    },
+    {
+      name: 'Sample:Pending',
+      component: SamplePending
+    },
+    {
+      name: 'Sample:Game',
+      component: SampleGame
     }
   ]
 }
