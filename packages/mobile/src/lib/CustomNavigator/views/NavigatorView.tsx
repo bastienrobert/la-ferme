@@ -99,8 +99,7 @@ export default class BottomTabView extends Component<Props, State> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    overflow: 'hidden'
+    flex: 1
   },
   pages: {
     flex: 1

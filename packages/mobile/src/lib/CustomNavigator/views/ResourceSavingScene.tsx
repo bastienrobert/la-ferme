@@ -50,8 +50,7 @@ export default ResourceSavingScene
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    overflow: 'hidden'
+    flex: 1
   },
   attached: {
     flex: 1

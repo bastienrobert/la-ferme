@@ -61,4 +61,5 @@ export default function App() {
 const GlobalSafeAreaView = styled.SafeAreaView<any>`
   flex: 1;
   background-color: ${props => Colors[props.background] || Colors.gray};
+  overflow: visible;
 `
