@@ -15,6 +15,8 @@ import GameOver, { GameOverParams } from '@/pages/Game/GameOver'
 import Samples from '@/pages/samples'
 import SamplePending from '@/pages/samples/Pending'
 import SampleGame from '@/pages/samples/Game'
+import SampleNotification from '@/pages/samples/Notification'
+import SampleCall from '@/pages/samples/Call'
 
 export type RootStackParamList = {
   Introduction: undefined
@@ -31,6 +33,8 @@ export type RootStackParamList = {
   Sample: undefined
   SamplePending: undefined
   SampleGame: undefined
+  SampleNotification: undefined
+  SampleCall: undefined
 }
 
 export default {
@@ -89,6 +93,14 @@ export default {
     {
       name: 'Sample:Game',
       component: SampleGame
+    },
+    {
+      name: 'Sample:Notification',
+      component: SampleNotification
+    },
+    {
+      name: 'Sample:Call',
+      component: SampleCall
     }
   ]
 }

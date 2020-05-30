@@ -32,8 +32,8 @@ const Component = styled(Container)<WrapperProps>`
 `
 
 const Image = styled.ImageBackground`
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
   align-items: flex-end;
   justify-content: flex-end;
 `

@@ -7,18 +7,18 @@ import Container from '@/components/shared/Container'
 import Text from '@/components/typo/Text'
 
 const NotificationBanner: FC<any> = ({ content }) => {
-  const fadeAnim = useRef(new Animated.Value(0))
+  const fadeAnim = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
     if (!content) return
-    fadeAnim.current.setValue(0)
+    fadeAnim.setValue(0)
     Animated.sequence([
-      Animated.timing(fadeAnim.current, {
+      Animated.timing(fadeAnim, {
         toValue: 1,
         duration: 2000,
         useNativeDriver: true
       }),
-      Animated.timing(fadeAnim.current, {
+      Animated.timing(fadeAnim, {
         toValue: 0,
         duration: 400,
         delay: 2000,
@@ -26,10 +26,10 @@ const NotificationBanner: FC<any> = ({ content }) => {
         useNativeDriver: true
       })
     ]).start()
-  }, [content])
+  }, [content, fadeAnim])
 
   return (
-    <Component as={Animated.View} style={{ opacity: fadeAnim.current }}>
+    <Component as={Animated.View} style={{ opacity: fadeAnim }}>
       <Text color="beige">{content}</Text>
     </Component>
   )

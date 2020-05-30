@@ -29,11 +29,20 @@ const isCurrentPage = (content, id) => {
   return content.findIndex(c => c.uuid === id) === content.length - 1
 }
 
+interface ComponentRef {
+  wrapperValue: Animated.Value
+  overlayValue: Animated.Value
+  wrapperAnimation: Animated.CompositeAnimation
+  overlayAnimation: Animated.CompositeAnimation
+}
+
+type ComponentRefs = { [key: string]: ComponentRef }
+
 const Round: FC<any> = ({ player, data }) => {
   const [content, setContent] = useState([])
   const [layerStyle, setLayerStyle] = useState<ViewStyle>()
   const currentComponent = useRef<String>()
-  const refs = useRef<any>({})
+  const refs = useRef<ComponentRefs>({})
 
   useEffect(() => {
     const id = uuid()
@@ -45,20 +54,14 @@ const Round: FC<any> = ({ player, data }) => {
       overlayValue,
       wrapperAnimation: Animated.timing(wrapperValue, {
         toValue: 0,
-        duration: 1300,
+        duration: 1200,
         easing: Easing.inOut(Easing.cubic),
         useNativeDriver: true
       }),
       overlayAnimation: Animated.timing(overlayValue, {
-        toValue: 0,
-        duration: 600,
-        easing: Easing.linear,
-        useNativeDriver: true
-      }),
-      overlayAnimationLast: Animated.timing(overlayValue, {
         toValue: -viewport.height - 100,
-        duration: 600,
-        easing: Easing.out(Easing.cubic),
+        duration: 1200,
+        easing: Easing.inOut(Easing.cubic),
         useNativeDriver: true
       })
     }
@@ -75,25 +78,15 @@ const Round: FC<any> = ({ player, data }) => {
     Object.entries(refs.current).forEach(([_, ref]: any) => {
       if (ref.animated) return
       ref.animated = true
-      ref.overlayAnimation.start(({ finished }) => {
-        if (!finished) return
-        ref.overlayAnimationLast.start()
+      setTimeout(() => {
         if (isCurrentPage(content, currentComponent.current)) {
           setContent(content.filter(c => c.uuid === currentComponent.current))
         }
-      })
+      }, 600)
+      ref.overlayAnimation.start()
       ref.wrapperAnimation.start()
     })
   }, [content, currentComponent])
-
-  const registerRef = useCallback(
-    (id, name) => el => {
-      if (!el) return
-      const ref = refs.current[id]
-      ref[name] = el
-    },
-    []
-  )
 
   const onLayout = useCallback((e: LayoutChangeEvent) => {
     const layout = e.nativeEvent.layout
@@ -112,16 +105,12 @@ const Round: FC<any> = ({ player, data }) => {
 
         return (
           <ContentContainer key={c.data.uuid} style={{ zIndex: i }}>
-            <ContentWrapper
-              as={Animated.View}
-              ref={registerRef(c.uuid, 'wrapper')}
-              style={wrapperStyle}>
+            <ContentWrapper as={Animated.View} style={wrapperStyle}>
               <C data={c.data} />
             </ContentWrapper>
             <Overlay
               as={Animated.View}
               background={c.background}
-              ref={registerRef(c.uuid, 'overlay')}
               style={[layerStyle, overlayStyle]}
             />
           </ContentContainer>

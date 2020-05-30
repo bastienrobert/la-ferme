@@ -2,9 +2,9 @@ import React, { FC, useState } from 'react'
 import { Player } from '@la-ferme/shared/typings'
 import { Button } from '@la-ferme/components/native'
 
-import Container from '@/components/shared/Container'
+import Container from './Container'
+import CircleImage from './CircleImage'
 import Text from '@/components/typo/Text'
-import CircleImage from '@/components/shared/CircleImage'
 
 export interface PlayerSelectProps {
   players: Player[]

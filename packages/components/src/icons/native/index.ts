@@ -4,6 +4,7 @@ import Cross from './Cross'
 import End from './End'
 import Lightning from './Lightning'
 import Plus from './Plus'
+import AngleBracket from './AngleBracket'
 
 export default {
   brigade: Brigade,
@@ -11,5 +12,6 @@ export default {
   cross: Cross,
   end: End,
   lightning: Lightning,
-  plus: Plus
+  plus: Plus,
+  angleBracket: AngleBracket
 }

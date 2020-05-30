@@ -9,7 +9,7 @@ export const blue = '#80ADE0'
 export const pink = '#F89ABF'
 
 export type Theme = 'gray' | 'beige' | 'yellow' | 'red' | 'blue' | 'pink'
-export type Typo = 'black' | 'beige' | 'gray' | 'yellow'
+export type Typo = 'black' | 'beige' | 'gray' | 'yellow' | 'red'
 export type Button = 'yellow' | 'blue'
 export type IconColor = 'yellow' | 'gray'
 export type IconBackground = 'yellow' | 'blue' | 'red' | 'gray'

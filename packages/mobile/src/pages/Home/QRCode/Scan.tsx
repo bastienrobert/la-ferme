@@ -7,18 +7,18 @@ import FullContainer from '@/components/shared/FullContainer'
 import Title from '@/components/typo/Title'
 
 const Scan = () => {
-  const fadeAnim = useRef(new Animated.Value(0))
+  const fadeAnim = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(fadeAnim.current, {
+        Animated.timing(fadeAnim, {
           toValue: 1,
           duration: 400,
           easing: Easing.in(Easing.quad),
           useNativeDriver: true
         }),
-        Animated.timing(fadeAnim.current, {
+        Animated.timing(fadeAnim, {
           toValue: 0,
           duration: 400,
           delay: 2000,
@@ -48,7 +48,7 @@ const Scan = () => {
         </StyledSvg>
         <StyledImage
           as={Animated.Image}
-          style={{ opacity: fadeAnim.current }}
+          style={{ opacity: fadeAnim }}
           source={require('@/assets/images/qrcode/inside.png')}
         />
       </Wrapper>
