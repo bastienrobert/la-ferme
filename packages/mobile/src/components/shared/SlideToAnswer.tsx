@@ -79,12 +79,12 @@ const SlideToAnswer: FC<SlideToAnswerProps> = ({ onHangUp, touchable }) => {
           Animated.parallel([
             Animated.timing(backgroundAnim, {
               toValue: 0,
-              duration: 500,
+              duration: 200,
               useNativeDriver: true
             }),
             Animated.timing(crossAnim, {
               toValue: 1,
-              duration: 500,
+              duration: 300,
               useNativeDriver: true
             })
           ]).start()
