@@ -4,12 +4,15 @@ import React, {
   useRef,
   useEffect,
   useLayoutEffect,
-  useCallback
+  useCallback,
+  useContext
 } from 'react'
 import { Animated, Easing, ViewStyle, LayoutChangeEvent } from 'react-native'
 import styled from 'styled-components/native'
 import uuid from 'uuid/v4'
 import { Colors } from '@la-ferme/components/native'
+
+import ThemeContext from '@/App/Theme/Context'
 
 import Player from './Player'
 import Viewer from './Viewer'
@@ -39,6 +42,7 @@ interface ComponentRef {
 type ComponentRefs = { [key: string]: ComponentRef }
 
 const Round: FC<any> = ({ player, data }) => {
+  const { setTheme } = useContext(ThemeContext)
   const [content, setContent] = useState([])
   const [layerStyle, setLayerStyle] = useState<ViewStyle>()
   const currentComponent = useRef<String>()
@@ -80,13 +84,15 @@ const Round: FC<any> = ({ player, data }) => {
       ref.animated = true
       setTimeout(() => {
         if (isCurrentPage(content, currentComponent.current)) {
+          const page = content.find(c => c.uuid === currentComponent.current)
+          setTheme(page.data.background)
           setContent(content.filter(c => c.uuid === currentComponent.current))
         }
       }, 600)
       ref.overlayAnimation.start()
       ref.wrapperAnimation.start()
     })
-  }, [content, currentComponent])
+  }, [content, currentComponent, setTheme])
 
   const onLayout = useCallback((e: LayoutChangeEvent) => {
     const layout = e.nativeEvent.layout
@@ -105,14 +111,13 @@ const Round: FC<any> = ({ player, data }) => {
 
         return (
           <ContentContainer key={c.data.uuid} style={{ zIndex: i }}>
-            <ContentWrapper as={Animated.View} style={wrapperStyle}>
+            <ContentWrapper
+              as={Animated.View}
+              background={c.data.background}
+              style={wrapperStyle}>
               <C data={c.data} />
             </ContentWrapper>
-            <Overlay
-              as={Animated.View}
-              background={c.background}
-              style={[layerStyle, overlayStyle]}
-            />
+            <Overlay as={Animated.View} style={[layerStyle, overlayStyle]} />
           </ContentContainer>
         )
       })}
@@ -137,7 +142,7 @@ const ContentContainer = styled(Container)<any>`
 const ContentWrapper = styled(Container)<any>`
   flex: 1;
   z-index: 1;
-  background-color: ${Colors.yellow};
+  background-color: ${({ background }) => Colors[background]};
   width: 100%;
 `
 

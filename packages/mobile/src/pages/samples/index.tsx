@@ -12,6 +12,7 @@ const Samples = ({ navigation }) => {
       <Button title="Game" onPress={navigate('Sample:Game')} />
       <Button title="Notification" onPress={navigate('Sample:Notification')} />
       <Button title="Call" onPress={navigate('Sample:Call')} />
+      <Button title="CardChoice" onPress={navigate('Sample:CardChoice')} />
       <PlayerWithColor size="large" character="leon" />
     </>
   )

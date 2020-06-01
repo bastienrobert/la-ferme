@@ -17,6 +17,7 @@ import SamplePending from '@/pages/samples/Pending'
 import SampleGame from '@/pages/samples/Game'
 import SampleNotification from '@/pages/samples/Notification'
 import SampleCall from '@/pages/samples/Call'
+import SampleCardChoice from '@/pages/samples/CardChoice'
 
 export type RootStackParamList = {
   Introduction: undefined
@@ -35,6 +36,7 @@ export type RootStackParamList = {
   SampleGame: undefined
   SampleNotification: undefined
   SampleCall: undefined
+  SampleCardChoice: undefined
 }
 
 export default {
@@ -101,6 +103,10 @@ export default {
     {
       name: 'Sample:Call',
       component: SampleCall
+    },
+    {
+      name: 'Sample:CardChoice',
+      component: SampleCardChoice
     }
   ]
 }

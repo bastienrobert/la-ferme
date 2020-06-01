@@ -9,6 +9,7 @@ import styled from 'styled-components/native'
 import { Colors, Icon } from '@la-ferme/components/native'
 
 import Container from './Container'
+import Text from '@/components/typo/Text'
 
 const ICON_CONTAINER_DIMENSIONS = 70
 const ICON_CONTAINER_MARGINS = 2.5
@@ -34,6 +35,7 @@ const SlideToAnswer: FC<SlideToAnswerProps> = ({ onHangUp, touchable }) => {
   const [answer, setAnswer] = useState<boolean>(false)
   const pan = useRef(new Animated.ValueXY()).current
   const backgroundAnim = useRef(new Animated.Value(1)).current
+  const textAnim = useRef(new Animated.Value(1)).current
   const crossAnim = useRef(new Animated.Value(0)).current
   const layout = useRef<LayoutRectangle>()
 
@@ -82,6 +84,11 @@ const SlideToAnswer: FC<SlideToAnswerProps> = ({ onHangUp, touchable }) => {
               duration: 200,
               useNativeDriver: true
             }),
+            Animated.timing(textAnim, {
+              toValue: 0,
+              duration: 1,
+              useNativeDriver: true
+            }),
             Animated.timing(crossAnim, {
               toValue: 1,
               duration: 300,
@@ -94,7 +101,7 @@ const SlideToAnswer: FC<SlideToAnswerProps> = ({ onHangUp, touchable }) => {
         }
       }
     })
-  }, [answer, backgroundAnim, crossAnim, pan, panMove])
+  }, [answer, backgroundAnim, crossAnim, pan, panMove, textAnim])
 
   const onPress = useMemo(() => {
     return () => answer && onHangUp && onHangUp()
@@ -102,7 +109,20 @@ const SlideToAnswer: FC<SlideToAnswerProps> = ({ onHangUp, touchable }) => {
 
   return (
     <Component alignSelf="center" onLayout={onLayout}>
+      <TextWrapper
+        as={Animated.View}
+        alignSelf="center"
+        style={{ opacity: textAnim }}>
+        <Text color="gray">Répondre</Text>
+      </TextWrapper>
       <Background as={Animated.View} style={{ opacity: backgroundAnim }} />
+      <BackgroundTranslate
+        as={Animated.View}
+        style={{
+          opacity: textAnim,
+          transform: [...pan.getTranslateTransform()]
+        }}
+      />
       <IconContainer
         as={Animated.View}
         style={{
@@ -143,6 +163,13 @@ const Background = styled(Container)`
   background-color: ${Colors.beige};
 `
 
+const BackgroundTranslate = styled(Background)`
+  background-color: ${Colors.beige};
+  left: -100%;
+  margin-left: ${ICON_CONTAINER_DIMENSIONS}px;
+  z-index: 2;
+`
+
 const IconContainer = styled(Container)`
   position: absolute;
   left: 0;
@@ -152,6 +179,7 @@ const IconContainer = styled(Container)`
   margin: ${ICON_CONTAINER_MARGINS}px;
   background-color: ${Colors.red};
   border-radius: ${ICON_CONTAINER_DIMENSIONS / 2}px;
+  z-index: 2;
 `
 
 const IconTouchable = styled.TouchableOpacity`
@@ -168,6 +196,13 @@ const IconWrapper = styled(Container)`
   left: ${(ICON_CONTAINER_DIMENSIONS - ICON_DIMENSIONS) / 2}px;
   height: ${ICON_DIMENSIONS}px;
   width: ${ICON_DIMENSIONS}px;
+`
+
+const TextWrapper = styled(Container)`
+  justify-content: center;
+  flex: 1;
+  margin-left: 40px;
+  z-index: 1;
 `
 
 const StyledIcon = styled(Icon)`
