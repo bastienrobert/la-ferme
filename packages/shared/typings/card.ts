@@ -23,6 +23,7 @@ export interface CardReward {
 export interface Card {
   name: string
   displayName: string
-  text: string
+  playerText: string
+  viewerText: string
   reward: CardReward
 }
