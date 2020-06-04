@@ -15,7 +15,7 @@ const Introduction: FC<any> = ({ navigation }) => {
   useFocusEffect(useCallback(() => () => setPaused(true), []))
 
   const goHome = () => {
-    navigation.navigate('Home')
+    navigation.navigate('Home:Main')
   }
 
   return (

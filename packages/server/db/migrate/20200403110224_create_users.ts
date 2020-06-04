@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<any> {
   })
 
   await knex.schema.table('games', table => {
-    table.integer('creator_id').references('users.id').onDelete('cascade')
+    table.integer('creator_user_id').references('users.id').onDelete('cascade')
   })
 
   return

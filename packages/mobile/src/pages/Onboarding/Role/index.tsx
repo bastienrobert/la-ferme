@@ -6,32 +6,41 @@ import ThemeContext from '@/App/Theme/Context'
 import Walkthrough from '@/components/shared/Walkthrough'
 import Text from '@/components/typo/Text'
 
-import { GET_BOX_ID } from '@/graphql/room'
+import { GAME_INFOS_QUERY, SET_PLAYER_INFOS_MUTATION } from '@/graphql/local'
 import { GET_PLAYER, PLAYER_READY_MUTATION } from '@/graphql/player'
-
-import auth from '@/services/auth'
 
 const Role: FC<any> = ({ navigation }) => {
   const { setTheme } = useContext(ThemeContext)
+  const [playerInfosMutation] = useMutation(SET_PLAYER_INFOS_MUTATION)
 
   useEffect(() => {
     setTheme('red')
   }, [setTheme])
 
-  const boxIDQuery = useQuery(GET_BOX_ID)
-  const boxID = boxIDQuery?.data?.boxID
+  const gameInfosQuery = useQuery(GAME_INFOS_QUERY)
+  const { player } = gameInfosQuery?.data ?? {}
 
   const playerQuery = useQuery(GET_PLAYER, {
-    variables: { userUUID: auth.uuid }
+    variables: { playerUUID: player.uuid }
   })
-  const [playerReadyMutation] = useMutation(PLAYER_READY_MUTATION)
+  const [playerReadyMutation, { data }] = useMutation(PLAYER_READY_MUTATION)
 
   const onReadyPress = () => {
-    playerReadyMutation({ variables: { boxID, userUUID: auth.uuid } })
-    navigation.navigate('Onboarding:Pending')
+    playerReadyMutation({ variables: { playerUUID: player.uuid } })
   }
 
+  useEffect(() => {
+    if (!data?.playerReady) return
+    navigation.navigate('Onboarding:Pending')
+  }, [data, navigation])
+
   const userData = playerQuery?.data?.getPlayer
+
+  useEffect(() => {
+    if (!userData) return
+    const { character, goal, skill } = userData
+    playerInfosMutation({ variables: { character, goal, skill } })
+  }, [playerInfosMutation, userData])
 
   if (!userData) return <Text color="gray">Fetching user</Text>
 

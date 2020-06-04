@@ -41,8 +41,8 @@ export default {
       configFile: './.eslintrc.js'
     }),
     resolve({ preferBuiltins: true }),
-    ts(),
     graphql(),
+    ts(),
     json(),
     commonjs(),
     !watch && terser(),

@@ -1,7 +1,5 @@
 import { css } from 'styled-components'
 
-import { Colors } from '@/theme'
-
 const styles = {
   commons: {
     container: css`
@@ -21,18 +19,17 @@ const styles = {
       justify-content: center;
       align-items: center;
     `,
-    background: {
-      container: color =>
-        color
-          ? css`
-              background-color: ${Colors[color]};
-              border-radius: 28px;
-            `
-          : null,
-      wrapper: css`
-        margin: 15px;
-      `
-    }
+    backgroundWrapper: css`
+      margin: 15px;
+    `,
+    background: css`
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    `
   },
   disabled: css`
     opacity: 0.5;

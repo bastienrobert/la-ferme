@@ -1,5 +1,7 @@
 type Room {
   boxID: UUID!
+  gameUUID: UUID!
+  playerUUID: UUID!
   creatorUUID: UUID!
   users: [User]!
 }

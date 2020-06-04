@@ -7,7 +7,7 @@ const Game: FC<any> = ({ navigation, route }) => {
   const routeData = route?.params
 
   const onHomePress = () => {
-    navigation.navigate('Home')
+    navigation.navigate('Home:Main')
   }
 
   return (

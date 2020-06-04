@@ -51,19 +51,26 @@ const styles = {
       opacity: 0.5;
     `
   },
-  web: css`
-    ${Fonts.getFontStyle('bowlby', 'regular')};
-    appearance: none;
-    background: none;
-  `,
+  web: {
+    box: css`
+      ${Fonts.getFontStyle('bowlby', 'regular')};
+      appearance: none;
+      background: none;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    `,
+    disabled: css`
+      cursor: not-allowed;
+    `
+  },
   native: {
     text: css`
       ${Fonts.getFontStyle('bowlby', 'regular', true)};
     `
   },
-  box: (hover = false) => {
+  box: (hover = false, disabled = false) => {
     const computedStyle = [styles.commons.box]
-    if (hover) computedStyle.push(styles.commons.boxHover)
+    if (hover && !disabled) computedStyle.push(styles.commons.boxHover)
 
     return computedStyle
   },

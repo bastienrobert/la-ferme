@@ -1,11 +1,14 @@
-export const formatPlayer = async player => {
-  const user = await player.user().fetch()
-  const { ready, character, skill, goal } = player.serialize()
+import Player from '@/app/models/Player'
+
+export const formatPlayer = async (player: Player) => {
+  const skill = await player.skill().fetch()
+  const { ready, character, goal } = player.serialize()
+
   return {
-    user: user.uuid,
+    uuid: player.uuid,
+    skill: skill.name,
     ready,
     character,
-    skill,
     goal
   }
 }

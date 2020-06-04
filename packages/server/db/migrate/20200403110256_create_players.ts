@@ -1,12 +1,14 @@
 import Knex from 'knex'
 
 export async function up(knex: Knex): Promise<any> {
+  await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
+
   await knex.schema.createTable('players', table => {
     table.increments('id').primary()
+    table.uuid('uuid').defaultTo(knex.raw('uuid_generate_v4()'))
     table.integer('game_id').references('games.id').onDelete('cascade')
     table.integer('user_id').references('users.id').onDelete('cascade')
     table.string('character')
-    table.string('skill')
     table.string('goal')
     table.boolean('ready').defaultTo(false)
     table.boolean('surrender').defaultTo(false)
@@ -15,7 +17,7 @@ export async function up(knex: Knex): Promise<any> {
   })
 
   await knex.schema.table('games', table => {
-    table.integer('winner_id').references('players.id').onDelete('cascade')
+    table.integer('winner_player_id').references('players.id').onDelete('cascade') // prettier-ignore
   })
 
   return

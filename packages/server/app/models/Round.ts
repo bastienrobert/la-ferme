@@ -1,7 +1,15 @@
 import db from '@/config/database'
+import { RoundChoice, RoundStep } from '@la-ferme/shared/typings'
 
 import Game from './Game'
 import Player from './Player'
+import RoundTarget from './RoundTarget'
+
+export enum RoundType {
+  Default = 'default',
+  Replay = 'replay',
+  Pass = 'pass'
+}
 
 export default class Round extends db.bookshelf.Model<Round> {
   get tableName() {
@@ -20,11 +28,47 @@ export default class Round extends db.bookshelf.Model<Round> {
     return this.belongsTo(Player)
   }
 
-  get completed(): boolean {
-    return this.get('completed')
+  targets() {
+    return this.hasMany(RoundTarget)
   }
 
-  set completed(value: boolean) {
-    this.set({ completed: value })
+  get civilCard() {
+    return this.get('civil_card')
+  }
+
+  get uncivilCard() {
+    return this.get('uncivil_card')
+  }
+
+  get choice(): RoundChoice {
+    return this.get('choice')
+  }
+
+  set choice(choice: RoundChoice) {
+    this.set({ choice })
+  }
+
+  get watch() {
+    return this.get('watch')
+  }
+
+  set watch(watch: boolean) {
+    this.set({ watch })
+  }
+
+  get type(): RoundType {
+    return this.get('type')
+  }
+
+  set type(type: RoundType) {
+    this.set({ type })
+  }
+
+  get step(): RoundStep {
+    return this.get('step')
+  }
+
+  set step(step: RoundStep) {
+    this.set({ step })
   }
 }

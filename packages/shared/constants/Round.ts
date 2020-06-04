@@ -1,3 +1,3 @@
 export default {
-  NEW: 'NEW_ROUND'
+  UPDATE: 'UPDATE_ROUND'
 }

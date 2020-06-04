@@ -1,0 +1,16 @@
+enum ReportStatus {
+  new
+  confirmed
+  duplicated
+  reversed
+  completed
+}
+
+type Report {
+  from: Player!
+  to: Player!
+}
+
+extend type Mutation {
+  reportPlayer(fromUUID: UUID!, toUUID: UUID!): Boolean!
+}

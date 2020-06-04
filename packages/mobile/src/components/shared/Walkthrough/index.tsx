@@ -89,10 +89,6 @@ const Walkthrough: FC<any> = ({ data, onReadyPress }) => {
     setIndex(cardId)
   }
 
-  const setActiveButton = index => {
-    console.log(index)
-  }
-
   return (
     <CardContainer>
       {datas

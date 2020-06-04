@@ -5,8 +5,12 @@ import merge from 'lodash.merge'
 import ConnectionModel from '@/app/models/Connection'
 import UserModel from '@/app/models/User'
 
+import getPlayer from '@/app/helpers/getPlayer'
+
 export interface Connection {
   boxID: UUID | null
+  gameUUID: UUID | null
+  playerUUID: UUID | null
   ready: boolean
 }
 
@@ -14,20 +18,27 @@ export type ConnectionsCollection = Map<UUID, Connection>
 
 const DEFAULT_VALUE = {
   boxID: null,
+  gameUUID: null,
+  playerUUID: null,
   ready: false
 }
 
 class Connections extends Emitter {
   _connections: ConnectionsCollection = new Map()
 
-  protected static async saveDisconnect(user) {
-    const connection = await user.connections().fetch()
-    connection.last().disconnect().save()
+  protected static async saveDisconnect(user: UserModel) {
+    const connections = await user
+      .connections()
+      .orderBy('connected_at', 'DESC')
+      .fetchOne()
+    connections.disconnect().save()
   }
 
-  protected static async surrenderPlayer(user) {
-    const player = await user.players().fetch()
-    player.last().surrender().save()
+  protected static async surrenderPlayer(user: UserModel) {
+    const player = getPlayer(user)
+    if (!player) return false
+    await player.surrender().save()
+    return true
   }
 
   async connect(key: UUID) {
@@ -55,11 +66,7 @@ class Connections extends Emitter {
     return this._connections.set(userUUID, merge(state, newState))
   }
 
-  setBoxID(userUUID: UUID, boxID: UUID) {
-    return this.merge(userUUID, { boxID })
-  }
-
-  setReady(userUUID) {
+  setReady(userUUID: UUID) {
     return this.merge(userUUID, { ready: true })
   }
 
@@ -71,7 +78,9 @@ class Connections extends Emitter {
     const value = this.get(key)
     if (!value) return
     this.emit('disconnecting', key, value)
-    const user = await UserModel.findByUUID(key)
+    const user = await UserModel.findByUUID(key, {
+      withRelated: [{ players: qb => qb.orderBy('created_at') }]
+    })
     await Promise.all([
       Connections.saveDisconnect(user),
       Connections.surrenderPlayer(user)

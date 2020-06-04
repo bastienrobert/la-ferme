@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import styled from 'styled-components/native'
 import { useSubscription, useQuery, useMutation } from '@apollo/react-hooks'
+import { GameStatusType } from '@la-ferme/shared/typings'
 import { Button } from '@la-ferme/components/native'
 
 import Container from '@/components/shared/Container'
@@ -8,8 +9,9 @@ import FullContainer from '@/components/shared/FullContainer'
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 
-import { GET_BOX_ID, NEW_USER_IN_ROOM_SUBSCRIPTION } from '@/graphql/room'
-import { START_GAME_MUTATION, GAME_STATUS_SUBSCRIPTION } from '@/graphql/game'
+import { GAME_INFOS_QUERY } from '@/graphql/local'
+import { NEW_USER_IN_ROOM_SUBSCRIPTION } from '@/graphql/room'
+import { START_GAME_MUTATION, GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
 
 import auth from '@/services/auth'
 
@@ -51,7 +53,7 @@ const Player: FC<any> = ({ data }) => {
       </TitleContainer>
       <ContentContainer>
         <Text color="beige" textAlign="center">
-          Un peu de patience ! Les joueurs rejoignent la partie !
+          Un peu de patience ! Les joueurs rejoignent la partie !
         </Text>
       </ContentContainer>
       {data && <Users data={data.users} />}
@@ -59,15 +61,17 @@ const Player: FC<any> = ({ data }) => {
   )
 }
 
+// TODO !!!
+// set props
 const Room: FC<any> = ({ navigation, route }) => {
   const routeData = route?.params
 
-  const boxIDQuery = useQuery(GET_BOX_ID)
-  const boxID = boxIDQuery?.data?.boxID
+  const gameInfosQuery = useQuery(GAME_INFOS_QUERY)
+  const { boxID, player, gameUUID } = gameInfosQuery?.data ?? {}
 
   const [startGameMututation] = useMutation(START_GAME_MUTATION)
-  const gameStatusSubscription = useSubscription(GAME_STATUS_SUBSCRIPTION, {
-    variables: { boxID }
+  const gameUpdatedSubscription = useSubscription(GAME_UPDATED_SUBSCRIPTION, {
+    variables: { gameUUID }
   })
   const newUserInRoomSubscription = useSubscription(
     NEW_USER_IN_ROOM_SUBSCRIPTION,
@@ -81,12 +85,14 @@ const Room: FC<any> = ({ navigation, route }) => {
   // TODO
   // subscription should be cancelled when React navigation focus blur
   useEffect(() => {
-    if (!gameStatusSubscription.data || !navigation.isFocused) return
+    if (!navigation.isFocused) return
+    const data = gameUpdatedSubscription.data?.gameUpdated
+    if (!data || data.type !== GameStatusType.Start) return
     navigation.navigate('Onboarding:Hello')
-  }, [gameStatusSubscription.data, navigation])
+  }, [gameUpdatedSubscription.data, navigation])
 
   const onStartPress = () => {
-    startGameMututation({ variables: { boxID, userUUID: auth.uuid } })
+    startGameMututation({ variables: { playerUUID: player.uuid } })
   }
 
   const data = newUserInRoomSubscription.data?.connectedUsers || routeData
