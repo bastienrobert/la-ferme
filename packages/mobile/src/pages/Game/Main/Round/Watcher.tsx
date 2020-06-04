@@ -14,6 +14,8 @@ const Watcher: FC<RoundProps> = ({ player, players, data }) => {
 
   const current = players.find(p => p.uuid === data.player)
 
+  console.log(players)
+
   useEffect(() => {
     if (data.step !== RoundStep.Confirm) return
     if (data.targets && data.targets.includes(player.uuid)) {

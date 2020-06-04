@@ -1,10 +1,9 @@
 import React, { FC, useContext, useEffect } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Button } from '@la-ferme/components/native'
 
 import ThemeContext from '@/App/Theme/Context'
 
-import Container from '@/components/shared/Container'
+import Walkthrough from '@/components/shared/Walkthrough'
 import Text from '@/components/typo/Text'
 
 import { GAME_INFOS_QUERY, SET_PLAYER_INFOS_MUTATION } from '@/graphql/local'
@@ -47,13 +46,7 @@ const Role: FC<any> = ({ navigation }) => {
 
   return (
     <>
-      <Text color="gray">You are</Text>
-      <Text color="gray">{userData.character}</Text>
-      <Text color="gray">{userData.goal}</Text>
-      <Text color="gray">{userData.skill}</Text>
-      <Container>
-        <Button onPress={onReadyPress}>Ready</Button>
-      </Container>
+      <Walkthrough data={userData} onReadyPress={onReadyPress} />
     </>
   )
 }
