@@ -1,9 +1,19 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useContext } from 'react'
 import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
-import { Icon } from '@la-ferme/components/native'
+import { Icon, Colors } from '@la-ferme/components/native'
+
+import ThemeContext from '@/App/Theme/Context'
 
 import Container from '@/components/shared/Container'
+
+const complementaries: { [key: Colors.Theme]: Colors.Theme } = {
+  red: 'yellow',
+  blue: 'red',
+  pink: 'blue',
+  yellow: 'blue',
+  gray: 'yellow'
+}
 
 const MenuIcon: FC<any> = ({ onPress, ...style }) => {
   return (
@@ -15,6 +25,9 @@ const MenuIcon: FC<any> = ({ onPress, ...style }) => {
 
 const Menu: FC<any> = () => {
   const [visible, setVisible] = useState(false)
+  const { theme } = useContext(ThemeContext)
+
+  const color = complementaries[theme]
 
   const onShowPress = () => setVisible(true)
   const onHidePress = () => setVisible(false)
@@ -25,18 +38,18 @@ const Menu: FC<any> = () => {
         <Group>
           <MenuIcon icon="cross" background="red" onPress={onHidePress} />
           <EndIconWrapper>
-            <MenuIcon icon="end" background="gray" />
+            <MenuIcon icon="end" background={color} />
           </EndIconWrapper>
           <BrigadeIconWrapper>
-            <MenuIcon icon="brigade" background="gray" />
+            <MenuIcon icon="brigade" color="beige" background={color} />
           </BrigadeIconWrapper>
           <LightningIconWrapper>
-            <MenuIcon icon="lightning" background="gray" />
+            <MenuIcon icon="lightning" color="beige" background={color} />
           </LightningIconWrapper>
         </Group>
       ) : (
         <Group>
-          <MenuIcon icon="plus" background="blue" onPress={onShowPress} />
+          <MenuIcon icon="plus" background={color} onPress={onShowPress} />
         </Group>
       )}
     </Component>
@@ -49,7 +62,7 @@ const Component = styled(Container)`
   left: 0;
   width: 100%;
   padding: 22px 12px;
-  z-index: 999;
+  z-index: 2;
 `
 
 const IconContainer = styled(Container)``

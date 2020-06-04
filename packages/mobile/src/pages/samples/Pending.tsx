@@ -9,7 +9,7 @@ import Text from '@/components/typo/Text'
 
 import viewport from '@/services/viewport'
 
-import globalData from '@la-ferme/shared/data/global'
+import { global as globalData } from '@la-ferme/shared/data'
 const content = globalData.pending
 
 const Pending = () => {

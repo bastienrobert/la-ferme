@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Typo } from '@la-ferme/components/native'
 import { Character } from '@la-ferme/shared/typings'
-import characters from '@la-ferme/shared/data/characters'
+import { characters } from '@la-ferme/shared/data'
 
 import { TextProps } from '@/components/typo/Text'
 

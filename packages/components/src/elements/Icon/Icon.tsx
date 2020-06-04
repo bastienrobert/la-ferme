@@ -12,6 +12,7 @@ export interface WebIconProps extends IconProps {
 }
 
 const Icon: FC<WebIconProps> = ({
+  children,
   icon,
   onClick,
   color,
@@ -27,7 +28,8 @@ const Icon: FC<WebIconProps> = ({
     <Container onClick={onClick} {...style}>
       {background && <Background color={background} />}
       <StyledWrapper background={background}>
-        <Component color={color} />
+        {Component && <Component color={color} />}
+        {children}
       </StyledWrapper>
     </Container>
   )
@@ -46,7 +48,7 @@ const StyledButton = styled(StyledContainer).attrs({
   ${props => (props.disabled ? styles.disabled : '')}
 `
 
-const StyledWrapper = styled.div<any>`
+const StyledWrapper = styled.div<WebIconProps>`
   ${({ background }) => (background ? styles.commons.backgroundWrapper : '')}
   ${styles.commons.wrapper}
 `

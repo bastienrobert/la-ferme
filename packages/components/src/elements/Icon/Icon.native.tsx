@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import styled from 'styled-components/native'
 
 import Background from './Background.native'
-import { IconProps } from './Icon.shared'
+import { IconProps, defaultPadding, defaultSize } from './Icon.shared'
 import styles from './Icon.styles'
 import icons from '@/icons/native'
 
@@ -12,10 +12,13 @@ export interface NativeIconProps extends IconProps {
 }
 
 const Icon: FC<NativeIconProps> = ({
+  children,
   icon,
   onPress,
   color,
   background,
+  padding,
+  size,
   ...style
 }) => {
   const Container: FC<any> = onPress ? StyledButton : StyledContainer
@@ -24,11 +27,17 @@ const Icon: FC<NativeIconProps> = ({
   return (
     <Container onPress={onPress} {...style}>
       {background && <Background color={background} />}
-      <StyledWrapper background={background}>
-        <Component color={color} />
+      <StyledWrapper background={background} margin={padding} size={size}>
+        {Component && <Component color={color} />}
+        {children}
       </StyledWrapper>
     </Container>
   )
+}
+
+Icon.defaultProps = {
+  padding: defaultPadding,
+  size: defaultSize
 }
 
 export default Icon
@@ -42,6 +51,7 @@ const StyledButton = styled.TouchableOpacity<NativeIconProps>`
 `
 
 const StyledWrapper = styled.View<any>`
-  ${({ background }) => (background ? styles.commons.backgroundWrapper : '')}
+  ${({ background, margin }) => (background ? { margin } : '')}
+  ${({ size }) => ({ width: size, height: size })}
   ${styles.commons.wrapper}
 `

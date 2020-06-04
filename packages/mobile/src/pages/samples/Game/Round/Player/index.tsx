@@ -2,12 +2,13 @@ import React, { FC } from 'react'
 import styled from 'styled-components/native'
 
 import Container from '@/components/shared/Container'
+import PickCard from '@/components/shared/PickCard'
 import Title from '@/components/typo/Title'
 
-const Player: FC<any> = () => {
+const Player: FC = () => {
   return (
     <Component>
-      <Title color="beige">Player</Title>
+      <PickCard character="peter" />
     </Component>
   )
 }

@@ -2,7 +2,7 @@ import Introduction from '@/pages/Introduction'
 
 import HomeMain from '@/pages/Home/Main'
 import HomeQRCode from '@/pages/Home/QRCode'
-import HomeRoom from '@/pages/Home/Room'
+import HomeRoom, { HomeRoomParams } from '@/pages/Home/Room'
 
 import OnboardingHello from '@/pages/Onboarding/Hello'
 import OnboardingSetup from '@/pages/Onboarding/Setup'
@@ -23,7 +23,7 @@ export type RootStackParamList = {
   Introduction: undefined
   'Home:Main': undefined
   'Home:QRCode': undefined
-  'Home:Room': undefined
+  'Home:Room': HomeRoomParams
   'Onboarding:Hello': undefined
   'Onboarding:Setup': undefined
   'Onboarding:Role': undefined
@@ -40,8 +40,7 @@ export type RootStackParamList = {
 }
 
 export default {
-  base: 'Samples',
-  // base: 'Introduction',
+  base: 'Introduction',
   pages: [
     {
       name: 'Introduction',

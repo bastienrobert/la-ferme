@@ -32,6 +32,7 @@ const QRCode: FC<any> = ({ navigation }) => {
   useEffect(() => {
     if (!setGameInfosResult.data) return
     const { data } = joinRoomResult
+    console.log(data)
     navigation.navigate('Home:Room', data.joinRoom)
   }, [navigation, joinRoomResult, setGameInfosResult])
 

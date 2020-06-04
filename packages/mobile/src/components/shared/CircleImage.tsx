@@ -1,33 +1,49 @@
 import React, { FC } from 'react'
-import { View, TouchableOpacity, ImageBackgroundProps } from 'react-native'
+import { ImageBackgroundProps } from 'react-native'
 import styled from 'styled-components/native'
 
 import Container, { ContainerProps } from './Container'
+import { Icon, Colors } from '@la-ferme/components/native'
 
 interface WrapperProps extends ContainerProps {
   onPress?: (e: Event) => void
-  color?: string
+  circle?: boolean
+  background?: Colors.IconBackground
 }
 
 export type CircleImageProps = ImageBackgroundProps &
   Omit<WrapperProps, 'children'>
 
-const CircleImage: FC<CircleImageProps> = ({ onPress, color, ...rest }) => {
+const CircleImage: FC<CircleImageProps> = ({
+  onPress,
+  circle,
+  background,
+  style,
+  ...rest
+}) => {
+  const Component = circle ? Circle : Icon
+
   return (
     <Component
-      as={onPress ? TouchableOpacity : View}
-      color={color}
-      onPress={onPress}>
+      background={background}
+      onPress={onPress}
+      style={style}
+      padding={0}
+      size="100%">
       <Image {...rest} />
     </Component>
   )
 }
 
-const Component = styled(Container)<WrapperProps>`
+CircleImage.defaultProps = {
+  circle: false
+}
+
+const Circle = styled(Container)<WrapperProps>`
   width: 60px;
   height: 60px;
   border-radius: ${60 / 2}px;
-  background-color: red;
+  background-color: ${({ background }) => Colors[background]};
   overflow: hidden;
 `
 

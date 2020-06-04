@@ -15,7 +15,11 @@ const NotificationSample = () => {
 
   return (
     <Component>
-      <Notification />
+      <Notification
+        title="Anonyme"
+        subtitle="Une notification reçue..."
+        icon="lightning"
+      />
     </Component>
   )
 }

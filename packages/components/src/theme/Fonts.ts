@@ -29,6 +29,7 @@ export interface FontStyles {
   regular: FontStyle
   italic?: FontStyle
   medium?: FontStyle
+  bold?: FontStyle
 }
 export type FontStyleOption = keyof FontStyles
 
@@ -38,6 +39,7 @@ export type FontFamilies = {
 
 const sansFallback = "'Helvetica Neue', Helvetica, Arial, sans-serif"
 const futuraFont = 'FuturaLT-Book'
+const futuraBoldFont = 'FuturaLT-Bold'
 const futuraFallback = sansFallback
 const kobeFont = 'THANKYOUKOBE'
 const kobeFallback = sansFallback
@@ -50,12 +52,14 @@ const generateFontFamily = (font, fallback, isReactNative) => {
 
 const generateFontFamilies = (isReactNative): FontFamilies => {
   const futuraFamily = generateFontFamily(futuraFont, futuraFallback, isReactNative) // prettier-ignore
+  const futuraBoldFamily = generateFontFamily(futuraBoldFont, futuraFallback, isReactNative) // prettier-ignore
   const kobeFamily = generateFontFamily(kobeFont, kobeFallback, isReactNative) // prettier-ignore
   const bowlbyFamily = generateFontFamily(bowlbyFont, bowlbyFallback, isReactNative) // prettier-ignore
 
   return {
     futura: {
-      regular: futuraFamily
+      regular: futuraFamily,
+      bold: futuraBoldFamily
     },
     bowlby: {
       regular: bowlbyFamily

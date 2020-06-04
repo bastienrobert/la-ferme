@@ -46,6 +46,7 @@
 		<string>BowlbyOneSC-Regular.otf</string>
 		<string>FuturaLT-Book.otf</string>
 		<string>THANKYOUKOBE.otf</string>
+		<string>FuturaLT-Bold.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

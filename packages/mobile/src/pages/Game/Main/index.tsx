@@ -28,12 +28,12 @@ export interface GameMainParams {
   players: PlayerType[]
 }
 
-type GameRouteProp = RouteProp<RootStackParamList, 'Game:Main'>
-type GameNavigationProp = NavigationProp<RootStackParamList, 'Game:Main'>
+type GameMainRouteProp = RouteProp<RootStackParamList, 'Game:Main'>
+type GameMainNavigationProp = NavigationProp<RootStackParamList, 'Game:Main'>
 
 export interface GameMainProps {
-  route: GameRouteProp
-  navigation: GameNavigationProp
+  route: GameMainRouteProp
+  navigation: GameMainNavigationProp
 }
 
 const Game: FC<GameMainProps> = ({ navigation, route }) => {

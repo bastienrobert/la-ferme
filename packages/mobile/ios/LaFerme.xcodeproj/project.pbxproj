@@ -17,6 +17,7 @@
 		7EB290B4C2B847BAB4E68592 /* BowlbyOneSC-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */; };
 		AA2621F786314AD245B2D42B /* libPods-LaFerme.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B1DA926547753347146C81 /* libPods-LaFerme.a */; };
 		FDE2E576686BB93EBA1AE9B7 /* libPods-LaFerme-LaFermeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 948656586C3B3FE96376C700 /* libPods-LaFerme-LaFermeTests.a */; };
+		17A061F756D048A2BFAFFA16 /* FuturaLT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C76857710F4C398BBA740F /* FuturaLT-Bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FuturaLT-Book.otf"; path = "../../components/assets/fonts/native/FuturaLT-Book.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		97C76857710F4C398BBA740F /* FuturaLT-Bold.otf */ = {isa = PBXFileReference; name = "FuturaLT-Bold.otf"; path = "../../components/assets/fonts/native/FuturaLT-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */,
 				E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */,
 				261E503FB90F4CC1857290AD /* THANKYOUKOBE.otf */,
+				97C76857710F4C398BBA740F /* FuturaLT-Bold.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				7EB290B4C2B847BAB4E68592 /* BowlbyOneSC-Regular.otf in Resources */,
 				19DB158C95254A79BE3F1D77 /* FuturaLT-Book.otf in Resources */,
 				179990B6E16E47CCA443222A /* THANKYOUKOBE.otf in Resources */,
+				17A061F756D048A2BFAFFA16 /* FuturaLT-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
