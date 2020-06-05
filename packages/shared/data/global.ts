@@ -32,6 +32,9 @@ export default {
     title_punctuation: '!!!',
     cta_skip: 'passer'
   },
+  role: {
+    button: 'prêêêêt'
+  },
   pending: {
     title: {
       title: 'Attendez',

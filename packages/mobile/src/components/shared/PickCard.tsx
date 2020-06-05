@@ -7,14 +7,18 @@ import {
   LayoutChangeEvent
 } from 'react-native'
 import styled from 'styled-components/native'
+import FastImage from 'react-native-fast-image'
 
 import FullContainer from './FullContainer'
 import Container from './Container'
 import Title from '@/components/typo/Title'
+
 import CardPickUp, {
   RATIO as CARD_PICK_UP_RATIO
 } from '@/components/cards/pick/up'
 import CardPickDown from '@/components/cards/pick/down'
+
+import { shadow } from '@/components/cards/cards.style'
 
 export interface PickCardProps {
   character: string
@@ -142,7 +146,12 @@ const PickCard: FC<PickCardProps> = ({
           />
         </BottomStyledContainer>
       </TouchableWithoutFeedback>
-      {animation && <Animation source={animation} resizeMode="contain" />}
+      {animation && (
+        <Animation
+          source={animation}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      )}
     </Component>
   )
 }
@@ -166,7 +175,7 @@ const StyledContainer = styled(Container)`
   width: 85%;
   max-width: 400px;
   aspect-ratio: ${CARD_PICK_UP_RATIO};
-  box-shadow: 0px 7px 6px #500608;
+  ${shadow}
   margin-top: -0.5px;
 `
 
@@ -190,7 +199,7 @@ const StyledImage = styled.Image`
   justify-content: center;
 `
 
-const Animation = styled.Image`
+const Animation = styled(FastImage)`
   position: absolute;
   bottom: -20%;
   right: 0;

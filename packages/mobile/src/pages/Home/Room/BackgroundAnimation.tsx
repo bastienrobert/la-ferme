@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import styled from 'styled-components/native'
+import FastImage from 'react-native-fast-image'
 
 export interface BackgroundAnimationProps {
   owner: boolean
@@ -9,39 +10,41 @@ const BackgroundAnimation: FC<BackgroundAnimationProps> = ({ owner }) => {
   return owner ? (
     <>
       <PeterReady
-        resizeMode="contain"
+        resizeMode={FastImage.resizeMode.contain}
         source={require('@/assets/images/room/animations/ready/peter.webp')}
       />
-      <MoniqueReady
-        resizeMode="contain"
+      {/* <MoniqueReady
+        resizeMode={FastImage.resizeMode.contain}
         source={require('@/assets/images/room/animations/ready/monique.webp')}
-      />
-      {/* <IsabelleReady
-        resizeMode="contain"
-        source={require('@/assets/images/room/animations/ready/isabelle.webp')}
-      />
-      <LeonReady
-        resizeMode="contain"
-        source={require('@/assets/images/room/animations/ready/leon.webp')}
       /> */}
+      {/* <IsabelleReady
+        resizeMode={FastImage.resizeMode.contain}
+        source={require('@/assets/images/room/animations/ready/isabelle.webp')}
+      /> */}
+      <LeonReady
+        resizeMode={FastImage.resizeMode.contain}
+        source={require('@/assets/images/room/animations/ready/leon.webp')}
+      />
     </>
   ) : (
     <Dance
-      resizeMode="contain"
+      resizeMode={FastImage.resizeMode.contain}
       source={require('@/assets/images/room/animations/dance.webp')}
     />
   )
 }
 
-const Dance = styled.Image`
+const Dance = styled(FastImage)`
   position: absolute;
+  flex: 1;
   bottom: -100px;
   left: 0;
+  height: 120%;
   width: 100%;
   z-index: -1;
 `
 
-const ReadyAnimation = styled.Image`
+const ReadyAnimation = styled(FastImage)`
   position: absolute;
   width: 300px;
   height: 300px;

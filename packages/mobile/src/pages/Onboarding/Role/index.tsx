@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks'
 
 import ThemeContext from '@/App/Theme/Context'
 
-import Walkthrough from '@/components/shared/Walkthrough'
+import Walktrough from '@/components/shared/Walktrough'
 import Text from '@/components/typo/Text'
 
 import { GAME_INFOS_QUERY, SET_PLAYER_INFOS_MUTATION } from '@/graphql/local'
@@ -46,7 +46,7 @@ const Role: FC<any> = ({ navigation }) => {
 
   return (
     <>
-      <Walkthrough data={userData} onReadyPress={onReadyPress} />
+      <Walktrough player={userData} onReadyPress={onReadyPress} />
     </>
   )
 }

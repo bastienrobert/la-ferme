@@ -43,15 +43,21 @@ const H4: TypoOptions = {
   textTransform: 'uppercase'
 }
 
+const H5: TypoOptions = {
+  size: 'h5',
+  family: 'bowlby',
+  textTransform: 'uppercase'
+}
+
 const TAG: TypoOptions = {
   size: 'h4',
   family: 'kobe',
   textTransform: 'uppercase'
 }
 
-export type PresetOptions = 'H1' | 'H2' | 'H3' | 'H4' | 'TAG'
+export type PresetOptions = 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'TAG'
 export type Presets = {
   [key in PresetOptions]: TypoOptions
 }
 
-export const presets: Presets = { H1, H2, H3, H4, TAG }
+export const presets: Presets = { H1, H2, H3, H4, H5, TAG }

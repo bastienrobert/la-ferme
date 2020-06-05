@@ -31,7 +31,7 @@ export type RootStackParamList = {
   'Game:Main': GameMainParams
   'Game:GameOver': GameOverParams
   // samples
-  Sample: undefined
+  Samples: undefined
   SamplePending: undefined
   SampleGame: undefined
   SampleNotification: undefined
@@ -40,6 +40,7 @@ export type RootStackParamList = {
 }
 
 export default {
+  // base: 'Samples',
   base: 'Introduction',
   pages: [
     {

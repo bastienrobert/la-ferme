@@ -1,20 +1,22 @@
 import React, { FC, useState, useCallback } from 'react'
 import { LayoutChangeEvent, LayoutRectangle, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
-import { Colors } from '@la-ferme/components/native'
+import { Fonts, Colors } from '@la-ferme/components/native'
 
-import Container from './Container'
-import Title from '@/components/typo/Title'
+import Container, { ContainerProps } from './Container'
+import Title, { TitlePreset } from '@/components/typo/Title'
 import Hashtag from '@/components/typo/Hashtag'
 
 type TitleWithHastagAnchor = 'center' | 'right'
 
-export interface TitleWithHastagProps {
+export interface TitleWithHastagProps extends ContainerProps {
   title: string
   hashtag: string[]
   titleColor: Colors.Typo
   hashtagColor: Colors.Typo
+  titlePreset?: TitlePreset
   anchor?: TitleWithHastagAnchor
+  textAlign?: Fonts.TextAlignOption
 }
 
 interface GetHastagStyleOptions {
@@ -26,11 +28,7 @@ const getHastagStyle = (
   { anchor }: GetHastagStyleOptions
 ) => {
   const style: ViewStyle = {
-    transform: [
-      {
-        translateY: (2 * (layout?.height ?? 0)) / 3
-      }
-    ]
+    transform: []
   }
   if (anchor === 'center') {
     style.transform.push({
@@ -49,7 +47,10 @@ const TitleWithHastag: FC<TitleWithHastagProps> = ({
   hashtag,
   titleColor,
   hashtagColor,
-  anchor = 'center'
+  titlePreset = 'H1',
+  anchor = 'center',
+  textAlign = 'center',
+  ...props
 }) => {
   const [layout, setLayout] = useState<LayoutRectangle>()
 
@@ -58,8 +59,8 @@ const TitleWithHastag: FC<TitleWithHastagProps> = ({
   }, [])
 
   return (
-    <Component>
-      <Title preset="H1" color={titleColor}>
+    <Component {...props}>
+      <Title preset={titlePreset} color={titleColor} textAlign={textAlign}>
         {title}
       </Title>
       <HastagContainer

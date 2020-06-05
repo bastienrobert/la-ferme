@@ -127,7 +127,7 @@ export const sizes: Sizes = {
     lineHeight: percToPx(16, 1.3),
     letterSpacing: percToPx(16, 0.04)
   },
-  h6: '15px',
+  h6: '14px',
   default: defaultSize
 }
 

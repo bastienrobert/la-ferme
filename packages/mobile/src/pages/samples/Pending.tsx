@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/native'
+import FastImage from 'react-native-fast-image'
 import LottieView from 'lottie-react-native'
 
 import Container from '@/components/shared/Container'
@@ -30,7 +31,7 @@ const Pending = () => {
         />
         <Character
           source={require('@/assets/images/pending/isabelle.webp')}
-          resizeMode="contain"
+          resizeMode={FastImage.resizeMode.contain}
         />
       </ImageContainer>
       <TextContainer>
@@ -73,7 +74,7 @@ const BackgroundAnimation = styled(LottieView)`
   transform: scale(1.25) translateY(-50px);
 `
 
-const Character = styled.Image`
+const Character = styled(FastImage)`
   width: 400px;
   margin: auto;
 `
