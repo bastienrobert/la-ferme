@@ -3,11 +3,13 @@ import { useFocusEffect } from '@react-navigation/native'
 import styled from 'styled-components/native'
 import { Button } from '@la-ferme/components/native'
 
-import content from '@/content/global.json'
+import { global as globalData } from '@la-ferme/shared/data'
 
 import FullContainer from '@/components/shared/FullContainer'
 import Container from '@/components/shared/Container'
 import FullscreenVideo from '@/components/shared/FullscreenVideo'
+
+export const content = globalData.general
 
 const Introduction: FC<any> = ({ navigation }) => {
   const [paused, setPaused] = useState(false)

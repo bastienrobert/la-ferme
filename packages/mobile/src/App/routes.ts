@@ -1,7 +1,6 @@
 import Introduction from '@/pages/Introduction'
 
 import HomeMain from '@/pages/Home/Main'
-import HomeQRCode from '@/pages/Home/QRCode'
 import HomeRoom, { HomeRoomParams } from '@/pages/Home/Room'
 
 import OnboardingHello from '@/pages/Onboarding/Hello'
@@ -29,7 +28,7 @@ export type RootStackParamList = {
   'Onboarding:Role': undefined
   'Onboarding:Pending': undefined
   'Game:Main': GameMainParams
-  'Game:GameOver': GameOverParams
+  'Game:Over': GameOverParams
   // samples
   Samples: undefined
   SamplePending: undefined
@@ -50,10 +49,6 @@ export default {
     {
       name: 'Home:Main',
       component: HomeMain
-    },
-    {
-      name: 'Home:QRCode',
-      component: HomeQRCode
     },
     {
       name: 'Home:Room',
@@ -80,7 +75,7 @@ export default {
       component: GameMain
     },
     {
-      name: 'Game:GameOver',
+      name: 'Game:Over',
       component: GameOver
     },
     // samples

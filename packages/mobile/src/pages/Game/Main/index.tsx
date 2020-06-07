@@ -101,7 +101,7 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   useEffect(() => {
     if (gameData?.type !== GameStatusType.End) return
     const winner = gameData.winnerUUID
-    navigation.navigate('Game:GameOver', { winner })
+    navigation.navigate('Game:Over', { winner })
   }, [gameData, navigation])
 
   return (

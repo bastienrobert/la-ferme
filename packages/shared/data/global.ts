@@ -2,7 +2,16 @@ export default {
   general: {
     civil: 'coup de pouce',
     uncivil: 'coup de boule',
-    or: 'ou'
+    or: 'ou',
+    back: 'retour',
+    skip: 'passer',
+    cancel: 'annuler'
+  },
+  main: {
+    nfc: {
+      title: 'Prêt à scanner',
+      text: 'Tenez votre appareil près du tag NFC'
+    }
   },
   welcome: {
     start: 'Commencer une partie',
