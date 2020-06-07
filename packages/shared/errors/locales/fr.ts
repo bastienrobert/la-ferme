@@ -1,4 +1,6 @@
 export default {
+  unknown:
+    "Côt côôôôôt côôdec ? Quelque chose d'anormal vient de se produire !",
   not_allowed: 'Coâ ? Je crois que tu ne peux pas faire ça !',
   players: {
     max: 'Oh non ! Il y a déjà trop de joueurs !'
@@ -19,7 +21,7 @@ export default {
   },
   client: {
     nfc: {
-      unsupported: "Le NFC n'est pas supporté sur cet appareil"
+      unsupported: "Bip bip boup ! Le NFC n'est pas supporté sur cet appareil"
     }
   }
 }

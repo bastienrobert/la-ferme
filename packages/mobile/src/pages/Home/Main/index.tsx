@@ -11,7 +11,6 @@ import { Alert, Platform } from 'react-native'
 import styled from 'styled-components/native'
 import { useMutation } from '@apollo/react-hooks'
 import NfcManager, { NfcEvents } from 'react-native-nfc-manager'
-import { tError, NFC_UNSUPPORTED } from '@la-ferme/shared/errors'
 
 import ThemeContext from '@/App/Theme/Context'
 
@@ -26,8 +25,9 @@ import { ROOM_JOIN_MUTATION } from '@/graphql/room'
 import { GAME_INFOS_MUTATION } from '@/graphql/local'
 
 import auth from '@/services/auth'
+import error, { ERRORS } from '@/utils/helpers/error'
 
-const TRANSLATE_NFC_UNSUPPORTED = tError(NFC_UNSUPPORTED, 'fr')
+const TRANSLATE_NFC_UNSUPPORTED = error(ERRORS.NFC_UNSUPPORTED)
 
 const Home: FC<any> = ({ navigation }) => {
   const { setTheme } = useContext(ThemeContext)

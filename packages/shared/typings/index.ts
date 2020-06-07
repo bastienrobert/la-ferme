@@ -7,6 +7,8 @@ export * from './round'
 export * from './player'
 export * from './event'
 
+export type Locale = 'fr'
+
 export interface User {
   uuid: UUID
   exists?: boolean
