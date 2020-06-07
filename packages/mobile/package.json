@@ -17,7 +17,9 @@
     "lint:css": "stylelint 'src/**/*.tsx'",
     "start": "react-native start",
     "test": "yarn jest --detectOpenHandles --forceExit",
-    "test:setup": "yarn pods"
+    "test:setup": "yarn pods",
+    "beta": "run-p beta:**",
+    "beta:ios": "cd ios; bundle exec fastlane beta; cd.."
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
