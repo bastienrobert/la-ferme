@@ -41,7 +41,7 @@
 		0B402E9A243497B600A5A39D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LaFerme/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B9052DB248A8DC000814ED8 /* LaFerme.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LaFerme.entitlements; path = LaFerme/LaFerme.entitlements; sourceTree = "<group>"; };
 		10A2895A12044C21146021FD /* Pods-LaFerme-LaFermeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-LaFermeTests.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme-LaFermeTests/Pods-LaFerme-LaFermeTests.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* LaFerme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaFerme.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* La Ferme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "La Ferme.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LaFerme/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = LaFerme/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LaFerme/Images.xcassets; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* LaFerme.app */,
+				13B07F961A680F5B00A75B9A /* La Ferme.app */,
 				00E356EE1AD99517003FC87E /* LaFermeTests.xctest */,
 			);
 			name = Products;
@@ -217,7 +217,7 @@
 			);
 			name = LaFerme;
 			productName = LaFerme;
-			productReference = 13B07F961A680F5B00A75B9A /* LaFerme.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* La Ferme.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -236,7 +236,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = ZB3TZTKBXT;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -448,9 +448,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = LaFerme/LaFerme.entitlements;
-				CODE_SIGN_IDENTITY = "Don't Code Sign";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = ZB3TZTKBXT;
 				ENABLE_BITCODE = NO;
@@ -466,8 +466,8 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fr.petitjaune.LaFerme;
-				PRODUCT_NAME = LaFerme;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PRODUCT_NAME = "La Ferme";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development fr.petitjaune.LaFerme";
 				SWIFT_OBJC_BRIDGING_HEADER = "LaFerme-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -494,7 +494,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fr.petitjaune.LaFerme;
-				PRODUCT_NAME = LaFerme;
+				PRODUCT_NAME = "La Ferme";
 				PROVISIONING_PROFILE = "892f8319-f3fb-460f-b483-5be12d1e3c97";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore fr.petitjaune.LaFerme";
 				SWIFT_OBJC_BRIDGING_HEADER = "LaFerme-Bridging-Header.h";
