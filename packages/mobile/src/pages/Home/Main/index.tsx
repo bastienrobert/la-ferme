@@ -11,6 +11,7 @@ import { Alert, Platform } from 'react-native'
 import styled from 'styled-components/native'
 import { useMutation } from '@apollo/react-hooks'
 import NfcManager, { NfcEvents } from 'react-native-nfc-manager'
+import { tError, NFC_UNSUPPORTED } from '@la-ferme/shared/errors'
 
 import ThemeContext from '@/App/Theme/Context'
 
@@ -25,6 +26,8 @@ import { ROOM_JOIN_MUTATION } from '@/graphql/room'
 import { GAME_INFOS_MUTATION } from '@/graphql/local'
 
 import auth from '@/services/auth'
+
+const TRANSLATE_NFC_UNSUPPORTED = tError(NFC_UNSUPPORTED, 'fr')
 
 const Home: FC<any> = ({ navigation }) => {
   const { setTheme } = useContext(ThemeContext)
@@ -92,7 +95,9 @@ const Home: FC<any> = ({ navigation }) => {
   }, [])
 
   const onNfcIconPress = useCallback(async () => {
-    if (!isNfcSupported) return Alert.alert('NFC not supported')
+    if (!isNfcSupported.current) {
+      Alert.alert(TRANSLATE_NFC_UNSUPPORTED)
+    }
     if (Platform.OS === 'android') setAndroidNfcPopup(true)
 
     try {
