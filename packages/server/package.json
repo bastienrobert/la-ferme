@@ -13,7 +13,7 @@
     "lint": "eslint **/*.ts",
     "start": "run-s start:**",
     "start:build": "yarn clean && rollup -c",
-    "start:serve": "node dist/index.js"
+    "start:serve": "nodemon dist/index.js"
   },
   "dependencies": {
     "@bastienrobert/events": "^1.0.3",
