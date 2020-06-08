@@ -10,14 +10,16 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "postinstall": "yarn bootstrap",
+    "heroku-postbuild": "yarn build:server",
     "build": "run-p build:**",
     "build:components": "yarn --cwd packages/components build",
+    "build:server": "yarn --cwd packages/server build",
     "components": "yarn --cwd packages/components dev",
     "dev": "run-p dev:**",
     "dev:components": "yarn --cwd packages/components dev:compile",
     "dev:mobile": "yarn --cwd packages/mobile dev",
     "dev:server": "yarn --cwd packages/server dev",
-    "server": "yarn --cwd sources/server start",
+    "server": "yarn --cwd packages/server start",
     "lint": "lerna run lint",
     "test:setup": "lerna run test:setup",
     "test": "lerna run test"
