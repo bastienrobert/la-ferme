@@ -44,7 +44,7 @@ const Hello: FC<OnboardingHelloProps> = ({ navigation }) => {
     <Component alignSelf="center">
       <Container alignSelf="center">
         <Animation
-          source={require('@/assets/lottie/hello-stars.json')}
+          source={require('@/assets/lottie/hello_stars.json')}
           autoPlay
         />
       </Container>

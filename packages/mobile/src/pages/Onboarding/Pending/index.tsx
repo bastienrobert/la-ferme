@@ -1,4 +1,11 @@
-import React, { FC, useContext, useCallback, useMemo } from 'react'
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useMemo
+} from 'react'
 import styled from 'styled-components/native'
 import {
   useFocusEffect,
@@ -13,6 +20,7 @@ import { global as globalData } from '@la-ferme/shared/data'
 import { RootStackParamList } from '@/App/routes'
 import ThemeContext from '@/App/Theme/Context'
 
+import Go from './Go'
 import Container from '@/components/shared/Container'
 import FullContainer from '@/components/shared/FullContainer'
 import TitleWithHastag from '@/components/shared/TitleWithHashtag'
@@ -43,6 +51,7 @@ export interface OnboardingPendingProps {
 
 const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
   const { setTheme } = useContext(ThemeContext)
+  const [ready, setReady] = useState(true)
 
   useFocusEffect(
     useCallback(() => {
@@ -70,9 +79,13 @@ const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
     return players.filter(p => p.uuid !== player?.uuid)
   }, [player, players])
 
-  const onEveryReady = useCallback(() => {
-    navigation.navigate('Game:Main', { players })
+  useEffect(() => {
+    setTimeout(() => navigation.navigate('Game:Main', { players }), 2000)
   }, [navigation, players])
+
+  const onEveryReady = useCallback(() => {
+    setReady(true)
+  }, [setReady])
 
   return (
     <Component>
@@ -87,7 +100,7 @@ const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
       </Container>
       <ImageContainer>
         <BackgroundAnimation
-          source={require('@/assets/lottie/pending-numbers.json')}
+          source={require('@/assets/lottie/pending_numbers.json')}
           autoPlay
         />
         <Character
@@ -106,6 +119,7 @@ const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
         ))}
       </TextContainer>
       <PlayersReady onEveryReady={onEveryReady} players={players} />
+      {ready && <Go />}
     </Component>
   )
 }

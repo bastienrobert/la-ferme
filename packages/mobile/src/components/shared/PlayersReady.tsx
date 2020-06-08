@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react'
+import React, { FC, useEffect, useRef, useMemo } from 'react'
 import { Animated, Easing } from 'react-native'
 import styled from 'styled-components/native'
 import { Player } from '@la-ferme/shared/typings'
@@ -9,7 +9,10 @@ import Container from './Container'
 import CircleImage from './CircleImage'
 import HeaderTypo from '@/components/typo/Header'
 
-import { images as playerImages } from '@/utils/helpers/players'
+import {
+  images as playerImages,
+  sortByNameLength
+} from '@/utils/helpers/players'
 import viewport from '@/services/viewport'
 
 export interface PlayersReadyProps {
@@ -21,6 +24,8 @@ const PlayersReady: FC<PlayersReadyProps> = ({ players, onEveryReady }) => {
   const translateLine = useRef(
     new Animated.ValueXY({ x: -(viewport.width + 1), y: 0 })
   ).current
+
+  const orderedPlayers = useMemo(() => sortByNameLength(players), [players])
 
   useEffect(() => {
     if (players.length > 0 && players.every(({ ready }) => ready)) {
@@ -43,7 +48,7 @@ const PlayersReady: FC<PlayersReadyProps> = ({ players, onEveryReady }) => {
         style={{ transform: [{ translateX: translateLine.x }] }}
       />
       <IconsWrapper>
-        {players.map((p, i) => {
+        {orderedPlayers.map((p, i) => {
           const character = characters.find(c => p.character === c.name)
           const Image = p.ready ? StyledCircleImageFilled : StyledCircleImage
 
@@ -85,7 +90,7 @@ const Line = styled(Container)`
 `
 
 const IconsWrapper = styled(Container)`
-  width: 85%;
+  width: 70%;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -100,7 +105,7 @@ const NameWrapper = styled(Container)`
   position: absolute;
   top: 0;
   margin-top: -50px;
-  margin-left: 40px;
+  margin-left: 30px;
   left: 0;
   width: 120px;
   transform: rotate(-20deg);
@@ -109,7 +114,7 @@ const NameWrapper = styled(Container)`
 const StyledCircleImage = styled(CircleImage)`
   width: 60px;
   height: 60px;
-  margin: 0 20px;
+  margin: 0 15px;
   border: 4px solid ${Colors.gray};
 `
 

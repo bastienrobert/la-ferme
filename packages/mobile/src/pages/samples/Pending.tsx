@@ -18,38 +18,40 @@ const content = globalData.pending
 
 const Pending = () => {
   return (
-    <Component>
-      <Container alignSelf="center">
-        <TitleWithHastag
-          anchor="right"
-          titleColor="beige"
-          hashtagColor="yellow"
-          hashtagOffset={40}
-          {...content.title}
-        />
-      </Container>
-      <ImageContainer>
-        <BackgroundAnimation
-          source={require('@/assets/lottie/pending-numbers.json')}
-          autoPlay
-        />
-        <Character
-          source={require('@/assets/images/pending/isabelle.webp')}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-      </ImageContainer>
-      <TextContainer>
-        {content.text.map((line, i) => (
-          <DescriptionText
-            key={`pending-text-${i}`}
-            color="beige"
-            textAlign="center">
-            {line}
-          </DescriptionText>
-        ))}
-      </TextContainer>
-      <PlayersReady players={players} player={players[0]} />
-    </Component>
+    <>
+      <Component>
+        <Container alignSelf="center">
+          <TitleWithHastag
+            anchor="right"
+            titleColor="beige"
+            hashtagColor="yellow"
+            hashtagOffset={40}
+            {...content.title}
+          />
+        </Container>
+        <ImageContainer>
+          <BackgroundAnimation
+            source={require('@/assets/lottie/pending_numbers.json')}
+            autoPlay
+          />
+          <Character
+            source={require('@/assets/images/pending/isabelle.webp')}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </ImageContainer>
+        <TextContainer>
+          {content.text.map((line, i) => (
+            <DescriptionText
+              key={`pending-text-${i}`}
+              color="beige"
+              textAlign="center">
+              {line}
+            </DescriptionText>
+          ))}
+        </TextContainer>
+        <PlayersReady players={players} />
+      </Component>
+    </>
   )
 }
 

@@ -59,5 +59,17 @@ export default {
     object: 'objet',
     goal: 'objectif',
     cta_ready: 'prêêêêt'
+  },
+  game: {
+    forwardOrTurn: {
+      title_1: 'avancez',
+      title_2: 'ou',
+      title_3: 'tournez',
+      title_hashtag: 'une case',
+      text:
+        'Vous pouvez avancer d’une case ou tourner une case autour de vous.',
+      cta_ok: 'OKÉÉÉ'
+    },
+    playerChoice: {}
   }
 }

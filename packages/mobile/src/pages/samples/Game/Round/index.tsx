@@ -14,8 +14,8 @@ import { Colors } from '@la-ferme/components/native'
 
 import ThemeContext from '@/App/Theme/Context'
 
-import Player from './Player'
-import Viewer from './Viewer'
+import Player from './RoundPlayer'
+import Viewer from './RoundViewer'
 import Container from '@/components/shared/Container'
 
 import viewport from '@/services/viewport'
@@ -127,7 +127,7 @@ const Round: FC<any> = ({ player, data }) => {
 
 const StyledContainer = styled(Container)`
   position: relative;
-  height: 100%;
+  flex: 1;
 `
 
 const ContentContainer = styled(Container)<any>`
