@@ -10,9 +10,10 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "postinstall": "yarn bootstrap",
+    "heroku-postbuild": "yarn build:server",
     "build": "run-p build:**",
-    "heroku-postbuild": "yarn server",
     "build:components": "yarn --cwd packages/components build",
+    "build:server": "yarn --cwd packages/server build",
     "components": "yarn --cwd packages/components dev",
     "dev": "run-p dev:**",
     "dev:components": "yarn --cwd packages/components dev:compile",

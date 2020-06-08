@@ -11,9 +11,8 @@
     "dev:build": "yarn clean && rollup -cw",
     "dev:serve": "nodemon --inspect dist/index.js",
     "lint": "eslint **/*.ts",
-    "start": "run-s start:**",
-    "start:build": "yarn clean && rollup -c",
-    "start:serve": "nodemon dist/index.js"
+    "build": "yarn clean && rollup -c",
+    "start": "nodemon dist/index.js"
   },
   "dependencies": {
     "@bastienrobert/events": "^1.0.3",
