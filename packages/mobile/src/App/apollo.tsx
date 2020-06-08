@@ -15,7 +15,7 @@ import config from '@/utils/config'
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: `http://${config.api}/graphql`,
+  uri: `${config.ssl ? 'http' : 'https'}://${config.api}/graphql`,
   fetch: unfetch
 })
 
