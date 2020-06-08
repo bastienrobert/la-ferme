@@ -9243,19 +9243,6 @@ expo-file-system@~8.0.0:
   dependencies:
     uuid-js "^0.7.5"
 
-expo-gl-cpp@~8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/expo-gl-cpp/-/expo-gl-cpp-8.1.0.tgz#537ff7702db5b71d68f8128c033627cfa363c911"
-  integrity sha512-LFc+R+0HVBxSk+9gCVQm5wmKCdmUfdqzq9ReYYg2b74+ZN3zvBGCLCOFI0R5YyReaUb7aCpAk+SqvG6X0b3D4w==
-
-expo-gl@^8.0.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/expo-gl/-/expo-gl-8.1.0.tgz#1dd25bbfd239fa223aa7074dd6cccd7cc044e75f"
-  integrity sha512-aCkS7uCR1apD6WH7qqbpRJTie4qQyWClGj7LQ67B3Mm6jNyfOS4OvxxS5Y980lFZWmePguCWzft0c0/bMGTdMw==
-  dependencies:
-    expo-gl-cpp "~8.1.0"
-    prop-types "^15.7.2"
-
 expo-permissions@~8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-8.0.0.tgz#5a45e8451dd7ff37c9e6ce5e2447818372547813"
@@ -15997,6 +15984,11 @@ react-native-fast-image@^8.1.5:
   version "8.1.5"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.1.5.tgz#0a6404c988dad68c98d26f91155d0a5293ba2ea5"
   integrity sha512-DoAWGLeQ2hbllummrpXH9B38OgM0TFmNYCF34F90/hdHZirqUtYHzF4QDdb/NV7ebSijHmM3mpkzct8PXtcYyg==
+
+react-native-game-center@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-game-center/-/react-native-game-center-1.2.3.tgz#3addadee66a4d7b3154844754605cac3a2c5cb7f"
+  integrity sha512-aRO28YH0qaaghJeBmQ1SZXMgUoez+iSGnXIIEEPJXidhaG9lr+uSVwmEsBzWVYZyEnoBfm4idXrxTiCtNu1JmA==
 
 react-native-nfc-manager@^2.1.9:
   version "2.1.9"

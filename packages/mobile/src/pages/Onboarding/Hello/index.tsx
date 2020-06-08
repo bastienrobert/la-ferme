@@ -47,11 +47,6 @@ const Hello: FC<OnboardingHelloProps> = ({ navigation }) => {
           source={require('@/assets/lottie/hello-stars.json')}
           autoPlay
         />
-        <HelloText alignSelf="center">
-          <Title preset="H2" color="beige">
-            {content.hello}
-          </Title>
-        </HelloText>
       </Container>
       <TextContainer alignSelf="center">
         <Title preset="H3" color="beige" textAlign="center">
@@ -78,16 +73,6 @@ const Component = styled(FullContainer)`
 const Animation = styled(LottieView)`
   width: 100%;
   margin-bottom: 37px;
-`
-
-const HelloText = styled(Container)`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  padding-left: 10px;
-  align-items: center;
-  justify-content: center;
-  transform: translate(-5px, -5px) rotate(-5deg);
 `
 
 const TextContainer = styled(Container)`
