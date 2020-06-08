@@ -52,23 +52,23 @@ const ReadyAnimation = styled(FastImage)`
 `
 
 const PeterReady = styled(ReadyAnimation)`
-  bottom: 0;
+  bottom: -80px;
 `
 
-const MoniqueReady = styled(ReadyAnimation)`
-  top: 50%;
-  left: 0;
-  transform: translateX(-150px) rotate(90deg);
-`
+// const MoniqueReady = styled(ReadyAnimation)`
+//   top: 50%;
+//   left: 0;
+//   transform: translateX(-150px) rotate(90deg);
+// `
 
-const IsabelleReady = styled(ReadyAnimation)`
-  top: 50%;
-  right: 0;
-  transform: translateX(150px) rotate(-90deg);
-`
+// const IsabelleReady = styled(ReadyAnimation)`
+//   top: 50%;
+//   right: 0;
+//   transform: translateX(150px) rotate(-90deg);
+// `
 
 const LeonReady = styled(ReadyAnimation)`
-  top: 0;
+  top: -80px;
   transform: rotate(180deg);
 `
 

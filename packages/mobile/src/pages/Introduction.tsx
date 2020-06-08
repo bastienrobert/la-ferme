@@ -1,53 +1,70 @@
-import React, { FC, useState, useCallback } from 'react'
-import { useFocusEffect } from '@react-navigation/native'
+import React, { FC, useState, useContext, useCallback } from 'react'
 import styled from 'styled-components/native'
+import {
+  useFocusEffect,
+  RouteProp,
+  NavigationProp
+} from '@react-navigation/native'
 import { Button } from '@la-ferme/components/native'
-
 import { global as globalData } from '@la-ferme/shared/data'
+
+import { RootStackParamList } from '@/App/routes'
+import ThemeContext from '@/App/Theme/Context'
 
 import FullContainer from '@/components/shared/FullContainer'
 import Container from '@/components/shared/Container'
 import FullscreenVideo from '@/components/shared/FullscreenVideo'
 
-export const content = globalData.general
+export const general = globalData.general
 
-const Introduction: FC<any> = ({ navigation }) => {
+type IntroductionRouteProp = RouteProp<RootStackParamList, 'Introduction'>
+type IntroductionNavigationProp = NavigationProp<
+  RootStackParamList,
+  'Introduction'
+>
+
+export interface IntroductionProps {
+  route: IntroductionRouteProp
+  navigation: IntroductionNavigationProp
+}
+
+const Introduction: FC<IntroductionProps> = ({ navigation }) => {
+  const { setTheme } = useContext(ThemeContext)
   const [paused, setPaused] = useState(false)
 
-  useFocusEffect(useCallback(() => () => setPaused(true), []))
+  useFocusEffect(
+    useCallback(() => {
+      setTheme('gray')
+      return () => setPaused(true)
+    }, [setTheme])
+  )
 
-  const goHome = () => {
+  const onSkipPress = () => {
     navigation.navigate('Home:Main')
   }
 
   return (
-    <FullContainer>
+    <Component>
       <FullscreenVideo
         paused={paused}
-        onEnd={goHome}
+        onEnd={onSkipPress}
         source={{
           uri:
             'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
         }}
       />
-      <StyledView>
-        <StyledContainer>
-          <Button variant="primary" onPress={goHome}>
-            {content.skip}
-          </Button>
-        </StyledContainer>
-      </StyledView>
-    </FullContainer>
+      <ButtonContainer alignSelf="center">
+        <Button onPress={onSkipPress}>{general.skip}</Button>
+      </ButtonContainer>
+    </Component>
   )
 }
 
-const StyledContainer = styled(Container)`
-  align-self: center;
+const Component = styled(FullContainer)`
+  justify-content: flex-end;
 `
 
-const StyledView = styled.View`
-  flex: 1;
-  justify-content: flex-end;
+const ButtonContainer = styled(Container)`
   margin-bottom: 40px;
 `
 

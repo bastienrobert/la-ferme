@@ -8,12 +8,14 @@ import Title, { TitlePreset } from '@/components/typo/Title'
 import Hashtag from '@/components/typo/Hashtag'
 
 type TitleWithHastagAnchor = 'center' | 'right'
+type Offset = number
 
 export interface TitleWithHastagProps extends ContainerProps {
   title: string
   hashtag: string[]
   titleColor: Colors.Typo
   hashtagColor: Colors.Typo
+  hashtagOffset?: Offset
   titlePreset?: TitlePreset
   anchor?: TitleWithHastagAnchor
   textAlign?: Fonts.TextAlignOption
@@ -21,14 +23,19 @@ export interface TitleWithHastagProps extends ContainerProps {
 
 interface GetHastagStyleOptions {
   anchor: TitleWithHastagAnchor
+  offset: Offset
 }
 
 const getHastagStyle = (
   layout: LayoutRectangle | undefined,
-  { anchor }: GetHastagStyleOptions
+  { anchor, offset }: GetHastagStyleOptions
 ) => {
   const style: ViewStyle = {
-    transform: []
+    transform: [
+      {
+        translateY: offset
+      }
+    ]
   }
   if (anchor === 'center') {
     style.transform.push({
@@ -47,6 +54,7 @@ const TitleWithHastag: FC<TitleWithHastagProps> = ({
   hashtag,
   titleColor,
   hashtagColor,
+  hashtagOffset = 0,
   titlePreset = 'H1',
   anchor = 'center',
   textAlign = 'center',
@@ -65,7 +73,7 @@ const TitleWithHastag: FC<TitleWithHastagProps> = ({
       </Title>
       <HastagContainer
         onLayout={onLayout}
-        style={getHastagStyle(layout, { anchor })}>
+        style={getHastagStyle(layout, { anchor, offset: hashtagOffset })}>
         {hashtag.map((line, i) => (
           <Hashtag
             key={`title-hashtag-${i}`}

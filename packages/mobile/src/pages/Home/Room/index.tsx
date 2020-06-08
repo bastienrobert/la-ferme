@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useMemo } from 'react'
 import styled from 'styled-components/native'
 import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { useSubscription, useQuery, useMutation } from '@apollo/react-hooks'
@@ -52,7 +52,9 @@ const Room: FC<HomeRoomProps> = ({ navigation, route }) => {
     }
   )
 
-  const owner = routeData?.creatorUUID === auth.uuid
+  const owner = useMemo(() => {
+    return routeData?.creatorUUID === auth.uuid
+  }, [routeData])
 
   // TODO
   // subscription should be cancelled when React navigation focus blur

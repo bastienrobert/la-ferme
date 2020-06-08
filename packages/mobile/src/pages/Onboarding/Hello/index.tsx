@@ -49,9 +49,11 @@ const Hello: FC<OnboardingHelloProps> = ({ navigation }) => {
         />
       </Container>
       <TextContainer alignSelf="center">
-        <Title preset="H3" color="beige" textAlign="center">
-          {content.introduction}
-        </Title>
+        <TitleContainer alignSelf="center">
+          <Title preset="H3" color="beige" textAlign="center">
+            {content.introduction}
+          </Title>
+        </TitleContainer>
         <Text color="beige" textAlign="center">
           {content.text_1}
         </Text>
@@ -78,6 +80,10 @@ const Animation = styled(LottieView)`
 const TextContainer = styled(Container)`
   width: 90%;
   max-width: 400px;
+`
+
+const TitleContainer = styled(Container)`
+  margin-bottom: 25px;
 `
 
 export default Hello

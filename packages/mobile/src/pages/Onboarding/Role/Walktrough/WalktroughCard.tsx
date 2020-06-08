@@ -14,14 +14,20 @@ import getCardImage from './getCardImage'
 import getCardBackground from './getCardBackground'
 import getCardData from './getCardData'
 import { shadow, inner } from '@/components/cards/cards.style'
+import { Skill } from '@la-ferme/shared/typings'
 
 export const content = globalData.role
 
 export type WalktroughCardType = 'character' | 'skill' | 'goal'
 
-export interface WalktroughCardProps extends ContainerProps {
+export interface WalktroughCardData extends ContainerProps {
   name: string
   type: WalktroughCardType
+}
+
+export interface WalktroughCardProps
+  extends ContainerProps,
+    WalktroughCardData {
   onPress: () => void
 }
 
@@ -67,15 +73,15 @@ const WalktroughCard: FC<WalktroughCardProps> = ({
           <StyledText textAlign="center">{data.text}</StyledText>
           {type === 'skill' && (
             <StyledEffect preset="H5" textAlign="center">
-              {data.effect}
+              {(data as Skill).effect}
             </StyledEffect>
           )}
           {onPress && (
-            <Container alignSelf="center">
+            <ButtonContainer alignSelf="center">
               <Button variant="secondary" onPress={onPress}>
                 {content.button}
               </Button>
-            </Container>
+            </ButtonContainer>
           )}
         </BottomInner>
       </BottomStyledContainer>
@@ -89,7 +95,6 @@ const Component = styled(Container)`
   width: 90%;
   height: 100%;
   margin: auto;
-  margin-top: 3%;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -119,6 +124,7 @@ const BottomInner = styled(Container)`
 `
 
 const BottomStyledContainer = styled(Container)`
+  margin-top: -1px;
   width: 100%;
 `
 
@@ -137,6 +143,10 @@ const StyledText = styled(Text)`
 `
 
 const StyledEffect = styled(Title)``
+
+const ButtonContainer = styled(Container)`
+  margin-top: auto;
+`
 
 const StyledCard = styled(Container)`
   position: absolute;

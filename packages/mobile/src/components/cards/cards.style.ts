@@ -5,6 +5,7 @@ export const shadow = css`
 `
 
 export const inner = css`
+  flex: 1;
   width: 100%;
   justify-content: flex-start;
   align-self: flex-start;

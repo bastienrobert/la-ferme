@@ -6,9 +6,12 @@ import LottieView from 'lottie-react-native'
 import Container from '@/components/shared/Container'
 import FullContainer from '@/components/shared/FullContainer'
 import TitleWithHastag from '@/components/shared/TitleWithHashtag'
+import PlayersReady from '@/components/shared/PlayersReady'
 import Text from '@/components/typo/Text'
 
 import viewport from '@/services/viewport'
+
+import { players } from './players'
 
 import { global as globalData } from '@la-ferme/shared/data'
 const content = globalData.pending
@@ -21,6 +24,7 @@ const Pending = () => {
           anchor="right"
           titleColor="beige"
           hashtagColor="yellow"
+          hashtagOffset={40}
           {...content.title}
         />
       </Container>
@@ -44,6 +48,7 @@ const Pending = () => {
           </DescriptionText>
         ))}
       </TextContainer>
+      <PlayersReady players={players} player={players[0]} />
     </Component>
   )
 }
@@ -76,6 +81,7 @@ const BackgroundAnimation = styled(LottieView)`
 
 const Character = styled(FastImage)`
   width: 400px;
+  height: 400px;
   margin: auto;
 `
 

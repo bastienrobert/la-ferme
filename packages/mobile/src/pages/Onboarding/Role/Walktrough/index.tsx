@@ -8,7 +8,7 @@ import Indicator from '@/components/shared/Indicator'
 import FullContainer from '@/components/shared/FullContainer'
 import Container from '@/components/shared/Container'
 
-import WalktroughCard, { WalktroughCardProps } from './WalktroughCard'
+import WalktroughCard, { WalktroughCardData } from './WalktroughCard'
 import viewport from '@/services/viewport'
 
 export interface WalktroughProps {
@@ -19,7 +19,7 @@ export interface WalktroughProps {
 const rotations = [0, 0.5, -1.2]
 
 const Walktrough: FC<any> = ({ onReadyPress, player }) => {
-  const datas: WalktroughCardProps[] = useMemo(() => {
+  const datas: WalktroughCardData[] = useMemo(() => {
     return [
       { name: player.character, type: 'character' },
       { name: player.skill, type: 'skill' },
@@ -144,12 +144,17 @@ const Component = styled(FullContainer)`
 `
 
 const CardContainer = styled(Container)`
+  position: relative;
   flex: 1;
-  margin-bottom: 20px;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 40px;
 `
 
 const StyledView = styled.View`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  position: absolute;
 `

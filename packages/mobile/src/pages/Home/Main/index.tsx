@@ -9,9 +9,11 @@ import React, {
 } from 'react'
 import { Alert, Platform } from 'react-native'
 import styled from 'styled-components/native'
+import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { useMutation } from '@apollo/react-hooks'
 import NfcManager, { NfcEvents } from 'react-native-nfc-manager'
 
+import { RootStackParamList } from '@/App/routes'
 import ThemeContext from '@/App/Theme/Context'
 
 import QRCode from './QRCode'
@@ -29,7 +31,15 @@ import error, { ERRORS } from '@/utils/helpers/error'
 
 const TRANSLATE_NFC_UNSUPPORTED = error(ERRORS.NFC_UNSUPPORTED)
 
-const Home: FC<any> = ({ navigation }) => {
+type HomeMainRouteProp = RouteProp<RootStackParamList, 'Home:Main'>
+type HomeMainNavigationProp = NavigationProp<RootStackParamList, 'Home:Main'>
+
+export interface HomeMainProps {
+  route: HomeMainRouteProp
+  navigation: HomeMainNavigationProp
+}
+
+const Home: FC<HomeMainProps> = ({ navigation }) => {
   const { setTheme } = useContext(ThemeContext)
   const [QRcode, setQRcode] = useState(false)
   const [androidNfcPopup, setAndroidNfcPopup] = useState(false)
@@ -64,7 +74,6 @@ const Home: FC<any> = ({ navigation }) => {
   useEffect(() => {
     if (!setGameInfosResult.data) return
     const { data } = joinRoomResult
-    console.log(data)
     navigation.navigate('Home:Room', data.joinRoom)
   }, [navigation, joinRoomResult, setGameInfosResult])
 
@@ -104,6 +113,7 @@ const Home: FC<any> = ({ navigation }) => {
       await NfcManager.registerTagEvent()
     } catch (err) {
       console.warn(err)
+      Alert.alert(TRANSLATE_NFC_UNSUPPORTED)
       onAndroidNfcPopupCancelPress()
     }
   }, [onAndroidNfcPopupCancelPress])
