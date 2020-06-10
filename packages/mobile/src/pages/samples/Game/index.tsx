@@ -9,7 +9,7 @@ import Round from './Round'
 import FullContainer from '@/components/shared/FullContainer'
 import Container from '@/components/shared/Container'
 
-import { player } from './mock'
+import { players, player } from './mock'
 
 const color: any = ['yellow', 'red', 'gray']
 
@@ -37,7 +37,7 @@ const Game: FC<any> = () => {
         <Container style={{ zIndex: 999 }}>
           <Button title="Mock" onPress={() => setData(mockData())} />
         </Container>
-        <Round data={data} player={player} />
+        <Round data={data} player={player} players={players} />
       </FullContainer>
     </>
   )

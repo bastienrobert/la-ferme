@@ -1,21 +1,38 @@
 import React from 'react'
-import { Typo, Button } from '@la-ferme/components'
-
 import styled from 'styled-components'
+import dynamic from 'next/dynamic'
+
+import Header from '@/components/app/Header'
+import Footer from '@/components/app/Header'
+import BackgroundColor from '@/components/shared/BackgroundColor'
+
+import TeaserSlice from '@/components/slices/TeaserSlice'
+import DetailsSlice from '@/components/slices/DetailsSlice'
+import BoardSlice from '@/components/slices/BoardSlice'
+import AppSlice from '@/components/slices/AppSlice'
+import PlaySlice from '@/components/slices/PlaySlice'
+import GoalSlice from '@/components/slices/GoalSlice'
+import PosterSlice from '@/components/slices/PosterSlice'
 
 function HomePage() {
   return (
-    <Wrapper>
-      <Typo size="h1">
-        <h1>Welcome to Next.js!</h1>
-      </Typo>
-      <Button>Holà</Button>
-    </Wrapper>
+    <BackgroundColor color="beige">
+      <Header />
+      <Component>
+        <TeaserSlice />
+        <DetailsSlice />
+        <BoardSlice />
+        <AppSlice />
+        <PlaySlice />
+        <GoalSlice />
+        <PosterSlice />
+      </Component>
+    </BackgroundColor>
   )
 }
 
-const Wrapper = styled.div`
-  border: 1px solid black;
+const Component = styled.main`
+  padding-top: 170px;
 `
 
 export default HomePage

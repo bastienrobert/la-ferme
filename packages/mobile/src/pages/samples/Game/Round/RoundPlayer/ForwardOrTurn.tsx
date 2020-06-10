@@ -45,7 +45,6 @@ const ForwardOrTurn: FC<ForwardOrTurnProps> = ({ onSubmit }) => {
         </Text>
       </TextContainer>
       <ButtonContainer alignSelf="center">
-        <Button variant="secondary">Hello</Button>
         <Button onPress={onSubmit} variant="secondary">
           {content.cta_ok}
         </Button>
@@ -62,7 +61,6 @@ const Component = styled(FullContainer)`
   align-items: center;
   max-width: 350px;
   justify-content: center;
-  border: 1px solid green;
 `
 
 const TextContainer = styled(Container)`

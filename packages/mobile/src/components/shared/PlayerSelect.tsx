@@ -37,12 +37,13 @@ const PlayerSelect: FC<PlayerSelectProps> = ({
           const character = characters.find(c => player.character === c.name)
 
           return (
-            <CircleImage
-              key={i}
-              background={character.color as Colors.IconBackground}
-              source={playerImages[player.character]}
-              onPress={() => onImagePress(player)}
-            />
+            <IconWrapper key={i}>
+              <CircleImage
+                background={character.color as Colors.IconBackground}
+                source={playerImages[player.character]}
+                onPress={() => onImagePress(player)}
+              />
+            </IconWrapper>
           )
         })}
       </IconsWrapper>
@@ -68,8 +69,12 @@ const Component = styled(Container)`
 
 const IconsWrapper = styled(Container)`
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-self: stretch;
+`
+
+const IconWrapper = styled(Container)`
+  margin: 0 20px;
 `
 
 const ButtonsWrapper = styled(Container)`

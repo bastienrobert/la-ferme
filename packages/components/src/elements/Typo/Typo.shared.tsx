@@ -1,8 +1,10 @@
+import { FC } from 'react'
+
 import { Fonts, Colors } from '@/theme'
 
 export interface TypoOptions {
   /** The size of the text */
-  size?: Fonts.SizeOption
+  size?: Fonts.SizeOption | string | number
   /** The color of the text */
   color?: Colors.Typo
   /** The font family of the text */
@@ -17,6 +19,10 @@ export interface TypoOptions {
 
 export interface TypoProps extends TypoOptions {
   children: JSX.Element
+}
+
+export interface TypoFC extends FC<TypoProps> {
+  presets: Presets
 }
 
 const H1: TypoOptions = {

@@ -13,13 +13,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@bastienrobert/events": "^1.0.4",
     "@la-ferme/components": "*",
     "@types/react": "^16.9.33",
     "@types/styled-components": "^5.0.1",
     "babel-plugin-styled-components": "^1.10.7",
-    "next": "^9.3.4",
+    "gsap": "./gsap-bonus.tgz",
+    "next": "^9.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-player": "^2.2.0",
+    "reset-css": "^5.0.1",
     "styled-components": "^5.0.1"
   },
   "devDependencies": {

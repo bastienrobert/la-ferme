@@ -33,7 +33,7 @@ const Menu: FC<any> = () => {
   const onHidePress = () => setVisible(false)
 
   return (
-    <Component>
+    <Component alignSelf="flex-end">
       {visible ? (
         <Group>
           <MenuIcon icon="cross" background="red" onPress={onHidePress} />
@@ -59,8 +59,7 @@ const Menu: FC<any> = () => {
 const Component = styled(Container)`
   position: absolute;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
   padding: 22px 12px;
   z-index: 2;
 `

@@ -7,13 +7,14 @@ import GameCard from '@/components/shared/GameCard'
 
 export interface PlayerChoiceProps {
   player: Player
+  players: Player[]
   onSubmit: () => void
 }
 
-const PlayerChoice: FC<PlayerChoiceProps> = ({ onSubmit }) => {
+const PlayerChoice: FC<PlayerChoiceProps> = ({ player, players, onSubmit }) => {
   return (
     <Component alignSelf="center">
-      <GameCard />
+      <GameCard player={player} players={players} />
     </Component>
   )
 }

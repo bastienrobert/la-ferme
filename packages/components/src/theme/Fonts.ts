@@ -155,7 +155,8 @@ const formatInlineFontSize = (size: string | number): string => {
 }
 
 export const getFontSize = (size: string): string => {
-  const fs = sizes[size] ?? defaultSize
+  const fs = size ? sizes[size] : defaultSize
+  if (!fs) return formatInlineFontSize(size)
 
   const isStringOrNumber = typeof fs === 'string' || typeof fs === 'number'
   return isStringOrNumber ? formatInlineFontSize(fs) : fs

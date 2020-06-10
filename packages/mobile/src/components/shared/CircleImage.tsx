@@ -21,16 +21,13 @@ const CircleImage: FC<CircleImageProps> = ({
   style,
   ...rest
 }) => {
-  const Component = circle ? Circle : Icon
+  const Inner = circle ? BackgroundWrapper : Icon
 
   return (
-    <Component
-      background={background}
-      onPress={onPress}
-      style={style}
-      padding={0}
-      size="100%">
-      <Image {...rest} />
+    <Component style={style}>
+      <Inner onPress={onPress} background={background} size="100%" padding={0}>
+        <Image {...rest} />
+      </Inner>
     </Component>
   )
 }
@@ -39,12 +36,18 @@ CircleImage.defaultProps = {
   circle: false
 }
 
-const Circle = styled(Container)<WrapperProps>`
+const Component = styled(Container)<WrapperProps>`
   width: 60px;
   height: 60px;
   border-radius: ${60 / 2}px;
-  background-color: ${({ background }) => Colors[background]};
+  box-shadow: 0px 6px 3px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+`
+
+const BackgroundWrapper = styled(Component)<WrapperProps>`
+  width: 100%;
+  height: 100%;
+  background-color: ${({ background }) => Colors[background]};
 `
 
 const Image = styled.ImageBackground`
