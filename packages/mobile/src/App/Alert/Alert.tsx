@@ -77,12 +77,12 @@ const Overlay = styled.View`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: ${hexToRgba(Colors.black, 0.5)};
+  background-color: ${hexToRgba(Colors.black, 0.7)};
   z-index: 999;
 `
 
 const Component = styled(Container)`
-  background-color: ${hexToRgba(Colors.beige, 0.85)};
+  background-color: ${hexToRgba(Colors.beige, 0.9)};
   border-radius: 13px;
   max-width: 300px;
   width: 90%;
