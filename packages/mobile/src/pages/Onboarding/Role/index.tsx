@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useCallback } from 'react'
+import React, { FC, useEffect, useCallback } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import {
   useFocusEffect,
@@ -7,13 +7,14 @@ import {
 } from '@react-navigation/native'
 
 import { RootStackParamList } from '@/App/routes'
-import ThemeContext from '@/App/Theme/ThemeContext'
 
 import Walktrough from '@/pages/Onboarding/Role/Walktrough'
 import Text from '@/components/typo/Text'
 
 import { GAME_INFOS_QUERY, SET_PLAYER_INFOS_MUTATION } from '@/graphql/local'
 import { GET_PLAYER, PLAYER_READY_MUTATION } from '@/graphql/player'
+
+import useTheme from '@/hooks/useTheme'
 
 type OnboardingRoleRouteProp = RouteProp<RootStackParamList, 'Onboarding:Role'>
 type OnboardingRoleNavigationProp = NavigationProp<
@@ -27,7 +28,7 @@ export interface OnboardingRoleProps {
 }
 
 const Role: FC<OnboardingRoleProps> = ({ navigation }) => {
-  const { setTheme } = useContext(ThemeContext)
+  const { setTheme } = useTheme()
   const [playerInfosMutation] = useMutation(SET_PLAYER_INFOS_MUTATION)
 
   useFocusEffect(

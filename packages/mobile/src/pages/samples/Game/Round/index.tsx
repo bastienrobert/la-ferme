@@ -4,20 +4,18 @@ import React, {
   useRef,
   useEffect,
   useLayoutEffect,
-  useCallback,
-  useContext
+  useCallback
 } from 'react'
 import { Animated, Easing, ViewStyle, LayoutChangeEvent } from 'react-native'
 import styled from 'styled-components/native'
 import uuid from 'uuid/v4'
 import { Colors } from '@la-ferme/components/native'
 
-import ThemeContext from '@/App/Theme/ThemeContext'
-
 import Player from './RoundPlayer'
 import Viewer from './RoundViewer'
 import Container from '@/components/shared/Container'
 
+import useTheme from '@/hooks/useTheme'
 import viewport from '@/services/viewport'
 
 const getWrapperStyleFromRef = (ref): ViewStyle => {
@@ -42,7 +40,7 @@ interface ComponentRef {
 type ComponentRefs = { [key: string]: ComponentRef }
 
 const Round: FC<any> = ({ data, player, ...rest }) => {
-  const { setTheme } = useContext(ThemeContext)
+  const { setTheme } = useTheme()
   const [content, setContent] = useState([])
   const [layerStyle, setLayerStyle] = useState<ViewStyle>()
   const currentComponent = useRef<String>()

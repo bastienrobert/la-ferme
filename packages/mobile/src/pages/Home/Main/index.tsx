@@ -61,7 +61,7 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
   )
 
   useLayoutEffect(() => {
-    setTheme('red')
+    setTheme('gray')
   }, [setTheme])
 
   useEffect(() => {

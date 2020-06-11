@@ -1,11 +1,11 @@
-import React, { FC, useState, useContext } from 'react'
+import React, { FC, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import { Icon, Colors } from '@la-ferme/components/native'
 
-import ThemeContext from '@/App/Theme/ThemeContext'
-
 import Container from '@/components/shared/Container'
+
+import useTheme from '@/hooks/useTheme'
 
 const complementaries: { [key: Colors.Theme]: Colors.Theme } = {
   red: 'yellow',
@@ -25,7 +25,7 @@ const MenuIcon: FC<any> = ({ onPress, ...style }) => {
 
 const Menu: FC<any> = () => {
   const [visible, setVisible] = useState(false)
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useTheme()
 
   const color = complementaries[theme]
 

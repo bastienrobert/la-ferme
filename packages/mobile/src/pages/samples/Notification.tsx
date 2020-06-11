@@ -1,13 +1,13 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/native'
-
-import ThemeContext from '@/App/Theme/ThemeContext'
 
 import Notification from '@/components/shared/Notification'
 import FullContainer from '@/components/shared/FullContainer'
 
+import useTheme from '@/hooks/useTheme'
+
 const NotificationSample = () => {
-  const { setTheme } = useContext(ThemeContext)
+  const { setTheme } = useTheme()
 
   useEffect(() => {
     setTheme('red')

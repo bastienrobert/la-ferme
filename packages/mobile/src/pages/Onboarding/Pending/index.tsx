@@ -1,11 +1,4 @@
-import React, {
-  FC,
-  useState,
-  useEffect,
-  useContext,
-  useCallback,
-  useMemo
-} from 'react'
+import React, { FC, useState, useEffect, useCallback, useMemo } from 'react'
 import styled from 'styled-components/native'
 import {
   useFocusEffect,
@@ -18,7 +11,6 @@ import LottieView from 'lottie-react-native'
 import { global as globalData } from '@la-ferme/shared/data'
 
 import { RootStackParamList } from '@/App/routes'
-import ThemeContext from '@/App/Theme/ThemeContext'
 
 import Go from './Go'
 import Container from '@/components/shared/Container'
@@ -31,6 +23,7 @@ import { GAME_PLAYER_INFOS_QUERY } from '@/graphql/local'
 import { READY_PLAYERS_QUERY, GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
 
 import getCharacter from './getCharacter'
+import useTheme from '@/hooks/useTheme'
 import viewport from '@/services/viewport'
 
 const content = globalData.pending
@@ -50,7 +43,7 @@ export interface OnboardingPendingProps {
 }
 
 const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
-  const { setTheme } = useContext(ThemeContext)
+  const { setTheme } = useTheme()
   const [ready, setReady] = useState(true)
 
   useFocusEffect(

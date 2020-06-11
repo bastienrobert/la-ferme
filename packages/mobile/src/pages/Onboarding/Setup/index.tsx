@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext, useCallback } from 'react'
+import React, { FC, useState, useCallback } from 'react'
 import styled from 'styled-components/native'
 import {
   useFocusEffect,
@@ -9,11 +9,12 @@ import { Button } from '@la-ferme/components/native'
 import { global as globalData } from '@la-ferme/shared/data'
 
 import { RootStackParamList } from '@/App/routes'
-import ThemeContext from '@/App/Theme/ThemeContext'
 
 import FullContainer from '@/components/shared/FullContainer'
 import Container from '@/components/shared/Container'
 import FullscreenVideo from '@/components/shared/FullscreenVideo'
+
+import useTheme from '@/hooks/useTheme'
 
 export const general = globalData.general
 
@@ -32,7 +33,7 @@ export interface OnboardingSetupProps {
 }
 
 const Setup: FC<OnboardingSetupProps> = ({ navigation }) => {
-  const { setTheme } = useContext(ThemeContext)
+  const { setTheme } = useTheme()
   const [paused, setPaused] = useState(false)
 
   useFocusEffect(
