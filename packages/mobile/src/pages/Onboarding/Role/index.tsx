@@ -7,7 +7,7 @@ import {
 } from '@react-navigation/native'
 
 import { RootStackParamList } from '@/App/routes'
-import ThemeContext from '@/App/Theme/Context'
+import ThemeContext from '@/App/Theme/ThemeContext'
 
 import Walktrough from '@/pages/Onboarding/Role/Walktrough'
 import Text from '@/components/typo/Text'

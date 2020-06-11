@@ -18,7 +18,7 @@ import LottieView from 'lottie-react-native'
 import { global as globalData } from '@la-ferme/shared/data'
 
 import { RootStackParamList } from '@/App/routes'
-import ThemeContext from '@/App/Theme/Context'
+import ThemeContext from '@/App/Theme/ThemeContext'
 
 import Go from './Go'
 import Container from '@/components/shared/Container'

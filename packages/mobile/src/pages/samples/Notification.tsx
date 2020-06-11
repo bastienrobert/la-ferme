@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import styled from 'styled-components/native'
 
-import ThemeContext from '@/App/Theme/Context'
+import ThemeContext from '@/App/Theme/ThemeContext'
 
 import Notification from '@/components/shared/Notification'
 import FullContainer from '@/components/shared/FullContainer'

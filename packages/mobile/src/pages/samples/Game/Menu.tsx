@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import { Icon, Colors } from '@la-ferme/components/native'
 
-import ThemeContext from '@/App/Theme/Context'
+import ThemeContext from '@/App/Theme/ThemeContext'
 
 import Container from '@/components/shared/Container'
 

@@ -6,8 +6,12 @@ import styled from 'styled-components/native'
 import { Colors } from '@la-ferme/components/native'
 
 import Router from './Router'
-import ThemeContext from './Theme/Context'
-import useTheme from './Theme/hook'
+
+import ThemeContext from './Theme/ThemeContext'
+import useContextThemeValue from './Theme/useContextThemeValue'
+
+import AlertContainer from './Alert/AlertContainer'
+
 import apollo from './apollo'
 import routes from './routes'
 
@@ -44,13 +48,14 @@ function Main() {
 }
 
 export default function App() {
-  const theme = useTheme()
+  const theme = useContextThemeValue()
 
   return (
     <>
       {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
       <ApolloProvider client={apollo}>
         <ThemeContext.Provider value={theme}>
+          <AlertContainer />
           <Main />
         </ThemeContext.Provider>
       </ApolloProvider>

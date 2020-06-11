@@ -3,20 +3,18 @@ import React, {
   useState,
   useEffect,
   useRef,
-  useContext,
   useCallback,
   useLayoutEffect
 } from 'react'
-import { Alert, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { useMutation } from '@apollo/react-hooks'
 import NfcManager, { NfcEvents } from 'react-native-nfc-manager'
 
 import { RootStackParamList } from '@/App/routes'
-import ThemeContext from '@/App/Theme/Context'
+import useTheme from '@/hooks/useTheme'
 
-import AlertC from '@/components/shared/Alert'
 import QRCode from './QRCode'
 import AndroidNfcPopup from './AndroidNfcPopup'
 import Title from '@/components/typo/Title'
@@ -28,6 +26,7 @@ import { ROOM_JOIN_MUTATION } from '@/graphql/room'
 import { GAME_INFOS_MUTATION } from '@/graphql/local'
 
 import auth from '@/services/auth'
+import alert from '@/services/alert'
 import error, { ERRORS } from '@/utils/helpers/error'
 
 const TRANSLATE_NFC_UNSUPPORTED = error(ERRORS.NFC_UNSUPPORTED)
@@ -41,7 +40,7 @@ export interface HomeMainProps {
 }
 
 const Home: FC<HomeMainProps> = ({ navigation }) => {
-  const { setTheme } = useContext(ThemeContext)
+  const { setTheme } = useTheme()
   const [QRcode, setQRcode] = useState(false)
   const [androidNfcPopup, setAndroidNfcPopup] = useState(false)
   const isNfcSupported = useRef(false)
@@ -62,7 +61,7 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
   )
 
   useLayoutEffect(() => {
-    setTheme('gray')
+    setTheme('red')
   }, [setTheme])
 
   useEffect(() => {
@@ -106,7 +105,7 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
 
   const onNfcIconPress = useCallback(async () => {
     if (!isNfcSupported.current) {
-      Alert.alert(TRANSLATE_NFC_UNSUPPORTED)
+      alert({ title: TRANSLATE_NFC_UNSUPPORTED })
     }
     if (Platform.OS === 'android') setAndroidNfcPopup(true)
 
@@ -114,7 +113,7 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
       await NfcManager.registerTagEvent()
     } catch (err) {
       console.warn(err)
-      Alert.alert(TRANSLATE_NFC_UNSUPPORTED)
+      alert({ title: TRANSLATE_NFC_UNSUPPORTED })
       onAndroidNfcPopupCancelPress()
     }
   }, [onAndroidNfcPopupCancelPress])
@@ -125,11 +124,6 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
 
   return (
     <Component>
-      <AlertC
-        title="salut je suis une erreur"
-        message="skdfj"
-        onPress={() => {}}
-      />
       <TitleContainer>
         <Title preset="H1" color="beige" textAlign="center">
           commencer une partie

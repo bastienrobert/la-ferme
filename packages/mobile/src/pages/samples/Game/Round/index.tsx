@@ -12,7 +12,7 @@ import styled from 'styled-components/native'
 import uuid from 'uuid/v4'
 import { Colors } from '@la-ferme/components/native'
 
-import ThemeContext from '@/App/Theme/Context'
+import ThemeContext from '@/App/Theme/ThemeContext'
 
 import Player from './RoundPlayer'
 import Viewer from './RoundViewer'

@@ -21,7 +21,7 @@ const Icon: FC<IconProps> = ({
   size,
   ...style
 }) => {
-  const Container: FC<any> = onPress ? StyledButton : StyledContainer
+  const Container = onPress ? StyledButton : StyledContainer
   const Component = icons[icon]
 
   return (
