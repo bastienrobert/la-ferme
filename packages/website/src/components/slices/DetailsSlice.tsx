@@ -46,6 +46,7 @@ const DetailsSlice: FC = () => {
 }
 
 const Component = styled(Container)`
+  padding-top: 40px;
   margin-bottom: 108px;
 `
 

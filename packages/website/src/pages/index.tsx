@@ -1,9 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
+import Head from 'next/head'
 import dynamic from 'next/dynamic'
 
 import Header from '@/components/app/Header'
-import Footer from '@/components/app/Header'
+import Footer from '@/components/app/Footer'
 import BackgroundColor from '@/components/shared/BackgroundColor'
 
 import TeaserSlice from '@/components/slices/TeaserSlice'
@@ -14,25 +14,31 @@ import PlaySlice from '@/components/slices/PlaySlice'
 import GoalSlice from '@/components/slices/GoalSlice'
 import PosterSlice from '@/components/slices/PosterSlice'
 
+import content from '@/content'
+const t = content.global
+
 function HomePage() {
   return (
-    <BackgroundColor color="beige">
-      <Header />
-      <Component>
-        <TeaserSlice />
-        <DetailsSlice />
-        <BoardSlice />
-        <AppSlice />
-        <PlaySlice />
-        <GoalSlice />
-        <PosterSlice />
-      </Component>
-    </BackgroundColor>
+    <>
+      <Head>
+        <title>{t.seo.title}</title>
+        <meta name="description" content={t.seo.description} />
+      </Head>
+      <BackgroundColor color="beige">
+        <Header />
+        <main>
+          <TeaserSlice />
+          <DetailsSlice />
+          <BoardSlice />
+          <AppSlice />
+          <PlaySlice />
+          <GoalSlice />
+          <PosterSlice />
+        </main>
+        <Footer />
+      </BackgroundColor>
+    </>
   )
 }
-
-const Component = styled.main`
-  padding-top: 170px;
-`
 
 export default HomePage

@@ -30,7 +30,23 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <title>La Ferme</title>
+          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" type="image/png" href="/favicon.png" sizes="16x16" />
+          <link
+            rel="icon"
+            type="image/png"
+            href="/favicon@2x.png"
+            sizes="32x32"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="/favicon@3x.png"
+            sizes="96x96"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

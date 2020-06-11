@@ -10,10 +10,6 @@ const Footer: FC = () => {
   return <Component as="footer"></Component>
 }
 
-const Component = styled(Container)`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 80px;
-`
+const Component = styled(Container)``
 
 export default Footer

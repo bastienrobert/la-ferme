@@ -5,7 +5,7 @@ import Draggable from 'gsap/dist/Draggable'
 import InertiaPlugin from 'gsap/dist/InertiaPlugin'
 
 export default (
-  target: RefObject<any>,
+  target: RefObject<gsap.DOMTarget>,
   config: Draggable.Vars,
   deps: any[] = []
 ) => {

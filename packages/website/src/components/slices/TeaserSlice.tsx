@@ -16,7 +16,8 @@ const TeaserSlice: FC = () => {
 }
 
 const Component = styled(Container)`
-  margin-bottom: 140px;
+  padding-top: 200px;
+  margin-bottom: 100px;
 `
 
 const StyledPlayer = styled(Player)`

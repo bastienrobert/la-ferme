@@ -1,4 +1,10 @@
 {
+  "global": {
+    "seo": {
+      "title": "La Ferme - Le jeu",
+      "description": "Plongez au coeur de la jungle urbaine et gagnez contre vos amis !"
+    }
+  },
   "header": {
     "nav": {
       "teaser": "le teaser",

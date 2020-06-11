@@ -1,11 +1,9 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components'
-import gsap from 'gsap'
-import ScrollToPlugin from 'gsap/dist/ScrollToPlugin'
 
 import TypoNav from '@/components/typo/Nav'
 
-gsap.registerPlugin(ScrollToPlugin)
+import useScrollTo from '@/hooks/useScrollTo'
 
 export interface NavItemProps {
   children: string
@@ -14,10 +12,7 @@ export interface NavItemProps {
 }
 
 const NavItem: FC<NavItemProps> = ({ children, href, active }) => {
-  const onClick = useCallback(() => {
-    if (typeof document === 'undefined') return null
-    gsap.to(window, { duration: 0.4, scrollTo: href })
-  }, [])
+  const onClick = useScrollTo(href)
 
   return (
     <Component>
