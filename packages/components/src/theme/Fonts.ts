@@ -10,6 +10,8 @@ import {
 
 import { Colors } from './'
 
+import { K } from '@/utils'
+
 /**
  * FONTS DEFINITIONS
  */
@@ -84,9 +86,8 @@ export interface SizeDefinition {
   letterSpacing?: LetterSpacingProperty<string | number>
 }
 
-export type SizeOption = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'default'
 export type Sizes = {
-  [key in SizeOption]: string | number | SizeDefinition
+  [key in K]: string | number | SizeDefinition
 }
 
 const percToPx = (
@@ -128,6 +129,16 @@ export const sizes: Sizes = {
     letterSpacing: percToPx(16, 0.04)
   },
   h6: '14px',
+  medium: {
+    fontSize: '32px',
+    lineHeight: percToPx(32, 1.5),
+    letterSpacing: percToPx(16, 0.04)
+  },
+  small: {
+    fontSize: '14px',
+    lineHeight: percToPx(16, 1.3),
+    letterSpacing: percToPx(16, 0.04)
+  },
   default: defaultSize
 }
 
@@ -154,10 +165,11 @@ const formatInlineFontSize = (size: string | number): string => {
   return `font-size: ${size}${suffix};`
 }
 
-export const getFontSize = (size: string): string => {
+export const getFontSize = (size: string | number): SizeDefinition | string => {
   const fs = size ? sizes[size] : defaultSize
   if (!fs) return formatInlineFontSize(size)
 
-  const isStringOrNumber = typeof fs === 'string' || typeof fs === 'number'
-  return isStringOrNumber ? formatInlineFontSize(fs) : fs
+  if (typeof fs === 'string' || typeof fs === 'number') {
+    return formatInlineFontSize(fs)
+  } else return fs
 }

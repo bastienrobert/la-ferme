@@ -15,13 +15,13 @@ export interface ContainerProps extends ViewProps {
 
 const Container: FC<ContainerProps> = ({ children, innerRef, ...style }) => {
   return (
-    <StyledView ref={innerRef} {...style}>
+    <Component ref={innerRef} {...style}>
       {children}
-    </StyledView>
+    </Component>
   )
 }
 
-const StyledView = styled.View<ContainerProps>`
+const Component = styled.View<ContainerProps>`
   align-self: ${props => props.alignSelf};
 `
 

@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { text } from '@storybook/addon-knobs'
 
-import Button, { ButtonProps } from './'
+import { Button, ButtonProps } from './'
 
 // PROPS
 const childrenProps = (value = '') => {

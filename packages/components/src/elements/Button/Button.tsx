@@ -3,19 +3,19 @@ import styled from 'styled-components'
 
 import Background from './Background'
 import {
-  ButtonProps,
+  ButtonSharedProps,
   variants,
   defaultSize,
   defaultVariant
 } from './Button.shared'
 import styles from './Button.styles'
 
-export interface WebButtonProps extends ButtonProps {
+export interface ButtonProps extends ButtonSharedProps {
   /** Callback on click */
   onClick?: (e) => void
 }
 
-const Button: FC<WebButtonProps> = ({ children, variant, ...style }) => {
+const Button: FC<ButtonProps> = ({ children, variant, ...style }) => {
   return (
     <StyledButton {...style}>
       <Background color={variants[variant]} />
@@ -29,7 +29,7 @@ Button.defaultProps = {
   variant: defaultVariant
 }
 
-export default Button
+export { Button }
 
 const StyledButton = styled.button<any>`
   ${({ disabled }) => styles.box(true, disabled)}

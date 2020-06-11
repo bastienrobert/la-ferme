@@ -1,8 +1,6 @@
-import React, { FC, useEffect, useState, useContext } from 'react'
+import React, { FC, useState } from 'react'
 import uuid from 'uuid/v4'
 import { Button } from 'react-native'
-
-import ThemeContext from '@/App/Theme/Context'
 
 import Menu from './Menu'
 import Round from './Round'
@@ -14,12 +12,6 @@ import { players, player } from './mock'
 const color: any = ['yellow', 'red', 'gray']
 
 const Game: FC<any> = () => {
-  const { setTheme } = useContext(ThemeContext)
-
-  useEffect(() => {
-    setTheme('yellow')
-  }, [setTheme])
-
   const mockData = () => {
     return {
       uuid: uuid(),

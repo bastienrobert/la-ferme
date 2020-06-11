@@ -1,17 +1,10 @@
 import React, { FC } from 'react'
 import styled from 'styled-components/native'
-import { Player } from '@la-ferme/shared/typings'
 
 import FullContainer from '@/components/shared/FullContainer'
 import GameCard from '@/components/shared/GameCard'
 
-export interface PlayerChoiceProps {
-  player: Player
-  players: Player[]
-  onSubmit: () => void
-}
-
-const PlayerChoice: FC<PlayerChoiceProps> = ({ player, players, onSubmit }) => {
+const PlayerChoice: FC<any> = ({ player, players, onSubmit }) => {
   return (
     <Component alignSelf="center">
       <GameCard player={player} players={players} />

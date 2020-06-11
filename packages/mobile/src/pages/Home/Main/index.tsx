@@ -16,6 +16,7 @@ import NfcManager, { NfcEvents } from 'react-native-nfc-manager'
 import { RootStackParamList } from '@/App/routes'
 import ThemeContext from '@/App/Theme/Context'
 
+import AlertC from '@/components/shared/Alert'
 import QRCode from './QRCode'
 import AndroidNfcPopup from './AndroidNfcPopup'
 import Title from '@/components/typo/Title'
@@ -124,6 +125,11 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
 
   return (
     <Component>
+      <AlertC
+        title="salut je suis une erreur"
+        message="skdfj"
+        onPress={() => {}}
+      />
       <TitleContainer>
         <Title preset="H1" color="beige" textAlign="center">
           commencer une partie

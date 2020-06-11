@@ -2,16 +2,16 @@ import React, { FC } from 'react'
 import styled from 'styled-components/native'
 
 import Background from './Background.native'
-import { IconProps, defaultPadding, defaultSize } from './Icon.shared'
+import { IconSharedProps, defaultPadding, defaultSize } from './Icon.shared'
 import styles from './Icon.styles'
 import icons from '@/icons/native'
 
-export interface NativeIconProps extends IconProps {
+export interface IconProps extends IconSharedProps {
   /** Callback on click */
   onPress?: (e) => void
 }
 
-const Icon: FC<NativeIconProps> = ({
+const Icon: FC<IconProps> = ({
   children,
   icon,
   onPress,
@@ -40,13 +40,13 @@ Icon.defaultProps = {
   size: defaultSize
 }
 
-export default Icon
+export { Icon }
 
-const StyledContainer = styled.View<NativeIconProps>`
+const StyledContainer = styled.View<IconProps>`
   ${styles.commons.container}
 `
 
-const StyledButton = styled.TouchableOpacity<NativeIconProps>`
+const StyledButton = styled.TouchableOpacity<IconProps>`
   ${props => (props.disabled ? styles.disabled : '')}
 `
 

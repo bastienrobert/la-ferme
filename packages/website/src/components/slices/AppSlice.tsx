@@ -16,7 +16,7 @@ const AppSlice: FC = () => {
       <RightDecoration {...t.images.right} />
       <BackgroundColor color="gray">
         <TextContainer>
-          <StyledText color="beige">
+          <StyledText color="beige" size="medium">
             <h3>
               {t.text.map(l => (
                 <Line>{l}</Line>
@@ -50,9 +50,6 @@ const TextContainer = styled(Container)`
 `
 
 const StyledText = styled(Title)`
-  font-size: 32px;
-  line-height: 1.5;
-  letter-spacing: 4%;
   margin-bottom: 40px;
 `
 

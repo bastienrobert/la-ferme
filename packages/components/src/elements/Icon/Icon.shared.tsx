@@ -3,7 +3,7 @@ import { Colors } from '@/theme'
 
 import { Icons } from '@/icons'
 
-export interface IconProps extends PropsWithChildren<any> {
+export interface IconSharedProps extends PropsWithChildren<any> {
   /** The icon name */
   icon?: Icons
   /** The color of the icon */
@@ -15,7 +15,7 @@ export interface IconProps extends PropsWithChildren<any> {
   /** Icon size */
   size?: number | string
   /** Disable the icon */
-  disabled: boolean
+  disabled?: boolean
 }
 
 export const defaultPadding = 15

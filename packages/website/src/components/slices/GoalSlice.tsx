@@ -20,9 +20,9 @@ const GoalSlice: FC = () => {
             <StyledTitleAndSmallText title={t.title} small={t.small} />
             <p>
               {t.subtitle.map(l => (
-                <StyledTitle color="beige">
+                <Title color="beige" size="medium">
                   <Line>{l}</Line>
-                </StyledTitle>
+                </Title>
               ))}
             </p>
             <StyledPoint />
@@ -60,12 +60,6 @@ const StyledContainer = styled(Container)`
 
 const Wrapper = styled.div`
   position: relative;
-`
-
-const StyledTitle = styled(Title)`
-  font-size: 32px;
-  line-height: 1.2;
-  letter-spacing: 4%;
 `
 
 const Line = styled.span`

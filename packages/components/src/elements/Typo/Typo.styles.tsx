@@ -1,4 +1,4 @@
-import { css } from 'styled-components'
+import { css, CSSObject } from 'styled-components'
 
 import { Fonts, Colors } from '@/theme'
 
@@ -14,6 +14,6 @@ export default ({
   color: ${color ? Colors[color] : Colors[Fonts.defaultColor]};
   text-align: ${textAlign || 'left'};
   text-transform: ${textTransform || 'none'};
-  ${Fonts.getFontSize(size)}
+  ${Fonts.getFontSize(size) as CSSObject}
   ${Fonts.getFontStyle(family, variant, isReactNative)}
 `

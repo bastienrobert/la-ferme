@@ -41,7 +41,7 @@ interface ComponentRef {
 
 type ComponentRefs = { [key: string]: ComponentRef }
 
-const Round: FC<any> = ({ player, players, data }) => {
+const Round: FC<any> = ({ data, player, ...rest }) => {
   const { setTheme } = useContext(ThemeContext)
   const [content, setContent] = useState([])
   const [layerStyle, setLayerStyle] = useState<ViewStyle>()
@@ -105,7 +105,7 @@ const Round: FC<any> = ({ player, players, data }) => {
   return (
     <StyledContainer onLayout={onLayout}>
       {content.map((c, i) => {
-        const C = c.data.player === player.uuid ? Player : Viewer
+        const Component = c.data.player === player.uuid ? Player : Viewer
         const wrapperStyle = getWrapperStyleFromRef(refs.current[c.uuid])
         const overlayStyle = getOverlayStyleFromRef(refs.current[c.uuid])
 
@@ -115,7 +115,7 @@ const Round: FC<any> = ({ player, players, data }) => {
               as={Animated.View}
               background={c.data.background}
               style={wrapperStyle}>
-              <C data={c.data} players={players} player={player} />
+              <Component data={c.data} player={player} {...rest} />
             </ContentWrapper>
             <Overlay as={Animated.View} style={[layerStyle, overlayStyle]} />
           </ContentContainer>

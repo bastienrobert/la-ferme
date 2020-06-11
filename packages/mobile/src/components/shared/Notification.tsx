@@ -48,7 +48,7 @@ const Notification: FC<NotificationProps> = ({
     [translateLarge]
   )
 
-  const reveal = useCallback(() => {
+  const onPress = useCallback(() => {
     Animated.timing(translateLarge, {
       toValue: { x: 0, y: 0 },
       duration: 600,
@@ -58,7 +58,7 @@ const Notification: FC<NotificationProps> = ({
   }, [translateLarge])
 
   return (
-    <TouchableWithoutFeedback onPress={reveal}>
+    <TouchableWithoutFeedback onPress={onPress}>
       <Component
         as={Animated.View}
         onLayout={onLayout}

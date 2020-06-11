@@ -6,7 +6,6 @@ import { Typo, Colors, Fonts } from '@la-ferme/components'
 export interface TextProps {
   textAlign?: Fonts.TextAlignOption
   color?: Colors.Typo
-  style?: CSSProperties
   className?: string
 }
 

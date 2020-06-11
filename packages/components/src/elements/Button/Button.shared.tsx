@@ -19,7 +19,7 @@ export const variants: Variants = {
   secondary: 'blue'
 }
 
-export interface ButtonProps {
+export interface ButtonSharedProps {
   children: string
   /** The size of the button */
   size?: ButtonSize

@@ -1,10 +1,8 @@
-import { FC } from 'react'
-
 import { Fonts, Colors } from '@/theme'
 
-export interface TypoOptions {
+export interface TypoSharedProps {
   /** The size of the text */
-  size?: Fonts.SizeOption | string | number
+  size?: string | number
   /** The color of the text */
   color?: Colors.Typo
   /** The font family of the text */
@@ -17,45 +15,39 @@ export interface TypoOptions {
   textAlign?: Fonts.TextAlignOption
 }
 
-export interface TypoProps extends TypoOptions {
-  children: JSX.Element
-}
+export type StaticProps = { presets: Presets }
 
-export interface TypoFC extends FC<TypoProps> {
-  presets: Presets
-}
-
-const H1: TypoOptions = {
+const H1: TypoSharedProps = {
   size: 'h1',
   family: 'bowlby',
   textTransform: 'uppercase'
 }
 
-const H2: TypoOptions = {
+const H2: TypoSharedProps = {
   size: 'h2',
   family: 'bowlby',
   textTransform: 'uppercase'
 }
 
-const H3: TypoOptions = {
+const H3: TypoSharedProps = {
   size: 'h3',
   family: 'bowlby',
   textTransform: 'uppercase'
 }
 
-const H4: TypoOptions = {
+const H4: TypoSharedProps = {
   size: 'h4',
   family: 'bowlby',
   textTransform: 'uppercase'
 }
 
-const H5: TypoOptions = {
+const H5: TypoSharedProps = {
   size: 'h5',
   family: 'bowlby',
   textTransform: 'uppercase'
 }
 
-const TAG: TypoOptions = {
+const TAG: TypoSharedProps = {
   size: 'h4',
   family: 'kobe',
   textTransform: 'uppercase'
@@ -63,7 +55,7 @@ const TAG: TypoOptions = {
 
 export type PresetOptions = 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'TAG'
 export type Presets = {
-  [key in PresetOptions]: TypoOptions
+  [key in PresetOptions]: TypoSharedProps
 }
 
 export const presets: Presets = { H1, H2, H3, H4, H5, TAG }

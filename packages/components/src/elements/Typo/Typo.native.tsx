@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components/native'
 
-import { TypoFC, presets } from './Typo.shared'
+import { TypoSharedProps, StaticProps, presets } from './Typo.shared'
 import generateTypoStyle from './Typo.styles'
+
+export type TypoProps = TypoSharedProps
+
+export type TypoFC = FC<TypoProps> & StaticProps
 
 const Typo: TypoFC = ({ children, ...style }) => {
   return (
@@ -14,7 +18,7 @@ const Typo: TypoFC = ({ children, ...style }) => {
 
 Typo.presets = presets
 
-export default Typo
+export { Typo }
 
 const StyledTypo: any = styled.Text`
   ${generateTypoStyle}

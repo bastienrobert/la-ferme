@@ -1,13 +1,10 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import Typo, { TypoProps } from './'
-
-// LOCAL INTERFACES
-type ClosureOption = Omit<TypoProps, 'children'>
+import { Typo, TypoOptions } from './'
 
 // CLOSURE GENERATOR
-const closure = ({ size, family }: ClosureOption = {}) => {
+const closure = ({ size, family }: TypoOptions = {}) => {
   return () => (
     <Typo size={size} family={family}>
       <span>Hello</span>

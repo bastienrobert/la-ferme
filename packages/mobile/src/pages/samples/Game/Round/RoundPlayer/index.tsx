@@ -8,15 +8,17 @@ import PlayerChoice from './PlayerChoice'
 import FullContainer from '@/components/shared/FullContainer'
 
 export interface RoundPlayerProps {
+  data: any
   player: Player
+  players: Player[]
 }
 
-const RoundPlayer: FC<RoundPlayerProps> = ({ players, player }) => {
+const RoundPlayer: FC<RoundPlayerProps> = props => {
   return (
     <Component>
       {/* <PickCard character="peter" /> */}
       {/* <ForwardOrTurn player={player} onSubmit={() => console.log('HELLO')} /> */}
-      <PlayerChoice player={player} players={players} />
+      <PlayerChoice {...props} />
     </Component>
   )
 }

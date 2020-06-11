@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
-import { Typo } from '@la-ferme/components/native'
+import { Typo, TypoProps } from '@la-ferme/components/native'
 
-import { TextProps } from './Text'
+const preset = Typo.presets.TAG
 
-const preset = Typo.presets['TAG']
+type HashtagParams = 'color' | 'textAlign'
+type HashtagProps = Pick<TypoProps, HashtagParams>
 
-const Hashtag: FC<TextProps> = ({
+const Hashtag: FC<HashtagProps> = ({
   children,
   color = 'gray',
   textAlign = 'left'

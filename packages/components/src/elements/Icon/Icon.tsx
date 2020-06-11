@@ -2,16 +2,16 @@ import React, { FC } from 'react'
 import styled, { StyledComponentBase } from 'styled-components'
 
 import Background from './Background'
-import { IconProps } from './Icon.shared'
+import { IconSharedProps } from './Icon.shared'
 import styles from './Icon.styles'
 import icons from '@/icons/web'
 
-export interface WebIconProps extends IconProps {
+export interface IconProps extends IconSharedProps {
   /** Callback on click */
   onClick?: (e) => void
 }
 
-const Icon: FC<WebIconProps> = ({
+const Icon: FC<IconProps> = ({
   children,
   icon,
   onClick,
@@ -19,7 +19,7 @@ const Icon: FC<WebIconProps> = ({
   background,
   ...style
 }) => {
-  const Container: StyledComponentBase<'div' | 'button', WebIconProps> = onClick
+  const Container: StyledComponentBase<'div' | 'button', IconProps> = onClick
     ? StyledButton
     : StyledContainer
   const Component = icons[icon]
@@ -35,9 +35,9 @@ const Icon: FC<WebIconProps> = ({
   )
 }
 
-export default Icon
+export { Icon }
 
-const StyledContainer = styled.div<WebIconProps>`
+const StyledContainer = styled.div<IconProps>`
   ${styles.commons.container}
   ${styles.web}
 `
@@ -48,7 +48,7 @@ const StyledButton = styled(StyledContainer).attrs({
   ${props => (props.disabled ? styles.disabled : '')}
 `
 
-const StyledWrapper = styled.div<WebIconProps>`
+const StyledWrapper = styled.div<IconProps>`
   ${({ background }) => (background ? styles.commons.backgroundWrapper : '')}
   ${styles.commons.wrapper}
 `
