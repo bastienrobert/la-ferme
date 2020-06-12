@@ -1,18 +1,19 @@
 /* eslint-disable no-bitwise */
-import { Button, Colors } from '@la-ferme/components/native'
+import { ButtonVariant } from '@la-ferme/components/native'
 
 export const complementaries = {
-  [Colors.yellow]: Colors.blue,
-  [Colors.blue]: Colors.red,
-  [Colors.red]: Colors.yellow,
-  [Colors.pink]: Colors.blue
+  gray: 'yellow',
+  yellow: 'blue',
+  blue: 'red',
+  red: 'yellow',
+  pink: 'blue'
 }
 
-export const buttons: { [key: string]: Button.Variant } = {
-  [Colors.yellow]: 'secondary',
-  [Colors.blue]: 'primary',
-  [Colors.red]: 'primary',
-  [Colors.pink]: 'secondary'
+export const buttons: { [key: string]: ButtonVariant } = {
+  yellow: 'secondary',
+  blue: 'primary',
+  red: 'primary',
+  pink: 'secondary'
 }
 
 export const hexToRgb = (hex: string) => {

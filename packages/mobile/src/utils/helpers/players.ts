@@ -1,4 +1,13 @@
-import { Player } from '@la-ferme/shared/typings'
+import { Player, Character } from '@la-ferme/shared/typings'
+import { characters } from '@la-ferme/shared/data'
+
+export const charactersByName: { [key: string]: Character } = characters.reduce(
+  (acc, c) => {
+    acc[c.name] = c
+    return acc
+  },
+  {}
+)
 
 export const getAllExceptCurrent = (players: Player[], current: Player) => {
   return players.filter(player => current.uuid !== player.uuid)

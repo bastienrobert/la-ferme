@@ -62,7 +62,8 @@ const Component = styled(Container)`
   align-self: center;
   justify-content: center;
   width: 100%;
-  margin-top: 80px;
+  margin-top: 60px;
+  z-index: 900;
 `
 
 const Line = styled(Container)`

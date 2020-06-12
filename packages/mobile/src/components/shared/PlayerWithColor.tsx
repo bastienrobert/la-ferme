@@ -1,43 +1,41 @@
 import React, { FC } from 'react'
-import { Typo } from '@la-ferme/components/native'
-import { Character } from '@la-ferme/shared/typings'
-import { characters } from '@la-ferme/shared/data'
+import { Colors, Typo, TypoProps } from '@la-ferme/components/native'
 
-import { TextProps } from '@/components/typo/Text'
+import { charactersByName } from '@/utils/helpers/players'
 
 const sizes = {
   large: Typo.presets.H1,
   small: Typo.presets.H4
 }
 
-const charactersByName: { [key: string]: Character } = characters.reduce(
-  (acc, c) => {
-    acc[c.name] = c
-    return acc
-  },
-  {}
-)
-
 export type PlayerWithColorSize = 'large' | 'small'
 
-export interface PlayerWithColorProps extends Omit<TextProps, 'children'> {
-  size: PlayerWithColorSize
+export interface PlayerWithColorProps extends TypoProps {
   character: string
+  size?: PlayerWithColorSize
+  _color?: Colors.Typo
+  _displayName?: string
 }
 
 const PlayerWithColor: FC<PlayerWithColorProps> = ({
   size,
   character,
-  textAlign = 'left'
+  _color,
+  _displayName,
+  ...props
 }) => {
   const preset = sizes[size]
   const find = charactersByName[character]
 
   return (
-    <Typo {...preset} color={find?.color} textAlign={textAlign}>
-      {find.displayName}
+    <Typo color={(_color ?? find.color) as Colors.Typo} {...preset} {...props}>
+      {_displayName ?? find.displayName}
     </Typo>
   )
+}
+
+PlayerWithColor.defaultProps = {
+  size: 'large'
 }
 
 export default PlayerWithColor
