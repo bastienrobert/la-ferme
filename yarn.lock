@@ -10599,9 +10599,9 @@ growly@^1.3.0:
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
 
-gsap@./gsap-bonus.tgz:
+"gsap@file:gsap-bonus.tgz":
   version "3.3.0"
-  resolved "./gsap-bonus.tgz#8066a4a9491f296c3992d64de3851be0aa3bbf75"
+  resolved "file:gsap-bonus.tgz#8066a4a9491f296c3992d64de3851be0aa3bbf75"
 
 gud@^1.0.0:
   version "1.0.0"
