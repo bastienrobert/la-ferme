@@ -52,7 +52,6 @@ const Component = styled(FullContainer)`
   align-items: center;
   max-width: 350px;
   justify-content: space-between;
-  margin-bottom: 80px;
 `
 
 const TitleContainer = styled(Container)`

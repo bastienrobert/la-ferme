@@ -11,7 +11,7 @@ export const complementaries = {
 
 export const buttons: { [key: string]: ButtonVariant } = {
   yellow: 'secondary',
-  blue: 'primary',
+  blue: 'danger',
   red: 'primary',
   pink: 'secondary'
 }

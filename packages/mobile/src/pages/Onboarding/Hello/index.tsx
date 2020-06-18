@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useRef } from 'react'
 import { Animated } from 'react-native'
+import styled from 'styled-components/native'
 import LottieView from 'lottie-react-native'
 import { RouteProp, NavigationProp } from '@react-navigation/native'
-import styled from 'styled-components/native'
 import { global as globalData } from '@la-ferme/shared/data'
 
 import { RootStackParamList } from '@/App/routes'
@@ -80,6 +80,7 @@ const Animation = styled(LottieView)`
 const TextContainer = styled(Container)`
   width: 90%;
   max-width: 400px;
+  flex: 1;
 `
 
 const TitleContainer = styled(Container)`

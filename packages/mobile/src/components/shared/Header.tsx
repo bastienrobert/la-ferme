@@ -12,16 +12,21 @@ import HeaderTypo from '@/components/typo/Header'
 import { images as playerImages } from '@/utils/helpers/players'
 
 export interface HeaderProps {
+  numberOfRounds: number
   players: Player[]
   player: Player
 }
 
-const Header: FC<HeaderProps> = ({ players, player }) => {
+export const MARGIN_TOP = 60
+
+const Header: FC<HeaderProps> = ({ players, player, numberOfRounds = 0 }) => {
   const orderedPlayers = useMemo(() => {
     return players.sort(p => {
       return p.uuid === player.uuid ? -1 : 0
     })
   }, [players, player])
+
+  const roundNumber = `${Math.floor((numberOfRounds - 1) / players.length) + 1}`
 
   return (
     <Component>
@@ -49,8 +54,8 @@ const Header: FC<HeaderProps> = ({ players, player }) => {
         <NameWrapper>
           <HeaderTypo>Tour</HeaderTypo>
         </NameWrapper>
-        <Title preset="H4" color="gray" textAlign="center">
-          01
+        <Title preset="H5" color="gray" textAlign="center">
+          {roundNumber.padStart(2, '0')}
         </Title>
       </RoundNumber>
     </Component>
@@ -62,7 +67,7 @@ const Component = styled(Container)`
   align-self: center;
   justify-content: center;
   width: 100%;
-  margin-top: 60px;
+  margin-top: ${MARGIN_TOP}px;
   z-index: 900;
 `
 
@@ -107,8 +112,8 @@ const StyledCircleImage = styled(CircleImage)`
 `
 
 const LargeCircleImage = styled(StyledCircleImage)`
-  width: 60px;
-  height: 60px;
+  width: 44px;
+  height: 44px;
   border: 4px solid ${Colors.beige};
   margin-right: 22px;
 `
@@ -118,7 +123,7 @@ const RoundNumber = styled(Container)`
   align-items: center;
   justify-content: center;
   min-width: 40px;
-  padding-top: 7px;
+  padding-top: 6px;
   padding-left: 2px;
   aspect-ratio: 1;
   border-radius: ${40}px;

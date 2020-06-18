@@ -1,17 +1,37 @@
 import React, { FC, useState } from 'react'
+import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import { useMutation } from '@apollo/react-hooks'
-import { Colors, Icon } from '@la-ferme/components/native'
-
-import { PopupType } from './Popups'
+import { Icon } from '@la-ferme/components/native'
+import { Player } from '@la-ferme/shared/typings'
 
 import Container from '@/components/shared/Container'
 
 import { STOP_GAME_MUTATION } from '@/graphql/game'
 
-const Menu: FC<any> = ({ player, setPopup }) => {
+import { PopupType } from './Popups'
+import useTheme from '@/hooks/useTheme'
+import { complementaries } from '@/utils/colors'
+
+export interface MenuProps {
+  player: Player
+  setPopup: (type: PopupType) => void
+}
+
+const MenuIcon: FC<any> = ({ onPress, ...style }) => {
+  return (
+    <IconContainer as={TouchableOpacity} onPress={onPress}>
+      <Icon {...style} />
+    </IconContainer>
+  )
+}
+
+const Menu: FC<MenuProps> = ({ player, setPopup }) => {
   const [visible, setVisible] = useState(false)
   const [stopGameMututation] = useMutation(STOP_GAME_MUTATION)
+  const { theme } = useTheme()
+
+  const color = complementaries[theme]
 
   const onShowPress = () => setVisible(true)
   const onHidePress = () => setVisible(false)
@@ -24,18 +44,39 @@ const Menu: FC<any> = ({ player, setPopup }) => {
   }
 
   return (
-    <Component>
+    <Component alignSelf="flex-end">
       {visible ? (
-        <VisibleWrapper>
-          <Icon icon="end" background="gray" onPress={onGameOverPress} />
-          <Icon icon="brigade" background="gray" onPress={onReportPress} />
-          <Icon icon="lightning" background="gray" onPress={onSkillPress} />
-          <Icon icon="cross" background="red" onPress={onHidePress} />
-        </VisibleWrapper>
+        <Group>
+          <MenuIcon icon="cross" background="red" onPress={onHidePress} />
+          <EndIconWrapper>
+            <MenuIcon
+              icon="end"
+              color={color === 'red' ? 'beige' : 'red'}
+              background={color}
+              onPress={onGameOverPress}
+            />
+          </EndIconWrapper>
+          <BrigadeIconWrapper>
+            <MenuIcon
+              icon="brigade"
+              color="beige"
+              background={color}
+              onPress={onReportPress}
+            />
+          </BrigadeIconWrapper>
+          <LightningIconWrapper>
+            <MenuIcon
+              icon="lightning"
+              color="beige"
+              background={color}
+              onPress={onSkillPress}
+            />
+          </LightningIconWrapper>
+        </Group>
       ) : (
-        <HiddenWrapper>
-          <Icon icon="plus" background="blue" onPress={onShowPress} />
-        </HiddenWrapper>
+        <Group>
+          <MenuIcon icon="plus" background={color} onPress={onShowPress} />
+        </Group>
       )}
     </Component>
   )
@@ -44,23 +85,34 @@ const Menu: FC<any> = ({ player, setPopup }) => {
 const Component = styled(Container)`
   position: absolute;
   bottom: 0;
+  right: 0;
+  padding: 22px 12px;
+  z-index: 2;
+`
+
+const IconContainer = styled(Container)``
+
+const AbsoluteIconWrapper = styled(Container)`
+  position: absolute;
+  top: 0;
   left: 0;
-  width: 100%;
 `
 
-const VisibleWrapper = styled(Container)`
-  flex-direction: row;
-  background-color: ${Colors.yellow};
-  padding: 22px 12px;
-  justify-content: space-between;
-  width: 100%;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
+const BrigadeIconWrapper = styled(AbsoluteIconWrapper)`
+  top: -100px;
 `
 
-const HiddenWrapper = styled(Container)`
+const LightningIconWrapper = styled(AbsoluteIconWrapper)`
+  top: -80px;
+  left: -80px;
+`
+
+const EndIconWrapper = styled(AbsoluteIconWrapper)`
+  left: -100px;
+`
+
+const Group = styled(Container)`
   margin-left: auto;
-  padding: 22px 12px;
 `
 
 export default Menu

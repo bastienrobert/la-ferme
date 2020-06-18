@@ -23,7 +23,8 @@ const Round: FC<any> = ({ data, player, ...rest }) => {
 const Component = styled(Container)`
   position: relative;
   flex: 1;
-  margin-top: 30px;
+  margin-top: 10px;
+  margin-bottom: 40px;
 `
 
 export default Round

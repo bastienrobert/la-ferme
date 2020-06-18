@@ -105,7 +105,7 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
 
   const onNfcIconPress = useCallback(async () => {
     if (!isNfcSupported.current) {
-      alert({ title: TRANSLATE_NFC_UNSUPPORTED })
+      alert.error(TRANSLATE_NFC_UNSUPPORTED)
     }
     if (Platform.OS === 'android') setAndroidNfcPopup(true)
 
@@ -113,7 +113,7 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
       await NfcManager.registerTagEvent()
     } catch (err) {
       console.warn(err)
-      alert({ title: TRANSLATE_NFC_UNSUPPORTED })
+      alert.error(TRANSLATE_NFC_UNSUPPORTED)
       onAndroidNfcPopupCancelPress()
     }
   }, [onAndroidNfcPopupCancelPress])
@@ -131,10 +131,16 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
       </TitleContainer>
       <ImagesWrapper>
         <TouchableImageContainer onPress={onNfcIconPress}>
-          <StyledImage source={require('@/assets/images/home/nfc.png')} />
+          <StyledImage
+            resizeMode="contain"
+            source={require('@/assets/images/home/nfc.png')}
+          />
         </TouchableImageContainer>
         <TouchableImageContainer onPress={onCameraIconPress}>
-          <StyledImage source={require('@/assets/images/home/qrcode.png')} />
+          <StyledImage
+            resizeMode="contain"
+            source={require('@/assets/images/home/qrcode.png')}
+          />
         </TouchableImageContainer>
       </ImagesWrapper>
       <ContentWrapper>
@@ -150,11 +156,9 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
           Scannez le QR code en ouvrant votre appareil photo.
         </Text>
       </ContentWrapper>
-      <QRCode
-        onSuccess={join}
-        onCancelPress={onQRCodeCancelPress}
-        visible={QRcode}
-      />
+      {QRcode && (
+        <QRCode onSuccess={join} onCancelPress={onQRCodeCancelPress} />
+      )}
       <AndroidNfcPopup
         onCancelPress={onAndroidNfcPopupCancelPress}
         visible={androidNfcPopup}

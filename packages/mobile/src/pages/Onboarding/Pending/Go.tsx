@@ -24,6 +24,7 @@ const Component = styled(FullContainer)`
   left: 0;
   width: 100%;
   height: 100%;
+  flex: 1;
   background-color: ${Colors.gray};
   z-index: 2;
 `

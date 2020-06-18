@@ -3,21 +3,28 @@ import { Animated, GestureResponderEvent } from 'react-native'
 import styled from 'styled-components/native'
 import { Colors, Icon } from '@la-ferme/components/native'
 
+import Background, { RATIO as BACKGROUND_RATIO } from './Background'
+import { SmallContent, LargeContent } from './Content'
 import Container from '@/components/shared/Container'
-import Text from '@/components/typo/Text'
 
 import { hexToRgba } from '@/utils/colors'
 
-export interface AlertContent {
+export type AlertContent = AlertInside & AlertOptions
+
+export interface AlertInside {
   title: string
   message?: string
 }
 
-export interface AlertProps extends AlertContent {
+interface AlertOptions {
+  large?: boolean
+}
+
+export interface AlertProps extends AlertContent, AlertOptions {
   onPress: (e?: GestureResponderEvent) => void
 }
 
-const Alert: FC<AlertProps> = ({ title, message, onPress }) => {
+const Alert: FC<AlertProps> = ({ onPress, large, ...content }) => {
   const overlayOpacity = useRef(new Animated.Value(0)).current
   const componentScale = useRef(new Animated.Value(1.15)).current
 
@@ -49,17 +56,13 @@ const Alert: FC<AlertProps> = ({ title, message, onPress }) => {
       <Component
         as={Animated.View}
         style={{ transform: [{ scale: componentScale }] }}>
+        <StyledBackground />
         <Wrapper alignSelf="center">
-          <TextContainer>
-            <Text color="gray" textAlign="center" variant="bold">
-              {title}
-            </Text>
-            {message && (
-              <Message size="small" color="gray" textAlign="center">
-                {message}
-              </Message>
-            )}
-          </TextContainer>
+          {large ? (
+            <LargeContent {...content} />
+          ) : (
+            <SmallContent {...content} />
+          )}
           <Container alignSelf="center">
             <Icon icon="cross" background="red" onPress={onIconPress} />
           </Container>
@@ -82,23 +85,26 @@ const Overlay = styled.View`
 `
 
 const Component = styled(Container)`
-  background-color: ${hexToRgba(Colors.beige, 0.9)};
+  align-items: center;
+  justify-content: center;
   border-radius: 13px;
   max-width: 300px;
   width: 90%;
+  aspect-ratio: ${BACKGROUND_RATIO};
   z-index: 999;
+`
+
+const StyledBackground = styled(Background)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
 `
 
 const Wrapper = styled(Container)`
   padding: 20px;
-`
-
-const TextContainer = styled(Container)`
-  margin-bottom: 30px;
-`
-
-const Message = styled(Text)`
-  margin-top: 10px;
 `
 
 export default Alert

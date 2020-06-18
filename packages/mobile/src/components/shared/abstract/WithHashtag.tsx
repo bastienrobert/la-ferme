@@ -7,7 +7,6 @@ import Container, { ContainerProps } from '../Container'
 import Hashtag from '@/components/typo/Hashtag'
 
 type WithHashtagAnchor = 'center' | 'right'
-type Offset = number
 
 export interface WithHashtagProps extends ContainerProps {
   hashtag: string[]
@@ -29,7 +28,10 @@ const getHashtagStyle = (
   const style: ViewStyle = {
     transform: [
       {
-        translateY: offset
+        translateX: offset.x ?? 0
+      },
+      {
+        translateY: offset.y ?? 0
       }
     ]
   }
@@ -49,7 +51,7 @@ const WithHashtag: FC<WithHashtagProps> = ({
   children,
   hashtag,
   hashtagColor,
-  hashtagOffset = 0,
+  hashtagOffset = {},
   anchor = 'center',
   ...props
 }) => {
@@ -64,7 +66,10 @@ const WithHashtag: FC<WithHashtagProps> = ({
       {children}
       <HashtagContainer
         onLayout={onLayout}
-        style={getHashtagStyle(layout, { anchor, offset: hashtagOffset })}>
+        style={getHashtagStyle(layout, {
+          anchor,
+          offset: hashtagOffset
+        })}>
         {hashtag.map((line, i) => (
           <Hashtag
             key={`title-hashtag-${i}`}

@@ -1,10 +1,8 @@
 import React, { FC, useEffect, useCallback } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import {
-  useFocusEffect,
-  RouteProp,
-  NavigationProp
-} from '@react-navigation/native'
+import { RouteProp, NavigationProp } from '@react-navigation/native'
+import { Colors } from '@la-ferme/components/native'
+import { characters } from '@la-ferme/shared/data'
 
 import { RootStackParamList } from '@/App/routes'
 
@@ -31,12 +29,6 @@ const Role: FC<OnboardingRoleProps> = ({ navigation }) => {
   const { setTheme } = useTheme()
   const [playerInfosMutation] = useMutation(SET_PLAYER_INFOS_MUTATION)
 
-  useFocusEffect(
-    useCallback(() => {
-      setTheme('red')
-    }, [setTheme])
-  )
-
   const gameInfosQuery = useQuery(GAME_INFOS_QUERY)
   const { player } = gameInfosQuery?.data ?? {}
 
@@ -46,6 +38,12 @@ const Role: FC<OnboardingRoleProps> = ({ navigation }) => {
   const userData = playerQuery?.data?.getPlayer
 
   const [playerReadyMutation, { data }] = useMutation(PLAYER_READY_MUTATION)
+
+  useEffect(() => {
+    if (!userData) return
+    const character = characters.find(c => userData.character === c.name)
+    setTheme(character.color as Colors.Theme)
+  }, [setTheme, userData])
 
   useEffect(() => {
     if (!data?.playerReady) return

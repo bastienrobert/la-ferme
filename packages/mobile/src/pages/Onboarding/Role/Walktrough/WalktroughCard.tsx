@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 import styled from 'styled-components/native'
+import { ScrollView, TouchableWithoutFeedback } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { Button } from '@la-ferme/components/native'
+import { Skill } from '@la-ferme/shared/typings'
 import { global as globalData } from '@la-ferme/shared/data'
 
 import WalktroughCardTitle from './WalktroughCardTitle'
@@ -14,7 +16,8 @@ import getCardImage from './getCardImage'
 import getCardBackground from './getCardBackground'
 import getCardData from './getCardData'
 import { shadow, inner } from '@/components/cards/cards.style'
-import { Skill } from '@la-ferme/shared/typings'
+
+import viewport from '@/services/viewport'
 
 export const content = globalData.role
 
@@ -40,10 +43,8 @@ const WalktroughCard: FC<WalktroughCardProps> = ({
   const { Up, Down, RATIO_UP, RATIO_DOWN } = getCardBackground(type)
   const data = getCardData(type, name)
 
-  const isGoal = type === 'goal'
-
   return (
-    <Component {...props}>
+    <Component alignSelf="center" {...props}>
       <TopStyledContainer style={{ aspectRatio: RATIO_UP }}>
         <StyledCard as={Up} />
         {type !== 'character' && (
@@ -62,20 +63,28 @@ const WalktroughCard: FC<WalktroughCardProps> = ({
       <BottomStyledContainer style={{ aspectRatio: RATIO_DOWN }}>
         <StyledCard as={Down} />
         <BottomInner>
-          <StyledTitleWithHashtag
-            alignSelf="center"
-            title={data.displayName}
-            titlePreset={isGoal ? 'H3' : 'H1'}
-            hashtag={[data.description]}
-            titleColor="gray"
-            hashtagColor="red"
-          />
-          <StyledText textAlign="center">{data.text}</StyledText>
-          {type === 'skill' && (
-            <StyledEffect preset="H5" textAlign="center">
-              {(data as Skill).effect}
-            </StyledEffect>
-          )}
+          <ScrollView alwaysBounceVertical={false}>
+            <TouchableWithoutFeedback>
+              <InsideScrollView>
+                <StyledTitleWithHashtag
+                  alignSelf="center"
+                  title={data.displayName}
+                  titlePreset={'H1'}
+                  hashtag={[data.description]}
+                  anchor="right"
+                  hashtagOffset={{ x: 30, y: 10 }}
+                  titleColor="gray"
+                  hashtagColor="red"
+                />
+                <StyledText textAlign="center">{data.text}</StyledText>
+                {type === 'skill' && (
+                  <StyledEffect preset="H5" textAlign="center">
+                    {(data as Skill).effect}
+                  </StyledEffect>
+                )}
+              </InsideScrollView>
+            </TouchableWithoutFeedback>
+          </ScrollView>
           {onPress && (
             <ButtonContainer alignSelf="center">
               <Button variant="secondary" onPress={onPress}>
@@ -91,13 +100,14 @@ const WalktroughCard: FC<WalktroughCardProps> = ({
 
 export default WalktroughCard
 
-const Component = styled(Container)`
-  width: 90%;
-  height: 100%;
-  margin: auto;
+const Component = styled(Container)<any>`
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto 10px;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  aspect-ratio: ${352 / 610};
 `
 
 const TopStyledContainer = styled(Container)`
@@ -120,7 +130,10 @@ const BigImage = styled(FastImage)`
 
 const BottomInner = styled(Container)`
   ${inner}
-  padding: 28px 26px;
+  ${viewport.width > 400 &&
+  `
+    padding: 26px 26px 0 26px;
+  `}
 `
 
 const BottomStyledContainer = styled(Container)`
@@ -135,17 +148,27 @@ const JustArrived = styled.Image`
 `
 
 const StyledTitleWithHashtag = styled(TitleWithHashtag)`
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `
 
 const StyledText = styled(Text)`
   margin-bottom: 20px;
 `
 
-const StyledEffect = styled(Title)``
+const StyledEffect = styled(Title)`
+  margin-top: 20px;
+`
+
+const InsideScrollView = styled.View`
+  ${viewport.width < 400 &&
+  `
+    transform: scale(.8);
+  `}
+`
 
 const ButtonContainer = styled(Container)`
   margin-top: auto;
+  margin-bottom: 26px;
 `
 
 const StyledCard = styled(Container)`

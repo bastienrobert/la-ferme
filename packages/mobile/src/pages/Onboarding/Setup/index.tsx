@@ -1,10 +1,6 @@
-import React, { FC, useState, useCallback } from 'react'
+import React, { FC, useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components/native'
-import {
-  useFocusEffect,
-  RouteProp,
-  NavigationProp
-} from '@react-navigation/native'
+import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { Button } from '@la-ferme/components/native'
 import { global as globalData } from '@la-ferme/shared/data'
 
@@ -36,12 +32,10 @@ const Setup: FC<OnboardingSetupProps> = ({ navigation }) => {
   const { setTheme } = useTheme()
   const [paused, setPaused] = useState(false)
 
-  useFocusEffect(
-    useCallback(() => {
-      setTheme('beige')
-      return () => setPaused(true)
-    }, [setTheme])
-  )
+  useEffect(() => {
+    setTheme('beige')
+    return () => setPaused(true)
+  }, [setTheme])
 
   const onSkipPress = useCallback(() => {
     navigation.navigate('Onboarding:Role')

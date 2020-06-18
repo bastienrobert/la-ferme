@@ -39,8 +39,8 @@ export type RootStackParamList = {
 }
 
 export default {
-  base: 'Samples',
-  // base: 'Introduction',
+  // base: 'Samples',
+  base: 'Introduction',
   pages: [
     {
       name: 'Introduction',

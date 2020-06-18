@@ -70,6 +70,13 @@ export default {
         'Vous pouvez avancer d’une case ou tourner une case autour de vous.',
       cta_ok: 'OKÉÉÉ'
     },
-    playerChoice: {}
+    playerChoice: {},
+    spectator: {
+      title_1: 'joue son',
+      title_2: 'tour',
+      warning: 'soyez attentif aux actions des autres joueurs !',
+      new_step: 'peut décider d’avancer ou de tourner une case autour de lui.',
+      card_step: 'choisit une carte coup de boule ou coup de pouce.'
+    }
   }
 }

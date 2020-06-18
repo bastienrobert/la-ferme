@@ -15,17 +15,16 @@ import FullContainer from '@/components/shared/FullContainer'
 export const content = globalData.general
 
 export interface QRCodeProps {
-  visible: boolean
   onSuccess: (boxID: any) => void
   onCancelPress: () => void
 }
 
-const QRCode: FC<QRCodeProps> = ({ visible, onSuccess, onCancelPress }) => {
+const QRCode: FC<QRCodeProps> = ({ onSuccess, onCancelPress }) => {
   const onRead = (e: QRCodeScannerEvent) => {
     onSuccess(e.data)
   }
 
-  return visible ? (
+  return (
     <Component as={Animated.View}>
       <CameraContainer>
         <QRCodeScanner
@@ -52,7 +51,7 @@ const QRCode: FC<QRCodeProps> = ({ visible, onSuccess, onCancelPress }) => {
         </ButtonContainer>
       </ButtonView>
     </Component>
-  ) : null
+  )
 }
 
 const Component = styled(FullContainer)`

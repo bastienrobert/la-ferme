@@ -9,6 +9,7 @@ const Header: FC<OnlyChildProps> = ({ children }) => {
       color="beige"
       family="futura"
       variant="bold"
+      size="small"
       textTransform="uppercase">
       {children}
     </Typo>

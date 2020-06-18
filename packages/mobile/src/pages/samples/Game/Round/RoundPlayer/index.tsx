@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import styled from 'styled-components/native'
 import { Player } from '@la-ferme/shared/typings'
 
-// import PickCard from './PickCard'
+// import CardStep from '@/components/shared/CardStep'
 // import ForwardOrTurn from './ForwardOrTurn'
 import PlayerChoice from './PlayerChoice'
 import FullContainer from '@/components/shared/FullContainer'
@@ -16,7 +16,7 @@ export interface RoundPlayerProps {
 const RoundPlayer: FC<RoundPlayerProps> = props => {
   return (
     <Component>
-      {/* <PickCard character="peter" /> */}
+      {/* <CardStep {...props} /> */}
       {/* <ForwardOrTurn player={player} onSubmit={() => console.log('HELLO')} /> */}
       <PlayerChoice {...props} />
     </Component>

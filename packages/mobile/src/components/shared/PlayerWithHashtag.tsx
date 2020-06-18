@@ -7,7 +7,9 @@ import WithHashtag, { WithHashtagProps } from './abstract/WithHashtag'
 import { complementaries } from '@/utils/colors'
 import { charactersByName } from '@/utils/helpers/players'
 
-export type PlayerWithHashtagProps = WithHashtagProps & PlayerWithColorProps
+type WithHashtagPropsOmited = Omit<WithHashtagProps, 'hashtag' | 'hashtagColor'>
+export type PlayerWithHashtagProps = WithHashtagPropsOmited &
+  PlayerWithColorProps
 
 const PlayerWithHashtag: FC<PlayerWithHashtagProps> = ({
   character,

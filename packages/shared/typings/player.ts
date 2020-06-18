@@ -16,7 +16,6 @@ export interface Player {
 export interface Character {
   name: string
   color: string
-  secondaryColor: string
   displayName: string
   description: string
   gender: Gender

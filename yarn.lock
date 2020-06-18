@@ -15143,6 +15143,13 @@ path-exists@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-exists/-/path-exists-4.0.0.tgz#513bdbe2d3b95d7762e8c1137efa195c6c61b5b3"
   integrity sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==
 
+path-interpolation@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/path-interpolation/-/path-interpolation-1.0.2.tgz#505d915d8a5f12b077bb62fb97b0e707b866592a"
+  integrity sha512-+ZdFP3TruMaZw6T/z6T1c1lXnlBMA7YSOe7Qg8Ad60nuwee7s1w0dEAzT7gxSWV+ZzsroVgPqeObUREzghkC/Q==
+  dependencies:
+    svg-path-properties "^1.0.4"
+
 path-is-absolute@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
@@ -18907,6 +18914,11 @@ svg-parser@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/svg-parser/-/svg-parser-2.0.4.tgz#fdc2e29e13951736140b76cb122c8ee6630eb6b5"
   integrity sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==
+
+svg-path-properties@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/svg-path-properties/-/svg-path-properties-1.0.4.tgz#e608f38d6e680d8636d0debed0d069b7fee10eeb"
+  integrity sha512-yoiTZOP37EFt6GetaQlN4IIqUWZSn3i+pMztDg3OtTNwoU0a+0+o7os3PK+UT2nsS115vr02VG4HIzMEVcTzFg==
 
 svg-tags@^1.0.0:
   version "1.0.0"

@@ -36,7 +36,7 @@ const Poster: FC<PosterProps> = ({ src, alt, featured, ...props }) => {
   )
 }
 
-const Component = styled.div`
+const Component = styled.div<any>`
   position: relative;
   width: 400px;
   max-width: 100%;

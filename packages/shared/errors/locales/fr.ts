@@ -1,4 +1,5 @@
 export default {
+  _title: 'oupsi',
   unknown:
     "Côt côôôôôt côôdec ? Quelque chose d'anormal vient de se produire !",
   not_allowed: 'Coâ ? Je crois que tu ne peux pas faire ça !',

@@ -5,7 +5,7 @@ import LottieView from 'lottie-react-native'
 
 import Container from '@/components/shared/Container'
 import FullContainer from '@/components/shared/FullContainer'
-import TitleWithHastag from '@/components/shared/TitleWithHashtag'
+import TitleWithHashtag from '@/components/shared/TitleWithHashtag'
 import PlayersReady from '@/components/shared/PlayersReady'
 import Text from '@/components/typo/Text'
 
@@ -21,11 +21,11 @@ const Pending = () => {
     <>
       <Component>
         <Container alignSelf="center">
-          <TitleWithHastag
+          <TitleWithHashtag
             anchor="right"
             titleColor="beige"
             hashtagColor="yellow"
-            hashtagOffset={40}
+            hashtagOffset={{ x: 40 }}
             {...content.title}
           />
         </Container>

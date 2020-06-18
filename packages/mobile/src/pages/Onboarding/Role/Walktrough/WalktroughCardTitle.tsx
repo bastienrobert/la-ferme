@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { SvgProps } from 'react-native-svg'
+import styled from 'styled-components/native'
 
 import { WalktroughCardType } from './WalktroughCard'
 
@@ -21,9 +22,13 @@ const WalktroughCardTitle: FC<WalktroughCardTitleProps> = ({
   type,
   ...props
 }) => {
-  const Component = titles[type]
+  const C = titles[type]
 
-  return <Component {...props} />
+  return <Component as={C} {...props} />
 }
+
+const Component = styled.View`
+  max-width: 90%;
+`
 
 export default WalktroughCardTitle

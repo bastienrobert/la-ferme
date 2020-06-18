@@ -1,10 +1,6 @@
 import React, { FC, useState, useEffect, useCallback, useMemo } from 'react'
 import styled from 'styled-components/native'
-import {
-  useFocusEffect,
-  RouteProp,
-  NavigationProp
-} from '@react-navigation/native'
+import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { useQuery, useSubscription } from '@apollo/react-hooks'
 import FastImage from 'react-native-fast-image'
 import LottieView from 'lottie-react-native'
@@ -15,7 +11,7 @@ import { RootStackParamList } from '@/App/routes'
 import Go from './Go'
 import Container from '@/components/shared/Container'
 import FullContainer from '@/components/shared/FullContainer'
-import TitleWithHastag from '@/components/shared/TitleWithHashtag'
+import TitleWithHashtag from '@/components/shared/TitleWithHashtag'
 import PlayersReady from '@/components/shared/PlayersReady'
 import Text from '@/components/typo/Text'
 
@@ -44,13 +40,11 @@ export interface OnboardingPendingProps {
 
 const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
   const { setTheme } = useTheme()
-  const [ready, setReady] = useState(true)
+  const [ready, setReady] = useState(false)
 
-  useFocusEffect(
-    useCallback(() => {
-      setTheme('gray')
-    }, [setTheme])
-  )
+  useEffect(() => {
+    setTheme('gray')
+  }, [setTheme])
 
   const gameInfosQuery = useQuery(GAME_PLAYER_INFOS_QUERY)
   const { gameUUID, player } = gameInfosQuery?.data ?? {}
@@ -73,24 +67,25 @@ const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
   }, [player, players])
 
   useEffect(() => {
+    if (!ready) return
     setTimeout(() => navigation.navigate('Game:Main', { players }), 2000)
-  }, [navigation, players])
+  }, [ready, navigation, players])
 
   const onEveryReady = useCallback(() => {
     setReady(true)
   }, [setReady])
 
   return (
-    <Component>
-      <Container alignSelf="center">
-        <TitleWithHastag
+    <FullContainer>
+      <TopContainer alignSelf="center">
+        <TitleWithHashtag
           anchor="right"
           titleColor="beige"
           hashtagColor="yellow"
-          hashtagOffset={40}
+          hashtagOffset={{ y: 40 }}
           {...content.title}
         />
-      </Container>
+      </TopContainer>
       <ImageContainer>
         <BackgroundAnimation
           source={require('@/assets/lottie/pending_numbers.json')}
@@ -113,11 +108,11 @@ const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
       </TextContainer>
       <PlayersReady onEveryReady={onEveryReady} players={players} />
       {ready && <Go />}
-    </Component>
+    </FullContainer>
   )
 }
 
-const Component = styled(FullContainer)`
+const TopContainer = styled(Container)`
   margin-top: 90px;
 `
 

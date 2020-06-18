@@ -140,15 +140,16 @@ export default Walktrough
 
 const Component = styled(FullContainer)`
   flex: 1;
-  margin-bottom: 30px;
+  padding-top: 10px;
+  padding-bottom: 20px;
 `
 
 const CardContainer = styled(Container)`
-  position: relative;
   flex: 1;
+  height: 100%;
   width: 100%;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 `
 
 const StyledView = styled.View`

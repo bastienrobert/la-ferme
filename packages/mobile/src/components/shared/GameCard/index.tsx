@@ -1,14 +1,15 @@
 import React, { FC } from 'react'
 import styled from 'styled-components/native'
 import FastImage from 'react-native-fast-image'
-import { Button } from '@la-ferme/components/native'
 import { global as globalData } from '@la-ferme/shared/data'
-import { Player } from '@la-ferme/shared/typings'
+import { getCard } from '@la-ferme/shared/data/cards'
+import { Player, RoundChoice } from '@la-ferme/shared/typings'
 
+import CardTextContent from './CardTextContent'
+import CardSelectContent from './CardSelectContent'
 import Container, { ContainerProps } from '@/components/shared/Container'
-import PlayerSelect from '@/components/shared/PlayerSelect'
 import Title from '@/components/typo/Title'
-import Text from '@/components/typo/Text'
+import PlayerWithColor from '@/components/shared/PlayerWithColor'
 
 import CardGameUp, {
   RATIO as CARD_GAME_UP_RATIO
@@ -17,61 +18,74 @@ import CardGameDown, {
   RATIO as CARD_GAME_DOWN_RATIO
 } from '@/components/cards/game/down'
 
+import getBackgroundImage from './getBackgroundImage'
+import getAnimation from './getAnimation'
 import { shadow, inner } from '@/components/cards/cards.style'
+import { getAllExceptCurrent } from '@/utils/helpers/players'
 
 export const content = globalData.role
 
-export type GameCardType = 'civil' | 'uncivil'
-
 export interface GameCardProps extends ContainerProps {
   name: string
-  type: GameCardType
+  choice: RoundChoice
   player: Player
   players: Player[]
-  self: boolean
+  type: GameCardType
+  onPress?: () => void
+  onPlayerSelect?: (player: Player) => void
+}
+
+export enum GameCardType {
+  Spectator = 1,
+  Select,
+  Confirm
 }
 
 const GameCard: FC<GameCardProps> = ({
   name,
-  type,
+  choice,
   player,
   players,
-  self,
+  type,
+  onPress,
+  onPlayerSelect,
   ...props
 }) => {
+  const card = getCard(name)
+  const self = type !== GameCardType.Spectator
+
   return (
     <Component {...props}>
       <TopStyledContainer style={{ aspectRatio: CARD_GAME_UP_RATIO }}>
         <StyledCard as={CardGameUp} />
         <BigImage
-          source={require('@/assets/images/role/animations/characters/isabelle.webp')}
+          source={getAnimation(player.character, { choice, malus: false })}
           resizeMode={FastImage.resizeMode.contain}
         />
         <BackgroundImage
-          source={require('@/assets/images/game/pick/civil.png')}
+          source={getBackgroundImage(choice)}
           resizeMode={FastImage.resizeMode.contain}
         />
         <TopInner>
-          <Title preset="H3" textAlign="center">
-            Choix
-          </Title>
+          <TitleContainer>
+            {!self && (
+              <PlayerWithColor size="small" character={player.character} />
+            )}
+            <Title preset="H3">{self ? 'Choix' : ' choisi'}</Title>
+          </TitleContainer>
         </TopInner>
       </TopStyledContainer>
       <BottomStyledContainer style={{ aspectRatio: CARD_GAME_DOWN_RATIO }}>
         <StyledCard as={CardGameDown} />
         <BottomInner>
-          {/* <Description textAlign="center">
-            Aujourd'hui, Monsieur Lane fait sa tête de mûle et ne veut pas cèder
-            sa place prioritaire. Vous cedez votre place à Madame Henriette la
-            biquette et elle vous remercie.
-          </Description> */}
-          {/* <Title preset="H5" textAlign="center">
-            Vous avancez de 2 cases !
-          </Title>
-          <ButtonContainer alignSelf="center">
-            <Button variant="secondary">Okéé</Button>
-          </ButtonContainer> */}
-          <PlayerSelect players={players} confirmation onPress={() => {}} />
+          {type === GameCardType.Select ? (
+            <CardSelectContent
+              onPress={onPlayerSelect}
+              players={getAllExceptCurrent(players, player)}
+            />
+          ) : (
+            <CardTextContent onPress={onPress} />
+          )}
         </BottomInner>
       </BottomStyledContainer>
     </Component>
@@ -81,12 +95,13 @@ const GameCard: FC<GameCardProps> = ({
 export default GameCard
 
 const Component = styled(Container)`
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   margin: auto;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  aspect-ratio: ${352 / 629};
 `
 
 const BigImage = styled(FastImage)`
@@ -117,6 +132,13 @@ const TopInner = styled(Container)`
   padding: 43px 12px;
 `
 
+const TitleContainer = styled(Container)`
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+`
+
 const BottomInner = styled(Container)`
   ${inner}
   padding: 28px 26px;
@@ -134,12 +156,4 @@ const StyledCard = styled(Container)`
   top: 0;
   left: 0;
   ${shadow}
-`
-
-const ButtonContainer = styled(Container)`
-  margin-top: auto;
-`
-
-const Description = styled(Text)`
-  margin-bottom: 12px;
 `

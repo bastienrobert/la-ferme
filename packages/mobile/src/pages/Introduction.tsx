@@ -1,10 +1,6 @@
-import React, { FC, useState, useCallback } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import styled from 'styled-components/native'
-import {
-  useFocusEffect,
-  RouteProp,
-  NavigationProp
-} from '@react-navigation/native'
+import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { Button } from '@la-ferme/components/native'
 import { global as globalData } from '@la-ferme/shared/data'
 
@@ -33,12 +29,10 @@ const Introduction: FC<IntroductionProps> = ({ navigation }) => {
   const { setTheme } = useTheme()
   const [paused, setPaused] = useState(false)
 
-  useFocusEffect(
-    useCallback(() => {
-      setTheme('gray')
-      return () => setPaused(true)
-    }, [setTheme])
-  )
+  useEffect(() => {
+    setTheme('gray')
+    return () => setPaused(true)
+  }, [setTheme])
 
   const onSkipPress = () => {
     navigation.navigate('Home:Main')
