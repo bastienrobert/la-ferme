@@ -3,10 +3,10 @@ import styled from 'styled-components/native'
 import Video, { VideoProperties } from 'react-native-video'
 
 const FullscreenVideo: FC<VideoProperties> = props => {
-  return <StyledVideo resizeMode="cover" {...props} />
+  return <Component resizeMode="cover" {...props} />
 }
 
-const StyledVideo = styled(Video)`
+const Component = styled(Video)`
   position: absolute;
   top: 0;
   left: 0;

@@ -1,54 +1,38 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
+import styled from 'styled-components/native'
 import { Player } from '@la-ferme/shared/typings'
-import { Button } from '@la-ferme/components/native'
 
-import Container from '@/components/shared/Container'
-import Text from '@/components/typo/Text'
-import CircleImage from '@/components/shared/CircleImage'
+import Container from './Container'
+import PlayerImage from './PlayerImage'
 
 export interface PlayerSelectProps {
   players: Player[]
   onPress: (player: Player) => void
-  confirmation?: boolean
 }
 
-const PlayerSelect: FC<PlayerSelectProps> = ({
-  players,
-  confirmation,
-  onPress
-}) => {
-  const [data, setData] = useState<Player>()
-
-  const onImagePress = (player: Player) => {
-    if (confirmation) setData(player)
-    else onPress(player)
-  }
-
-  const onButtonPress = () => {
-    onPress(data)
-  }
-
+const PlayerSelect: FC<PlayerSelectProps> = ({ players, onPress }) => {
   return (
-    <Container>
+    <Component alignSelf="center">
       {players.map((player, i) => {
         return (
-          <>
-            <Text color="beige">{player.character}</Text>
-            <CircleImage
-              key={i}
-              source={require('@/assets/tmp/leon_icone.png')}
-              onPress={() => onImagePress(player)}
-            />
-          </>
+          <IconWrapper key={i}>
+            <PlayerImage player={player} onPress={() => onPress(player)} />
+          </IconWrapper>
         )
       })}
-      {confirmation && <Button onPress={onButtonPress} />}
-    </Container>
+    </Component>
   )
 }
 
-PlayerSelect.defaultProps = {
-  confirmation: false
-}
+const Component = styled(Container)`
+  max-width: 90%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`
+
+const IconWrapper = styled(Container)`
+  margin: 0 15px;
+`
 
 export default PlayerSelect

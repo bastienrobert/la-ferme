@@ -1,3 +1,3 @@
-export { default as Button } from './Button/index'
-export { default as Typo } from './Typo/index'
-export { default as Icon } from './Icon/index'
+export * from './Button/index'
+export * from './Typo/index'
+export * from './Icon/index'

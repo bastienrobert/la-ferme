@@ -4,7 +4,9 @@ const uncivil: Card[] = [
   // {
   //   name: 'new-route',
   //   displayName: 'Nouvel itinéraire',
-  //   text:
+  //   playerText:
+  //     "Monsieur Caramel paraît doux au premier bord. C'est pourtant lui qui a crevé les pneux de tous les velibs de votre station, pour le fun.",
+  //   viewerText:
   //     "Monsieur Caramel paraît doux au premier bord. C'est pourtant lui qui a crevé les pneux de tous les velibs de votre station, pour le fun.",
   //   reward: {
   //     type: CardRewardType.Turn,
@@ -18,7 +20,9 @@ const uncivil: Card[] = [
   // {
   //   name: 'fiesta',
   //   displayName: 'Fiesta!',
-  //   text:
+  //   playerText:
+  //     "C'est la fièvre du samedi soir chez votre voisinne! Vous montez sur vos grands chevaux et décidez d'appeler la brigade!",
+  //   viewerText:
   //     "C'est la fièvre du samedi soir chez votre voisinne! Vous montez sur vos grands chevaux et décidez d'appeler la brigade!",
   //   reward: {
   //     type: CardRewardType.Backward,
@@ -33,7 +37,9 @@ const uncivil: Card[] = [
   // {
   //   name: 'on-the-dock',
   //   displayName: 'Sur le quai',
-  //   text:
+  //   playerText:
+  //     'Chèr(e) voyageur le train rentre à quai gare de Lion. Monsieur Bourguignon ne laisse pas les passagers descendre et force le passage comme un boeuf. Les portes se referment, vous avez raté votre arrêt.',
+  //   viewerText:
   //     'Chèr(e) voyageur le train rentre à quai gare de Lion. Monsieur Bourguignon ne laisse pas les passagers descendre et force le passage comme un boeuf. Les portes se referment, vous avez raté votre arrêt.',
   //   reward: {
   //     type: CardRewardType.Restart,
@@ -44,7 +50,9 @@ const uncivil: Card[] = [
   {
     name: 'double-in-the-queue',
     displayName: 'Doubler dans la file d’attente',
-    text:
+    playerText:
+      'Monsieur Ponpon est très en retard. Hop! Ni vu ni connu il fait des petits bonds et vous double dans la file du supermarché aux champs.',
+    viewerText:
       'Monsieur Ponpon est très en retard. Hop! Ni vu ni connu il fait des petits bonds et vous double dans la file du supermarché aux champs.',
     reward: {
       type: CardRewardType.LoseRound,

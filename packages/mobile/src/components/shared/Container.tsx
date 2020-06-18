@@ -1,23 +1,27 @@
-import React, { FC } from 'react'
-import { ViewStyle } from 'react-native'
+import React, { FC, forwardRef, Ref } from 'react'
+import { View, ViewProps } from 'react-native'
 import styled from 'styled-components/native'
 
 import { AlignSelfProperty } from 'csstype'
 
-export interface ContainerProps {
+export interface ContainerProps extends ViewProps {
   /** Any react object */
-  children: any
+  children?: any
   /** How you want to align your items */
   alignSelf?: AlignSelfProperty
-  /** Custom inline style */
-  style?: ViewStyle
+  /** Forwarded ref */
+  innerRef?: Ref<View>
 }
 
-const Container: FC<ContainerProps> = ({ children, ...style }) => {
-  return <StyledView {...style}>{children}</StyledView>
+const Container: FC<ContainerProps> = ({ children, innerRef, ...style }) => {
+  return (
+    <Component ref={innerRef} {...style}>
+      {children}
+    </Component>
+  )
 }
 
-const StyledView = styled.View<ContainerProps>`
+const Component = styled.View<ContainerProps>`
   align-self: ${props => props.alignSelf};
 `
 
@@ -25,4 +29,6 @@ Container.defaultProps = {
   alignSelf: 'flex-start'
 }
 
-export default Container
+export default forwardRef<View, ContainerProps>((props, ref: Ref<View>) => (
+  <Container innerRef={ref} {...props} />
+))

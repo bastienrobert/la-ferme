@@ -10,6 +10,11 @@ import FuturaLTBookWOFF2 from '../assets/fonts/FuturaLT/FuturaLT-Book.woff2'
 import FuturaLTBookWOFF from '../assets/fonts/FuturaLT/FuturaLT-Book.woff'
 import FuturaLTBookTTF from '../assets/fonts/FuturaLT/FuturaLT-Book.ttf'
 
+import FuturaLTBoldEOT from '../assets/fonts/FuturaLT/FuturaLT-Bold.eot'
+import FuturaLTBoldWOFF2 from '../assets/fonts/FuturaLT/FuturaLT-Bold.woff2'
+import FuturaLTBoldWOFF from '../assets/fonts/FuturaLT/FuturaLT-Bold.woff'
+import FuturaLTBoldTTF from '../assets/fonts/FuturaLT/FuturaLT-Bold.ttf'
+
 import THANKYOUKOBEEOT from '../assets/fonts/THANKYOUKOBE/THANKYOUKOBE.eot'
 import THANKYOUKOBEWOFF2 from '../assets/fonts/THANKYOUKOBE/THANKYOUKOBE.woff2'
 import THANKYOUKOBEWOFF from '../assets/fonts/THANKYOUKOBE/THANKYOUKOBE.woff'
@@ -23,7 +28,7 @@ export default createGlobalStyle`
         url(${BowlbyOneSCRegularWOFF2}) format('woff2'),
         url(${BowlbyOneSCRegularWOFF}) format('woff'),
         url(${BowlbyOneSCRegularTTF}) format('truetype');
-    font-weight: 400;
+    font-weight: normal;
     font-style: normal;
   }
     
@@ -34,7 +39,18 @@ export default createGlobalStyle`
         url(${FuturaLTBookWOFF}) format('woff2'),
         url(${FuturaLTBookWOFF2}) format('woff'),
         url(${FuturaLTBookTTF}) format('truetype');
-    font-weight: 400;
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'FuturaLT-Bold';
+    src: url(${FuturaLTBoldEOT});
+    src: url('${FuturaLTBoldEOT}?#iefix') format('embedded-opentype'),
+        url(${FuturaLTBoldWOFF}) format('woff2'),
+        url(${FuturaLTBoldWOFF2}) format('woff'),
+        url(${FuturaLTBoldTTF}) format('truetype');
+    font-weight: bold;
     font-style: normal;
   }
 
@@ -45,7 +61,7 @@ export default createGlobalStyle`
         url(${THANKYOUKOBEWOFF2}) format('woff2'),
         url(${THANKYOUKOBEWOFF}) format('woff'),
         url(${THANKYOUKOBETTF}) format('truetype');
-    font-weight: 400;
+    font-weight: normal;
     font-style: normal;
   }
 `

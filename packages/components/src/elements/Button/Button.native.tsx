@@ -1,21 +1,22 @@
 import React, { FC } from 'react'
+import { GestureResponderEvent } from 'react-native'
 import styled from 'styled-components/native'
 
 import Background from './Background.native'
 import {
-  ButtonProps,
+  ButtonSharedProps,
   variants,
   defaultSize,
   defaultVariant
 } from './Button.shared'
 import styles from './Button.styles'
 
-export interface NativeButtonProps extends ButtonProps {
+export interface ButtonProps extends ButtonSharedProps {
   /** Callback on press */
-  onPress: (e) => void
+  onPress: (e?: GestureResponderEvent) => void
 }
 
-const Button: FC<NativeButtonProps> = ({
+const Button: FC<ButtonProps> = ({
   children,
   variant,
   onPress,
@@ -32,7 +33,7 @@ const Button: FC<NativeButtonProps> = ({
   )
 }
 
-const ButtonContainer = styled.TouchableOpacity<any>`
+const ButtonContainer = styled.TouchableOpacity`
   ${styles.box()}
 `
 
@@ -59,4 +60,4 @@ Button.defaultProps = {
   variant: defaultVariant
 }
 
-export default Button
+export { Button }

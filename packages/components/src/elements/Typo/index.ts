@@ -1,3 +1,2 @@
-export * from './Typo.shared'
-export { default } from './Typo'
+export { PresetOptions } from './Typo.shared'
 export * from './Typo'

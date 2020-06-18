@@ -14,8 +14,6 @@ const styles = {
     `,
     wrapper: css`
       display: flex;
-      width: 26px;
-      height: 26px;
       justify-content: center;
       align-items: center;
     `,

@@ -2,10 +2,10 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
-import Icon, { WebIconProps } from './'
+import { Icon, IconProps } from './'
 
 // LOCAL INTERFACES
-interface ClosureOption extends Partial<WebIconProps> {
+interface ClosureOption extends Partial<IconProps> {
   children?: string
 }
 

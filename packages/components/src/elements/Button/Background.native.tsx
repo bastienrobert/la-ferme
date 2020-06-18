@@ -19,6 +19,7 @@ const Background: FC<ButtonBackgroundProps> = ({ color }) => {
 
 const SVG = styled(Svg)`
   ${styles.commons.background}
+  ${styles.native.background}
 `
 
 export default Background

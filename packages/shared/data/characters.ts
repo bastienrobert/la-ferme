@@ -5,7 +5,6 @@ const characters: Character[] = [
     name: 'monique',
     displayName: 'Monique',
     color: 'pink',
-    secondaryColor: 'blue',
     description: '#la vieille bique',
     gender: Gender.Female,
     text:
@@ -15,7 +14,6 @@ const characters: Character[] = [
     name: 'leon',
     displayName: 'Léon',
     color: 'blue',
-    secondaryColor: 'yellow',
     description: '#la boule de coton',
     gender: Gender.Male,
     text:
@@ -25,7 +23,6 @@ const characters: Character[] = [
     name: 'peter',
     displayName: 'Peter',
     color: 'yellow',
-    secondaryColor: 'blue',
     description: '#le globe-trotter',
     gender: Gender.Male,
     text:
@@ -35,8 +32,7 @@ const characters: Character[] = [
     name: 'isabelle',
     displayName: 'Isabelle',
     color: 'red',
-    secondaryColor: 'yellow',
-    description: '#la rebêeellle',
+    description: '#la rebeeellle',
     gender: Gender.Female,
     text:
       'Isabelle n’est pas commode. N’allez pas lui cherchez des poux où elle vous enverra vous faire tondre. Après tout, les béliers sont connus pour leur caractère bien trempé.'

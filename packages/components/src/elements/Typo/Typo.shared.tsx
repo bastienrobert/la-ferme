@@ -1,8 +1,8 @@
 import { Fonts, Colors } from '@/theme'
 
-export interface TypoOptions {
+export interface TypoSharedProps {
   /** The size of the text */
-  size?: Fonts.SizeOption
+  size?: string | number
   /** The color of the text */
   color?: Colors.Typo
   /** The font family of the text */
@@ -15,37 +15,47 @@ export interface TypoOptions {
   textAlign?: Fonts.TextAlignOption
 }
 
-export interface TypoProps extends TypoOptions {
-  children: JSX.Element
-}
+export type StaticProps = { presets: Presets }
 
-const H1: TypoOptions = {
+const H1: TypoSharedProps = {
   size: 'h1',
   family: 'bowlby',
   textTransform: 'uppercase'
 }
 
-const H2: TypoOptions = {
+const H2: TypoSharedProps = {
   size: 'h2',
   family: 'bowlby',
   textTransform: 'uppercase'
 }
 
-const H3: TypoOptions = {
+const H3: TypoSharedProps = {
   size: 'h3',
   family: 'bowlby',
   textTransform: 'uppercase'
 }
 
-const H4: TypoOptions = {
+const H4: TypoSharedProps = {
   size: 'h4',
   family: 'bowlby',
   textTransform: 'uppercase'
 }
 
-export type PresetOptions = 'H1' | 'H2' | 'H3' | 'H4'
-export type Presets = {
-  [key in PresetOptions]: TypoOptions
+const H5: TypoSharedProps = {
+  size: 'h5',
+  family: 'bowlby',
+  textTransform: 'uppercase'
 }
 
-export const presets: Presets = { H1, H2, H3, H4 }
+const TAG: TypoSharedProps = {
+  size: 'h4',
+  family: 'kobe',
+  textTransform: 'uppercase'
+}
+
+export type PresetOptions = 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'TAG'
+export type Presets = {
+  [key in PresetOptions]: TypoSharedProps
+}
+
+export const presets: Presets = { H1, H2, H3, H4, H5, TAG }

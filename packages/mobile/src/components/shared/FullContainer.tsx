@@ -11,13 +11,13 @@ const FullContainer: FC<FullContainerProps> = ({
   ...style
 }) => {
   return (
-    <StyledView alignSelf={alignSelf} {...style}>
+    <Component alignSelf={alignSelf} {...style}>
       {children}
-    </StyledView>
+    </Component>
   )
 }
 
-const StyledView = styled(Container)`
+const Component = styled(Container)`
   flex: 1;
 `
 

@@ -1,24 +1,25 @@
 import React, { FC } from 'react'
 import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { Typo, Button } from '@la-ferme/components/native'
+import { Player as PlayerType } from '@la-ferme/shared/typings'
 
 import { RootStackParamList } from '@/App/routes'
 
 import Container from '@/components/shared/Container'
 
 export interface GameOverParams {
-  winner: string
+  winner: PlayerType
 }
 
-type GameRouteProp = RouteProp<RootStackParamList, 'Game:GameOver'>
-type GameNavigationProp = NavigationProp<RootStackParamList, 'Game:GameOver'>
+type GameOverRouteProp = RouteProp<RootStackParamList, 'Game:Over'>
+type GameOverNavigationProp = NavigationProp<RootStackParamList, 'Game:Over'>
 
 export interface GameOverProps {
-  route: GameRouteProp
-  navigation: GameNavigationProp
+  route: GameOverRouteProp
+  navigation: GameOverNavigationProp
 }
 
-const Game: FC<GameOverProps> = ({ navigation, route }) => {
+const GameOver: FC<GameOverProps> = ({ navigation, route }) => {
   const routeData = route?.params
 
   const onHomePress = () => {
@@ -36,4 +37,4 @@ const Game: FC<GameOverProps> = ({ navigation, route }) => {
   )
 }
 
-export default Game
+export default GameOver

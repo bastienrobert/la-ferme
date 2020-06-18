@@ -1,22 +1,33 @@
-import React, { FC, useContext, useEffect } from 'react'
+import React, { FC, useEffect, useCallback } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { Button } from '@la-ferme/components/native'
+import { RouteProp, NavigationProp } from '@react-navigation/native'
+import { Colors } from '@la-ferme/components/native'
+import { characters } from '@la-ferme/shared/data'
 
-import ThemeContext from '@/App/Theme/Context'
+import { RootStackParamList } from '@/App/routes'
 
-import Container from '@/components/shared/Container'
+import Walktrough from '@/pages/Onboarding/Role/Walktrough'
 import Text from '@/components/typo/Text'
 
 import { GAME_INFOS_QUERY, SET_PLAYER_INFOS_MUTATION } from '@/graphql/local'
 import { GET_PLAYER, PLAYER_READY_MUTATION } from '@/graphql/player'
 
-const Role: FC<any> = ({ navigation }) => {
-  const { setTheme } = useContext(ThemeContext)
-  const [playerInfosMutation] = useMutation(SET_PLAYER_INFOS_MUTATION)
+import useTheme from '@/hooks/useTheme'
 
-  useEffect(() => {
-    setTheme('red')
-  }, [setTheme])
+type OnboardingRoleRouteProp = RouteProp<RootStackParamList, 'Onboarding:Role'>
+type OnboardingRoleNavigationProp = NavigationProp<
+  RootStackParamList,
+  'Onboarding:Role'
+>
+
+export interface OnboardingRoleProps {
+  route: OnboardingRoleRouteProp
+  navigation: OnboardingRoleNavigationProp
+}
+
+const Role: FC<OnboardingRoleProps> = ({ navigation }) => {
+  const { setTheme } = useTheme()
+  const [playerInfosMutation] = useMutation(SET_PLAYER_INFOS_MUTATION)
 
   const gameInfosQuery = useQuery(GAME_INFOS_QUERY)
   const { player } = gameInfosQuery?.data ?? {}
@@ -24,18 +35,20 @@ const Role: FC<any> = ({ navigation }) => {
   const playerQuery = useQuery(GET_PLAYER, {
     variables: { playerUUID: player.uuid }
   })
+  const userData = playerQuery?.data?.getPlayer
+
   const [playerReadyMutation, { data }] = useMutation(PLAYER_READY_MUTATION)
 
-  const onReadyPress = () => {
-    playerReadyMutation({ variables: { playerUUID: player.uuid } })
-  }
+  useEffect(() => {
+    if (!userData) return
+    const character = characters.find(c => userData.character === c.name)
+    setTheme(character.color as Colors.Theme)
+  }, [setTheme, userData])
 
   useEffect(() => {
     if (!data?.playerReady) return
     navigation.navigate('Onboarding:Pending')
   }, [data, navigation])
-
-  const userData = playerQuery?.data?.getPlayer
 
   useEffect(() => {
     if (!userData) return
@@ -43,19 +56,13 @@ const Role: FC<any> = ({ navigation }) => {
     playerInfosMutation({ variables: { character, goal, skill } })
   }, [playerInfosMutation, userData])
 
+  const onReadyPress = useCallback(() => {
+    playerReadyMutation({ variables: { playerUUID: player.uuid } })
+  }, [player, playerReadyMutation])
+
   if (!userData) return <Text color="gray">Fetching user</Text>
 
-  return (
-    <>
-      <Text color="gray">You are</Text>
-      <Text color="gray">{userData.character}</Text>
-      <Text color="gray">{userData.goal}</Text>
-      <Text color="gray">{userData.skill}</Text>
-      <Container>
-        <Button onPress={onReadyPress}>Ready</Button>
-      </Container>
-    </>
-  )
+  return <Walktrough player={userData} onReadyPress={onReadyPress} />
 }
 
 export default Role

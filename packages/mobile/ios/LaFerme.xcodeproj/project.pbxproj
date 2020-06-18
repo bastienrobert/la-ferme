@@ -8,15 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* LaFermeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* LaFermeTests.m */; };
+		0B18F20B248BEBAA00F12BEB /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B18F20A248BEBAA00F12BEB /* GameKit.framework */; };
 		0B402E9B243497B600A5A39D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B402E9A243497B600A5A39D /* LaunchScreen.storyboard */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		179990B6E16E47CCA443222A /* THANKYOUKOBE.otf in Resources */ = {isa = PBXBuildFile; fileRef = 261E503FB90F4CC1857290AD /* THANKYOUKOBE.otf */; };
+		17A061F756D048A2BFAFFA16 /* FuturaLT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C76857710F4C398BBA740F /* FuturaLT-Bold.otf */; };
 		19DB158C95254A79BE3F1D77 /* FuturaLT-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */; };
+		602D31D672A134B014F3B9A6 /* libPods-LaFerme.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 966B4F4361CF0C008AFAB0E5 /* libPods-LaFerme.a */; };
 		7EB290B4C2B847BAB4E68592 /* BowlbyOneSC-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */; };
-		AA2621F786314AD245B2D42B /* libPods-LaFerme.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B1DA926547753347146C81 /* libPods-LaFerme.a */; };
-		FDE2E576686BB93EBA1AE9B7 /* libPods-LaFerme-LaFermeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 948656586C3B3FE96376C700 /* libPods-LaFerme-LaFermeTests.a */; };
+		8648F35DEC7729762040C7DB /* libPods-LaFerme-LaFermeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0229D1A9CA34B815F05D8B68 /* libPods-LaFerme-LaFermeTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,27 +36,24 @@
 		00E356EE1AD99517003FC87E /* LaFermeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaFermeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* LaFermeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaFermeTests.m; sourceTree = "<group>"; };
+		0229D1A9CA34B815F05D8B68 /* libPods-LaFerme-LaFermeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFerme-LaFermeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B18F20A248BEBAA00F12BEB /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		0B402E9A243497B600A5A39D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LaFerme/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		0BCC0F464E9AF64C5F9B9C2D /* libPods-LaFerme-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFerme-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07F961A680F5B00A75B9A /* LaFerme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaFerme.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B9052DB248A8DC000814ED8 /* LaFerme.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LaFerme.entitlements; path = LaFerme/LaFerme.entitlements; sourceTree = "<group>"; };
+		10A2895A12044C21146021FD /* Pods-LaFerme-LaFermeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-LaFermeTests.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme-LaFermeTests/Pods-LaFerme-LaFermeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* La Ferme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "La Ferme.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LaFerme/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = LaFerme/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LaFerme/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LaFerme/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LaFerme/main.m; sourceTree = "<group>"; };
-		16D9C1453BD0C80F6544EEA6 /* Pods-LaFerme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme.release.xcconfig"; path = "Target Support Files/Pods-LaFerme/Pods-LaFerme.release.xcconfig"; sourceTree = "<group>"; };
-		1A93BF65822B9FD46EE9A023 /* Pods-LaFerme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme/Pods-LaFerme.debug.xcconfig"; sourceTree = "<group>"; };
 		261E503FB90F4CC1857290AD /* THANKYOUKOBE.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = THANKYOUKOBE.otf; path = ../../components/assets/fonts/native/THANKYOUKOBE.otf; sourceTree = "<group>"; };
+		305D7A1DD3E3930BED792900 /* Pods-LaFerme-LaFermeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-LaFermeTests.release.xcconfig"; path = "Target Support Files/Pods-LaFerme-LaFermeTests/Pods-LaFerme-LaFermeTests.release.xcconfig"; sourceTree = "<group>"; };
 		7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BowlbyOneSC-Regular.otf"; path = "../../components/assets/fonts/native/BowlbyOneSC-Regular.otf"; sourceTree = "<group>"; };
-		79B1DA926547753347146C81 /* libPods-LaFerme.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFerme.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C42AC2C069FBB7E417C5690 /* Pods-LaFerme-LaFermeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-LaFermeTests.release.xcconfig"; path = "Target Support Files/Pods-LaFerme-LaFermeTests/Pods-LaFerme-LaFermeTests.release.xcconfig"; sourceTree = "<group>"; };
-		948656586C3B3FE96376C700 /* libPods-LaFerme-LaFermeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFerme-LaFermeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F2F98570F6E18CF17DBE4C5 /* libPods-LaFerme-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFerme-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF355FC7AD3006FD59E109F4 /* Pods-LaFerme-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-LaFerme-tvOSTests/Pods-LaFerme-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		E2E82BDCB5F6393E217404E1 /* Pods-LaFerme-LaFermeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-LaFermeTests.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme-LaFermeTests/Pods-LaFerme-LaFermeTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E3988D294BA7BCDBA4EE4D43 /* Pods-LaFerme-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme-tvOS/Pods-LaFerme-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		E48378D74CFFB7AF27555E59 /* Pods-LaFerme-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme-tvOSTests/Pods-LaFerme-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E55CAE33FCC06E309A7D3447 /* Pods-LaFerme-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme-tvOS.release.xcconfig"; path = "Target Support Files/Pods-LaFerme-tvOS/Pods-LaFerme-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		9264AE91BB654ED91B0143D3 /* Pods-LaFerme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme.debug.xcconfig"; path = "Target Support Files/Pods-LaFerme/Pods-LaFerme.debug.xcconfig"; sourceTree = "<group>"; };
+		966B4F4361CF0C008AFAB0E5 /* libPods-LaFerme.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LaFerme.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		97C76857710F4C398BBA740F /* FuturaLT-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FuturaLT-Bold.otf"; path = "../../components/assets/fonts/native/FuturaLT-Bold.otf"; sourceTree = "<group>"; };
+		9BD5A716928BDA88718C71D9 /* Pods-LaFerme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaFerme.release.xcconfig"; path = "Target Support Files/Pods-LaFerme/Pods-LaFerme.release.xcconfig"; sourceTree = "<group>"; };
 		E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FuturaLT-Book.otf"; path = "../../components/assets/fonts/native/FuturaLT-Book.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -65,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDE2E576686BB93EBA1AE9B7 /* libPods-LaFerme-LaFermeTests.a in Frameworks */,
+				8648F35DEC7729762040C7DB /* libPods-LaFerme-LaFermeTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA2621F786314AD245B2D42B /* libPods-LaFerme.a in Frameworks */,
+				602D31D672A134B014F3B9A6 /* libPods-LaFerme.a in Frameworks */,
+				0B18F20B248BEBAA00F12BEB /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +103,7 @@
 				7246B639F4694B1399268737 /* BowlbyOneSC-Regular.otf */,
 				E9FA2D85F6BC447CBDE9F3EA /* FuturaLT-Book.otf */,
 				261E503FB90F4CC1857290AD /* THANKYOUKOBE.otf */,
+				97C76857710F4C398BBA740F /* FuturaLT-Bold.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -110,6 +111,7 @@
 		13B07FAE1A68108700A75B9A /* LaFerme */ = {
 			isa = PBXGroup;
 			children = (
+				0B9052DB248A8DC000814ED8 /* LaFerme.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -124,12 +126,11 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0B18F20A248BEBAA00F12BEB /* GameKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				79B1DA926547753347146C81 /* libPods-LaFerme.a */,
-				948656586C3B3FE96376C700 /* libPods-LaFerme-LaFermeTests.a */,
-				0BCC0F464E9AF64C5F9B9C2D /* libPods-LaFerme-tvOS.a */,
-				9F2F98570F6E18CF17DBE4C5 /* libPods-LaFerme-tvOSTests.a */,
+				966B4F4361CF0C008AFAB0E5 /* libPods-LaFerme.a */,
+				0229D1A9CA34B815F05D8B68 /* libPods-LaFerme-LaFermeTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -160,7 +161,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* LaFerme.app */,
+				13B07F961A680F5B00A75B9A /* La Ferme.app */,
 				00E356EE1AD99517003FC87E /* LaFermeTests.xctest */,
 			);
 			name = Products;
@@ -169,14 +170,10 @@
 		FFF237722568275E2B9D4E16 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1A93BF65822B9FD46EE9A023 /* Pods-LaFerme.debug.xcconfig */,
-				16D9C1453BD0C80F6544EEA6 /* Pods-LaFerme.release.xcconfig */,
-				E2E82BDCB5F6393E217404E1 /* Pods-LaFerme-LaFermeTests.debug.xcconfig */,
-				7C42AC2C069FBB7E417C5690 /* Pods-LaFerme-LaFermeTests.release.xcconfig */,
-				E3988D294BA7BCDBA4EE4D43 /* Pods-LaFerme-tvOS.debug.xcconfig */,
-				E55CAE33FCC06E309A7D3447 /* Pods-LaFerme-tvOS.release.xcconfig */,
-				E48378D74CFFB7AF27555E59 /* Pods-LaFerme-tvOSTests.debug.xcconfig */,
-				AF355FC7AD3006FD59E109F4 /* Pods-LaFerme-tvOSTests.release.xcconfig */,
+				9264AE91BB654ED91B0143D3 /* Pods-LaFerme.debug.xcconfig */,
+				9BD5A716928BDA88718C71D9 /* Pods-LaFerme.release.xcconfig */,
+				10A2895A12044C21146021FD /* Pods-LaFerme-LaFermeTests.debug.xcconfig */,
+				305D7A1DD3E3930BED792900 /* Pods-LaFerme-LaFermeTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -188,7 +185,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "LaFermeTests" */;
 			buildPhases = (
-				CEA24812B9C6BAFB5C3598A2 /* [CP] Check Pods Manifest.lock */,
+				2D735745E3F2763913E0F280 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -207,7 +204,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LaFerme" */;
 			buildPhases = (
-				442C8D56E7CD8C0A71BB4D13 /* [CP] Check Pods Manifest.lock */,
+				044404E57DFE71466B15A703 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -220,7 +217,7 @@
 			);
 			name = LaFerme;
 			productName = LaFerme;
-			productReference = 13B07F961A680F5B00A75B9A /* LaFerme.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* La Ferme.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -233,11 +230,13 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = ZB3TZTKBXT;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = Y87978A2JM;
+						DevelopmentTeam = ZB3TZTKBXT;
 						LastSwiftMigration = 1130;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -277,6 +276,7 @@
 				7EB290B4C2B847BAB4E68592 /* BowlbyOneSC-Regular.otf in Resources */,
 				19DB158C95254A79BE3F1D77 /* FuturaLT-Book.otf in Resources */,
 				179990B6E16E47CCA443222A /* THANKYOUKOBE.otf in Resources */,
+				17A061F756D048A2BFAFFA16 /* FuturaLT-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +297,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		442C8D56E7CD8C0A71BB4D13 /* [CP] Check Pods Manifest.lock */ = {
+		044404E57DFE71466B15A703 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -319,7 +319,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CEA24812B9C6BAFB5C3598A2 /* [CP] Check Pods Manifest.lock */ = {
+		2D735745E3F2763913E0F280 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -393,9 +393,12 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E2E82BDCB5F6393E217404E1 /* Pods-LaFerme-LaFermeTests.debug.xcconfig */;
+			baseConfigurationReference = 10A2895A12044C21146021FD /* Pods-LaFerme-LaFermeTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Don't Code Sign";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				DEVELOPMENT_TEAM = ZB3TZTKBXT;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -408,7 +411,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = fr.petitjaune.LaFermeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LaFerme.app/LaFerme";
 			};
@@ -416,10 +419,12 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C42AC2C069FBB7E417C5690 /* Pods-LaFerme-LaFermeTests.release.xcconfig */;
+			baseConfigurationReference = 305D7A1DD3E3930BED792900 /* Pods-LaFerme-LaFermeTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = ZB3TZTKBXT;
 				INFOPLIST_FILE = LaFermeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -428,20 +433,26 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = fr.petitjaune.LaFermeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "892f8319-f3fb-460f-b483-5be12d1e3c97";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore fr.petitjaune.LaFerme";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LaFerme.app/LaFerme";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A93BF65822B9FD46EE9A023 /* Pods-LaFerme.debug.xcconfig */;
+			baseConfigurationReference = 9264AE91BB654ED91B0143D3 /* Pods-LaFerme.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Y87978A2JM;
+				CODE_SIGN_ENTITLEMENTS = LaFerme/LaFerme.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = ZB3TZTKBXT;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -454,8 +465,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bastienrobert.LaFerme;
-				PRODUCT_NAME = LaFerme;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.petitjaune.LaFerme;
+				PRODUCT_NAME = "La Ferme";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development fr.petitjaune.LaFerme";
 				SWIFT_OBJC_BRIDGING_HEADER = "LaFerme-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -465,12 +477,15 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 16D9C1453BD0C80F6544EEA6 /* Pods-LaFerme.release.xcconfig */;
+			baseConfigurationReference = 9BD5A716928BDA88718C71D9 /* Pods-LaFerme.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Y87978A2JM;
+				CODE_SIGN_ENTITLEMENTS = LaFerme/LaFerme.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = ZB3TZTKBXT;
 				INFOPLIST_FILE = LaFerme/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -478,8 +493,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bastienrobert.LaFerme;
-				PRODUCT_NAME = LaFerme;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.petitjaune.LaFerme;
+				PRODUCT_NAME = "La Ferme";
+				PROVISIONING_PROFILE = "892f8319-f3fb-460f-b483-5be12d1e3c97";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore fr.petitjaune.LaFerme";
 				SWIFT_OBJC_BRIDGING_HEADER = "LaFerme-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

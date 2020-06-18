@@ -1,0 +1,8 @@
+app_identifier("fr.petitjaune.LaFerme") # The bundle identifier of your app
+apple_id("petitjaune.dev@gmail.com") # Your Apple email address
+
+itc_team_id("121492905") # App Store Connect Team ID
+team_id("ZB3TZTKBXT") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

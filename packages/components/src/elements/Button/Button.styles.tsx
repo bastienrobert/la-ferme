@@ -9,11 +9,11 @@ const textSizeStyles = {
   `,
   medium: css`
     font-size: 16px;
-    padding: 10px 16px;
+    padding: 10px 26px;
   `,
   large: css`
     font-size: 20px;
-    padding: 8px 24px;
+    padding: 12px 26px;
   `
 }
 
@@ -23,6 +23,7 @@ const styles = {
       position: relative;
       background-color: transparent;
       border: 0;
+      min-width: 130px;
     `,
     boxHover: css`
       svg {
@@ -38,6 +39,7 @@ const styles = {
     text: css`
       color: ${Colors.gray};
       text-align: center;
+      z-index: 1;
     `,
     background: css`
       position: absolute;
@@ -45,7 +47,6 @@ const styles = {
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
     `,
     disabled: css`
       opacity: 0.5;
@@ -66,6 +67,9 @@ const styles = {
   native: {
     text: css`
       ${Fonts.getFontStyle('bowlby', 'regular', true)};
+    `,
+    background: css`
+      z-index: -1;
     `
   },
   box: (hover = false, disabled = false) => {

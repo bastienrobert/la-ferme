@@ -1,3 +1,2 @@
-export * from './Button.shared'
+export { ButtonVariant, ButtonSize } from './Button.shared'
 export * from './Button.native'
-export { default } from './Button.native'

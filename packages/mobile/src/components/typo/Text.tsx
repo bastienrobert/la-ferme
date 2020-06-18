@@ -1,19 +1,15 @@
 import React, { FC } from 'react'
 
-import { Typo, Colors, Fonts } from '@la-ferme/components/native'
+import { Typo, TypoProps } from '@la-ferme/components/native'
 
-export interface TextProps {
-  textAlign?: Fonts.TextAlignOption
-  color?: Colors.Typo
-}
-
-const Text: FC<TextProps> = ({
+const Text: FC<TypoProps> = ({
   children,
   color = 'gray',
-  textAlign = 'left'
+  textAlign = 'left',
+  ...style
 }) => {
   return (
-    <Typo family="futura" color={color} textAlign={textAlign}>
+    <Typo family="futura" color={color} textAlign={textAlign} {...style}>
       {children}
     </Typo>
   )

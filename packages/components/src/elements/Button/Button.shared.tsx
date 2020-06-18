@@ -2,7 +2,7 @@ import { Colors } from '@/theme'
 
 /** Different theme variations */
 export const ButtonVariantOptions = [] as const
-export type ButtonVariant = 'primary' | 'secondary'
+export type ButtonVariant = 'primary' | 'secondary' | 'danger'
 export const defaultVariant = 'primary'
 
 /** The size of the button */
@@ -16,10 +16,11 @@ export type Variants = {
 
 export const variants: Variants = {
   primary: 'yellow',
-  secondary: 'blue'
+  secondary: 'blue',
+  danger: 'red'
 }
 
-export interface ButtonProps {
+export interface ButtonSharedProps {
   children: string
   /** The size of the button */
   size?: ButtonSize

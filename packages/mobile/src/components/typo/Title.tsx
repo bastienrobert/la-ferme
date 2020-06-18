@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 
-import { Typo, Colors, Fonts } from '@la-ferme/components/native'
+import { Typo, TypoProps } from '@la-ferme/components/native'
 
-export interface TitleProps {
-  textAlign?: Fonts.TextAlignOption
-  color?: Colors.Typo
-  preset?: 'H1' | 'H2' | 'H3' | 'H4'
+export type TitlePreset = 'H1' | 'H2' | 'H3' | 'H4' | 'H5'
+
+export interface TitleProps extends TypoProps {
+  preset?: TitlePreset
 }
 
 const Title: FC<TitleProps> = ({
