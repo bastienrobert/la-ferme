@@ -1,5 +1,7 @@
 import { WalktroughCardType } from './WalktroughCard'
 
+import { images as skill } from '@/utils/helpers/skills'
+
 const data = {
   character: {
     isabelle: require('@/assets/images/role/animations/characters/isabelle.webp'),
@@ -17,12 +19,7 @@ const data = {
     supermarket: require('@/assets/images/role/animations/goals/supermarket.webp'),
     'town-hall': require('@/assets/images/role/animations/goals/town-hall.webp')
   },
-  skill: {
-    cellphone: require('@/assets/images/role/animations/skills/cellphone.webp'),
-    happy: require('@/assets/images/role/animations/skills/happy.webp'),
-    'shepherds-stick': require('@/assets/images/role/animations/skills/shepherds-stick.webp'),
-    speaker: require('@/assets/images/role/animations/skills/speaker.webp')
-  }
+  skill
 }
 
 export default (type: WalktroughCardType, name: string) => {

@@ -53,6 +53,7 @@
     "react-native-svg": "^12.1.0",
     "react-native-unimodules": "~0.7.0",
     "react-native-video": "^4.4.5",
+    "react-string-replace": "^0.4.4",
     "styled-components": "^5.0.1",
     "subscriptions-transport-ws": "^0.9.16",
     "unfetch": "^4.1.0",

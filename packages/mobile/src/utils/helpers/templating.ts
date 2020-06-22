@@ -1,10 +1,17 @@
-const PARAMS_REGEX = /%\w*%/g
-const TAG_REGEX = /%/g
+import { ReactNode } from 'react'
+import reactStringReplace from 'react-string-replace'
 
-export type TemplatingParams = { [key: string]: string }
+const PARAMS_REGEX = /%(\w*?)%/g
+
+type TemplatingNode = (index: number, match?: string) => ReactNode
+
+export type TemplatingParams = {
+  [key: string]: TemplatingNode
+}
 
 export default (text: string, params: TemplatingParams) => {
-  return text.replace(PARAMS_REGEX, match => {
-    return params[match.replace(TAG_REGEX, '')] ?? ''
+  return reactStringReplace(text, PARAMS_REGEX, (match, i) => {
+    const param = params[match]
+    return param ? param(i, match) : null
   })
 }

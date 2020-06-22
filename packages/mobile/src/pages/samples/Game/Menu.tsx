@@ -5,8 +5,13 @@ import { Icon } from '@la-ferme/components/native'
 
 import Container from '@/components/shared/Container'
 
+import { PopupType } from './Popup'
 import useTheme from '@/hooks/useTheme'
 import { complementaries } from '@/utils/colors'
+
+export interface MenuProps {
+  setPopup: (type: PopupType) => void
+}
 
 const MenuIcon: FC<any> = ({ onPress, ...style }) => {
   return (
@@ -16,7 +21,7 @@ const MenuIcon: FC<any> = ({ onPress, ...style }) => {
   )
 }
 
-const Menu: FC<any> = () => {
+const Menu: FC<MenuProps> = ({ setPopup }) => {
   const [visible, setVisible] = useState(false)
   const { theme } = useTheme()
 
@@ -24,6 +29,9 @@ const Menu: FC<any> = () => {
 
   const onShowPress = () => setVisible(true)
   const onHidePress = () => setVisible(false)
+  const onReportPress = () => setPopup(PopupType.Report)
+  const onGameOverPress = () => setPopup(PopupType.GameOver)
+  const onSkillPress = () => setPopup(PopupType.Skill)
 
   return (
     <Component alignSelf="flex-end">
@@ -31,13 +39,28 @@ const Menu: FC<any> = () => {
         <Group>
           <MenuIcon icon="cross" background="red" onPress={onHidePress} />
           <EndIconWrapper>
-            <MenuIcon icon="end" background={color} />
+            <MenuIcon
+              icon="end"
+              color={color === 'red' ? 'beige' : 'red'}
+              background={color}
+              onPress={onGameOverPress}
+            />
           </EndIconWrapper>
           <BrigadeIconWrapper>
-            <MenuIcon icon="brigade" color="beige" background={color} />
+            <MenuIcon
+              icon="brigade"
+              color="beige"
+              background={color}
+              onPress={onReportPress}
+            />
           </BrigadeIconWrapper>
           <LightningIconWrapper>
-            <MenuIcon icon="lightning" color="beige" background={color} />
+            <MenuIcon
+              icon="lightning"
+              color="beige"
+              background={color}
+              onPress={onSkillPress}
+            />
           </LightningIconWrapper>
         </Group>
       ) : (
@@ -54,7 +77,7 @@ const Component = styled(Container)`
   bottom: 0;
   right: 0;
   padding: 22px 12px;
-  z-index: 2;
+  z-index: 1;
 `
 
 const IconContainer = styled(Container)``

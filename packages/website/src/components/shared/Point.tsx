@@ -11,7 +11,7 @@ const Point: FC<PointProps> = ({ color, ...style }) => {
     <Component {...style}>
       <svg fill="none" viewBox="0 0 32 32">
         <g filter="url(#filter0_point)">
-          <circle cx="16" cy="14" r="14" fill={color} />
+          <circle cx="16" cy="14" r="14" fill={Colors[color]} />
         </g>
         <defs>
           <filter
@@ -21,8 +21,8 @@ const Point: FC<PointProps> = ({ color, ...style }) => {
             width="32"
             height="32"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB">
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            colorInterpolationFilters="sRGB">
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feColorMatrix
               in="SourceAlpha"
               values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
@@ -44,7 +44,7 @@ const Point: FC<PointProps> = ({ color, ...style }) => {
 }
 
 Point.defaultProps = {
-  color: Colors.beige
+  color: 'beige'
 }
 
 const Component = styled.div`

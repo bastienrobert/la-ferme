@@ -7,26 +7,30 @@ import {
   Easing
 } from 'react-native'
 import styled from 'styled-components/native'
-import { Icon, Colors } from '@la-ferme/components/native'
+import { Icon, Icons, Colors } from '@la-ferme/components/native'
 
 import Container from './Container'
 import SmallCirclesWrapper from './SmallCirclesWrapper'
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 
-export interface NotificationProps {
-  icon: string
+export interface NotificationBannerProps {
+  icon: Icons
   title: string
   subtitle: string
+  onClose: () => void
 }
 
-const Notification: FC<NotificationProps> = ({
+const NotificationBanner: FC<NotificationBannerProps> = ({
   children,
   icon,
   title,
-  subtitle
+  subtitle,
+  onClose
 }) => {
   const layout = useRef<LayoutRectangle>()
+  const locked = useRef<boolean>(false)
+  const opacityBanner = useRef(new Animated.Value(1)).current
   const translateBanner = useRef(new Animated.ValueXY({ x: 0, y: -300 }))
     .current
   const translateLarge = useRef(new Animated.ValueXY({ x: 0, y: -12000 }))
@@ -43,19 +47,41 @@ const Notification: FC<NotificationProps> = ({
   const onLayout = useCallback(
     (e: LayoutChangeEvent) => {
       layout.current = e.nativeEvent.layout
-      translateLarge.setValue({ x: 0, y: -e.nativeEvent.layout.height })
+      translateLarge.setValue({ x: 0, y: -layout.current.height })
     },
     [translateLarge]
   )
 
   const onPress = useCallback(() => {
+    if (locked.current) return
     Animated.timing(translateLarge, {
       toValue: { x: 0, y: 0 },
       duration: 600,
       easing: Easing.out(Easing.exp),
       useNativeDriver: true
     }).start()
-  }, [translateLarge])
+  }, [locked, translateLarge])
+
+  const onClosePress = useCallback(() => {
+    locked.current = true
+    Animated.parallel([
+      Animated.timing(opacityBanner, {
+        toValue: 0,
+        duration: 0,
+        easing: Easing.out(Easing.exp),
+        useNativeDriver: true
+      }),
+      Animated.timing(translateLarge, {
+        toValue: { x: 0, y: -layout.current.height },
+        duration: 600,
+        easing: Easing.out(Easing.exp),
+        useNativeDriver: true
+      })
+    ]).start(({ finished }) => {
+      if (!finished) return
+      onClose()
+    })
+  }, [locked, onClose, opacityBanner, translateLarge])
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -66,7 +92,9 @@ const Notification: FC<NotificationProps> = ({
           transform: [{ translateY: translateBanner.y }]
         }}>
         <InnerContainer>
-          <BannerContainer as={Animated.View}>
+          <BannerContainer
+            as={Animated.View}
+            style={{ opacity: opacityBanner }}>
             <SmallCirclesWrapper>
               <Icon icon={icon} />
             </SmallCirclesWrapper>
@@ -83,6 +111,9 @@ const Notification: FC<NotificationProps> = ({
               transform: [{ translateY: translateLarge.y }]
             }}>
             {children}
+            <Container alignSelf="center">
+              <Icon icon="cross" background="red" onPress={onClosePress} />
+            </Container>
           </LargeContainer>
         </InnerContainer>
       </Component>
@@ -117,10 +148,12 @@ const BannerContainer = styled(Container)`
 
 const LargeContainer = styled(BannerContainer)`
   position: absolute;
+  flex-direction: column;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  padding: 22px;
   background-color: ${Colors.gray};
 `
 
@@ -131,4 +164,4 @@ const TextWrapper = styled(Container)`
   background-color: ${Colors.gray};
 `
 
-export default Notification
+export default NotificationBanner

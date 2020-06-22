@@ -5,10 +5,11 @@ import { charactersByName } from '@/utils/helpers/players'
 
 const sizes = {
   large: Typo.presets.H1,
-  small: Typo.presets.H4
+  small: Typo.presets.H4,
+  xsmall: Typo.presets.H5
 }
 
-export type PlayerWithColorSize = 'large' | 'small'
+export type PlayerWithColorSize = 'large' | 'small' | 'xsmall'
 
 export interface PlayerWithColorProps extends TypoProps {
   character: string

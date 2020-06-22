@@ -12,12 +12,13 @@ const Title: FC<TitleProps> = ({
   children,
   preset,
   color = 'gray',
-  textAlign = 'left'
+  textAlign = 'left',
+  ...style
 }) => {
   const props = Typo.presets[preset]
 
   return (
-    <Typo color={color} textAlign={textAlign} {...props}>
+    <Typo color={color} textAlign={textAlign} {...props} {...style}>
       {children}
     </Typo>
   )

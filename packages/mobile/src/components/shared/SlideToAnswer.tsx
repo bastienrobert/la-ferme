@@ -1,4 +1,11 @@
-import React, { FC, useState, useRef, useCallback, useMemo } from 'react'
+import React, {
+  FC,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo
+} from 'react'
 import {
   Animated,
   PanResponder,
@@ -28,10 +35,15 @@ const clampToX = (value: number, pan: Animated.ValueXY) => {
 
 export interface SlideToAnswerProps {
   onHangUp?: () => void
+  onPickUp?: () => void
   touchable?: boolean
 }
 
-const SlideToAnswer: FC<SlideToAnswerProps> = ({ onHangUp, touchable }) => {
+const SlideToAnswer: FC<SlideToAnswerProps> = ({
+  onHangUp,
+  onPickUp,
+  touchable
+}) => {
   const [answer, setAnswer] = useState<boolean>(false)
   const pan = useRef(new Animated.ValueXY()).current
   const backgroundAnim = useRef(new Animated.Value(1)).current
@@ -102,6 +114,10 @@ const SlideToAnswer: FC<SlideToAnswerProps> = ({ onHangUp, touchable }) => {
       }
     })
   }, [answer, backgroundAnim, crossAnim, pan, panMove, textAnim])
+
+  useEffect(() => {
+    if (answer && onPickUp) onPickUp()
+  }, [answer, onPickUp])
 
   const onPress = useMemo(() => {
     return () => answer && onHangUp && onHangUp()

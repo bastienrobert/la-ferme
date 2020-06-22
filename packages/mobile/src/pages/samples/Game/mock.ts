@@ -3,7 +3,7 @@ export const players = [
     uuid: '8a938283-238d-474b-962c-555c79ab4ea0',
     ready: true,
     character: 'peter',
-    skill: 'happy',
+    skill: 'speaker',
     goal: 'town-hall'
   },
   {

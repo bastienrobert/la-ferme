@@ -3,8 +3,8 @@ import { Animated, GestureResponderEvent } from 'react-native'
 import styled from 'styled-components/native'
 import { Colors, Icon } from '@la-ferme/components/native'
 
-import Background, { RATIO as BACKGROUND_RATIO } from './Background'
 import { SmallContent, LargeContent } from './Content'
+import CardPopup, { RATIO as CARD_POPUP_RATIO } from '@/components/cards/popup'
 import Container from '@/components/shared/Container'
 
 import { hexToRgba } from '@/utils/colors'
@@ -90,11 +90,11 @@ const Component = styled(Container)`
   border-radius: 13px;
   max-width: 300px;
   width: 90%;
-  aspect-ratio: ${BACKGROUND_RATIO};
+  aspect-ratio: ${CARD_POPUP_RATIO};
   z-index: 999;
 `
 
-const StyledBackground = styled(Background)`
+const StyledBackground = styled(CardPopup)`
   position: absolute;
   top: 0;
   left: 0;
