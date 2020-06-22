@@ -42,7 +42,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Accept using camera to scan QR Code and join the room.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>BowlbyOneSC-Regular.otf</string>

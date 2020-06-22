@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Arrays;
 
 public class MainApplication extends Application implements ReactApplication {
-  private final ReactModuleRegistryProvider mModuleRegistryProvider = 
-    new ReactModuleRegistryProvider(new BasePackageList().getPackageList());
+  private final ReactModuleRegistryProvider mModuleRegistryProvider =
+    new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), Arrays.<SingletonModule>asList());
 
 
   private final ReactNativeHost mReactNativeHost =

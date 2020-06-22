@@ -24,3 +24,7 @@ brew install watchman
 sudo gem install cocoapods
 cd ios && pod install
 ```
+
+## Setup for Android
+
+Check if your `.env` API var is set to `10.0.2.2` with `SSL` disabled. Nothing else to do !
