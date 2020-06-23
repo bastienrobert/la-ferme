@@ -55,8 +55,8 @@ export default function App() {
       {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
       <ApolloProvider client={apollo}>
         <ThemeContext.Provider value={theme}>
-          <AlertContainer />
           <Main />
+          <AlertContainer />
         </ThemeContext.Provider>
       </ApolloProvider>
     </>

@@ -106,6 +106,7 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
   const onNfcIconPress = useCallback(async () => {
     if (!isNfcSupported.current) {
       alert.error(TRANSLATE_NFC_UNSUPPORTED)
+      return
     }
     if (Platform.OS === 'android') setAndroidNfcPopup(true)
 
