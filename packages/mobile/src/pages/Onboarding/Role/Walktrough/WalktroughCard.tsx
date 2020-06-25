@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
+import { css } from 'styled-components'
 import styled from 'styled-components/native'
-import { ScrollView, TouchableWithoutFeedback } from 'react-native'
+import { TouchableWithoutFeedback } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { Button } from '@la-ferme/components/native'
 import { Skill } from '@la-ferme/shared/typings'
@@ -17,9 +18,7 @@ import getCardBackground from './getCardBackground'
 import getCardData from './getCardData'
 import { shadow, inner } from '@/components/cards/cards.style'
 
-import viewport from '@/services/viewport'
-
-export const content = globalData.role
+const content = globalData.role
 
 export type WalktroughCardType = 'character' | 'skill' | 'goal'
 
@@ -54,6 +53,7 @@ const WalktroughCard: FC<WalktroughCardProps> = ({
         )}
         <BigImage
           source={getCardImage(type, name)}
+          full={type === 'character'}
           resizeMode={FastImage.resizeMode.contain}
         />
         <TopInner>
@@ -63,32 +63,35 @@ const WalktroughCard: FC<WalktroughCardProps> = ({
       <BottomStyledContainer style={{ aspectRatio: RATIO_DOWN }}>
         <StyledCard as={Down} />
         <BottomInner>
-          <ScrollView alwaysBounceVertical={false}>
-            <TouchableWithoutFeedback>
-              <InsideScrollView>
-                <StyledTitleWithHashtag
-                  alignSelf="center"
-                  title={data.displayName}
-                  titlePreset={'H1'}
-                  hashtag={[data.description]}
-                  anchor="right"
-                  hashtagOffset={{ x: 30, y: 10 }}
-                  titleColor="gray"
-                  hashtagColor="red"
-                />
-                <StyledText textAlign="center">{data.text}</StyledText>
-                {type === 'skill' && (
-                  <StyledEffect preset="H5" textAlign="center">
-                    {(data as Skill).effect}
-                  </StyledEffect>
-                )}
-              </InsideScrollView>
-            </TouchableWithoutFeedback>
-          </ScrollView>
+          <Container>
+            <StyledTitleWithHashtag
+              alignSelf="center"
+              title={data.displayName}
+              titlePreset={'H1'}
+              hashtag={[data.description]}
+              anchor="right"
+              hashtagOffset={{ x: 30, y: 10 }}
+              titleColor="gray"
+              hashtagColor="red"
+            />
+            <StyledScrollView alwaysBounceVertical={false}>
+              <TouchableWithoutFeedback>
+                <Container alignSelf="stretch">
+                  <StyledText textAlign="center">{data.text}</StyledText>
+                  {type === 'skill' && (
+                    <StyledEffect preset="H5" textAlign="center">
+                      {(data as Skill).effect}
+                      {(data as Skill).effect}
+                    </StyledEffect>
+                  )}
+                </Container>
+              </TouchableWithoutFeedback>
+            </StyledScrollView>
+          </Container>
           {onPress && (
             <ButtonContainer alignSelf="center">
               <Button variant="secondary" onPress={onPress}>
-                {content.button}
+                {content.cta_ready}
               </Button>
             </ButtonContainer>
           )}
@@ -119,26 +122,36 @@ const TopInner = styled(Container)`
   padding: 43px 12px;
 `
 
-const BigImage = styled(FastImage)`
+const BigImage = styled(FastImage)<any>`
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  left: 0;
+  bottom: 0;
   z-index: 999;
+  ${({ full }) =>
+    full
+      ? css`
+          height: 100%;
+        `
+      : css`
+          transform: scale(1.2);
+          bottom: 8%;
+          height: 70%;
+        `}
 `
 
 const BottomInner = styled(Container)`
   ${inner}
-  ${viewport.width > 400 &&
-  `
-    padding: 26px 26px 0 26px;
-  `}
+  padding: 26px 26px 0 26px;
 `
 
 const BottomStyledContainer = styled(Container)`
   margin-top: -1px;
   width: 100%;
+`
+
+const StyledScrollView = styled.ScrollView`
+  margin-bottom: 20px;
 `
 
 const JustArrived = styled.Image`
@@ -157,13 +170,6 @@ const StyledText = styled(Text)`
 
 const StyledEffect = styled(Title)`
   margin-top: 20px;
-`
-
-const InsideScrollView = styled.View`
-  ${viewport.width < 400 &&
-  `
-    transform: scale(.8);
-  `}
 `
 
 const ButtonContainer = styled(Container)`

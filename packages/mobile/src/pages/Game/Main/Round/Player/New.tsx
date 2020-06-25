@@ -46,9 +46,15 @@ const RoundPlayerNew: FC<RoundPlayerNewProps> = ({ player, character }) => {
           hashtagColor={complementaries[character.color]}
         />
       </Container>
-      <Animation
-        source={require('@/assets/images/game/forward_or_turn.webp')}
-      />
+      {player.character === 'isabelle' ? (
+        <Animation
+          source={require('@/assets/images/game/forward_or_turn_yellow.webp')}
+        />
+      ) : (
+        <Animation
+          source={require('@/assets/images/game/forward_or_turn_red.webp')}
+        />
+      )}
       <TextContainer>
         <Text color="gray" textAlign="center">
           {content.text}
@@ -81,6 +87,7 @@ const TextContainer = styled(Container)`
 const Animation = styled(FastImage)`
   width: 100%;
   aspect-ratio: 1;
+  max-height: 40%;
 `
 
 const ButtonContainer = styled(Container)`

@@ -15,7 +15,8 @@ export interface CardRewardParams {
 
 export interface CardReward {
   type: CardRewardType
-  text: string
+  playerText: string
+  viewerText: string
   score: number
   params?: CardRewardParams
 }
@@ -25,5 +26,6 @@ export interface Card {
   displayName: string
   playerText: string
   viewerText: string
+  effect?: string
   reward: CardReward
 }

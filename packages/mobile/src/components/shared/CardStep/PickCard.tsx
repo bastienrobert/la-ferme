@@ -111,6 +111,7 @@ const PickCard: FC<PickCardProps> = ({ type, choice, onPress, style }) => {
 const StyledContainer = styled(Container)<any>`
   width: 85%;
   max-width: 400px;
+  max-height: 45%;
   aspect-ratio: ${({ ratio }) => ratio};
   margin-top: -0.5px;
 `

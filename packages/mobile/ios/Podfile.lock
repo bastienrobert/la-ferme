@@ -10,14 +10,6 @@ PODS:
   - EXFileSystem (8.0.0):
     - UMCore
     - UMFileSystemInterface
-  - EXGL (8.2.0):
-    - EXGL_CPP
-    - UMCameraInterface
-    - UMCore
-    - UMFileSystemInterface
-  - EXGL_CPP (8.2.0):
-    - EXGL_CPP/EXGLContext (= 8.2.0)
-  - EXGL_CPP/EXGLContext (8.2.0)
   - EXPermissions (8.0.0):
     - UMCore
     - UMPermissionsInterface
@@ -94,8 +86,8 @@ PODS:
   - libwebp/mux (1.1.0):
     - libwebp/demux
   - libwebp/webp (1.1.0)
-  - lottie-ios (3.1.3)
-  - lottie-react-native (3.3.2):
+  - lottie-ios (3.1.8)
+  - lottie-react-native (3.4.0):
     - lottie-ios (~> 3.1.3)
     - React
   - OpenSSL-Universal (1.0.2.19):
@@ -386,8 +378,6 @@ DEPENDENCIES:
   - EXAppLoaderProvider (from `../node_modules/expo-app-loader-provider/ios`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
-  - EXGL (from `../node_modules/expo-gl/ios`)
-  - EXGL_CPP (from `../node_modules/expo-gl-cpp/cpp`)
   - EXPermissions (from `../node_modules/expo-permissions/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
@@ -477,12 +467,6 @@ EXTERNAL SOURCES:
   EXFileSystem:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-file-system/ios"
-  EXGL:
-    :path: !ruby/object:Pathname
-    path: "../node_modules/expo-gl/ios"
-  EXGL_CPP:
-    :path: !ruby/object:Pathname
-    path: "../node_modules/expo-gl-cpp/cpp"
   EXPermissions:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-permissions/ios"
@@ -605,8 +589,6 @@ SPEC CHECKSUMS:
   EXAppLoaderProvider: ebdb6bc2632c1ccadbe49f5e4104d8d690969c49
   EXConstants: 4051b16c17ef3defa03c541d42811dc92b249146
   EXFileSystem: 6e0d9bb6cc4ea404dbb8f583c1a8a2dcdf4b83b6
-  EXGL: 41b3775eb9a9d6766abd36f9a0bf132bc05ba6e8
-  EXGL_CPP: ca6a2c8acf11d3d1fdf8fa9f858a760beaf06440
   EXPermissions: 9bc08859a675d291e89be9a0870155c27c16ac35
   FBLazyVector: 4aab18c93cd9546e4bfed752b4084585eca8b245
   FBReactNativeSpec: 5465d51ccfeecb7faa12f9ae0024f2044ce4044e
@@ -620,8 +602,8 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
-  lottie-ios: 496ac5cea1bbf1a7bd1f1f472f3232eb1b8d744b
-  lottie-react-native: 2a1a82bb326ae51331a5520de0cf706733c6db69
+  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
+  lottie-react-native: a664f59f1f298c2696dd0ae07b15cbdfc433cb02
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
   Permission-Camera: cbbed5d193641837e9a32592dd71292eabd11827
   RCTRequired: cec6a34b3ac8a9915c37e7e4ad3aa74726ce4035

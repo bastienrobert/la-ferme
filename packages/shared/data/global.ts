@@ -39,10 +39,10 @@ export default {
     title_first: 'Placez vos p',
     title_second: 'ons',
     title_punctuation: '!!!',
-    cta_skip: 'passer'
+    cta_skip: 'PASSER'
   },
   role: {
-    button: 'prêêêêt'
+    cta_ready: 'PRÊÊÊÊT'
   },
   pending: {
     title: {
@@ -58,7 +58,7 @@ export default {
     character: 'perso',
     object: 'objet',
     goal: 'objectif',
-    cta_ready: 'prêêêêt'
+    cta_ready: 'PRÊÊÊÊT'
   },
   game: {
     forwardOrTurn: {
@@ -77,6 +77,92 @@ export default {
       warning: 'soyez attentif aux actions des autres joueurs !',
       new_step: 'peut décider d’avancer ou de tourner une case autour de lui.',
       card_step: 'choisit une carte coup de boule ou coup de pouce.'
+    }
+  },
+  cardStep: {
+    player: {
+      choosed_1: 'vous avez',
+      choosed_2: 'choisi'
+    },
+    viewer: {
+      choosed: 'a choisi'
+    }
+  },
+  gameCard: {
+    cta_ok: 'OKÉÉÉ',
+    confirm: 'Confirmez votre choix',
+    cta_yes: 'YES',
+    cta_no: 'NO',
+    choice: 'Choix',
+    choosed: ' a choisi'
+  },
+  gameOver: {
+    title_1: 'confirmez-vous',
+    title_2: 'la fin de la partie ?',
+    cta_yes: 'YEP',
+    cta_no: 'NOPE'
+  },
+  report: {
+    title: 'La brigade',
+    complete:
+      'Votre appel a bien été pris en compte ! La brigade va étudier votre dossier.',
+    cta_yes: 'YEP',
+    cta_no: 'NOPE',
+    confirm: {
+      text_1: 'Vous êtes sur le point de dénoncer ',
+      text_2: ' à la brigade.',
+      description: 'confirmez votre choix:'
+    },
+    select: {
+      text:
+        'Vous trouvez qu’un joueur commet trop d’incivilités ? Les poulets sont là pour rétablir l’ordre dans la basse cour.',
+      description: 'quel joueur dénoncer :'
+    }
+  },
+  skill: {
+    content: {
+      confirm: 'confirmez votre choix'
+    },
+    cta_yes: 'YEP',
+    cta_no: 'NOPE'
+  },
+  phoneCall: {
+    title: 'La brigade',
+    incoming: 'Appel entrant',
+    offHook: 'Appel en cours...'
+  },
+  notifications: {
+    skill: {
+      title: 'anonyme',
+      description: 'Une notification reçue...',
+      icon: 'lightning',
+      inner: {
+        title: 'dommage'
+      }
+    },
+    regularization: {
+      bonus: {
+        title: 'la brigade',
+        description: 'Une notification reçue...',
+        icon: 'brigade',
+        inner: {
+          title: 'attention',
+          text:
+            'Bravo vous êtes doux comme des agneaux, la brigade tient a tous vous remercier !',
+          description: "tous les joueurs avancent d'une case !"
+        }
+      },
+      malus: {
+        title: 'la brigade',
+        description: 'Une notification reçue...',
+        icon: 'brigade',
+        inner: {
+          title: 'attention',
+          text:
+            'C’est la jungle ici, vous commettez trop d’impolitesses ! C’est une amende de la brigade pour tout le monde !',
+          description: 'tout les joueurs reculent de trois cases !'
+        }
+      }
     }
   }
 }

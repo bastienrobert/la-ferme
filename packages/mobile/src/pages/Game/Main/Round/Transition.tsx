@@ -44,6 +44,7 @@ export type PushContent = (c: Data) => void
 export interface TransitionProps {
   children: (data: Data, forceUpdate: PushContent) => React.ReactNode
   data: Data
+  shouldBackgroundUpdate?: boolean
   offset?: Offset
 }
 
@@ -52,7 +53,12 @@ export interface Content {
   data: Data
 }
 
-const Transition: FC<TransitionProps> = ({ children, data, offset = {} }) => {
+const Transition: FC<TransitionProps> = ({
+  children,
+  shouldBackgroundUpdate,
+  data,
+  offset = {}
+}) => {
   const { setTheme } = useTheme()
   const [content, setContent] = useState<Content[]>([])
   const [layerStyle, setLayerStyle] = useState<ViewStyle>()
@@ -100,13 +106,16 @@ const Transition: FC<TransitionProps> = ({ children, data, offset = {} }) => {
         if (isCurrentPage(content, currentComponent.current)) {
           const next = content.filter(c => c.uuid === currentComponent.current)
           if (!next || !next[0]) return
-          setTheme(next[0].data.background)
+          if (shouldBackgroundUpdate) {
+            setTheme(next[0].data.background)
+          }
           setContent(next)
         }
       }, 600)
       ref.animation.start()
     })
-  }, [content, currentComponent, setTheme])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content, setTheme])
 
   const onLayout = useCallback(
     (e: LayoutChangeEvent) => {

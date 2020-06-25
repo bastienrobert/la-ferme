@@ -42,13 +42,13 @@ const Hello: FC<OnboardingHelloProps> = ({ navigation }) => {
 
   return (
     <Component alignSelf="center">
-      <Container alignSelf="center">
+      <AnimationContainer alignSelf="center">
         <Animation
           source={require('@/assets/lottie/hello_stars.json')}
           autoPlay
         />
-      </Container>
-      <TextContainer alignSelf="center">
+      </AnimationContainer>
+      <Wrapper alignSelf="center">
         <TitleContainer alignSelf="center">
           <Title preset="H3" color="beige" textAlign="center">
             {content.introduction}
@@ -60,7 +60,7 @@ const Hello: FC<OnboardingHelloProps> = ({ navigation }) => {
         <Text color="beige" textAlign="center">
           {content.text_2}
         </Text>
-      </TextContainer>
+      </Wrapper>
     </Component>
   )
 }
@@ -72,15 +72,18 @@ const Component = styled(FullContainer)`
   justify-content: center;
 `
 
-const Animation = styled(LottieView)`
-  width: 100%;
-  margin-bottom: 37px;
+const AnimationContainer = styled(Container)`
+  padding-bottom: 37px;
 `
 
-const TextContainer = styled(Container)`
+const Animation = styled(LottieView)`
+  width: 100%;
+`
+
+const Wrapper = styled(Container)`
   width: 90%;
   max-width: 400px;
-  flex: 1;
+  margin-bottom: 20px;
 `
 
 const TitleContainer = styled(Container)`

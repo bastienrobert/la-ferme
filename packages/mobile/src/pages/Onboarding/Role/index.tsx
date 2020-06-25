@@ -1,4 +1,6 @@
 import React, { FC, useEffect, useCallback } from 'react'
+import styled from 'styled-components/native'
+import { ActivityIndicator } from 'react-native'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { Colors } from '@la-ferme/components/native'
@@ -7,7 +9,7 @@ import { characters } from '@la-ferme/shared/data'
 import { RootStackParamList } from '@/App/routes'
 
 import Walktrough from '@/pages/Onboarding/Role/Walktrough'
-import Text from '@/components/typo/Text'
+import FullContainer from '@/components/shared/FullContainer'
 
 import { GAME_INFOS_QUERY, SET_PLAYER_INFOS_MUTATION } from '@/graphql/local'
 import { GET_PLAYER, PLAYER_READY_MUTATION } from '@/graphql/player'
@@ -60,9 +62,20 @@ const Role: FC<OnboardingRoleProps> = ({ navigation }) => {
     playerReadyMutation({ variables: { playerUUID: player.uuid } })
   }, [player, playerReadyMutation])
 
-  if (!userData) return <Text color="gray">Fetching user</Text>
+  if (!userData) {
+    return (
+      <ActivityIndicatorContainer>
+        <ActivityIndicator size="large" color={Colors.red} />
+      </ActivityIndicatorContainer>
+    )
+  }
 
   return <Walktrough player={userData} onReadyPress={onReadyPress} />
 }
+
+const ActivityIndicatorContainer = styled(FullContainer)`
+  align-items: center;
+  justify-content: center;
+`
 
 export default Role

@@ -45,7 +45,12 @@ const NewOrCard: FC<NewOrCardProps> = ({ player, step }) => {
   return (
     <Component alignSelf="center">
       <TitleContainer>
-        <PlayerWithHashtag alignSelf="center" character={character.name} />
+        <PlayerWithHashtag
+          anchor="right"
+          hashtagOffset={{ x: 40 }}
+          alignSelf="center"
+          character={character.name}
+        />
         <Title preset="H1" color="beige" textAlign="center">
           {content.title_1}
         </Title>
@@ -74,6 +79,7 @@ const Component = styled(FullContainer)`
   align-items: center;
   max-width: 350px;
   justify-content: space-between;
+  margin-bottom: 70px;
 `
 
 const TitleContainer = styled(Container)`
@@ -83,6 +89,7 @@ const TitleContainer = styled(Container)`
 const PlayerImage = styled(FastImage)`
   width: 90%;
   max-width: 400px;
+  max-height: 40%;
   aspect-ratio: 1;
 `
 

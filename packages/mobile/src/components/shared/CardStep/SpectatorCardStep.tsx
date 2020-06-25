@@ -1,13 +1,16 @@
 import React, { FC } from 'react'
 import styled from 'styled-components/native'
+import { global as globalData } from '@la-ferme/shared/data'
 
 import { CardStepProps } from '.'
+import { Component, Cards } from './cardStep.styles'
 import PickCard from './PickCard'
 import CardAnimation from './CardAnimation'
 import Container from '@/components/shared/Container'
 import Title from '@/components/typo/Title'
 import PlayerWithHashtag from '@/components/shared/PlayerWithHashtag'
-import { Component, Cards } from './cardStep.styles'
+
+const content = globalData.cardStep.viewer
 
 const SpectatorCardStep: FC<CardStepProps> = ({ player, choice }) => {
   return (
@@ -19,7 +22,7 @@ const SpectatorCardStep: FC<CardStepProps> = ({ player, choice }) => {
           character={player.character}
         />
         <Title preset="H1" color="beige" textAlign="center">
-          a choisi
+          {content.choosed}
         </Title>
       </TitleContainer>
       <CardAnimation type={choice} player={player} />

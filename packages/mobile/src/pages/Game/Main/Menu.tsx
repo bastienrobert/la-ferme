@@ -1,15 +1,12 @@
 import React, { FC, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
-import { useMutation } from '@apollo/react-hooks'
 import { Icon } from '@la-ferme/components/native'
 import { Player } from '@la-ferme/shared/typings'
 
+import { PopupType } from './Popup'
 import Container from '@/components/shared/Container'
 
-import { STOP_GAME_MUTATION } from '@/graphql/game'
-
-import { PopupType } from './Popups'
 import useTheme from '@/hooks/useTheme'
 import { complementaries } from '@/utils/colors'
 
@@ -28,20 +25,15 @@ const MenuIcon: FC<any> = ({ onPress, ...style }) => {
 
 const Menu: FC<MenuProps> = ({ player, setPopup }) => {
   const [visible, setVisible] = useState(false)
-  const [stopGameMututation] = useMutation(STOP_GAME_MUTATION)
   const { theme } = useTheme()
 
   const color = complementaries[theme]
 
   const onShowPress = () => setVisible(true)
   const onHidePress = () => setVisible(false)
-  const onReportPress = () => setPopup(PopupType.REPORT)
-  const onGameOverPress = () => {
-    stopGameMututation({ variables: { winnerUUID: player.uuid } })
-  }
-  const onSkillPress = () => {
-    setPopup(PopupType.SKILL)
-  }
+  const onReportPress = () => setPopup(PopupType.Report)
+  const onGameOverPress = () => setPopup(PopupType.GameOver)
+  const onSkillPress = () => setPopup(PopupType.Skill)
 
   return (
     <Component alignSelf="flex-end">

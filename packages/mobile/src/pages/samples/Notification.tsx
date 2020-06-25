@@ -25,7 +25,7 @@ const NotificationSample = () => {
     setNotification(notification.filter(n => n.uuid !== id))
   }
 
-  const close = useEffect(() => {
+  useEffect(() => {
     setTheme('red')
   }, [setTheme])
 
@@ -54,10 +54,17 @@ const NotificationSample = () => {
 }
 
 const Component = styled(FullContainer)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   justify-content: flex-end;
 `
 
 const Button = styled.Button`
+  position: absolute;
+  top: 500px;
   margin-top: auto;
 `
 

@@ -25,6 +25,7 @@ export interface Character {
 export interface Goal {
   name: string
   displayName: string
+  displayNameWithPronounce: string
   description: string
   text: string
 }
@@ -35,4 +36,9 @@ export interface Skill {
   description: string
   text: string
   effect: string
+  use?: string
+  completeText?: string
+  complete?: string
+  notificationText?: string
+  notification?: string
 }

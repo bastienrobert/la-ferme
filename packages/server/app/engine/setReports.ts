@@ -1,5 +1,10 @@
 import { Collection } from 'bookshelf'
 import { ReportStatus } from '@la-ferme/shared/typings'
+import {
+  CONFIRM_REPORT,
+  REVERSE_REPORT,
+  MAX_ROUNDS_REPORT
+} from '@la-ferme/shared/settings'
 
 import Game from '@/app/models/Game'
 import Player from '@/app/models/Player'
@@ -9,10 +14,6 @@ export interface SetReportsOptions {
   player: Player
   delta: number
 }
-
-const CONFIRM_REPORT = -1
-const REVERSE_REPORT = 1
-const MAX_ROUNDS = 3
 
 export default async (game: Game, { player, delta }: SetReportsOptions) => {
   try {
@@ -31,7 +32,10 @@ export default async (game: Game, { player, delta }: SetReportsOptions) => {
       if (report.score < CONFIRM_REPORT) {
         console.log('CONFIRM REPORT', player.character, report.score)
         report.status = ReportStatus.Confirmed
-      } else if (report.score > REVERSE_REPORT || report.rounds > MAX_ROUNDS) {
+      } else if (
+        report.score > REVERSE_REPORT ||
+        report.rounds > MAX_ROUNDS_REPORT
+      ) {
         console.log('REVERSE REPORT', player.character, report.score)
         report.status = ReportStatus.Reversed
       } else {

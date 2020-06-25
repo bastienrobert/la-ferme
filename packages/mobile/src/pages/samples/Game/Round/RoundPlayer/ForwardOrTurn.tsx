@@ -37,7 +37,7 @@ const ForwardOrTurn: FC<ForwardOrTurnProps> = ({ onSubmit }) => {
         />
       </Container>
       <Animation
-        source={require('@/assets/images/game/forward_or_turn.webp')}
+        source={require('@/assets/images/game/forward_or_turn_red.webp')}
       />
       <TextContainer>
         <Text color="gray" textAlign="center">

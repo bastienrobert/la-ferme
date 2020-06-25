@@ -26,7 +26,11 @@ const editLastRoundTarget = async (skill: Skill) => {
   const last = target.last()
 
   // if player is not targeted, reject skill use
-  if (!last) throw new Error(SKILL_UNAVAILABLE)
+  if (!last) {
+    skill.reset()
+    skill.save()
+    throw new Error(SKILL_UNAVAILABLE)
+  }
 
   // assign a new state to the target
   last.status =

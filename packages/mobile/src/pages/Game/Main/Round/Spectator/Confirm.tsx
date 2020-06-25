@@ -5,13 +5,19 @@ import GameCard, { GameCardType } from '@/components/shared/GameCard'
 
 export interface RoundSpectatorConfirmProps extends RoundViewProps {}
 
-const Confirm: FC<RoundSpectatorConfirmProps> = ({ data, player, players }) => {
+const Confirm: FC<RoundSpectatorConfirmProps> = ({ data, players }) => {
+  const current = players.find(p => p.uuid === data.player)
+  const formattedTargets = data.targets.map(t => {
+    return players.find(p => p.uuid === t)
+  })
+
   return (
     <GameCard
       type={GameCardType.Spectator}
       choice={data.choice}
+      targets={formattedTargets}
       name={data.cards[data.choice]}
-      player={player}
+      player={current}
       players={players}
     />
   )

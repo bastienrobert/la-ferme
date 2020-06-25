@@ -1,6 +1,5 @@
-import React, { FC, useEffect, useCallback, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styled from 'styled-components/native'
-import { Alert } from 'react-native'
 import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { useMutation, useSubscription, useQuery } from '@apollo/react-hooks'
 import {
@@ -12,10 +11,13 @@ import { characters } from '@la-ferme/shared/data'
 
 import { RootStackParamList } from '@/App/routes'
 
-import NotificationBanner from './NotificationBanner'
+import Notifications, {
+  NotificationsProps,
+  NotificationType
+} from './Notifications'
 import Round from './Round'
 import Menu from './Menu'
-import Popups, { PopupType } from './Popups'
+import Popup, { PopupType } from './Popup'
 import Header from '@/components/shared/Header'
 import FullContainer from '@/components/shared/FullContainer'
 
@@ -23,6 +25,8 @@ import { GAME_PLAYER_INFOS_QUERY } from '@/graphql/local'
 import { GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
 import { READY_FOR_ROUND_MUTATION } from '@/graphql/round'
 import { EVENT_TRIGGERED_SUBSCRIPTION } from '@/graphql/event'
+
+import useTheme from '@/hooks/useTheme'
 
 export interface GameMainParams {
   players: PlayerType[]
@@ -37,12 +41,15 @@ export interface GameMainProps {
 }
 
 const Game: FC<GameMainProps> = ({ navigation, route }) => {
+  const { setTheme } = useTheme()
   const gamePlayerInfosQuery = useQuery(GAME_PLAYER_INFOS_QUERY)
   const { gameUUID, player } = gamePlayerInfosQuery?.data ?? {}
   const players = route.params?.players ?? []
 
-  const [popup, setPopup] = useState<PopupType | null>(null)
-  const [banner, setBanner] = useState<string | null>(null)
+  const [popup, setPopup] = useState<PopupType>(undefined)
+  const [notification, setNotification] = useState<NotificationsProps>(
+    undefined
+  )
 
   /**
    * tell to the server you're ready to play
@@ -55,37 +62,47 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   /**
    * event update subscription
    */
-  // const eventTriggeredSubscription = useSubscription(
-  //   EVENT_TRIGGERED_SUBSCRIPTION,
-  //   {
-  //     variables: { gameUUID }
-  //   }
-  // )
-  // const eventData = eventTriggeredSubscription.data?.eventTriggered
+  const eventTriggeredSubscription = useSubscription(
+    EVENT_TRIGGERED_SUBSCRIPTION,
+    {
+      variables: { gameUUID }
+    }
+  )
+  const eventData = eventTriggeredSubscription.data?.eventTriggered
 
-  // useEffect(() => {
-  //   switch (eventData?.type) {
-  //     case EventType.Report:
-  //       if (eventData.targets.includes(player?.uuid)) {
-  //         Alert.alert(`You have been reported ${eventData.status}`)
-  //       }
-  //       break
-  //     case EventType.Regularization:
-  //       Alert.alert(`Regularization ${eventData.name}`)
-  //       break
-  //     case EventType.Skill:
-  //       const from = players.find(p => p.uuid === eventData.player)
-  //       const targets = eventData.targets
-  //         .map(t => players.find(p => p.uuid === t)?.character)
-  //         .join(' ')
-  //       setBanner(
-  //         from.character + ' used ' + eventData.skill + ' on ' + targets
-  //       )
-  //       break
-  //     default:
-  //       break
-  //   }
-  // }, [eventData, player, players])
+  useEffect(() => {
+    switch (eventData?.type) {
+      case EventType.Report:
+        if (eventData.targets.includes(player?.uuid)) {
+          setPopup(PopupType.PhoneCall)
+        }
+        break
+      case EventType.Regularization:
+        setNotification({
+          type: NotificationType.Regularization,
+          params: {
+            event: eventData.name
+          }
+        })
+        break
+      case EventType.Skill:
+        const from = players.find(p => p.uuid === eventData.player)
+        const targets = eventData.targets.map(t => {
+          return players.find(p => p.uuid === t)?.character
+        })
+        setNotification({
+          type: NotificationType.Skill,
+          params: {
+            skill: eventData.skill,
+            from,
+            targets
+          }
+        })
+        break
+      default:
+        break
+    }
+  }, [eventData, player, players])
 
   /**
    * game update subscription
@@ -102,35 +119,41 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
     navigation.navigate('Game:Over', { winner })
   }, [gameData, navigation])
 
+  useEffect(() => {
+    if (!gameData?.round || popup !== undefined) return
+    setTheme(gameData.round.background)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [popup])
+
   const character = characters.find(c => player.character === c.name)
 
   return (
-    <Component>
+    <Component overflow={popup ? 'hidden' : 'visible'}>
       <Header
         player={player}
         players={players}
         numberOfRounds={numberOfRounds}
       />
-      <NotificationBanner content={banner} />
       {gameData && gameData.type === GameStatusType.Round && (
         <Round
           gameUUID={gameUUID}
           player={player}
           character={character}
           players={players}
+          shouldBackgroundUpdate={!popup}
           data={gameData.round}
         />
       )}
-      <Menu player={player} setPopup={setPopup} />
-      {popup && (
-        <Popups set={setPopup} type={popup} players={players} player={player} />
-      )}
+      {!popup && <Menu player={player} setPopup={setPopup} />}
+      <Popup set={setPopup} type={popup} players={players} player={player} />
+      <Notifications {...notification} />
     </Component>
   )
 }
 
-const Component = styled(FullContainer)`
+const Component = styled(FullContainer)<any>`
   width: 100%;
+  overflow: ${({ overflow }) => overflow};
 `
 
 export default Game

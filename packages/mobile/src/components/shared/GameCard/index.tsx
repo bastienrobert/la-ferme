@@ -23,13 +23,14 @@ import getAnimation from './getAnimation'
 import { shadow, inner } from '@/components/cards/cards.style'
 import { getAllExceptCurrent } from '@/utils/helpers/players'
 
-export const content = globalData.role
+export const content = globalData.gameCard
 
 export interface GameCardProps extends ContainerProps {
   name: string
   choice: RoundChoice
   player: Player
   players: Player[]
+  targets: Player[]
   type: GameCardType
   onPress?: () => void
   onPlayerSelect?: (player: Player) => void
@@ -46,6 +47,7 @@ const GameCard: FC<GameCardProps> = ({
   choice,
   player,
   players,
+  targets,
   type,
   onPress,
   onPlayerSelect,
@@ -71,7 +73,7 @@ const GameCard: FC<GameCardProps> = ({
             {!self && (
               <PlayerWithColor size="small" character={player.character} />
             )}
-            <Title preset="H3">{self ? 'Choix' : ' choisi'}</Title>
+            <Title preset="H3">{self ? content.choice : content.choosed}</Title>
           </TitleContainer>
         </TopInner>
       </TopStyledContainer>
@@ -80,11 +82,18 @@ const GameCard: FC<GameCardProps> = ({
         <BottomInner>
           {type === GameCardType.Select ? (
             <CardSelectContent
-              onPress={onPlayerSelect}
+              card={card}
               players={getAllExceptCurrent(players, player)}
+              onPress={onPlayerSelect}
             />
           ) : (
-            <CardTextContent onPress={onPress} />
+            <CardTextContent
+              card={card}
+              self={self}
+              player={player}
+              targets={targets}
+              onPress={onPress}
+            />
           )}
         </BottomInner>
       </BottomStyledContainer>

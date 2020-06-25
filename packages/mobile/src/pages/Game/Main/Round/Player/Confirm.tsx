@@ -11,6 +11,10 @@ export interface RoundPlayerConfirmProps extends RoundViewProps {}
 const Confirm: FC<RoundPlayerConfirmProps> = ({ data, player, players }) => {
   const [completeCardRoundMutation] = useMutation(COMPLETE_CARD_ROUND_MUTATION)
 
+  const formattedTargets = data.targets.map(t => {
+    return players.find(p => p.uuid === t)
+  })
+
   const onCompletePress = () => {
     completeCardRoundMutation({
       variables: { playerUUID: player.uuid }
@@ -24,6 +28,7 @@ const Confirm: FC<RoundPlayerConfirmProps> = ({ data, player, players }) => {
       name={data.cards[data.choice]}
       player={player}
       players={players}
+      targets={formattedTargets}
       onPress={onCompletePress}
     />
   )

@@ -1,10 +1,13 @@
 import React, { FC, useRef, useEffect } from 'react'
 import { Animated, Easing } from 'react-native'
 import styled from 'styled-components/native'
+import { global as globalData } from '@la-ferme/shared/data'
 import { Colors } from '@la-ferme/components/native'
 
 import Title from '@/components/typo/Title'
 import Container from '@/components/shared/Container'
+
+const content = globalData.cardStep.player
 
 export interface YouChooseProps {
   visible: boolean
@@ -28,10 +31,10 @@ const YouChoose: FC<YouChooseProps> = ({ color, visible }) => {
   return (
     <Component as={Animated.View} alignSelf="center" style={{ opacity }}>
       <Title preset="H1" color={color}>
-        Vous avez
+        {content.choosed_1}
       </Title>
       <Title preset="H1" color={color}>
-        Choisi
+        {content.choosed_2}
       </Title>
     </Component>
   )

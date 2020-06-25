@@ -13,9 +13,11 @@ import auth from '@/services/auth'
 
 import config from '@/utils/config'
 
+const protocol = config.ssl && config.ssl !== 'false' ? 'https' : 'http'
+
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: `${config.ssl ? 'https' : 'http'}://${config.api}/graphql`,
+  uri: `${protocol}://${config.api}/graphql`,
   fetch: unfetch
 })
 

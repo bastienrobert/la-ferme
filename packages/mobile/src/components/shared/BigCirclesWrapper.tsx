@@ -3,26 +3,35 @@ import styled from 'styled-components/native'
 import LottieView from 'lottie-react-native'
 import { Colors } from '@la-ferme/components/native'
 
-import Container from '@/components/shared/Container'
+import Container, { ContainerProps } from '@/components/shared/Container'
 
-const BigCirclesWrapper: FC = ({ children }) => {
+export interface BigCirclesWrapperProps extends ContainerProps {
+  background?: Colors.Theme
+}
+
+const BigCirclesWrapper: FC<BigCirclesWrapperProps> = ({
+  children,
+  background = 'gray',
+  ...props
+}) => {
   return (
-    <Component>
+    <Component {...props}>
       <Animation
         source={require('@/assets/lottie/big_circles.json')}
         autoPlay
       />
-      <Wrapper alignSelf="center">{children}</Wrapper>
+      <Wrapper background={background} alignSelf="center">
+        {children}
+      </Wrapper>
     </Component>
   )
 }
 
 const Component = styled(Container)`
-  width: 80%;
+  width: 90%;
   justify-content: center;
   max-width: 400px;
   aspect-ratio: 1;
-  border: 1px solid red;
 `
 
 const Animation = styled(LottieView)`
@@ -31,16 +40,16 @@ const Animation = styled(LottieView)`
   left: 0;
   width: 100%;
   height: 100%;
-  border: 1px solid blue;
 `
 
-const Wrapper = styled(Container)`
+const Wrapper = styled(Container)<any>`
   width: 50%;
   aspect-ratio: 1;
   max-width: 350px;
   border: 4px solid ${Colors.beige};
   border-radius: 1000px;
-  background-color: red;
+  overflow: hidden;
+  background-color: ${({ background }) => Colors[background]};
 `
 
 export default BigCirclesWrapper

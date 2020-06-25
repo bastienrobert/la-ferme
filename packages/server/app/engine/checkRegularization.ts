@@ -1,6 +1,7 @@
 import { Collection } from 'bookshelf'
 
 import { REGULARIZATION } from '@la-ferme/shared/constants'
+import { PENALTY_SCORE, REWARD_SCORE } from '@la-ferme/shared/settings'
 import { EventType, RegularizationName } from '@la-ferme/shared/typings'
 
 import Player from '@/app/models/Player'
@@ -8,9 +9,6 @@ import Game from '@/app/models/Game'
 import Regularization from '@/app/models/Regularization'
 
 import pubsub from '@/app/pubsub'
-
-const PENALTY_SCORE = -1.5
-const REWARD_SCORE = 1.5
 
 const getName = average => {
   if (average < PENALTY_SCORE) return RegularizationName.Penalty

@@ -132,13 +132,13 @@ const Home: FC<HomeMainProps> = ({ navigation }) => {
       </TitleContainer>
       <ImagesWrapper>
         <TouchableImageContainer onPress={onNfcIconPress}>
-          <StyledImage
+          <NFCImage
             resizeMode="contain"
             source={require('@/assets/images/home/nfc.png')}
           />
         </TouchableImageContainer>
         <TouchableImageContainer onPress={onCameraIconPress}>
-          <StyledImage
+          <QRCodeImage
             resizeMode="contain"
             source={require('@/assets/images/home/qrcode.png')}
           />
@@ -181,18 +181,27 @@ const TitleContainer = styled(Container)`
 
 const ImagesWrapper = styled.View`
   flex: 1;
+  padding: 10px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 `
 
 const TouchableImageContainer = styled.TouchableOpacity`
-  width: 50%;
-  max-width: 200px;
+  flex: 1;
+  max-width: 250px;
+  padding: 20px;
 `
 
-const StyledImage = styled.Image`
+const NFCImage = styled.Image`
   width: 100%;
+  transform: rotate(-3.76deg);
+`
+
+const QRCodeImage = styled.Image`
+  width: 100%;
+  transform: rotate(1.76deg);
+  margin-top: 10px;
 `
 
 const ContentWrapper = styled.View`

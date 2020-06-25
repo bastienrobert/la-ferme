@@ -27,18 +27,6 @@ const Spectator: FC<RoundViewProps> = props => {
       return <NewOrCard player={current} step={data.step} />
     case RoundStep.Confirm:
       return <Confirm {...props} />
-    // const card = getCard(data.cards[data.choice])
-    // return (
-    //   <Container>
-    //     <Text>{current.character} est en train de confirmer</Text>
-    //     <Text>Carte choisie: {card.displayName}</Text>
-    //     {data.targets?.length > 0 &&
-    //       data.targets.map((target, i) => {
-    //         const { character } = players.find(p => p.uuid === target)
-    //         return <Text key={i}>Cible(s): {character}</Text>
-    //       })}
-    //   </Container>
-    // )
     default:
       return null
   }

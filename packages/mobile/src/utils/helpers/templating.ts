@@ -3,7 +3,7 @@ import reactStringReplace from 'react-string-replace'
 
 const PARAMS_REGEX = /%(\w*?)%/g
 
-type TemplatingNode = (index: number, match?: string) => ReactNode
+export type TemplatingNode = (index: number, match?: string) => ReactNode
 
 export type TemplatingParams = {
   [key: string]: TemplatingNode

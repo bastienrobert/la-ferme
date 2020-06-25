@@ -7,6 +7,7 @@ export const Component = styled(FullContainer)`
   elevation: 3;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `
 
 export const Cards = styled(Container)`

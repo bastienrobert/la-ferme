@@ -21,11 +21,19 @@ export interface RoundProps {
   character: Character
 }
 
+export interface MainRoundProps extends RoundProps {
+  shouldBackgroundUpdate: boolean
+}
+
 export interface RoundViewProps extends RoundProps {
   forceUpdate: PushContent
 }
 
-const Round: FC<RoundProps> = ({ data, ...rest }) => {
+const Round: FC<MainRoundProps> = ({
+  data,
+  shouldBackgroundUpdate,
+  ...rest
+}) => {
   const { character, player } = rest
 
   const composedData = useMemo(() => {
@@ -36,7 +44,10 @@ const Round: FC<RoundProps> = ({ data, ...rest }) => {
 
   return (
     <Component>
-      <Transition data={composedData} offset={{ y: -MARGIN_TOP }}>
+      <Transition
+        data={composedData}
+        offset={{ y: -MARGIN_TOP }}
+        shouldBackgroundUpdate={shouldBackgroundUpdate}>
         {(d, forceUpdate) => {
           const isPlayer = d.player === rest.player.uuid
           const C = isPlayer ? Player : Spectator

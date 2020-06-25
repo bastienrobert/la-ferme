@@ -1,24 +1,26 @@
 import React, { FC, useState } from 'react'
 import styled from 'styled-components/native'
-import { Player } from '@la-ferme/shared/typings'
+import { Card, Player } from '@la-ferme/shared/typings'
 
 import Choose from './Choose'
 import Confirm from './Confirm'
 import Container from '@/components/shared/Container'
 
 export interface CardSelectContentProps {
+  card: Card
   players: Player[]
   onPress: (player: Player) => void
 }
 
 const CardSelectContent: FC<CardSelectContentProps> = ({
+  card,
   players,
   onPress
 }) => {
   const [player, setPlayer] = useState<Player>()
 
   return (
-    <Component>
+    <Component alignSelf="center">
       {player ? (
         <Confirm
           player={player}
@@ -26,7 +28,7 @@ const CardSelectContent: FC<CardSelectContentProps> = ({
           onCancel={() => setPlayer(undefined)}
         />
       ) : (
-        <Choose players={players} setPlayer={setPlayer} />
+        <Choose card={card} players={players} setPlayer={setPlayer} />
       )}
     </Component>
   )
