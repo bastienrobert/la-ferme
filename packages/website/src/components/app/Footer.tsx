@@ -87,7 +87,9 @@ const Columns = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  flex-wrap: wrap;
+  @media (max-width: 1000px) {
+    flex-wrap: wrap;
+  }
 `
 
 const ColumnTop = styled.div`
@@ -97,7 +99,6 @@ const ColumnTop = styled.div`
 const StyledColumn = styled.div`
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   width: fit-content;
   max-width: 350px;
   margin-right: 120px;
