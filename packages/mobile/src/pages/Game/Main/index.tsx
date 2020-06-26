@@ -117,8 +117,13 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
     if (gameData?.type !== GameStatusType.End) return
     const winner = gameData.winnerUUID
     const statistics = gameData.statistics
-    navigation.navigate('Game:Statistics', { winner, players, statistics })
-  }, [gameData, navigation, players])
+    navigation.navigate('Game:Statistics', {
+      winner,
+      players,
+      player,
+      statistics
+    })
+  }, [gameData, navigation, player, players])
 
   useEffect(() => {
     if (!gameData?.round || popup !== undefined) return

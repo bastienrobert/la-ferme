@@ -52,5 +52,6 @@ export interface GameStatistics {
 export interface Statistic {
   name: StatisticName
   displayName: string
+  description: string
   text: string
 }

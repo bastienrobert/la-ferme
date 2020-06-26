@@ -15,7 +15,7 @@ const SampleCardChoice = () => {
     <Component>
       {/* <PickCard character="peter" /> */}
       {/* <Header players={players} player={players[1]} /> */}
-      <AnimatedTitle lines={['hello', 'there']} preset="H2" color="beige" />
+      {/* <AnimatedTitle lines={['hello', 'there']} preset="H2" color="beige" /> */}
       {/* <BigCirclesWrapper /> */}
     </Component>
   )

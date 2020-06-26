@@ -7,17 +7,19 @@ import CircleImage, { CircleImageProps } from './CircleImage'
 
 import { images as playerImages } from '@/utils/helpers/players'
 
-export interface PlayerImageProps {
+export interface PlayerImageProps
+  extends Omit<CircleImageProps, 'onPress' | 'source'> {
   player: Player
   onPress?: (player: Player) => void
 }
 
-const PlayerImage: FC<PlayerImageProps> = ({ player, onPress }) => {
+const PlayerImage: FC<PlayerImageProps> = ({ player, onPress, ...rest }) => {
   const character = characters.find(c => player.character === c.name)
 
   const props: CircleImageProps = {
     background: character.color as Colors.IconBackground,
-    source: playerImages[player.character]
+    source: playerImages[player.character],
+    ...rest
   }
   if (onPress) props.onPress = () => onPress(player)
 

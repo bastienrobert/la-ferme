@@ -48,6 +48,9 @@ export default {
     cta_skip: 'PASSER'
   },
   role: {
+    character_indicator: 'perso',
+    skill_indicator: 'objet',
+    goal_indicator: 'objectif',
     cta_ready: 'PRÊÊÊÊT'
   },
   pending: {
@@ -172,9 +175,27 @@ export default {
     }
   },
   statistics: {
+    cta_replay: 'rejouer',
     civil:
       'On peut dire que vous êtes tous retombé sur vos pattes ! Vous êtes de braves citoyens !',
     uncivil:
-      'Dis donc, on peut dire que vous appréciez vous volez dans les plumes !'
+      'Dis donc, on peut dire que vous appréciez vous volez dans les plumes !',
+    appraisal: {
+      title_1: 'bilan',
+      title_2: 'des comptes',
+      description: '#enflure',
+      civil: 'coup de pouce',
+      uncivil: 'coup de boule'
+    },
+    titles: {
+      subtitle: 'vos titres',
+      title: 'bravo'
+    },
+    player: {
+      subtitle: 'votre jeu'
+    },
+    game: {
+      subtitle: 'la partie'
+    }
   }
 }

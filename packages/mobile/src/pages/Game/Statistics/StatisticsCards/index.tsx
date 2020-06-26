@@ -1,10 +1,9 @@
 import React, { FC, useMemo } from 'react'
 import { Animated } from 'react-native'
 import styled from 'styled-components/native'
-import { Player } from '@la-ferme/shared/typings'
-import { global as globalData } from '@la-ferme/shared/data'
 
-import WalktroughCard, { WalktroughCardData } from './WalktroughCard'
+import { GameStatisticsParams } from '../'
+import StatisticCard, { StatisticCardType } from './StatisticCard'
 import FullContainer from '@/components/shared/FullContainer'
 import Container from '@/components/shared/Container'
 import Indicator from '@/components/shared/Indicator'
@@ -12,23 +11,16 @@ import Indicator from '@/components/shared/Indicator'
 import useCardSwipe from '@/hooks/useCardSwipe'
 import viewport from '@/services/viewport'
 
-export const content = globalData.role
-
-export interface WalktroughProps {
-  player: Player
-  onReadyPress: () => void
+export interface StatisticsCardsProps extends GameStatisticsParams {
+  onPress: () => void
 }
 
 const rotations = [0, 0.5, -1.2]
 
-const Walktrough: FC<any> = ({ onReadyPress, player }) => {
-  const datas: WalktroughCardData[] = useMemo(() => {
-    return [
-      { name: player.character, type: 'character' },
-      { name: player.skill, type: 'skill' },
-      { name: player.goal, type: 'goal' }
-    ]
-  }, [player])
+const StatisticsCards: FC<StatisticsCardsProps> = ({ onPress, ...rest }) => {
+  const datas: StatisticCardType[] = useMemo(() => {
+    return ['titles', 'player', 'game']
+  }, [])
 
   const { pan, setIndex, currentIndex, panResponder } = useCardSwipe()
 
@@ -54,12 +46,13 @@ const Walktrough: FC<any> = ({ onReadyPress, player }) => {
 
   return (
     <Component>
-      <CardContainer>
+      <CardContainer alignSelf="center">
         {datas
           .map((card, i) => {
             if (i < currentIndex) return null
             const cardProps = {
-              ...card,
+              ...rest,
+              type: card,
               style: { transform: [{ rotate: rotations[i] + 'deg' }] }
             }
 
@@ -72,10 +65,7 @@ const Walktrough: FC<any> = ({ onReadyPress, player }) => {
                 as={Animated.View}
                 style={i === currentIndex ? wrapperStyle : {}}
                 {...props}>
-                <WalktroughCard
-                  onPress={last ? onReadyPress : null}
-                  {...cardProps}
-                />
+                <StatisticCard onPress={onPress} {...cardProps} />
               </StyledView>
             )
           })
@@ -84,9 +74,9 @@ const Walktrough: FC<any> = ({ onReadyPress, player }) => {
 
       <Indicator
         labels={[
-          { number: '01', text: content.character_indicator },
-          { number: '02', text: content.skill_indicator },
-          { number: '03', text: content.goal_indicator }
+          { number: '01', text: 'titres' },
+          { number: '02', text: 'jeu' },
+          { number: '03', text: 'partie' }
         ]}
         onLabelPress={onIndicatorPress}
         currentIndex={currentIndex}
@@ -95,7 +85,7 @@ const Walktrough: FC<any> = ({ onReadyPress, player }) => {
   )
 }
 
-export default Walktrough
+export default StatisticsCards
 
 const Component = styled(FullContainer)`
   flex: 1;

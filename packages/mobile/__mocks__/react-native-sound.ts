@@ -1,7 +1,7 @@
 export default class SoundMock {
   static setCategory = jest.fn()
 
-  constructor(path, type, callback) {}
+  constructor() {}
 
   setVolume = jest.fn()
   setNumberOfLoops = jest.fn()
