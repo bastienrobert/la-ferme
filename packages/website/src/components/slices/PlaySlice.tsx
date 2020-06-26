@@ -21,6 +21,7 @@ interface ColumnProps {
 }
 
 const Column: FC<ColumnProps> = ({ icon, number, title, text, buttons }) => {
+  const disabled = number === 0 ? true : false
   return (
     <StyledColumn>
       <NumberIcon src={icon} alt={`number icon ${number}`} />
@@ -30,14 +31,16 @@ const Column: FC<ColumnProps> = ({ icon, number, title, text, buttons }) => {
       <ColumnText>
         {text &&
           text.map(p => (
-            <Text textAlign="center">
+            <StyledText textAlign="center">
               <p>{p}</p>
-            </Text>
+            </StyledText>
           ))}
       </ColumnText>
       {buttons &&
         buttons.map(({ label }) => (
-          <StyledButton variant="primary">{label}</StyledButton>
+          <StyledButton disabled={disabled} variant="primary">
+            {label}
+          </StyledButton>
         ))}
     </StyledColumn>
   )
@@ -66,6 +69,7 @@ const PlaySlice: FC = () => {
 const Columns = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: flex-start;
   margin-bottom: 70px;
 `
@@ -74,6 +78,9 @@ const StyledColumn = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 320px;
+  @media (max-width: 400px) {
+    margin-bottom: 50px;
+  }
 `
 
 const NumberIcon = styled(Image)`
@@ -88,6 +95,10 @@ const ColumnTitle = styled(Title)`
 
 const ColumnText = styled.div`
   margin-bottom: 50px;
+`
+
+const StyledText = styled(Text)`
+  margin-bottom: 25px;
 `
 
 const StyledButton = styled(Button)`

@@ -70,12 +70,18 @@ const LeftDecoration = styled(Decoration)`
   top: 5%;
   left: -10px;
   transform: rotate(91deg);
+  @media (max-width: 400px) {
+    display: none;
+  }
 `
 
 const RightDecoration = styled(Decoration)`
   bottom: 0;
   right: -10px;
   transform: rotate(-88deg);
+  @media (max-width: 400px) {
+    display: none;
+  }
 `
 
 export default AppSlice

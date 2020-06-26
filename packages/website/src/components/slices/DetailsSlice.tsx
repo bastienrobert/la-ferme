@@ -63,11 +63,13 @@ const Columns = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
 `
 
 const StyledColumn = styled.div`
   flex: 1;
   max-width: 320px;
+  min-width: 200px;
 `
 
 const Paragraph = styled(Text)`
@@ -79,6 +81,9 @@ const EvilImage = styled(Image)`
   top: -100px;
   right: -100px;
   width: 200px;
+  @media (max-width: 400px) {
+    display: none;
+  }
 `
 
 const HeartEyesImage = styled(Image)`
@@ -86,6 +91,9 @@ const HeartEyesImage = styled(Image)`
   bottom: -50px;
   left: -50px;
   width: 170px;
+  @media (max-width: 400px) {
+    display: none;
+  }
 `
 
 export default DetailsSlice

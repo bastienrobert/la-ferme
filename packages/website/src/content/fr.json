@@ -1,5 +1,9 @@
 {
   "global": {
+    "image": {
+      "src": "/images/global/cross.png",
+      "alt": "cross icon"
+    },
     "seo": {
       "title": "La Ferme - Le jeu",
       "description": "Plongez au coeur de la jungle urbaine et gagnez contre vos amis !"
@@ -156,5 +160,77 @@
       }
     ]
   },
-  "footer": {}
+  "subway": {
+    "image": {
+      "src": "/images/subway/subway.png",
+      "alt": "subway la ferme"
+    }
+  },
+  "footer": {
+    "image": {
+      "src": "/images/global/contact.png",
+      "alt": "l'equipe la ferme et leon"
+    },
+    "columns": [
+      {
+        "icon": "/images/global/heart.png",
+        "title": "Équipes",
+        "text": ["Développement :", "Design :"],
+        "buttons": [
+          {
+            "label": "Bastien Robert",
+            "href": "https://www.bastienrobert.fr/"
+          },
+          {
+            "label": "Mathieu Harribey",
+            "href": "https://www.mathieuharribey.com/"
+          },
+          {
+            "label": "Céline Le Provost",
+            "href": "#"
+          },
+          {
+            "label": "Solène Robichon",
+            "href": "#"
+          }
+        ]
+      },
+      {
+        "icon": "",
+        "title": "Remerciements",
+        "text": ["Musique et Voix :", "Enseignement :"],
+        "buttons": [
+          {
+            "label": "Lucas Darian",
+            "href": "#"
+          },
+          {
+            "label": "David Richard",
+            "href": "#"
+          },
+          {
+            "label": "Gobelins l'École de l'Image",
+            "href": "https://www.gobelins.fr/"
+          },
+          {
+            "label": "CCI Paris",
+            "href": "https://www.cci-paris-idf.fr/"
+          }
+        ]
+      },
+      {
+        "icon": "",
+        "title": "Nous contacter :",
+        "text": [
+          "Si vous voulez nous contacter pour le projet merci de nous joindre à cet adresse mail :"
+        ],
+        "buttons": [
+          {
+            "label": "laferme@gmail.com",
+            "href": "mailto:laferme@gmail.com"
+          }
+        ]
+      }
+    ]
+  }
 }

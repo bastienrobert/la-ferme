@@ -48,6 +48,9 @@ const StyledBackgroundColor = styled(BackgroundColor)`
 
 const StyledTitleAndSmallText = styled(TitleAndSmallText)`
   margin-bottom: 15px;
+  @media (max-width: 400px) {
+    display: none;
+  }
 `
 
 const StyledContainer = styled(Container)`

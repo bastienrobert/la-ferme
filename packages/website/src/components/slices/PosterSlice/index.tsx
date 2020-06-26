@@ -70,7 +70,7 @@ const Component = styled.section`
 
 const PosterContainer = styled.div`
   overflow: hidden;
-  height: 100%;
+  height: 150%;
   transform: translateY(-80px);
 `
 
