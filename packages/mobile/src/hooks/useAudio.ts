@@ -18,5 +18,5 @@ export default (url, { autoPlay = true, loop }: UseAudioOptions = {}) => {
     if (loop) sound.current.setNumberOfLoops(-1)
   }, [ready, loop, autoPlay])
 
-  return sound
+  return sound.current
 }

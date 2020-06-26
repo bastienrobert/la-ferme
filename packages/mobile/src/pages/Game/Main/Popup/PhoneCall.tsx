@@ -28,7 +28,7 @@ const PhoneCall: FC<PopupProps> = ({ set }) => {
   }
 
   const onPickUp = () => {
-    ringtone.current.stop()
+    ringtone.stop()
     setPickedUp(true)
   }
 
