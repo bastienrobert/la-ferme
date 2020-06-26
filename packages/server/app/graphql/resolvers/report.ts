@@ -35,7 +35,7 @@ const resolvers = {
       ])
       const countReportsToTo = reportsToTo ? await reportsToTo.count() : 0
 
-      const reject = countExistingReportsByFrom > 0
+      const reject = Number(countExistingReportsByFrom) > 0
       if (reject) throw new Error(TOO_MANY_REPORTS)
 
       // prettier-ignore

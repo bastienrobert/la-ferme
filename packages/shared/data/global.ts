@@ -164,5 +164,11 @@ export default {
         }
       }
     }
+  },
+  statistics: {
+    civil:
+      'On peut dire que vous êtes tous retombé sur vos pattes ! Vous êtes de braves citoyens !',
+    uncivil:
+      'Dis donc, on peut dire que vous appréciez vous volez dans les plumes !'
   }
 }

@@ -43,8 +43,16 @@ export default class Game extends db.bookshelf.Model<Game> {
     return this.hasMany(Player)
   }
 
+  async averageScore() {
+    const players = await this.players().fetch()
+    const sum = players.reduce((acc, { score }) => acc + score, 0)
+    return sum / players.length
+  }
+
   async numberOfRounds() {
-    return await this.rounds().where({ type: RoundType.Default }, false).count()
+    return Number(
+      await this.rounds().where({ type: RoundType.Default }, false).count()
+    )
   }
 
   start() {

@@ -5,6 +5,33 @@ enum GameStatusType {
   round
 }
 
+enum GameGlobalStatisticsName {
+  civil
+  uncivil
+}
+
+type PlayerStatistic {
+  player: UUID!
+  name: String!
+  civil: Int!
+  uncivil: Int!
+  reports: Int!
+  skill: Int!
+}
+
+type GameGlobalStatistics {
+  name: GameGlobalStatisticsName!
+  civil: Int!
+  uncivil: Int!
+  reports: Int!
+  skill: Int!
+}
+
+type Statistics {
+  players: [PlayerStatistic]!
+  global: GameGlobalStatistics!
+}
+
 interface GameStatus {
   type: GameStatusType!
   gameUUID: UUID!
@@ -36,6 +63,7 @@ type GameStatusWon implements GameStatus {
   gameUUID: UUID!
   numberOfRounds: Int!
   players: [Player]!
+  statistics: Statistics!
   winnerUUID: UUID!
 }
 

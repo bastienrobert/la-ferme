@@ -2,7 +2,10 @@ import { Collection } from 'bookshelf'
 import { GAME, PLAYER, ROUND } from '@la-ferme/shared/constants'
 import { NOT_ALLOWED } from '@la-ferme/shared/errors'
 import { characters, goals, skills } from '@la-ferme/shared/data'
-import { GameStatusType } from '@la-ferme/shared/typings'
+import {
+  GameStatusType,
+  GameGlobalStatisticsName
+} from '@la-ferme/shared/typings'
 import { withFilter } from 'apollo-server'
 
 import pubsub from '@/app/pubsub'
@@ -13,6 +16,7 @@ import Skill from '@/app/models/Skill'
 import Player from '@/app/models/Player'
 
 import { connections } from '@/app/stores'
+import getStatistics from '@/app/engine/getStatistics'
 
 import getAndSplice from '@/app/helpers/getAndSplice'
 import formatPlayers from '@/app/helpers/formatPlayers'
@@ -23,6 +27,10 @@ const resolvers = {
     end: GameStatusType.End,
     ready: GameStatusType.Ready,
     round: GameStatusType.Round
+  },
+  GameGlobalStatisticsName: {
+    civil: GameGlobalStatisticsName.Civil,
+    uncivil: GameGlobalStatisticsName.Uncivil
   },
   GameStatus: {
     __resolveType({ type }) {
@@ -111,13 +119,12 @@ const resolvers = {
       const game = winner.related('game') as Game
       const room = game.related('room') as Room
 
-      // TODO
-      // COMPUTE STATISTICS
-
       game.winner = winner.id
       await game.save()
 
-      const players = game.related('players')
+      const players = game.related('players') as Collection<Player>
+      const statistics = await getStatistics(game, { players, winner })
+
       const [numberOfRounds, formattedPlayer] = await Promise.all([
         game.numberOfRounds(),
         formatPlayers(players)
@@ -133,6 +140,7 @@ const resolvers = {
           type: GameStatusType.End,
           numberOfRounds,
           winnerUUID,
+          statistics,
           players: formattedPlayer
         }
       })

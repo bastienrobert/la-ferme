@@ -32,6 +32,23 @@ const GAME_UPDATED_SUBSCRIPTION = gql`
       }
       ... on GameStatusWon {
         winnerUUID
+        statistics {
+          players {
+            player
+            name
+            civil
+            uncivil
+            reports
+            skill
+          }
+          global {
+            name
+            civil
+            uncivil
+            reports
+            skill
+          }
+        }
       }
       ... on GameStatusReady {
         players {

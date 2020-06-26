@@ -47,7 +47,7 @@ const resolvers = {
       const skill = player.related('skill') as Skill
       const game = player.related('game') as Game
 
-      if (skill.using || skill.used) {
+      if (!skill.usable) {
         throw new Error(SKILL_ALREADY_USED)
       }
 

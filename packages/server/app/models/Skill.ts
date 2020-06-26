@@ -33,6 +33,10 @@ export default class Skill extends db.bookshelf.Model<Skill> {
     return this.belongsToMany(Player, 'skills_targets')
   }
 
+  get usable() {
+    return this.get('status') === SkillStatus.Usable
+  }
+
   get using() {
     return this.get('status') === SkillStatus.Using
   }

@@ -64,25 +64,25 @@ const AnimatedTitle: FC<AnimatedTitleProps> = ({ lines, ...titleProps }) => {
             delay: STAGING * i,
             useNativeDriver: true
           }),
-          Animated.timing(ref.translate, {
-            toValue: { x: 0, y: -80 },
-            duration: 866,
-            delay: STAGING * i,
-            easing: translateInterpolation,
-            useNativeDriver: true
-          }),
-          Animated.timing(ref.rotate, {
-            toValue: -0.35,
-            duration: 866,
-            delay: STAGING * i + 20,
-            easing: rotationInterpolation,
-            useNativeDriver: true
-          }),
+          // Animated.timing(ref.translate, {
+          //   toValue: { x: 0, y: -80 },
+          //   duration: 866,
+          //   delay: STAGING * i,
+          //   easing: translateInterpolation,
+          //   useNativeDriver: true
+          // }),
+          // Animated.timing(ref.rotate, {
+          //   toValue: -0.35,
+          //   duration: 866,
+          //   delay: STAGING * i + 20,
+          //   easing: rotationInterpolation,
+          //   useNativeDriver: true
+          // }),
           Animated.timing(ref.scale, {
             toValue: 1,
             duration: 966,
             delay: STAGING * i + 10,
-            easing: t => scaleInterpolation(t) + 1 - SCALE_INITIAL,
+            easing: t => scaleInterpolation(t) * 8 + 1 - SCALE_INITIAL * 8,
             useNativeDriver: true
           })
         ])

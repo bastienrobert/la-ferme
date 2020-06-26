@@ -9,7 +9,7 @@ import OnboardingRole from '@/pages/Onboarding/Role'
 import OnboardingPending from '@/pages/Onboarding/Pending'
 
 import GameMain, { GameMainParams } from '@/pages/Game/Main'
-import GameOver, { GameOverParams } from '@/pages/Game/GameOver'
+import GameStatistics, { GameStatisticsParams } from '@/pages/Game/Statistics'
 
 import Samples from '@/pages/samples'
 import SamplePending from '@/pages/samples/Pending'
@@ -28,7 +28,7 @@ export type RootStackParamList = {
   'Onboarding:Role': undefined
   'Onboarding:Pending': undefined
   'Game:Main': GameMainParams
-  'Game:Over': GameOverParams
+  'Game:Statistics': GameStatisticsParams
   // samples
   Samples: undefined
   SamplePending: undefined
@@ -75,8 +75,8 @@ export default {
       component: GameMain
     },
     {
-      name: 'Game:Over',
-      component: GameOver
+      name: 'Game:Statistics',
+      component: GameStatistics
     },
     // samples
     {
