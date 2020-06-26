@@ -1,6 +1,6 @@
 export default {
-  isabelle: require('@/assets/images/role/animations/characters/isabelle.webp'),
-  leon: require('@/assets/images/role/animations/characters/leon.webp'),
-  monique: require('@/assets/images/role/animations/characters/monique.webp'),
-  peter: require('@/assets/images/role/animations/characters/peter.webp')
+  isabelle: require('@/assets/images/game/viewer/animations/viewer_isabelle.webp'),
+  leon: require('@/assets/images/game/viewer/animations/viewer_leon.webp'),
+  monique: require('@/assets/images/game/viewer/animations/viewer_monique.webp'),
+  peter: require('@/assets/images/game/viewer/animations/viewer_peter.webp')
 }

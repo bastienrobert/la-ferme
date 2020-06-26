@@ -26,7 +26,7 @@ const statistics: Statistic[] = [
     displayName: 'Le petit furet',
     text:
       "Malin comme un lynx, vous avez su rester sur le fil du rasoir mais ça n'a pas suffit !",
-    description: '#enflure'
+    description: '#petit-furet'
   },
   {
     name: 'most-uncivil',
