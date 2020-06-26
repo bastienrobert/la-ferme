@@ -1,3 +1,5 @@
+import { Gender } from '../typings'
+
 export default {
   general: {
     civil: 'coup de pouce',
@@ -6,6 +8,10 @@ export default {
     back: 'retour',
     skip: 'passer',
     cancel: 'annuler'
+  },
+  pronoun: {
+    [Gender.Female]: "d'elle",
+    [Gender.Male]: 'de lui'
   },
   main: {
     nfc: {
@@ -141,7 +147,7 @@ export default {
       }
     },
     regularization: {
-      bonus: {
+      reward: {
         title: 'la brigade',
         description: 'Une notification reçue...',
         icon: 'brigade',
@@ -152,7 +158,7 @@ export default {
           description: "tous les joueurs avancent d'une case !"
         }
       },
-      malus: {
+      penalty: {
         title: 'la brigade',
         description: 'Une notification reçue...',
         icon: 'brigade',

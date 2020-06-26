@@ -11,6 +11,7 @@ import Container from '@/components/shared/Container'
 import FullscreenVideo from '@/components/shared/FullscreenVideo'
 
 import useTheme from '@/hooks/useTheme'
+import auth from '@/services/auth'
 
 export const general = globalData.general
 
@@ -27,12 +28,17 @@ export interface IntroductionProps {
 
 const Introduction: FC<IntroductionProps> = ({ navigation }) => {
   const { setTheme } = useTheme()
-  const [paused, setPaused] = useState(false)
+  const [paused, setPaused] = useState(true)
 
   useEffect(() => {
     setTheme('gray')
     return () => setPaused(true)
   }, [setTheme])
+
+  useEffect(() => {
+    if (!paused) return
+    auth.on('uuid', () => setPaused(false))
+  })
 
   const onSkipPress = () => {
     navigation.navigate('Home:Main')

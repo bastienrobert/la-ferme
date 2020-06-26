@@ -1,4 +1,4 @@
-import { Card, CardRewardType } from '../../typings'
+import { Card, CardRewardType } from '../../typings/card'
 
 const civil: Card[] = [
   {
@@ -60,7 +60,7 @@ const civil: Card[] = [
         cases: 1
       },
       playerText: 'Vous tournez une case autour de vous !',
-      viewerText: '%character% tourne une case autour de lui !'
+      viewerText: '%character% tourne une case autour %pronoun% !'
     }
   },
   {
@@ -77,7 +77,7 @@ const civil: Card[] = [
         cases: 1
       },
       playerText: 'Vous tournez une case autour de vous !',
-      viewerText: '%character% tourne une case autour de lui !'
+      viewerText: '%character% tourne une case autour %pronoun% !'
     }
   },
   {
@@ -94,7 +94,7 @@ const civil: Card[] = [
         cases: 1
       },
       playerText: 'Vous tournez une case autour de vous !',
-      viewerText: '%character% tourne une case autour de lui !'
+      viewerText: '%character% tourne une case autour %pronoun% !'
     }
   },
   {

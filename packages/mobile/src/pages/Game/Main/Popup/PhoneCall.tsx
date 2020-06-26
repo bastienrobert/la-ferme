@@ -11,13 +11,25 @@ import BigCirclesWrapper from '@/components/shared/BigCirclesWrapper'
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 
+import useAudio from '@/hooks/useAudio'
+
 const content = globalData.phoneCall
 
 const PhoneCall: FC<PopupProps> = ({ set }) => {
   const [pickedUp, setPickedUp] = useState<boolean>(false)
 
+  const ringtone = useAudio(require('@/assets/audio/ringtone.mp3'), {
+    autoPlay: true,
+    loop: true
+  })
+
   const onHangUp = () => {
     set(undefined)
+  }
+
+  const onPickUp = () => {
+    ringtone.current.stop()
+    setPickedUp(true)
   }
 
   return (
@@ -35,7 +47,7 @@ const PhoneCall: FC<PopupProps> = ({ set }) => {
           </Text>
         </Container>
       </Wrapper>
-      <SlideToAnswer onPickUp={() => setPickedUp(true)} onHangUp={onHangUp} />
+      <SlideToAnswer onPickUp={onPickUp} onHangUp={onHangUp} />
     </Component>
   )
 }

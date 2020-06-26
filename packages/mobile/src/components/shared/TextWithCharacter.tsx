@@ -1,17 +1,20 @@
-import React, { FC } from 'react'
-import { charactersByName } from '@/utils/helpers/players'
+import React, { FC, ReactNodeArray } from 'react'
 import { Colors } from '@la-ferme/components/native'
+import { global as globalData } from '@la-ferme/shared/data'
 
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 import PlayerWithColor from '@/components/shared/PlayerWithColor'
 
 import templating, { TemplatingNode } from '@/utils/helpers/templating'
+import { charactersByName } from '@/utils/helpers/players'
+
+const content = globalData.pronoun
 
 export type TextWithCharacterType = 'title' | 'text'
 
 export interface TextWithCharacterProps {
-  text: ReactNode | string
+  text: ReactNodeArray | string
   character: string
   type?: TextWithCharacterType
   playerColor?: boolean
@@ -54,8 +57,17 @@ const TextWithCharacter: FC<TextWithCharacterProps> = ({
 
               const find = charactersByName[character]
               return (
-                <C preset="H5" color={color}>
+                <C key={index} preset="H5" color={color}>
                   {find.displayName}
+                </C>
+              )
+            },
+            pronoun: index => {
+              const find = charactersByName[character]
+
+              return (
+                <C key={index} preset="H5" color={color}>
+                  {content[find.gender]}
                 </C>
               )
             }

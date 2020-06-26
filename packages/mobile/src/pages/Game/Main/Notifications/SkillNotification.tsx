@@ -13,8 +13,6 @@ const content = globalData.notifications.skill
 const SkillNotification: FC<NotificationProps> = ({ params, onClose }) => {
   const find = skillsByName[params.skill]
 
-  console.log(find)
-
   return (
     <NotificationBanner
       title={content.title}

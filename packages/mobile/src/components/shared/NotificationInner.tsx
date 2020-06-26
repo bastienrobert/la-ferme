@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC, ReactNodeArray } from 'react'
 import FastImage from 'react-native-fast-image'
 import styled from 'styled-components/native'
 
@@ -10,7 +10,7 @@ import Title from '@/components/typo/Title'
 
 export interface NotificationInnerProps {
   title: string
-  text: ReactNode
+  text: string | ReactNodeArray
   description: string
   params?: { [key: string]: any }
 }
