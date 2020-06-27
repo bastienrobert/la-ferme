@@ -18,7 +18,7 @@ const BoardSlice: FC = () => {
 const Component = styled(Container)`
   position: relative;
   z-index: 1;
-  @media (max-width: 400px) {
+  @media (max-width: 600px) {
     margin-bottom: 50px;
   }
 `

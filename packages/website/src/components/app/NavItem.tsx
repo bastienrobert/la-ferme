@@ -41,7 +41,7 @@ const Component = styled.li`
   align-items: center;
   list-style: none;
   margin: 0 20px;
-  @media (max-width: 400px) {
+  @media (max-width: 600px) {
     margin: 0;
   }
 `
@@ -49,7 +49,7 @@ const Component = styled.li`
 const A = styled.a`
   cursor: pointer;
   text-decoration: none;
-  @media (max-width: 400px) {
+  @media (max-width: 600px) {
     font-size: 12px;
   }
 `

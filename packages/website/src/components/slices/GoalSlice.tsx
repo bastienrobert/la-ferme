@@ -47,10 +47,7 @@ const StyledBackgroundColor = styled(BackgroundColor)`
 `
 
 const StyledTitleAndSmallText = styled(TitleAndSmallText)`
-  margin-bottom: 15px;
-  @media (max-width: 400px) {
-    display: none;
-  }
+  margin-bottom: 150px;
 `
 
 const StyledContainer = styled(Container)`
@@ -67,6 +64,9 @@ const Wrapper = styled.div`
 
 const Line = styled.span`
   display: block;
+  @media (max-width: 600px) {
+    font-size: 24px;
+  }
 `
 
 const LeftDecoration = styled(Image)`
@@ -74,6 +74,10 @@ const LeftDecoration = styled(Image)`
   width: 157px;
   top: -40px;
   left: -60px;
+  @media (max-width: 600px) {
+    width: 80px;
+    left: -20px;
+  }
 `
 
 const RightDecoration = styled(Image)`
@@ -81,6 +85,9 @@ const RightDecoration = styled(Image)`
   width: 111px;
   bottom: -40px;
   right: -20px;
+  @media (max-width: 600px) {
+    width: 55px;
+  }
 `
 
 const StyledPoint = styled(Point)`

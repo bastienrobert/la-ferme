@@ -17,8 +17,8 @@ const Featured: FC = () => {
     <StyledFeatured>
       <Arrow />
       <ArrowTextContainer>
-        {t.arrow.map(l => (
-          <Subtitle color="red">
+        {t.arrow.map((l, i) => (
+          <Subtitle key={i} color="red">
             <Line>{l}</Line>
           </Subtitle>
         ))}

@@ -16,8 +16,8 @@ interface ColumnProps {
 const Column: FC<ColumnProps> = ({ paragraphs }) => {
   return (
     <StyledColumn>
-      {paragraphs.map(p => (
-        <Paragraph>
+      {paragraphs.map((p, index) => (
+        <Paragraph key={index}>
           <p>{p}</p>
         </Paragraph>
       ))}
@@ -81,7 +81,7 @@ const EvilImage = styled(Image)`
   top: -100px;
   right: -100px;
   width: 200px;
-  @media (max-width: 400px) {
+  @media (max-width: 600px) {
     display: none;
   }
 `
@@ -91,7 +91,7 @@ const HeartEyesImage = styled(Image)`
   bottom: -50px;
   left: -50px;
   width: 170px;
-  @media (max-width: 400px) {
+  @media (max-width: 600px) {
     display: none;
   }
 `

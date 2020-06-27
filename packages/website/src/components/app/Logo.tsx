@@ -18,9 +18,6 @@ const Component = styled.a`
   transform: rotate(-10deg);
   text-decoration: none;
   cursor: pointer;
-  @media (max-width: 400px) {
-    display: none;
-  }
 `
 
 export default Logo

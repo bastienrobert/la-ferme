@@ -56,8 +56,8 @@ const PlaySlice: FC = () => {
         ))}
       </Columns>
       <BottomTexts>
-        {t.bottom.map(l => (
-          <BottomText color="red">
+        {t.bottom.map((l, i) => (
+          <BottomText key={i} color="red">
             <span>{l}</span>
           </BottomText>
         ))}
@@ -72,13 +72,17 @@ const Columns = styled.div`
   flex-wrap: wrap;
   align-items: flex-start;
   margin-bottom: 70px;
+  @media (max-width: 800px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const StyledColumn = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 320px;
-  @media (max-width: 400px) {
+  @media (max-width: 600px) {
     margin-bottom: 50px;
   }
 `

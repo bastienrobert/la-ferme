@@ -22,16 +22,17 @@ export const useScrollHandler = () => {
 
       slices = {
         teaser:
-          (window.scrollY > sections[0] && window.scrollY < sections[1]) ||
+          (window.scrollY + 10 > sections[0] && window.scrollY < sections[1]) ||
           window.scrollY <= 0
             ? true
             : false,
         project:
-          window.scrollY > sections[1] && window.scrollY < sections[2]
+          window.scrollY + 10 > sections[1] && window.scrollY < sections[2]
             ? true
             : false,
         download:
-          window.scrollY > sections[2] && window.scrollY + 400 < sections[3]
+          window.scrollY + 10 > sections[2] &&
+          window.scrollY + 400 < sections[3]
             ? true
             : false,
         contact: window.scrollY + 400 > sections[3] ? true : false
@@ -112,6 +113,9 @@ const Component = styled.header`
   width: 100%;
   margin: 40px 0 0;
   z-index: 999;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `
 
 const StyledContainer = styled(Container)`
@@ -122,18 +126,11 @@ const StyledContainer = styled(Container)`
 
 const Nav = styled.nav`
   margin-top: -30px;
-  @media (max-width: 400px) {
-    margin-top: 0px;
-    width: 100%;
-  }
 `
 
 const Ul = styled.ul`
   display: flex;
   align-items: center;
-  @media (max-width: 400px) {
-    justify-content: space-between;
-  }
 `
 
 export default Header

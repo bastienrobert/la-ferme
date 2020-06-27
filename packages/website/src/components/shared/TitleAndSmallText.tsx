@@ -52,6 +52,9 @@ const TitleContainer = styled.div`
 
 const StyledTitle = styled(Title)`
   margin-bottom: 5px;
+  @media (max-width: 600px) {
+    font-size: 28px;
+  }
 `
 
 const SmallContainer = styled.div`
@@ -59,6 +62,10 @@ const SmallContainer = styled.div`
   bottom: 0;
   right: 0;
   transform: translate(50%, 50%) rotate(-4.92deg);
+  @media (max-width: 600px) {
+    width: 200px;
+    transform: translate(45%, 100%) rotate(-4.92deg);
+  }
 `
 
 const StyledSubtitle = styled(Subtitle)`

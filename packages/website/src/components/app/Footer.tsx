@@ -1,13 +1,11 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
-import { Button } from '@la-ferme/components'
 
 import Container from '@/components/shared/Container'
-import TitleAndSubtitle from '@/components/shared/TitleAndSubtitle'
 import BackgroundColor from '@/components/shared/BackgroundColor'
 import Image from '@/components/shared/Image'
 import Title from '@/components/typo/Title'
-import Subtitle from '@/components/typo/Subtitle'
+import Point from '@/components/shared/Point'
 import Text from '@/components/typo/Text'
 
 import content from '@/content'
@@ -32,7 +30,7 @@ const Column: FC<ColumnProps> = ({ icon, number, title, text, buttons }) => {
     <StyledColumn>
       <ColumnTop>
         <Icon active={disabled} src={icon} alt={`number icon ${number}`} />
-        <ColumnTitle color="beige" textAlign="left" size="32px">
+        <ColumnTitle color="beige" textAlign="left" size="28px">
           <h3>{title}</h3>
         </ColumnTitle>
       </ColumnTop>
@@ -69,6 +67,9 @@ const Footer: FC = () => {
           ))}
         </Columns>
         <StyledImage {...t.image} />
+        <StyledPoint />
+        <SecondPoint />
+        <ThirdPoint />
       </BackgroundColor>
     </MainContainer>
   )
@@ -126,8 +127,8 @@ const ColumnText = styled.div`
 
 const StyledText = styled(Text)`
   margin: 25px 0;
-  font-size: 18px;
-  font-weight: bold;
+  font-family: FuturaLT-Bold, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
 `
 
 const A = styled.a`
@@ -143,9 +144,25 @@ const StyledImage = styled(Image)`
   right: 0;
   bottom: 0;
   z-index: 9999;
-  @media (max-width: 400px) {
+  @media (max-width: 1200px) {
     display: none;
   }
+`
+
+const StyledPoint = styled(Point)`
+  position: absolute;
+  top: 20px;
+  left: 50px;
+`
+
+const SecondPoint = styled(StyledPoint)`
+  transform: translate(20px, 10px);
+`
+
+const ThirdPoint = styled(Point)`
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
 `
 
 export default Footer

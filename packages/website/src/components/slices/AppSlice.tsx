@@ -18,8 +18,8 @@ const AppSlice: FC = () => {
         <TextContainer>
           <StyledText color="beige" size="medium">
             <h3>
-              {t.text.map(l => (
-                <Line>{l}</Line>
+              {t.text.map((l, index) => (
+                <Line key={index}>{l}</Line>
               ))}
             </h3>
           </StyledText>
@@ -70,7 +70,7 @@ const LeftDecoration = styled(Decoration)`
   top: 5%;
   left: -10px;
   transform: rotate(91deg);
-  @media (max-width: 400px) {
+  @media (max-width: 600px) {
     display: none;
   }
 `
@@ -79,7 +79,7 @@ const RightDecoration = styled(Decoration)`
   bottom: 0;
   right: -10px;
   transform: rotate(-88deg);
-  @media (max-width: 400px) {
+  @media (max-width: 600px) {
     display: none;
   }
 `
