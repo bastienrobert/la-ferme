@@ -1,10 +1,22 @@
 import { withFilter } from 'apollo-server'
-import { REPORT, REGULARIZATION, SKILL } from '@la-ferme/shared/constants'
+import {
+  REPORT,
+  REGULARIZATION,
+  SKILL,
+  MINI_GAME
+} from '@la-ferme/shared/constants'
 import { EventType } from '@la-ferme/shared/typings'
 
 import pubsub from '@/app/pubsub'
 
 const resolvers = {
+  EventType: {
+    REGULARIZATION: EventType.Regularization,
+    REPORT: EventType.Report,
+    SKILL: EventType.Skill,
+    MINI_GAME: EventType.MiniGame,
+    MINI_GAME_SCORE: EventType.MiniGameScore
+  },
   Event: {
     __resolveType({ type }) {
       switch (type) {
@@ -14,16 +26,12 @@ const resolvers = {
           return 'EventReport'
         case EventType.Regularization:
           return 'EventRegularization'
+        case EventType.MiniGame:
+          return 'EventMiniGame'
         default:
           return 'EventDefault'
       }
     }
-  },
-  EventType: {
-    regularization: EventType.Regularization,
-    report: EventType.Report,
-    skill: EventType.Skill,
-    miniGame: EventType.MiniGame
   },
   Subscription: {
     eventTriggered: {
@@ -32,7 +40,8 @@ const resolvers = {
           pubsub.asyncIterator([
             REPORT.CREATE,
             REGULARIZATION.CREATE,
-            SKILL.USE
+            SKILL.USE,
+            MINI_GAME.CREATE
           ]),
         ({ eventTriggered }, variables) => {
           return eventTriggered.gameUUID === variables.gameUUID

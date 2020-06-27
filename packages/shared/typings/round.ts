@@ -14,14 +14,14 @@ export interface Round {
 }
 
 export enum RoundStep {
-  New = 'new',
-  Card = 'card',
-  Target = 'target',
-  Confirm = 'confirm',
-  Complete = 'complete'
+  New = 'NEW',
+  Card = 'CARD',
+  Target = 'TARGET',
+  Confirm = 'CONFIRM',
+  Complete = 'COMPLETE'
 }
 
 export enum RoundChoice {
-  Civil = 'civil',
-  Uncivil = 'uncivil'
+  Civil = 'CIVIL',
+  Uncivil = 'UNCIVIL'
 }

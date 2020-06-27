@@ -4,10 +4,10 @@ import Round from './Round'
 import Player from './Player'
 
 export enum RoundTargetStatus {
-  New = 'new',
-  Reversed = 'reversed',
-  Canceled = 'canceled',
-  Completed = 'completed'
+  New = 'NEW',
+  Reversed = 'REVERSED',
+  Canceled = 'CANCELED',
+  Completed = 'COMPLETED'
 }
 
 export default class RoundTarget extends db.bookshelf.Model<RoundTarget> {

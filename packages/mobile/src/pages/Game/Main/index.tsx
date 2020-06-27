@@ -90,6 +90,7 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
         const targets = eventData.targets.map(t => {
           return players.find(p => p.uuid === t)?.character
         })
+        if (from.uuid === player.uuid) return
         setNotification({
           type: NotificationType.Skill,
           params: {
@@ -98,6 +99,9 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
             targets
           }
         })
+        break
+      case EventType.MiniGame:
+        console.log(eventData)
         break
       default:
         break

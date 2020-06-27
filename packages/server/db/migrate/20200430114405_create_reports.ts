@@ -11,13 +11,14 @@ export async function up(knex: Knex): Promise<any> {
     table.float('score').defaultTo(0)
     table
       .enu('status', [
-        'new',
-        'confirmed',
-        'duplicated',
-        'reversed',
-        'completed'
+        'NEW',
+        'CONFIRMED',
+        'DUPLICATED',
+        'REVERSED',
+        'COMPLETED',
+        'CANCELED'
       ])
-      .defaultTo('new')
+      .defaultTo('NEW')
 
     table.timestamps(true, true)
   })

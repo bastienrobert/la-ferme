@@ -1,10 +1,10 @@
 export enum CardRewardType {
-  Turn = 'turn',
-  Backward = 'backward',
-  Forward = 'forward',
-  Restart = 'restart',
-  LoseRound = 'lose_round',
-  SwichPlace = 'swich_place'
+  Turn = 1,
+  Backward,
+  Forward,
+  Restart,
+  LoseRound,
+  SwichPlace
 }
 
 export interface CardRewardParams {

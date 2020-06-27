@@ -30,8 +30,8 @@ export interface GameCardProps extends ContainerProps {
   choice: RoundChoice
   player: Player
   players: Player[]
-  targets: Player[]
   type: GameCardType
+  targets?: Player[]
   onPress?: () => void
   onPlayerSelect?: (player: Player) => void
 }

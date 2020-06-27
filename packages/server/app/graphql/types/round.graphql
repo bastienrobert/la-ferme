@@ -4,15 +4,15 @@ type Cards {
 }
 
 enum RoundStep {
-  new
-  card
-  confirm
-  complete
+  NEW
+  CARD
+  CONFIRM
+  COMPLETE
 }
 
 enum RoundChoice {
-  civil
-  uncivil
+  CIVIL
+  UNCIVIL
 }
 
 interface Round {

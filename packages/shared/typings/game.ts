@@ -2,10 +2,10 @@ import { UUID } from './scalars'
 import { Player } from './player'
 
 export enum GameStatusType {
-  Start = 'start',
-  End = 'end',
-  Ready = 'ready',
-  Round = 'round'
+  Start = 'START',
+  End = 'END',
+  Ready = 'READY',
+  Round = 'ROUND'
 }
 
 export interface GameStatus {
@@ -36,8 +36,8 @@ export interface PlayerUUIDWithStatistic extends CommonStatistics {
 }
 
 export enum GameGlobalStatisticsName {
-  Civil = 'civil',
-  Uncivil = 'uncivil'
+  Civil = 'CIVIL',
+  Uncivil = 'UNCIVIL'
 }
 
 export interface GameGlobalStatistics extends CommonStatistics {

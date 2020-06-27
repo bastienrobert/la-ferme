@@ -1,4 +1,5 @@
 import { Collection } from 'bookshelf'
+import { withFilter } from 'apollo-server'
 import { GAME, PLAYER, ROUND } from '@la-ferme/shared/constants'
 import { NOT_ALLOWED } from '@la-ferme/shared/errors'
 import { characters, goals, skills } from '@la-ferme/shared/data'
@@ -6,7 +7,6 @@ import {
   GameStatusType,
   GameGlobalStatisticsName
 } from '@la-ferme/shared/typings'
-import { withFilter } from 'apollo-server'
 
 import pubsub from '@/app/pubsub'
 import Room from '@/app/models/Room'
@@ -23,14 +23,14 @@ import formatPlayers from '@/app/helpers/formatPlayers'
 
 const resolvers = {
   GameStatusType: {
-    start: GameStatusType.Start,
-    end: GameStatusType.End,
-    ready: GameStatusType.Ready,
-    round: GameStatusType.Round
+    START: GameStatusType.Start,
+    END: GameStatusType.End,
+    READY: GameStatusType.Ready,
+    ROUND: GameStatusType.Round
   },
   GameGlobalStatisticsName: {
-    civil: GameGlobalStatisticsName.Civil,
-    uncivil: GameGlobalStatisticsName.Uncivil
+    CIVIL: GameGlobalStatisticsName.Civil,
+    UNCIVIL: GameGlobalStatisticsName.Uncivil
   },
   GameStatus: {
     __resolveType({ type }) {

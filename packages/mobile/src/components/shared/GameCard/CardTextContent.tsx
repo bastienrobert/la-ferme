@@ -8,18 +8,15 @@ import { Button } from '@la-ferme/components/native'
 import Container from '@/components/shared/Container'
 import TextWithCharacter from '@/components/shared/TextWithCharacter'
 import TextWithCharacterAndTargets from '@/components/shared/TextWithCharacterAndTargets'
-import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
-
-import { charactersByName } from '@/utils/helpers/players'
 
 const content = globalData.gameCard
 
 export interface CardTextContentProps {
   card: Card
   player: Player
-  targets: Player[]
   self: boolean
+  targets?: Player[]
   onPress?: () => void
 }
 
@@ -58,12 +55,20 @@ const CardTextContent: FC<CardTextContentProps> = ({
         </ScrollView>
       </Description>
       <Action alignSelf="center">
-        <TextWithCharacterAndTargets
-          type="title"
-          text={self ? card.reward.playerText : card.reward.viewerText}
-          character={player.character}
-          targets={targets}
-        />
+        {targets ? (
+          <TextWithCharacterAndTargets
+            type="title"
+            text={self ? card.reward.playerText : card.reward.viewerText}
+            character={player.character}
+            targets={targets}
+          />
+        ) : (
+          <TextWithCharacter
+            type="title"
+            text={self ? card.reward.playerText : card.reward.viewerText}
+            character={player.character}
+          />
+        )}
       </Action>
       {onPress && (
         <Container alignSelf="center">

@@ -1,21 +1,21 @@
 export enum EventType {
-  TurnLose = 'turn_lose',
-  Replay = 'replay',
-  Regularization = 'regularization',
-  Report = 'report',
-  Skill = 'skill',
-  MiniGame = 'mini_game'
+  Regularization = 'REGULARIZATION',
+  Report = 'REPORT',
+  Skill = 'SKILL',
+  MiniGame = 'MINI_GAME',
+  MiniGameScore = 'MINI_GAME_SCORE'
 }
 
 export enum ReportStatus {
-  New = 'new',
-  Confirmed = 'confirmed',
-  Duplicated = 'duplicated',
-  Reversed = 'reversed',
-  Completed = 'completed'
+  New = 'NEW',
+  Confirmed = 'CONFIRMED',
+  Duplicated = 'DUPLICATED',
+  Reversed = 'REVERSED',
+  Completed = 'COMPLETED',
+  Canceled = 'CANCELED'
 }
 
 export enum RegularizationName {
-  Reward = 'reward',
-  Penalty = 'penalty'
+  Reward = 'REWARD',
+  Penalty = 'PENALTY'
 }

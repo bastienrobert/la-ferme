@@ -3,9 +3,9 @@ import db from '@/config/database'
 import Player from './Player'
 
 export enum SkillStatus {
-  Usable = 'usable',
-  Using = 'using',
-  Used = 'used'
+  Usable = 'USABLE',
+  Using = 'USING',
+  Used = 'USED'
 }
 
 export default class Skill extends db.bookshelf.Model<Skill> {

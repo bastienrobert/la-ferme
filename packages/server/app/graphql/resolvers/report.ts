@@ -7,11 +7,11 @@ import Report from '@/app/models/Report'
 
 const resolvers = {
   ReportStatus: {
-    new: ReportStatus.New,
-    confirmed: ReportStatus.Confirmed,
-    duplicated: ReportStatus.Duplicated,
-    reversed: ReportStatus.Reversed,
-    completed: ReportStatus.Completed
+    NEW: ReportStatus.New,
+    CONFIRMED: ReportStatus.Confirmed,
+    DUPLICATED: ReportStatus.Duplicated,
+    REVERSED: ReportStatus.Reversed,
+    COMPLETED: ReportStatus.Completed
   },
   Mutation: {
     async reportPlayer(_, { fromUUID, toUUID }) {

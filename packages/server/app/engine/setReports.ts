@@ -32,14 +32,12 @@ export default async (game: Game, { player, delta }: SetReportsOptions) => {
       if (report.score < CONFIRM_REPORT) {
         console.log('CONFIRM REPORT', player.character, report.score)
         report.status = ReportStatus.Confirmed
-      } else if (
-        report.score > REVERSE_REPORT ||
-        report.rounds > MAX_ROUNDS_REPORT
-      ) {
+      } else if (report.score > REVERSE_REPORT) {
         console.log('REVERSE REPORT', player.character, report.score)
         report.status = ReportStatus.Reversed
-      } else {
-        console.log('REPORT', player.character, report.score)
+      } else if (report.rounds > MAX_ROUNDS_REPORT) {
+        console.log('CANCEL REPORT', player.character, report.score)
+        report.status = ReportStatus.Canceled
       }
       return report.save()
     })

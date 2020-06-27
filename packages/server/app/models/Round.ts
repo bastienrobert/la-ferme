@@ -6,9 +6,9 @@ import Player from './Player'
 import RoundTarget from './RoundTarget'
 
 export enum RoundType {
-  Default = 'default',
-  Replay = 'replay',
-  Pass = 'pass'
+  Default = 'DEFAULT',
+  Replay = 'REPLAY',
+  Pass = 'PASS'
 }
 
 export default class Round extends db.bookshelf.Model<Round> {

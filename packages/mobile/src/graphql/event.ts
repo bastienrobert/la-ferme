@@ -16,6 +16,9 @@ const EVENT_TRIGGERED_SUBSCRIPTION = gql`
       ... on EventRegularization {
         name
       }
+      ... on EventMiniGame {
+        name
+      }
     }
   }
 `

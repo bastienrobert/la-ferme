@@ -1,13 +1,13 @@
 enum GameStatusType {
-  start
-  end
-  ready
-  round
+  START
+  END
+  READY
+  ROUND
 }
 
 enum GameGlobalStatisticsName {
-  civil
-  uncivil
+  CIVIL
+  UNCIVIL
 }
 
 type PlayerStatistic {

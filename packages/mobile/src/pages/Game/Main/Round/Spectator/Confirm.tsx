@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { roundChoiceToCardType } from '@la-ferme/shared/data/cards'
 
 import { RoundViewProps } from '../'
 import GameCard, { GameCardType } from '@/components/shared/GameCard'
@@ -10,13 +11,14 @@ const Confirm: FC<RoundSpectatorConfirmProps> = ({ data, players }) => {
   const formattedTargets = data.targets.map(t => {
     return players.find(p => p.uuid === t)
   })
+  const choiceType = roundChoiceToCardType[data.choice]
 
   return (
     <GameCard
       type={GameCardType.Spectator}
       choice={data.choice}
       targets={formattedTargets}
-      name={data.cards[data.choice]}
+      name={data.cards[choiceType]}
       player={current}
       players={players}
     />

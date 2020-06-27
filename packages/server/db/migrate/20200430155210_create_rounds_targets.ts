@@ -6,8 +6,8 @@ export async function up(knex: Knex): Promise<any> {
     table.integer('round_id').references('rounds.id').onDelete('cascade')
     table.integer('player_id').references('players.id').onDelete('cascade')
     table
-      .enu('status', ['new', 'reversed', 'canceled', 'completed'])
-      .defaultTo('new')
+      .enu('status', ['NEW', 'REVERSED', 'CANCELED', 'COMPLETED'])
+      .defaultTo('NEW')
   })
 
   return

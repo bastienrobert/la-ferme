@@ -15,6 +15,7 @@ import pubsub from '@/app/pubsub'
 import User from '@/app/models/User'
 import Room from '@/app/models/Room'
 import Round from '@/app/models/Round'
+import RoundTarget from '@/app/models/RoundTarget'
 import Player from '@/app/models/Player'
 import Game from '@/app/models/Game'
 
@@ -23,6 +24,9 @@ import getRoundData from '@/app/engine/getRoundData'
 import setReports from '@/app/engine/setReports'
 import getNextPlayer from '@/app/engine/getNextPlayer'
 import roundShouldWatch from '@/app/engine/roundShouldWatch'
+import checkReports from '@/app/engine/checkReports'
+import checkRegularization from '@/app/engine/checkRegularization'
+import shouldCreateMiniGame from '@/app/engine/shouldCreateMiniGame'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
 import getRandom from '@/app/helpers/getRandom'
@@ -30,9 +34,6 @@ import {
   getChosenCardFromRound,
   getChosenCard
 } from '@/app/helpers/getChosenCard'
-import checkReports from '@/app/engine/checkReports'
-import checkRegularization from '@/app/engine/checkRegularization'
-import RoundTarget from '@/app/models/RoundTarget'
 
 interface SaveTargetsParams {
   card: Card
@@ -131,14 +132,14 @@ const resolvers = {
     }
   },
   RoundStep: {
-    new: RoundStep.New,
-    card: RoundStep.Card,
-    confirm: RoundStep.Confirm,
-    complete: RoundStep.Complete
+    NEW: RoundStep.New,
+    CARD: RoundStep.Card,
+    CONFIRM: RoundStep.Confirm,
+    COMPLETE: RoundStep.Complete
   },
   RoundChoice: {
-    civil: RoundChoice.Civil,
-    uncivil: RoundChoice.Uncivil
+    CIVIL: RoundChoice.Civil,
+    UNCIVIL: RoundChoice.Uncivil
   },
   Mutation: {
     // user in the game
@@ -202,6 +203,8 @@ const resolvers = {
         { civil: lastRound.civilCard, uncivil: lastRound.uncivilCard },
         choice
       )
+      console.log('!!!')
+      console.log(lastChoosenCard)
 
       player.increase(lastChoosenCard.reward.score)
 
@@ -252,6 +255,8 @@ const resolvers = {
       const round = await createRound(game.id, nextPlayer.id)
       const numberOfRounds = await game.numberOfRounds()
       const formattedRound = await getRoundData(round, RoundStep.New)
+
+      shouldCreateMiniGame(game, { numberOfRounds })
 
       await checkReports(game)
       await checkRegularization(game, players)

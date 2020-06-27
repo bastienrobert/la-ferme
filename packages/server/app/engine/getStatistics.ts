@@ -12,6 +12,11 @@ import {
 import Game from '@/app/models/Game'
 import Player from '@/app/models/Player'
 import Skill from '@/app/models/Skill'
+import {
+  NASTY_WINNER_SCORE,
+  MOST_CIVIL_SCORE,
+  MOST_UNCIVIL_SCORE
+} from '@la-ferme/shared/settings'
 
 interface GetStatisticNameFromPlayerOptions {
   winner: Player
@@ -23,7 +28,7 @@ const getStatisticNameFromPlayer = async (
   { winner, mostTargettedPlayer }: GetStatisticNameFromPlayerOptions
 ): Promise<StatisticName> => {
   if (player.uuid === winner) {
-    return player.score < 0 ? 'nasty-winner' : 'nice-winner'
+    return player.score < NASTY_WINNER_SCORE ? 'nasty-winner' : 'nice-winner'
   }
 
   if (player.uuid === mostTargettedPlayer.uuid) {
@@ -41,8 +46,8 @@ const getStatisticNameFromPlayer = async (
   )
   if (reportCount > 0) return 'brigade-call'
 
-  if (player.score < -1) return 'most-uncivil'
-  else if (player.score > 1) return 'most-civil'
+  if (player.score < MOST_UNCIVIL_SCORE) return 'most-uncivil'
+  else if (player.score > MOST_CIVIL_SCORE) return 'most-civil'
 
   return 'moderate'
 }

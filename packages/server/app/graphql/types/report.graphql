@@ -1,9 +1,9 @@
 enum ReportStatus {
-  new
-  confirmed
-  duplicated
-  reversed
-  completed
+  NEW
+  CONFIRMED
+  DUPLICATED
+  REVERSED
+  COMPLETED
 }
 
 type Report {
