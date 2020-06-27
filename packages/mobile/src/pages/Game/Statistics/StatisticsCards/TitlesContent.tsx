@@ -11,7 +11,7 @@ import PlayerImage from '@/components/shared/PlayerImage'
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 
-import getCardImage from './getCardImage'
+import { winImages, looseImages } from './getCardImage'
 import { statisticsByName } from '@/utils/helpers/statistics'
 
 const content = globalData.statistics
@@ -22,6 +22,7 @@ const TitlesContent: FC<StatisticCardData> = ({
   statistics,
   winner
 }) => {
+  const isWinner = player.uuid === winner
   const sortedPlayers = players.sort(p => {
     return p.uuid === winner ? -1 : 0
   })
@@ -30,13 +31,14 @@ const TitlesContent: FC<StatisticCardData> = ({
     return p.player === player.uuid
   })
   const playerStatisticText = statisticsByName[playerStatistic?.name]
+  const images = isWinner ? winImages : looseImages
 
   return (
     <>
       <Title color="red" preset="H5">
         {content.titles.subtitle}
       </Title>
-      <BigImage source={getCardImage[player.character]} />
+      <BigImage source={images[player.character]} />
       <TitleWithHashtag
         alignSelf="center"
         title={content.titles.title}
