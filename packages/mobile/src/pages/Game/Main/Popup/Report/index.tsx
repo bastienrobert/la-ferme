@@ -55,9 +55,11 @@ const Report: FC<PopupProps> = ({ set, player, players }) => {
 
   return (
     <Component>
-      <BigCirclesWrapper alignSelf="center">
-        <BigCirclesInner source={require('@/assets/tmp/call.webp')} />
-      </BigCirclesWrapper>
+      <StyledBigCirclesWrapper alignSelf="center">
+        <BigCirclesInner
+          source={require('@/assets/images/notifications/regularization/reward.webp')}
+        />
+      </StyledBigCirclesWrapper>
       <Wrapper alignSelf="center">
         {target ? (
           confirm ? (
@@ -91,6 +93,10 @@ const Report: FC<PopupProps> = ({ set, player, players }) => {
 
 const Component = styled(FullContainer)`
   padding-bottom: 20px;
+`
+
+const StyledBigCirclesWrapper = styled(BigCirclesWrapper)`
+  flex: 1;
 `
 
 const BigCirclesInner = styled(FastImage)`

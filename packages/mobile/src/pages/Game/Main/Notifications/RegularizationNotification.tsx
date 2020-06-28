@@ -6,6 +6,8 @@ import { NotificationProps } from './'
 import NotificationBanner from '@/components/shared/NotificationBanner'
 import NotificationInner from '@/components/shared/NotificationInner'
 
+import useAudio from '@/hooks/useAudio'
+
 const content = globalData.notifications
 
 const contentByName = {
@@ -22,6 +24,7 @@ const RegularizationNotification: FC<NotificationProps> = ({
   params,
   onClose
 }) => {
+  useAudio(require('@/assets/audios/notification.mp3'))
   const c = contentByName[params.event]
   const image = imageByName[params.event]
 
@@ -35,7 +38,7 @@ const RegularizationNotification: FC<NotificationProps> = ({
         title={c.inner.title}
         text={c.inner.text}
         image={image}
-        backgroundImage="gray"
+        backgroundImage="beige"
         description={c.inner.description}
         params={params}
       />

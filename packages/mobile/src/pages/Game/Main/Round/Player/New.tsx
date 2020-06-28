@@ -14,14 +14,23 @@ import Text from '@/components/typo/Text'
 
 import { CONFIRM_BOARD_ROUND_MUTATION } from '@/graphql/round'
 
+import useAudio from '@/hooks/useAudio'
 import { complementaries, buttons } from '@/utils/colors'
 
 const content = globalData.game.forwardOrTurn
 
 export type RoundPlayerNewProps = RoundViewProps
 
+const soundsByPlayer = {
+  leon: require('@/assets/audios/leon.mp3'),
+  peter: require('@/assets/audios/peter.mp3'),
+  monique: require('@/assets/audios/monique.mp3'),
+  isabelle: require('@/assets/audios/peter.mp3')
+}
+
 const RoundPlayerNew: FC<RoundPlayerNewProps> = ({ player, character }) => {
   const [confirmBoardRoundMutation] = useMutation(CONFIRM_BOARD_ROUND_MUTATION)
+  useAudio(soundsByPlayer[player.character])
 
   const onSubmit = () => {
     confirmBoardRoundMutation({

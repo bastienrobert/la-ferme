@@ -20,6 +20,7 @@ export enum PopupType {
 
 export interface PopupProps {
   set: (type?: PopupType) => void
+  data: any
   type: PopupType
   player: PlayerType
   players: PlayerType[]

@@ -6,6 +6,7 @@ import { NotificationProps } from './'
 import NotificationBanner from '@/components/shared/NotificationBanner'
 import NotificationInner from '@/components/shared/NotificationInner'
 
+import useAudio from '@/hooks/useAudio'
 import { skillsByName } from '@/utils/helpers/skills'
 import { charactersByName } from '@/utils/helpers/players'
 
@@ -19,6 +20,7 @@ const imagesByPlayer = {
 }
 
 const SkillNotification: FC<NotificationProps> = ({ params, onClose }) => {
+  useAudio(require('@/assets/audios/notification.mp3'))
   const find = skillsByName[params.skill]
 
   const character = params.from?.character

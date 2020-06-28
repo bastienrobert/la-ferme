@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react'
 import styled from 'styled-components/native'
 import FastImage from 'react-native-fast-image'
 import { global as globalData } from '@la-ferme/shared/data'
+import { ReportStatus } from '@la-ferme/shared/typings'
 
 import { PopupProps } from './'
 import Container from '@/components/shared/Container'
@@ -15,27 +16,46 @@ import useAudio from '@/hooks/useAudio'
 
 const content = globalData.phoneCall
 
-const PhoneCall: FC<PopupProps> = ({ set }) => {
-  const [pickedUp, setPickedUp] = useState<boolean>(false)
+const soundByStatus = {
+  [ReportStatus.Confirmed]: require('@/assets/audios/call_confirmed.mp3'),
+  [ReportStatus.Reversed]: require('@/assets/audios/call_reversed.mp3')
+}
 
-  const ringtone = useAudio(require('@/assets/audios/ringtone.mp3'), {
+const PhoneCall: FC<PopupProps> = ({ set, data }) => {
+  const [pickedUp, setPickedUp] = useState<boolean>(false)
+  const [touchable, setTouchable] = useState<boolean>(false)
+
+  const [setRingtonePlay] = useAudio(require('@/assets/audios/ringtone.mp3'), {
     autoPlay: true,
     loop: true
   })
 
+  const [setCallPlay] = useAudio(soundByStatus[data.status], {
+    autoPlay: false,
+    onEnd: () => {
+      console.log('END!!')
+      setTouchable(true)
+    }
+  })
+
   const onHangUp = () => {
+    setCallPlay(false)
     set(undefined)
   }
 
   const onPickUp = () => {
-    ringtone.stop()
+    setRingtonePlay(false)
+    setCallPlay(true)
+    // setTouchable(false)
     setPickedUp(true)
   }
 
   return (
     <Component>
-      <BigCirclesWrapper alignSelf="center">
-        <BigCirclesInner source={require('@/assets/tmp/call.webp')} />
+      <BigCirclesWrapper background="beige" alignSelf="center">
+        <BigCirclesInner
+          source={require('@/assets/images/notifications/regularization/penalty.webp')}
+        />
       </BigCirclesWrapper>
       <Wrapper>
         <Container alignSelf="center">
@@ -47,7 +67,11 @@ const PhoneCall: FC<PopupProps> = ({ set }) => {
           </Text>
         </Container>
       </Wrapper>
-      <SlideToAnswer onPickUp={onPickUp} onHangUp={onHangUp} />
+      <SlideToAnswer
+        touchable={touchable}
+        onPickUp={onPickUp}
+        onHangUp={onHangUp}
+      />
     </Component>
   )
 }

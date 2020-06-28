@@ -164,7 +164,13 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
         />
       )}
       {!popup && <Menu setPopup={setPopup} />}
-      <Popup set={setPopup} type={popup} players={players} player={player} />
+      <Popup
+        set={setPopup}
+        type={popup}
+        data={eventData}
+        players={players}
+        player={player}
+      />
       <Notifications {...notification} />
       {miniGame && (
         <MiniGame
