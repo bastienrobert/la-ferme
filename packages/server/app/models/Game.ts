@@ -23,6 +23,27 @@ export default class Game extends db.bookshelf.Model<Game> {
     return true
   }
 
+  get uuid() {
+    return this.get('uuid')
+  }
+
+  get startedAt() {
+    return this.get('started_at')
+  }
+
+  get won() {
+    return this.get('won_at')
+  }
+
+  set winner(value: number) {
+    // should take a player in params
+    // should check player is in the game
+    this.set({
+      winner_player_id: value,
+      won_at: new Date(Date.now())
+    })
+  }
+
   room() {
     return this.belongsTo(Room)
   }
@@ -43,6 +64,10 @@ export default class Game extends db.bookshelf.Model<Game> {
     return this.hasMany(Player)
   }
 
+  presentPlayers() {
+    return this.hasMany(Player).where({ surrender: false }, false)
+  }
+
   async averageScore() {
     const players = await this.players().fetch()
     const sum = players.reduce((acc, { score }) => acc + score, 0)
@@ -57,26 +82,5 @@ export default class Game extends db.bookshelf.Model<Game> {
 
   start() {
     this.set({ started_at: new Date(Date.now()) })
-  }
-
-  get uuid() {
-    return this.get('uuid')
-  }
-
-  get startedAt() {
-    return this.get('started_at')
-  }
-
-  set winner(value: number) {
-    // should take a player in params
-    // should check player is in the game
-    this.set({
-      winner_player_id: value,
-      won_at: new Date(Date.now())
-    })
-  }
-
-  get won() {
-    return this.get('won_at')
   }
 }

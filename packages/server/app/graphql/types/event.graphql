@@ -41,6 +41,15 @@ type EventMiniGame implements Event {
   type: EventType!
   gameUUID: UUID!
   name: String!
+  miniGameUUID: UUID!
+}
+
+type EventMiniGameScore implements Event {
+  type: EventType!
+  gameUUID: UUID!
+  name: String!
+  winner: UUID!
+  miniGameUUID: UUID!
 }
 
 extend type Subscription {

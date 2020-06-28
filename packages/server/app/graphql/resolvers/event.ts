@@ -28,6 +28,8 @@ const resolvers = {
           return 'EventRegularization'
         case EventType.MiniGame:
           return 'EventMiniGame'
+        case EventType.MiniGameScore:
+          return 'EventMiniGameScore'
         default:
           return 'EventDefault'
       }
@@ -41,7 +43,8 @@ const resolvers = {
             REPORT.CREATE,
             REGULARIZATION.CREATE,
             SKILL.USE,
-            MINI_GAME.CREATE
+            MINI_GAME.CREATE,
+            MINI_GAME.SCORE
           ]),
         ({ eventTriggered }, variables) => {
           return eventTriggered.gameUUID === variables.gameUUID

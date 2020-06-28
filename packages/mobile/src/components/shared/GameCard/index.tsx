@@ -73,7 +73,7 @@ const GameCard: FC<GameCardProps> = ({
             {!self && (
               <PlayerWithColor size="small" character={player.character} />
             )}
-            <Title preset="H3">{self ? content.choice : content.choosed}</Title>
+            <Title preset="H4">{self ? content.choice : content.choosed}</Title>
           </TitleContainer>
         </TopInner>
       </TopStyledContainer>

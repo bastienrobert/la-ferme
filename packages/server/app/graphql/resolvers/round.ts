@@ -203,8 +203,6 @@ const resolvers = {
         { civil: lastRound.civilCard, uncivil: lastRound.uncivilCard },
         choice
       )
-      console.log('!!!')
-      console.log(lastChoosenCard)
 
       player.increase(lastChoosenCard.reward.score)
 

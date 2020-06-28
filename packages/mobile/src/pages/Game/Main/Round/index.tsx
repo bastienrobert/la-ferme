@@ -71,7 +71,8 @@ const Component = styled(Container)`
 const Wrapper = styled(Container)`
   width: 100%;
   flex: 1;
-  padding-top: 30px;
+  padding-top: 15px;
+  padding-bottom: 10px;
 `
 
 export default Round

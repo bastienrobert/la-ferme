@@ -26,7 +26,9 @@ const Header: FC<HeaderProps> = ({ players, player, numberOfRounds = 0 }) => {
     })
   }, [players, player])
 
-  const roundNumber = `${Math.floor((numberOfRounds - 1) / players.length) + 1}`
+  const roundNumber = numberOfRounds
+    ? `${Math.floor((numberOfRounds - 1) / players.length) + 1}`
+    : '01'
 
   return (
     <Component>

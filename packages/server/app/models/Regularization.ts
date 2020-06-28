@@ -13,15 +13,15 @@ export default class Regularization extends db.bookshelf.Model<Regularization> {
     return true
   }
 
-  game() {
-    return this.hasOne(Game)
+  get name(): RegularizationName {
+    return this.get('status')
   }
 
   set name(name: RegularizationName) {
     this.set({ name })
   }
 
-  get name(): RegularizationName {
-    return this.get('status')
+  game() {
+    return this.hasOne(Game)
   }
 }

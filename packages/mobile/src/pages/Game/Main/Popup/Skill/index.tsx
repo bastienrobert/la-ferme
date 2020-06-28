@@ -41,8 +41,6 @@ const Skill: FC<PopupProps> = ({ set, player, players }) => {
       return
     }
     if (!skillData?.completed) return
-    // if (skillData?.data?.length > 0) {}
-    console.log(skillData)
     setConfirm(true)
   }, [set, skillData, skillError])
 

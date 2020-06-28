@@ -20,18 +20,6 @@ export default class Round extends db.bookshelf.Model<Round> {
     return true
   }
 
-  game() {
-    return this.belongsTo(Game)
-  }
-
-  player() {
-    return this.belongsTo(Player)
-  }
-
-  targets() {
-    return this.hasMany(RoundTarget)
-  }
-
   get civilCard() {
     return this.get('civil_card')
   }
@@ -70,5 +58,17 @@ export default class Round extends db.bookshelf.Model<Round> {
 
   set step(step: RoundStep) {
     this.set({ step })
+  }
+
+  game() {
+    return this.belongsTo(Game)
+  }
+
+  player() {
+    return this.belongsTo(Player)
+  }
+
+  targets() {
+    return this.hasMany(RoundTarget)
   }
 }

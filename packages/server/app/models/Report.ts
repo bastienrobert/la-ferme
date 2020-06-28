@@ -14,6 +14,30 @@ export default class Report extends db.bookshelf.Model<Player> {
     return true
   }
 
+  get score(): number {
+    return this.get('score')
+  }
+
+  set score(score: number) {
+    this.set({ score })
+  }
+
+  get rounds(): number {
+    return this.get('rounds')
+  }
+
+  set rounds(rounds: number) {
+    this.set({ rounds })
+  }
+
+  get status(): ReportStatus {
+    return this.get('status')
+  }
+
+  set status(status: ReportStatus) {
+    this.set({ status })
+  }
+
   game() {
     return this.hasOne(Game)
   }
@@ -36,29 +60,5 @@ export default class Report extends db.bookshelf.Model<Player> {
 
   completeRound() {
     this.rounds = this.rounds + 1
-  }
-
-  set score(score: number) {
-    this.set({ score })
-  }
-
-  get score(): number {
-    return this.get('score')
-  }
-
-  set rounds(rounds: number) {
-    this.set({ rounds })
-  }
-
-  get rounds(): number {
-    return this.get('rounds')
-  }
-
-  set status(status: ReportStatus) {
-    this.set({ status })
-  }
-
-  get status(): ReportStatus {
-    return this.get('status')
   }
 }

@@ -5,7 +5,7 @@ export async function up(knex: Knex): Promise<any> {
     table.increments('id').primary()
     table.integer('player_id').unsigned().references('players.id')
     table.integer('mini_game_id').unsigned().references('mini_games.id')
-    table.float('score').defaultTo(0)
+    table.float('score')
   })
 
   return

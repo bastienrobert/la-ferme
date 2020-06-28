@@ -20,6 +20,30 @@ export default class Player extends db.bookshelf.Model<Player> {
     return true
   }
 
+  get uuid() {
+    return this.get('uuid')
+  }
+
+  get score() {
+    return this.get('score')
+  }
+
+  set character(character) {
+    this.set({ character })
+  }
+
+  get character() {
+    return this.get('character')
+  }
+
+  set goal(goal) {
+    this.set({ goal })
+  }
+
+  get goal() {
+    return this.get('goal')
+  }
+
   surrender() {
     this.set('surrender', true)
     return this
@@ -59,29 +83,5 @@ export default class Player extends db.bookshelf.Model<Player> {
 
   increase(delta = 1) {
     this.set({ score: this.score + delta })
-  }
-
-  get uuid() {
-    return this.get('uuid')
-  }
-
-  get score() {
-    return this.get('score')
-  }
-
-  set character(character) {
-    this.set({ character })
-  }
-
-  get character() {
-    return this.get('character')
-  }
-
-  set goal(goal) {
-    this.set({ goal })
-  }
-
-  get goal() {
-    return this.get('goal')
   }
 }

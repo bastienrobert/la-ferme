@@ -2,7 +2,6 @@ import React, { FC, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import { Icon } from '@la-ferme/components/native'
-import { Player } from '@la-ferme/shared/typings'
 
 import { PopupType } from './Popup'
 import Container from '@/components/shared/Container'
@@ -11,7 +10,6 @@ import useTheme from '@/hooks/useTheme'
 import { complementaries } from '@/utils/colors'
 
 export interface MenuProps {
-  player: Player
   setPopup: (type: PopupType) => void
 }
 
@@ -23,7 +21,7 @@ const MenuIcon: FC<any> = ({ onPress, ...style }) => {
   )
 }
 
-const Menu: FC<MenuProps> = ({ player, setPopup }) => {
+const Menu: FC<MenuProps> = ({ setPopup }) => {
   const [visible, setVisible] = useState(false)
   const { theme } = useTheme()
 
@@ -78,7 +76,7 @@ const Component = styled(Container)`
   position: absolute;
   bottom: 0;
   right: 0;
-  padding: 22px 12px;
+  padding: 22px 12px 8px;
   z-index: 2;
 `
 

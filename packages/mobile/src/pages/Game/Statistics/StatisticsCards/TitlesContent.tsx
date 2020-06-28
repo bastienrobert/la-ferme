@@ -11,7 +11,7 @@ import PlayerImage from '@/components/shared/PlayerImage'
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 
-import { winImages, looseImages } from './getCardImage'
+import { winImages, looseImages } from '@/utils/helpers/players'
 import { statisticsByName } from '@/utils/helpers/statistics'
 
 const content = globalData.statistics

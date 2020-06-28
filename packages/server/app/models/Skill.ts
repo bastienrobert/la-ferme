@@ -25,14 +25,6 @@ export default class Skill extends db.bookshelf.Model<Skill> {
     return this.get('name')
   }
 
-  player() {
-    return this.belongsTo(Player)
-  }
-
-  targets() {
-    return this.belongsToMany(Player, 'skills_targets')
-  }
-
   get usable() {
     return this.get('status') === SkillStatus.Usable
   }
@@ -43,6 +35,14 @@ export default class Skill extends db.bookshelf.Model<Skill> {
 
   get used() {
     return this.get('status') === SkillStatus.Used
+  }
+
+  player() {
+    return this.belongsTo(Player)
+  }
+
+  targets() {
+    return this.belongsToMany(Player, 'skills_targets')
   }
 
   reset() {

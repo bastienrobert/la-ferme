@@ -8,19 +8,19 @@ export default class MiniGamePlayer extends db.bookshelf.Model<MiniGamePlayer> {
     return 'mini_games_players'
   }
 
-  miniGame() {
-    return this.hasOne(MiniGame)
-  }
-
-  players() {
-    return this.hasMany(Player)
-  }
-
   get score() {
     return this.get('score')
   }
 
   set score(score: number) {
     this.set({ score })
+  }
+
+  miniGame() {
+    return this.hasOne(MiniGame)
+  }
+
+  player() {
+    return this.belongsTo(Player)
   }
 }

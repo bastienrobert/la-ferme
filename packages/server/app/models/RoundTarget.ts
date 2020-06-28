@@ -19,19 +19,19 @@ export default class RoundTarget extends db.bookshelf.Model<RoundTarget> {
     return false
   }
 
-  round() {
-    return this.belongsTo(Round)
-  }
-
-  player() {
-    return this.belongsTo(Player)
-  }
-
   get status(): RoundTargetStatus {
     return this.get('status')
   }
 
   set status(status: RoundTargetStatus) {
     this.set({ status })
+  }
+
+  round() {
+    return this.belongsTo(Round)
+  }
+
+  player() {
+    return this.belongsTo(Player)
   }
 }

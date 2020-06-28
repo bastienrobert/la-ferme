@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState, useMemo } from 'react'
 import styled from 'styled-components/native'
 import { RouteProp, NavigationProp } from '@react-navigation/native'
 import { useMutation, useSubscription, useQuery } from '@apollo/react-hooks'
@@ -27,6 +27,7 @@ import { READY_FOR_ROUND_MUTATION } from '@/graphql/round'
 import { EVENT_TRIGGERED_SUBSCRIPTION } from '@/graphql/event'
 
 import useTheme from '@/hooks/useTheme'
+import MiniGame from './MiniGame'
 
 export interface GameMainParams {
   players: PlayerType[]
@@ -47,15 +48,15 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   const players = route.params?.players ?? []
 
   const [popup, setPopup] = useState<PopupType>(undefined)
-  const [notification, setNotification] = useState<NotificationsProps>(
-    undefined
-  )
+  const [miniGame, setMiniGame] = useState<string>(undefined)
+  const [notification, setNotification] = useState<NotificationsProps>(undefined) // prettier-ignore
 
   /**
    * tell to the server you're ready to play
    */
   const [readyForRoundMutation] = useMutation(READY_FOR_ROUND_MUTATION)
   useEffect(() => {
+    console.log('RENDER PLAYER')
     readyForRoundMutation({ variables: { playerUUID: player.uuid } })
   }, [player, readyForRoundMutation])
 
@@ -68,9 +69,13 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
       variables: { gameUUID }
     }
   )
-  const eventData = eventTriggeredSubscription.data?.eventTriggered
+  const eventData = useMemo(() => {
+    return eventTriggeredSubscription.data?.eventTriggered
+  }, [eventTriggeredSubscription.data])
 
   useEffect(() => {
+    console.log('RENDER EVENT DATA')
+
     switch (eventData?.type) {
       case EventType.Report:
         if (eventData.targets.includes(player?.uuid)) {
@@ -101,12 +106,14 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
         })
         break
       case EventType.MiniGame:
-        console.log(eventData)
+      case EventType.MiniGameScore:
+        setMiniGame(eventData.name)
         break
       default:
         break
     }
-  }, [eventData, player, players])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [eventData])
 
   /**
    * game update subscription
@@ -114,7 +121,10 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   const gameUpdatedSubscription = useSubscription(GAME_UPDATED_SUBSCRIPTION, {
     variables: { gameUUID }
   })
-  const gameData = gameUpdatedSubscription.data?.gameUpdated
+  const gameData = useMemo(() => {
+    console.log('RENDER GAME DATA')
+    return gameUpdatedSubscription.data?.gameUpdated
+  }, [gameUpdatedSubscription.data])
   const numberOfRounds = gameData?.numberOfRounds
 
   useEffect(() => {
@@ -130,15 +140,18 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   }, [gameData, navigation, player, players])
 
   useEffect(() => {
-    if (!gameData?.round || popup !== undefined) return
-    setTheme(gameData.round.background)
+    if (gameData?.round && miniGame === undefined && popup === undefined) {
+      setTheme(gameData.round.background)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [popup])
+  }, [popup, miniGame])
 
-  const character = characters.find(c => player.character === c.name)
+  const character = useMemo(() => {
+    return characters.find(c => player.character === c.name)
+  }, [player])
 
   return (
-    <Component overflow={popup ? 'hidden' : 'visible'}>
+    <Component overflow={popup || miniGame ? 'hidden' : 'visible'}>
       <Header
         player={player}
         players={players}
@@ -150,13 +163,23 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
           player={player}
           character={character}
           players={players}
-          shouldBackgroundUpdate={!popup}
+          shouldBackgroundUpdate={!popup && !miniGame}
           data={gameData.round}
         />
       )}
-      {!popup && <Menu player={player} setPopup={setPopup} />}
+      {!popup && <Menu setPopup={setPopup} />}
       <Popup set={setPopup} type={popup} players={players} player={player} />
       <Notifications {...notification} />
+      {miniGame && (
+        <MiniGame
+          uuid={eventData?.miniGameUUID}
+          close={() => setMiniGame(undefined)}
+          winner={eventData?.winner}
+          type={miniGame}
+          players={players}
+          player={player}
+        />
+      )}
     </Component>
   )
 }

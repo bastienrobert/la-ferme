@@ -18,6 +18,13 @@ const EVENT_TRIGGERED_SUBSCRIPTION = gql`
       }
       ... on EventMiniGame {
         name
+        miniGameUUID
+      }
+      ... on EventMiniGameScore {
+        gameUUID
+        name
+        winner
+        miniGameUUID
       }
     }
   }

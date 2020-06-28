@@ -65,12 +65,13 @@ const Component = styled(FullContainer)`
   left: 0;
   width: 100%;
   height: 100%;
-  padding-top: 100px;
+  padding-top: 110px;
+  padding-bottom: 10px;
 `
 
 const OverComponent = styled(Component)`
   padding-top: 0;
-  z-index: 999;
+  z-index: 998;
 `
 
 const containerByType = {
