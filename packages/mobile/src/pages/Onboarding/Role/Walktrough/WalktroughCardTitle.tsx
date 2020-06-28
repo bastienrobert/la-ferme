@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
+import { Colors } from '@la-ferme/components/native'
 
 import { WalktroughCardType } from './WalktroughCard'
 
@@ -15,6 +16,7 @@ const titles = {
 }
 
 export interface WalktroughCardTitleProps extends SvgProps {
+  color: Colors.Theme
   type: WalktroughCardType
 }
 

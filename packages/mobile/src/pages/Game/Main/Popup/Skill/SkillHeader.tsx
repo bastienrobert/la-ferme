@@ -19,6 +19,8 @@ const SkillHeader: FC<SkillHeaderProps> = ({ data, image }) => {
         titleColor="gray"
         hashtag={[data.description]}
         hashtagColor="yellow"
+        anchor="right"
+        hashtagOffset={{ x: 30, y: 15 }}
         alignSelf="center"
       />
     </>

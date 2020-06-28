@@ -1,7 +1,7 @@
 import { WalktroughCardType } from './WalktroughCard'
 
 import { images as skill } from '@/utils/helpers/skills'
-import { images as goal } from '@/utils/helpers/skills'
+import { images as goal } from '@/utils/helpers/goals'
 
 const data = {
   character: {

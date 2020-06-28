@@ -46,7 +46,7 @@ const skills: Skill[] = [
   },
   {
     name: 'cellphone',
-    displayName: 'Portable',
+    displayName: 'Phone',
     description: '#sony-herisson',
     text:
       "Vous ne pouvez vous empêcher de fouiner dans les affaires des autres en regardant l'écran de vos voisins.",

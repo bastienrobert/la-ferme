@@ -3,8 +3,8 @@ import { css } from 'styled-components'
 import styled from 'styled-components/native'
 import { TouchableWithoutFeedback } from 'react-native'
 import FastImage from 'react-native-fast-image'
-import { Button } from '@la-ferme/components/native'
-import { Skill } from '@la-ferme/shared/typings'
+import { Colors, Button } from '@la-ferme/components/native'
+import { Skill, Player } from '@la-ferme/shared/typings'
 import { global as globalData } from '@la-ferme/shared/data'
 
 import WalktroughCardTitle from './WalktroughCardTitle'
@@ -18,6 +18,9 @@ import getCardBackground from './getCardBackground'
 import getCardData from './getCardData'
 import { shadow, inner } from '@/components/cards/cards.style'
 
+import { complementaries, buttons } from '@/utils/colors'
+import { charactersByName } from '@/utils/helpers/players'
+
 const content = globalData.role
 
 export type WalktroughCardType = 'character' | 'skill' | 'goal'
@@ -30,25 +33,30 @@ export interface WalktroughCardData extends ContainerProps {
 export interface WalktroughCardProps
   extends ContainerProps,
     WalktroughCardData {
+  player: Player
   onPress: () => void
 }
 
 const WalktroughCard: FC<WalktroughCardProps> = ({
   name,
   type,
+  player,
   onPress,
   ...props
 }) => {
   const { Up, Down, RATIO_UP, RATIO_DOWN } = getCardBackground(type)
   const data = getCardData(type, name)
 
+  const character = charactersByName[player.character]
+
   return (
     <Component alignSelf="center" {...props}>
       <TopStyledContainer style={{ aspectRatio: RATIO_UP }}>
         <StyledCard as={Up} />
         {type !== 'character' && (
-          <JustArrived
-            source={require('@/assets/images/role/just_arrived.png')}
+          <TopSecret
+            resizeMode="contain"
+            source={require('@/assets/images/role/top_secret.png')}
           />
         )}
         <BigImage
@@ -57,13 +65,16 @@ const WalktroughCard: FC<WalktroughCardProps> = ({
           resizeMode={FastImage.resizeMode.contain}
         />
         <TopInner>
-          <WalktroughCardTitle type={type} />
+          <WalktroughCardTitle
+            color={character.color as Colors.Theme}
+            type={type}
+          />
         </TopInner>
       </TopStyledContainer>
       <BottomStyledContainer style={{ aspectRatio: RATIO_DOWN }}>
         <StyledCard as={Down} />
         <BottomInner>
-          <Container>
+          <TextContainer alignSelf="center">
             <StyledTitleWithHashtag
               alignSelf="center"
               title={data.displayName}
@@ -72,7 +83,7 @@ const WalktroughCard: FC<WalktroughCardProps> = ({
               anchor="right"
               hashtagOffset={{ x: 30, y: 10 }}
               titleColor="gray"
-              hashtagColor="red"
+              hashtagColor={complementaries[character.color]}
             />
             <StyledScrollView alwaysBounceVertical={false}>
               <TouchableWithoutFeedback>
@@ -87,10 +98,10 @@ const WalktroughCard: FC<WalktroughCardProps> = ({
                 </Container>
               </TouchableWithoutFeedback>
             </StyledScrollView>
-          </Container>
+          </TextContainer>
           {onPress && (
             <ButtonContainer alignSelf="center">
-              <Button variant="secondary" onPress={onPress}>
+              <Button variant={buttons[character.color]} onPress={onPress}>
                 {content.cta_ready}
               </Button>
             </ButtonContainer>
@@ -150,14 +161,20 @@ const BottomStyledContainer = styled(Container)`
   width: 100%;
 `
 
+const TextContainer = styled(Container)`
+  flex: 1;
+`
+
 const StyledScrollView = styled.ScrollView`
   margin-bottom: 20px;
 `
 
-const JustArrived = styled.Image`
+const TopSecret = styled.Image`
   position: absolute;
-  top: -10px;
-  right: -15px;
+  top: -15px;
+  right: -20px;
+  width: 111px;
+  transform: rotate(-8deg);
 `
 
 const StyledTitleWithHashtag = styled(TitleWithHashtag)`

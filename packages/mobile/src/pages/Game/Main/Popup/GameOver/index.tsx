@@ -36,6 +36,7 @@ const GameOver: FC<PopupProps> = ({ set, player }) => {
         <Inner alignSelf="center">
           <StyledBackground />
           <JustArrived
+            resizeMode="contain"
             source={require('@/assets/images/role/just_arrived.png')}
           />
           <Wrapper alignSelf="center">
@@ -94,6 +95,8 @@ const JustArrived = styled.Image`
   position: absolute;
   top: -60px;
   right: -25px;
+  width: 111px;
+  transform: rotate(-8deg);
 `
 
 const StyledGameOverTitle = styled(GameOverTitle)`

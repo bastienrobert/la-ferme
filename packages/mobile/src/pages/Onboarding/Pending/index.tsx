@@ -18,9 +18,15 @@ import Text from '@/components/typo/Text'
 import { GAME_PLAYER_INFOS_QUERY } from '@/graphql/local'
 import { READY_PLAYERS_QUERY, GAME_UPDATED_SUBSCRIPTION } from '@/graphql/game'
 
-import getCharacter from './getCharacter'
 import useTheme from '@/hooks/useTheme'
 import viewport from '@/services/viewport'
+
+const imagesByCharacter = {
+  isabelle: require('@/assets/images/pending/isabelle.webp'),
+  peter: require('@/assets/images/pending/peter.webp'),
+  monique: require('@/assets/images/pending/monique.webp'),
+  leon: require('@/assets/images/pending/leon.webp')
+}
 
 const content = globalData.pending
 
@@ -63,7 +69,7 @@ const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
     []
 
   const currentPlayer = useMemo(() => {
-    return players.filter(p => p.uuid !== player?.uuid)
+    return players.find(p => p.uuid !== player?.uuid)
   }, [player, players])
 
   useEffect(() => {
@@ -92,7 +98,7 @@ const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
           autoPlay
         />
         <Character
-          source={getCharacter(currentPlayer)}
+          source={imagesByCharacter[currentPlayer?.character]}
           resizeMode={FastImage.resizeMode.contain}
         />
       </ImageContainer>
@@ -113,13 +119,14 @@ const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
 }
 
 const TopContainer = styled(Container)`
-  margin-top: 90px;
+  margin-top: 140px;
 `
 
 const ImageContainer = styled(FullContainer)`
   position: relative;
   justify-content: center;
   align-items: center;
+  margin-bottom: 120px;
 `
 
 const TextContainer = styled(FullContainer)`

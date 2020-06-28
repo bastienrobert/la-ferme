@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import styled from 'styled-components/native'
 import { Icon } from '@la-ferme/components/native'
 import { global as globalData } from '@la-ferme/shared/data'
+import { roundChoiceToCardType } from '@la-ferme/shared/data/cards'
 
 import { StatisticCardData } from './StatisticCard'
 import Container from '@/components/shared/Container'
@@ -28,7 +29,9 @@ const AppraisalContent: FC<StatisticCardData> = ({
   const progress = data.civil / (data.civil + data.uncivil) || 0
 
   const text =
-    type === 'player' ? statisticsByName[data.name]?.text : content[data.name]
+    type === 'player'
+      ? statisticsByName[data.name]?.text
+      : content[roundChoiceToCardType[data.name]]
 
   return (
     <Component>
@@ -56,7 +59,7 @@ const AppraisalContent: FC<StatisticCardData> = ({
         <CivilCounter preset="H5" color="blue">
           {data.civil} {content.appraisal.civil}
         </CivilCounter>
-        <UncivilCounter preset="H5" color="gray">
+        <UncivilCounter preset="H5" color="yellow">
           {data.uncivil} {content.appraisal.uncivil}
         </UncivilCounter>
       </Container>

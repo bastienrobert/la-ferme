@@ -100,8 +100,8 @@ export default {
   gameCard: {
     cta_ok: 'OKÉÉÉ',
     confirm: 'Confirmez votre choix',
-    cta_yes: 'YES',
-    cta_no: 'NO',
+    cta_yes: 'YEPE',
+    cta_no: 'NOPE',
     choice: 'Choix',
     choosed: ' a choisi'
   },
@@ -142,7 +142,7 @@ export default {
   },
   notifications: {
     skill: {
-      title: 'anonyme',
+      title: 'dommage',
       description: 'Une notification reçue...',
       icon: 'lightning',
       inner: {
@@ -196,6 +196,15 @@ export default {
     },
     game: {
       subtitle: 'la partie'
+    }
+  },
+  minigame: {
+    start: {
+      subtitle: 'mini-jeu'
+    },
+    results: {
+      winner: 'gagné',
+      looser: 'perdu'
     }
   }
 }

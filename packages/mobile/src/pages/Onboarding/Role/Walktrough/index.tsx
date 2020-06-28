@@ -74,6 +74,7 @@ const Walktrough: FC<any> = ({ onReadyPress, player }) => {
                 {...props}>
                 <WalktroughCard
                   onPress={last ? onReadyPress : null}
+                  player={player}
                   {...cardProps}
                 />
               </StyledView>

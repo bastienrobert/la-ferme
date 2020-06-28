@@ -128,7 +128,7 @@ const Component = styled(Container)`
   top: 23px;
   left: 0;
   width: 100%;
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.45);
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.35);
 `
 
 const InnerContainer = styled(Container)`
@@ -136,6 +136,7 @@ const InnerContainer = styled(Container)`
   flex-direction: row;
   align-items: flex-start;
   border-radius: 20px;
+  padding-bottom: 20px;
   overflow: hidden;
 `
 

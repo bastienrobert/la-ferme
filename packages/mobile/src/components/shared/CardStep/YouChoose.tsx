@@ -1,6 +1,7 @@
 import React, { FC, useRef, useEffect } from 'react'
 import { Animated, Easing } from 'react-native'
 import styled from 'styled-components/native'
+import LottieView from 'lottie-react-native'
 import { global as globalData } from '@la-ferme/shared/data'
 import { Colors } from '@la-ferme/components/native'
 
@@ -16,9 +17,12 @@ export interface YouChooseProps {
 
 const YouChoose: FC<YouChooseProps> = ({ color, visible }) => {
   const opacity = useRef(new Animated.Value(0)).current
+  const animation = useRef()
 
   useEffect(() => {
-    if (!visible) return
+    if (!visible || !animation.current) return
+
+    animation.current.play()
 
     Animated.timing(opacity, {
       toValue: 1,
@@ -30,12 +34,11 @@ const YouChoose: FC<YouChooseProps> = ({ color, visible }) => {
 
   return (
     <Component as={Animated.View} alignSelf="center" style={{ opacity }}>
-      <Title preset="H1" color={color}>
-        {content.choosed_1}
-      </Title>
-      <Title preset="H1" color={color}>
-        {content.choosed_2}
-      </Title>
+      <StyledLottieView
+        ref={animation}
+        source={require('@/assets/lottie/you_choose.json')}
+        loop={false}
+      />
     </Component>
   )
 }
@@ -46,6 +49,11 @@ const Component = styled(Container)`
   left: 0;
   width: 100%;
   align-items: center;
+`
+
+const StyledLottieView = styled(LottieView)`
+  width: 100%;
+  max-width: 400px;
 `
 
 export default YouChoose

@@ -28,9 +28,9 @@ const BigCirclesWrapper: FC<BigCirclesWrapperProps> = ({
 }
 
 const Component = styled(Container)`
-  width: 90%;
+  width: 100%;
   justify-content: center;
-  max-width: 400px;
+  max-width: 450px;
   aspect-ratio: 1;
 `
 

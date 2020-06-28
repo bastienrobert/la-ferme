@@ -91,7 +91,7 @@ const CarCounterGame: FC<InnerGameProps> = ({ onFinish }) => {
 }
 
 const Component = styled(FullContainer)`
-  justify-content: space-between;
+  justify-content: center;
 `
 
 const Timer = styled(Container)`
@@ -106,8 +106,8 @@ const StyledLottieView = styled(LottieView)`
 `
 
 const CarCounterContainer = styled(Container)`
-  width: 80%;
-  max-width: 180px;
+  width: 85%;
+  max-width: 300px;
 `
 
 const StyledCarCounterPoints = styled(CarCounterPoints)`
@@ -119,9 +119,9 @@ const NeedleContainer = styled(Container)`
   position: absolute;
   left: 50%;
   top: 100%;
-  width: 54px;
-  height: 54px;
-  transform: translate(-27px, -27px);
+  width: 84px;
+  height: 84px;
+  transform: translate(-42px, -42px);
 `
 
 const NeedleWrapper = styled(Container)`
@@ -135,11 +135,12 @@ const StyledCarCounterNeedle = styled(CarCounterNeedle)`
   bottom: 50%;
   height: 50%;
   aspect-ratio: ${CAR_COUNTER_NEEDLE_RATIO};
-  transform: translateY(6px);
+
+  transform: translateY(10px);
 `
 
 const StyledTitle = styled(Title)`
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 `
 
 const TextContainer = styled(Container)`

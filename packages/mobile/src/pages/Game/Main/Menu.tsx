@@ -14,9 +14,14 @@ export interface MenuProps {
 }
 
 const MenuIcon: FC<any> = ({ onPress, ...style }) => {
+  const { icon } = style
+
+  const withShadow = icon === 'plus' || icon === 'cross'
+  const Inner = withShadow ? StyledMenuIcon : Icon
+
   return (
     <IconContainer as={TouchableOpacity} onPress={onPress}>
-      <Icon {...style} />
+      <Inner {...style} />
     </IconContainer>
   )
 }
@@ -81,6 +86,10 @@ const Component = styled(Container)`
 `
 
 const IconContainer = styled(Container)``
+
+const StyledMenuIcon = styled(Icon)`
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.35);
+`
 
 const AbsoluteIconWrapper = styled(Container)`
   position: absolute;

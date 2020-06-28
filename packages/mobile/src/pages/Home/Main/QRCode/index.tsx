@@ -20,8 +20,10 @@ export interface QRCodeProps {
 }
 
 const QRCode: FC<QRCodeProps> = ({ onSuccess, onCancelPress }) => {
-  const onRead = (e: QRCodeScannerEvent) => {
-    onSuccess(e.data)
+  const onRead = (_: QRCodeScannerEvent) => {
+    // const data = e.data
+    const data = '99719f7a-52a7-4d0e-b794-4caf71c4bcce'
+    onSuccess(data)
   }
 
   return (

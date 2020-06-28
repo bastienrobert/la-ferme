@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import styled from 'styled-components/native'
 import FastImage from 'react-native-fast-image'
-// import { global as globalData } from '@la-ferme/shared/data'
+import { global as globalData, minigames } from '@la-ferme/shared/data'
 import { Icon } from '@la-ferme/components/native'
 
 import { MiniGameProps } from './'
@@ -12,7 +12,7 @@ import { winImages, looseImages } from '@/utils/helpers/players'
 import Title from '@/components/typo/Title'
 import Text from '@/components/typo/Text'
 
-// const content = globalData.phoneCall
+const global = globalData.minigame.results
 
 const getBackground = (winner: boolean) => {
   if (winner) return require('@/assets/images/minigame/confettis.webp')
@@ -20,6 +20,7 @@ const getBackground = (winner: boolean) => {
 }
 
 const MiniGameResults: FC<Required<MiniGameProps>> = ({
+  type,
   player,
   winner,
   close
@@ -28,20 +29,24 @@ const MiniGameResults: FC<Required<MiniGameProps>> = ({
   const images = isWinner ? winImages : looseImages
   const color = isWinner ? 'gray' : 'beige'
 
+  const content = minigames[type]
+
+  const t = isWinner ? 'winner' : 'looser'
+
   return (
     <Component>
       <Background source={getBackground(isWinner)} />
       <MainContainer alignSelf="center">
         <BigImage source={images[player.character]} />
         <StyledTitle preset="H1" color={color} textAlign="center">
-          {isWinner ? 'gagné' : 'perdu'}
+          {global[t]}
         </StyledTitle>
         <TextContainer>
           <StyledText color={color} textAlign="center">
-            Crotte de bique ! Vous n’avez pas été assez rapide!
+            {content.results[t].text}
           </StyledText>
           <Title preset="H5" color={color} textAlign="center">
-            Vous reculez d’une case !
+            {content.results[t].effect}
           </Title>
         </TextContainer>
       </MainContainer>

@@ -16,6 +16,7 @@ import Notifications, {
   NotificationType
 } from './Notifications'
 import Round from './Round'
+import MiniGame from './MiniGame'
 import Menu from './Menu'
 import Popup, { PopupType } from './Popup'
 import Header from '@/components/shared/Header'
@@ -27,7 +28,6 @@ import { READY_FOR_ROUND_MUTATION } from '@/graphql/round'
 import { EVENT_TRIGGERED_SUBSCRIPTION } from '@/graphql/event'
 
 import useTheme from '@/hooks/useTheme'
-import MiniGame from './MiniGame'
 
 export interface GameMainParams {
   players: PlayerType[]

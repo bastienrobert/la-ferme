@@ -43,25 +43,25 @@ const goals: Goal[] = [
   },
   {
     name: 'library',
-    displayName: 'Biblio',
+    displayName: 'BNF',
     displayNameWithPronounce: 'a la bibliothèque',
-    description: '#BNF',
+    description: '#biblio',
     text:
       "Vous êtes un vrai rat de bibliothèque! Il est l'heure de rendre les livres que vous avez emprunté! Dépêchez- vous, la bibliothèque va bientôt fermer!"
   },
   {
     name: 'pool',
     displayName: 'Piscine',
-    description: '#la Butte aux Cailles',
+    description: '#Butte aux Cailles',
     displayNameWithPronounce: 'a la piscine',
     text:
       "C'est bientôt l'été, rendez-vous à votre entrainement quotidien pour garder votre taille de guêpe! Vous vous sentez comme un poisson dans l'eau."
   },
   {
     name: 'airport',
-    displayName: 'Aéroport',
+    displayName: 'Gate',
     displayNameWithPronounce: "a l'aéroport",
-    description: '#de beau veau',
+    description: '#beau veau',
     text:
       "C'est l'heure de prendre son envol! Faites attention à ne pas louper le décollage! Direction les cocotiers pour lézarder au soleil."
   }

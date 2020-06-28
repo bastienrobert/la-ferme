@@ -7,11 +7,14 @@ import FullContainer from '@/components/shared/FullContainer'
 import BigCirclesWrapper from '@/components/shared/BigCirclesWrapper'
 import TextWithCharacter from '@/components/shared/TextWithCharacter'
 import Title from '@/components/typo/Title'
+import { Colors } from '@la-ferme/components/native'
 
 export interface NotificationInnerProps {
   title: string
   text: string | ReactNodeArray
   description: string
+  backgroundImage?: Colors.Any
+  image: any
   params?: { [key: string]: any }
 }
 
@@ -19,28 +22,32 @@ const NotificationInner: FC<NotificationInnerProps> = ({
   title,
   text,
   description,
+  backgroundImage,
+  image,
   params = {}
 }) => {
   const { character, ...rest } = params
 
   return (
     <Component>
-      <BigCirclesWrapper alignSelf="center">
-        <BigCirclesInner source={require('@/assets/tmp/call.webp')} />
-      </BigCirclesWrapper>
-      <StyledTitle preset="H1" color="red" textAlign="center">
-        {title}
-      </StyledTitle>
-      <TextContainer alignSelf="center">
-        <TextWithCharacter character={character} text={text} color="beige" />
-      </TextContainer>
-      <TextWithCharacter
-        character={character}
-        type="title"
-        text={description}
-        params={rest}
-        color="beige"
-      />
+      <StyledBigCirclesWrapper background={backgroundImage} alignSelf="center">
+        <BigCirclesInner source={image} />
+      </StyledBigCirclesWrapper>
+      <Wrapper alignSelf="center">
+        <StyledTitle preset="H1" color="red" textAlign="center">
+          {title}
+        </StyledTitle>
+        <TextContainer alignSelf="center">
+          <TextWithCharacter character={character} text={text} color="beige" />
+        </TextContainer>
+        <TextWithCharacter
+          character={character}
+          type="title"
+          text={description}
+          params={rest}
+          color="beige"
+        />
+      </Wrapper>
     </Component>
   )
 }
@@ -48,6 +55,9 @@ const NotificationInner: FC<NotificationInnerProps> = ({
 const Component = styled(FullContainer)`
   align-items: center;
   justify-content: center;
+`
+const StyledBigCirclesWrapper = styled(BigCirclesWrapper)`
+  margin-top: -60px;
 `
 
 const BigCirclesInner = styled(FastImage)`
@@ -57,6 +67,10 @@ const BigCirclesInner = styled(FastImage)`
 
 const StyledTitle = styled(Title)`
   margin-bottom: 20px;
+`
+
+const Wrapper = styled(Container)`
+  margin-top: -20px;
 `
 
 const TextContainer = styled(Container)`
