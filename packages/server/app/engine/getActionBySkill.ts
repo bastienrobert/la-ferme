@@ -13,9 +13,9 @@ const editLastRoundTarget = async (skill: Skill) => {
   const player = await skill.player().fetch({
     withRelated: [
       {
-        targeted: qb => qb.where({ status: RoundTargetStatus.New })
-      },
-      'targeted.round'
+        targeted: qb => qb.where({ status: RoundTargetStatus.New }),
+        'targeted.round': qb => qb.column('id', 'player_id', 'created_at')
+      }
     ]
   })
 

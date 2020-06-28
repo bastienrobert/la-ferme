@@ -18,7 +18,7 @@ const content = globalData.phoneCall
 const PhoneCall: FC<PopupProps> = ({ set }) => {
   const [pickedUp, setPickedUp] = useState<boolean>(false)
 
-  const ringtone = useAudio(require('@/assets/audio/ringtone.mp3'), {
+  const ringtone = useAudio(require('@/assets/audios/ringtone.mp3'), {
     autoPlay: true,
     loop: true
   })

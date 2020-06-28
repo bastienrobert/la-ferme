@@ -56,7 +56,6 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
    */
   const [readyForRoundMutation] = useMutation(READY_FOR_ROUND_MUTATION)
   useEffect(() => {
-    console.log('RENDER PLAYER')
     readyForRoundMutation({ variables: { playerUUID: player.uuid } })
   }, [player, readyForRoundMutation])
 
@@ -74,8 +73,6 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   }, [eventTriggeredSubscription.data])
 
   useEffect(() => {
-    console.log('RENDER EVENT DATA')
-
     switch (eventData?.type) {
       case EventType.Report:
         if (eventData.targets.includes(player?.uuid)) {
@@ -122,7 +119,6 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
     variables: { gameUUID }
   })
   const gameData = useMemo(() => {
-    console.log('RENDER GAME DATA')
     return gameUpdatedSubscription.data?.gameUpdated
   }, [gameUpdatedSubscription.data])
   const numberOfRounds = gameData?.numberOfRounds

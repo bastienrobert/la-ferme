@@ -21,6 +21,14 @@ type UseSkillWithTargetsData implements UseSkill {
   data: [Player]!
 }
 
+type LastTargeter {
+  targeter: UUID!
+}
+
+extend type Query {
+  getLastTargeter(playerUUID: UUID!): LastTargeter!
+}
+
 extend type Mutation {
   useSkill(playerUUID: UUID!, targets: [UUID]): UseSkill!
 }

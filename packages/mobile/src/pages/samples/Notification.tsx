@@ -26,7 +26,7 @@ const NotificationSample = () => {
   }
 
   useEffect(() => {
-    setTheme('red')
+    // setTheme('red')
   }, [setTheme])
 
   return (

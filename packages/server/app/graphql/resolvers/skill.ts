@@ -1,7 +1,9 @@
+import { Collection } from 'bookshelf'
 import { SKILL } from '@la-ferme/shared/constants'
 import { EventType, UUID } from '@la-ferme/shared/typings'
 import { SKILL_ALREADY_USED } from '@la-ferme/shared/errors'
 
+import RoundTarget, { RoundTargetStatus } from '@/app/models/RoundTarget'
 import Player from '@/app/models/Player'
 import Skill from '@/app/models/Skill'
 import Game from '@/app/models/Game'
@@ -35,6 +37,36 @@ const resolvers = {
           return 'UseSkillWithTargetsData'
         default:
           return 'UseSkillDefault'
+      }
+    }
+  },
+  Query: {
+    async getLastTargeter(_, { playerUUID }) {
+      const player = await Player.findByUUID(playerUUID, {
+        withRelated: [
+          {
+            targeted: qb => qb.where({ status: RoundTargetStatus.New }),
+            'targeted.round': qb => qb.column('id', 'player_id', 'created_at')
+          }
+        ]
+      })
+
+      const target = player
+        .related('targeted')
+        .orderBy('round.created_at') as Collection<RoundTarget>
+      const last = target.last()
+      const round = await last.round().fetch({
+        columns: ['id', 'player_id'],
+        withRelated: [
+          {
+            player: qb => qb.column('id', 'uuid')
+          }
+        ]
+      })
+      const targeter = round.related('player') as Player
+
+      return {
+        targeter: targeter.uuid
       }
     }
   },

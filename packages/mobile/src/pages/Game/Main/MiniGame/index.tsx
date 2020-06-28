@@ -43,18 +43,21 @@ const MiniGame: FC<MiniGameProps> = props => {
   const [submitMiniGameMutation] = useMutation(SUBMIT_MINI_GAME_MUTATION)
 
   useEffect(() => {
+    if (winner || theme === 'gray') return
+    setTheme('gray')
+  }, [winner, setTheme, theme])
+
+  useEffect(() => {
     if (winner) setPending('stop')
     else setTimeout(() => setPending('go'), 6000)
   }, [winner])
 
-  useEffect(() => {
-    if (!type) return
-    setTheme(winner === player.uuid ? 'beige' : 'gray')
-  }, [theme, winner, setTheme, player, type])
-
   const onGoStopClose = (state: PendingState) => {
     setPending(undefined)
     if (state === 'go') setReady(true)
+    if (state === 'stop') {
+      setTheme(winner === player.uuid ? 'beige' : 'gray')
+    }
   }
 
   const onFinish = score => {

@@ -49,10 +49,7 @@ const Introduction: FC<IntroductionProps> = ({ navigation }) => {
       <FullscreenVideo
         paused={paused}
         onEnd={onSkipPress}
-        source={{
-          uri:
-            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-        }}
+        source={require('@/assets/videos/teaser.mp4')}
       />
       <ButtonContainer alignSelf="center">
         <Button onPress={onSkipPress}>{general.skip}</Button>
