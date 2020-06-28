@@ -19,7 +19,7 @@
 		<key>CFBundleSignature</key>
 		<string>????</string>
 		<key>CFBundleVersion</key>
-		<string>23</string>
+		<string>26</string>
 		<key>NSCameraUsageDescription</key>
 		<string>Your message to user when the camera is accessed for the first time</string>
 	</dict>
