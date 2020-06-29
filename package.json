@@ -13,6 +13,7 @@
     "heroku-postbuild": "yarn build:server",
     "build": "run-p build:**",
     "build:components": "yarn --cwd packages/components build",
+    "build:website": "yarn --cwd packages/website build",
     "build:server": "yarn --cwd packages/server build",
     "components": "yarn --cwd packages/components dev",
     "dev": "run-p dev:**",

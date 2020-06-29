@@ -6,9 +6,9 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "export": "next export"
+    "build": "run -s build:**",
+    "build:build": "next build",
+    "build:export": "next export"
   },
   "keywords": [],
   "author": "",
