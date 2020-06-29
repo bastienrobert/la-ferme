@@ -10,7 +10,7 @@ const civil: Card[] = [
       "Monsieur Lanene veut pas se lever. %character% cède sa place à Madame Henriette la biquette qui l'en remercie.",
     reward: {
       type: CardRewardType.Forward,
-      score: 1,
+      score: 0.5,
       params: {
         cases: 2
       },
@@ -27,7 +27,10 @@ const civil: Card[] = [
       "Monsieur Tartare s'essouffle! Il fait une pause en plein milieu de l'escalator. Aucun moyen de le doubler.",
     reward: {
       type: CardRewardType.LoseRound,
-      score: 0.5,
+      score: 1,
+      params: {
+        malus: true
+      },
       playerText: 'Vous passez votre tour !',
       viewerText: '%character% passe son tour !'
     }
@@ -41,7 +44,10 @@ const civil: Card[] = [
       "Monsieur Couenne force pour rentrer dans le métro. %character% décide d'attendre le prochain.",
     reward: {
       type: CardRewardType.LoseRound,
-      score: 0.5,
+      score: 1,
+      params: {
+        malus: true
+      },
       playerText: 'Vous passez votre tour !',
       viewerText: '%character% passe son tour !'
     }

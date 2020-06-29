@@ -61,7 +61,10 @@ const GameCard: FC<GameCardProps> = ({
       <TopStyledContainer style={{ aspectRatio: CARD_GAME_UP_RATIO }}>
         <StyledCard as={CardGameUp} />
         <BigImage
-          source={getAnimation(player.character, { choice, malus: false })}
+          source={getAnimation(player.character, {
+            choice,
+            malus: card.reward?.params?.malus
+          })}
           resizeMode={FastImage.resizeMode.contain}
         />
         <BackgroundImage

@@ -47,10 +47,7 @@ export default async (
   }).save()
 
   const players = (await game.presentPlayers().fetch()) as Collection<Player>
-  console.log('===')
-  console.log(players)
-  console.log('!!!!')
-  const miniGamePlayers = await Promise.all(
+  await Promise.all(
     players.map(async player => {
       return await new MiniGamePlayer({
         player_id: player.id,
@@ -58,8 +55,6 @@ export default async (
       }).save()
     })
   )
-  console.log(miniGamePlayers)
-  console.log('===')
 
   publishMiniGame(game.uuid, { name, uuid: miniGame.uuid })
 }

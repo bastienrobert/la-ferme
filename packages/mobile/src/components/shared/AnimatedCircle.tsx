@@ -19,8 +19,6 @@ const AnimatedCircle: FC = () => {
     // }).start()
   }, [value])
 
-  console.log(STROKE_DASHARRAY, STROKE_DASHARRAY * (1 - 0.75))
-
   return (
     <Svg width="52" height="52" viewBox="0 0 52 52">
       <ACircle

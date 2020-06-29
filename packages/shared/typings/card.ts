@@ -11,6 +11,7 @@ export interface CardRewardParams {
   self?: boolean
   cases?: number
   target?: number
+  malus?: boolean
 }
 
 export interface CardReward {
