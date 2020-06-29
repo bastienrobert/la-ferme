@@ -1,11 +1,13 @@
 import React, { FC, useState } from 'react'
 import uuid from 'uuid/v4'
+
 import { View, SafeAreaView } from 'react-native'
 import styled from 'styled-components/native'
 
 import Menu from './Menu'
 import Round from './Round'
 import Popup, { PopupType } from './Popup'
+import AnimatedCircle from '@/components/shared/AnimatedCircle'
 import FullContainer from '@/components/shared/FullContainer'
 import Header from '@/components/shared/Header'
 
@@ -27,10 +29,11 @@ const Game: FC<any> = () => {
 
   return (
     <FullContainer style={{ overflow: popup ? 'hidden' : 'visible' }}>
-      <Menu setPopup={setPopup} />
-      <Header players={players} player={players[1]} />
-      <Round data={data} player={player} players={players} />
-      <Popup set={setPopup} type={popup} players={players} player={player} />
+      {/* <Menu setPopup={setPopup} /> */}
+      {/* <Header players={players} player={players[1]} /> */}
+      <AnimatedCircle />
+      {/* <Round data={data} player={player} players={players} />
+      <Popup set={setPopup} type={popup} players={players} player={player} /> */}
     </FullContainer>
   )
 }

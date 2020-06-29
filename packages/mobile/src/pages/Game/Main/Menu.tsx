@@ -79,8 +79,8 @@ const Menu: FC<MenuProps> = ({ setPopup }) => {
 
 const Component = styled(Container)`
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 10px;
+  right: 10px;
   padding: 22px 12px 8px;
   z-index: 2;
 `

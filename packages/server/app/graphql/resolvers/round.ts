@@ -26,7 +26,7 @@ import getNextPlayer from '@/app/engine/getNextPlayer'
 import roundShouldWatch from '@/app/engine/roundShouldWatch'
 import checkReports from '@/app/engine/checkReports'
 import checkRegularization from '@/app/engine/checkRegularization'
-// import shouldCreateMiniGame from '@/app/engine/shouldCreateMiniGame'
+import shouldCreateMiniGame from '@/app/engine/shouldCreateMiniGame'
 
 import formatPlayers from '@/app/helpers/formatPlayers'
 import getRandom from '@/app/helpers/getRandom'
@@ -254,7 +254,7 @@ const resolvers = {
       const numberOfRounds = await game.numberOfRounds()
       const formattedRound = await getRoundData(round, RoundStep.New)
 
-      // shouldCreateMiniGame(game, { numberOfRounds })
+      shouldCreateMiniGame(game, { numberOfRounds })
 
       await checkReports(game)
       await checkRegularization(game, players)

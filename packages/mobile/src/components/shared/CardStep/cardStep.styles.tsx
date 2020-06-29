@@ -5,6 +5,7 @@ import Container from '@/components/shared/Container'
 
 export const Component = styled(FullContainer)`
   elevation: 3;
+  margin-top: 10px;
   align-items: center;
   justify-content: center;
   width: 100%;

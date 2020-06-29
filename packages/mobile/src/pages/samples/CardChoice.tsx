@@ -19,7 +19,7 @@ const SampleCardChoice = ({ navigation }) => {
       {/* <Header players={players} player={players[1]} /> */}
       {/* <AnimatedTitle lines={['hello', 'there']} preset="H2" color="beige" /> */}
       {/* <BigCirclesWrapper /> */}
-      <CarCounter />
+      <CarCounter onFinish={() => {}} />
       <Button onPress={() => navigation.navigate('Samples')} title="back" />
     </Component>
   )

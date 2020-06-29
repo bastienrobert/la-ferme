@@ -36,26 +36,26 @@ const CarCounterGame: FC<InnerGameProps> = ({ onFinish }) => {
       const score = n > 0.5 ? 1 - n : n
       onFinish(score)
     })
+
+    base.addListener(() => {
+      const decI = Math.PI / 100
+      const decF = Math.PI / 160
+      const incI = Math.PI / 50
+      const incF = Math.PI / 260
+
+      const n = (value.current + Math.PI / 2) / Math.PI
+      const dec = decI + decF * (1 - n)
+      const inc = tap.current * (incF * n + incI)
+      value.current = Math.min(
+        Math.max(value.current - dec + inc, -Math.PI / 2),
+        Math.PI / 2
+      )
+
+      tap.current = Math.max(tap.current - 0.01, 0)
+      rotate.setValue(value.current)
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [base])
-
-  base.addListener(() => {
-    const decI = Math.PI / 100
-    const decF = Math.PI / 160
-    const incI = Math.PI / 50
-    const incF = Math.PI / 260
-
-    const n = (value.current + Math.PI / 2) / Math.PI
-    const dec = decI + decF * (1 - n)
-    const inc = tap.current * (incF * n + incI)
-    value.current = Math.min(
-      Math.max(value.current - dec + inc, -Math.PI / 2),
-      Math.PI / 2
-    )
-
-    tap.current = Math.max(tap.current - 0.01, 0)
-    rotate.setValue(value.current)
-  })
 
   return (
     <TouchableWithoutFeedback

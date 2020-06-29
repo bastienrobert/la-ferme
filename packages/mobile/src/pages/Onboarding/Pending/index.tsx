@@ -68,9 +68,7 @@ const Pending: FC<OnboardingPendingProps> = ({ navigation }) => {
     playerIsReadyQuery.data?.getReadyPlayers ??
     []
 
-  const currentPlayer = useMemo(() => {
-    return players.find(p => p.uuid !== player?.uuid)
-  }, [player, players])
+  const currentPlayer = players.find(p => p.uuid === player?.uuid)
 
   useEffect(() => {
     if (!ready) return

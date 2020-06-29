@@ -59,7 +59,7 @@ const NewOrCard: FC<NewOrCardProps> = ({ player, step }) => {
         </Title>
       </TitleContainer>
       <PlayerImage source={playerImage[player.character]} />
-      <DescriptionContainer>
+      <DescriptionContainer alignSelf="center">
         <Description color="beige" textAlign="center">
           {getText(character, step)}
         </Description>
@@ -74,11 +74,10 @@ const NewOrCard: FC<NewOrCardProps> = ({ player, step }) => {
 const Component = styled(FullContainer)`
   width: 100%;
   flex: 1;
-  height: 100%;
   elevation: 3;
   align-items: center;
   max-width: 350px;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 70px;
 `
 
@@ -89,11 +88,12 @@ const TitleContainer = styled(Container)`
 const PlayerImage = styled(FastImage)`
   width: 90%;
   max-width: 400px;
-  max-height: 40%;
+  max-height: 45%;
   aspect-ratio: 1;
 `
 
 const DescriptionContainer = styled(Container)`
+  max-width: 300px;
   width: 100%;
 `
 

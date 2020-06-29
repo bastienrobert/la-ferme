@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react'
 import styled from 'styled-components/native'
-import { Player } from '@la-ferme/shared/typings'
+import { UUID, Player } from '@la-ferme/shared/typings'
 import { Colors } from '@la-ferme/components/native'
 import { characters } from '@la-ferme/shared/data'
 
@@ -13,13 +13,19 @@ import { images as playerImages } from '@/utils/helpers/players'
 
 export interface HeaderProps {
   numberOfRounds: number
+  current: UUID
   players: Player[]
   player: Player
 }
 
 export const MARGIN_TOP = 60
 
-const Header: FC<HeaderProps> = ({ players, player, numberOfRounds = 0 }) => {
+const Header: FC<HeaderProps> = ({
+  players,
+  player,
+  current,
+  numberOfRounds = 0
+}) => {
   const orderedPlayers = useMemo(() => {
     return players.sort(p => {
       return p.uuid === player.uuid ? -1 : 0
@@ -37,11 +43,13 @@ const Header: FC<HeaderProps> = ({ players, player, numberOfRounds = 0 }) => {
         {orderedPlayers.map((p, i) => {
           const character = characters.find(c => p.character === c.name)
           const Image = i === 0 ? LargeCircleImage : StyledCircleImage
+          const isCurrent = p.uuid === current
 
           return (
             <IconWrapper key={i}>
               <Image
                 circle
+                current={isCurrent}
                 background={character.color as Colors.IconBackground}
                 source={playerImages[p.character]}
               />
@@ -56,9 +64,9 @@ const Header: FC<HeaderProps> = ({ players, player, numberOfRounds = 0 }) => {
         <NameWrapper>
           <HeaderTypo>Tour</HeaderTypo>
         </NameWrapper>
-        <Title preset="H5" color="gray" textAlign="center">
+        <StyledTitle preset="H5" color="gray" textAlign="center">
           {roundNumber.padStart(2, '0')}
-        </Title>
+        </StyledTitle>
       </RoundNumber>
     </Component>
   )
@@ -107,17 +115,21 @@ const NameWrapper = styled<any>(Container)`
   transform: rotate(-20deg);
 `
 
-const StyledCircleImage = styled(CircleImage)`
+const StyledCircleImage = styled(CircleImage)<any>`
   width: 30px;
   height: 30px;
   margin-right: 35px;
+  border: ${({ current }) => (current ? `4px solid ${Colors.beige}` : '0')};
 `
 
 const LargeCircleImage = styled(StyledCircleImage)`
   width: 44px;
   height: 44px;
-  border: 4px solid ${Colors.beige};
   margin-right: 22px;
+`
+
+const StyledTitle = styled(Title)`
+  margin-left: -0.5px;
 `
 
 const RoundNumber = styled(Container)`

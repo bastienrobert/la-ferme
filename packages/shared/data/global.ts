@@ -100,7 +100,7 @@ export default {
   gameCard: {
     cta_ok: 'OKÉÉÉ',
     confirm: 'Confirmez votre choix',
-    cta_yes: 'YEPE',
+    cta_yes: 'YEP',
     cta_no: 'NOPE',
     choice: 'Choix',
     choosed: ' a choisi'

@@ -64,7 +64,7 @@ const RoundPlayerNew: FC<RoundPlayerNewProps> = ({ player, character }) => {
           source={require('@/assets/images/game/forward_or_turn_red.webp')}
         />
       )}
-      <TextContainer>
+      <TextContainer alignSelf="center">
         <Text color="gray" textAlign="center">
           {content.text}
         </Text>
@@ -90,13 +90,16 @@ const Component = styled(FullContainer)`
 
 const TextContainer = styled(Container)`
   margin-top: auto;
-  margin-bottom: auto;
+  margin-bottom: 20px;
+  max-width: 300px;
+  width: 100%;
 `
 
 const Animation = styled(FastImage)`
+  flex: 1;
   width: 100%;
   aspect-ratio: 1;
-  max-height: 40%;
+  max-height: 50%;
 `
 
 const ButtonContainer = styled(Container)`

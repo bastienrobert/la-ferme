@@ -149,6 +149,7 @@ const Game: FC<GameMainProps> = ({ navigation, route }) => {
   return (
     <Component overflow={popup || miniGame ? 'hidden' : 'visible'}>
       <Header
+        current={gameData?.round?.player}
         player={player}
         players={players}
         numberOfRounds={numberOfRounds}

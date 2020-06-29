@@ -59,7 +59,7 @@ const goals: Goal[] = [
   },
   {
     name: 'airport',
-    displayName: 'Gate',
+    displayName: 'Porte',
     displayNameWithPronounce: "a l'aéroport",
     description: '#beau veau',
     text:

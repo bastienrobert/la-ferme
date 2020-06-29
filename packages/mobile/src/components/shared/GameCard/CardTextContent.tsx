@@ -37,57 +37,86 @@ const CardTextContent: FC<CardTextContentProps> = ({
   }, [disabled, onPress])
 
   return (
-    <Container alignSelf="center">
-      <Description>
-        <ScrollView alwaysBounceVertical={false}>
-          {self ? (
-            <Text color="gray" textAlign="center">
-              {card.playerText}
-            </Text>
+    <Component alignSelf="center">
+      <Wrapper>
+        <Description alignSelf="center">
+          <ScrollView
+            alwaysBounceVertical={false}
+            contentContainerStyle={{
+              marginTop: 'auto',
+              marginBottom: 'auto'
+            }}>
+            <InnerScrollView alignSelf="center">
+              {self ? (
+                <StyledText color="gray" textAlign="center">
+                  {card.playerText}
+                </StyledText>
+              ) : (
+                <StyledText
+                  as={TextWithCharacter}
+                  type="text"
+                  text={card.viewerText}
+                  playerColor={false}
+                  character={player.character}
+                />
+              )}
+            </InnerScrollView>
+          </ScrollView>
+        </Description>
+        <Action alignSelf="center">
+          {targets ? (
+            <TextWithCharacterAndTargets
+              type="title"
+              text={self ? card.reward.playerText : card.reward.viewerText}
+              character={player.character}
+              targets={targets}
+            />
           ) : (
             <TextWithCharacter
-              type="text"
-              text={card.viewerText}
-              playerColor={false}
+              type="title"
+              text={self ? card.reward.playerText : card.reward.viewerText}
               character={player.character}
             />
           )}
-        </ScrollView>
-      </Description>
-      <Action alignSelf="center">
-        {targets ? (
-          <TextWithCharacterAndTargets
-            type="title"
-            text={self ? card.reward.playerText : card.reward.viewerText}
-            character={player.character}
-            targets={targets}
-          />
-        ) : (
-          <TextWithCharacter
-            type="title"
-            text={self ? card.reward.playerText : card.reward.viewerText}
-            character={player.character}
-          />
+        </Action>
+        {onPress && (
+          <Container alignSelf="center">
+            <Button variant="secondary" disabled={disabled} onPress={onPress}>
+              {content.cta_ok}
+            </Button>
+          </Container>
         )}
-      </Action>
-      {onPress && (
-        <Container alignSelf="center">
-          <Button variant="secondary" disabled={disabled} onPress={onPress}>
-            {content.cta_ok}
-          </Button>
-        </Container>
-      )}
-    </Container>
+      </Wrapper>
+    </Component>
   )
 }
 
+const Component = styled(Container)`
+  justify-content: center;
+`
+
+const Wrapper = styled(Container)`
+  justify-content: center;
+`
+
 const Description = styled(Container)`
   flex: 1;
+  max-width: 350px;
   margin-bottom: 15px;
+`
+
+const InnerScrollView = styled(Container)`
+  width: 100%;
+  margin-top: auto;
+`
+
+const StyledText = styled(Text)`
+  margin-top: auto;
 `
 
 const Action = styled(Container)`
   padding-bottom: 10px;
+  margin-bottom: auto;
 `
 
 export default CardTextContent
