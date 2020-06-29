@@ -13,7 +13,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: Object.assign(
     {
-      '.+\\.(png|jpg|ttf|woff|woff2)$': 'identity-obj-proxy',
+      '.+\\.(png|jpg|ttf|woff|woff2|mp3|mp4)$': 'identity-obj-proxy',
       'styled-components/native':
         '<rootDir>/node_modules/styled-components/native',
       'styled-components': '<rootDir>/node_modules/styled-components',
