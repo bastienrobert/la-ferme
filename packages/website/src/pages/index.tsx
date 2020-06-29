@@ -1,6 +1,5 @@
 import React from 'react'
 import Head from 'next/head'
-import dynamic from 'next/dynamic'
 
 import Header from '@/components/app/Header'
 import Footer from '@/components/app/Footer'
@@ -13,6 +12,7 @@ import AppSlice from '@/components/slices/AppSlice'
 import PlaySlice from '@/components/slices/PlaySlice'
 import GoalSlice from '@/components/slices/GoalSlice'
 import PosterSlice from '@/components/slices/PosterSlice'
+import SubwaySlice from '@/components/slices/SubwaySlice'
 
 import content from '@/content'
 const t = content.global
@@ -34,6 +34,7 @@ function HomePage() {
           <PlaySlice />
           <GoalSlice />
           <PosterSlice />
+          <SubwaySlice />
         </main>
         <Footer />
       </BackgroundColor>

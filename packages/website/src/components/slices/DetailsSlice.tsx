@@ -6,6 +6,9 @@ import Image from '@/components/shared/Image'
 import TitleAndSubtitle from '@/components/shared/TitleAndSubtitle'
 import Text from '@/components/typo/Text'
 
+import useSection from '@/hooks/useSection'
+import breakpoints from '@/utils/breakpoints'
+
 import content from '@/content'
 const t = content.details
 
@@ -16,8 +19,8 @@ interface ColumnProps {
 const Column: FC<ColumnProps> = ({ paragraphs }) => {
   return (
     <StyledColumn>
-      {paragraphs.map(p => (
-        <Paragraph>
+      {paragraphs.map((p, index) => (
+        <Paragraph key={index}>
           <p>{p}</p>
         </Paragraph>
       ))}
@@ -26,8 +29,10 @@ const Column: FC<ColumnProps> = ({ paragraphs }) => {
 }
 
 const DetailsSlice: FC = () => {
+  const ref = useSection('project', { threshold: 1 })
+
   return (
-    <Component as="section" id="project">
+    <Component as="section" id="project" ref={ref}>
       <Wrapper>
         <TitleAndSubtitle title={t.title} subtitle={t.subtitle} />
       </Wrapper>
@@ -63,11 +68,13 @@ const Columns = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
 `
 
 const StyledColumn = styled.div`
   flex: 1;
   max-width: 320px;
+  min-width: 200px;
 `
 
 const Paragraph = styled(Text)`
@@ -79,6 +86,10 @@ const EvilImage = styled(Image)`
   top: -100px;
   right: -100px;
   width: 200px;
+
+  @media (max-width: ${breakpoints.sm}) {
+    display: none;
+  }
 `
 
 const HeartEyesImage = styled(Image)`
@@ -86,6 +97,10 @@ const HeartEyesImage = styled(Image)`
   bottom: -50px;
   left: -50px;
   width: 170px;
+
+  @media (max-width: ${breakpoints.sm}) {
+    display: none;
+  }
 `
 
 export default DetailsSlice

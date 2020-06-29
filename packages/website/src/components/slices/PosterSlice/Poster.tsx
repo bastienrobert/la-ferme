@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import styled, { ThemedCssFunction } from 'styled-components'
+import styled from 'styled-components'
 
 import Image, { ImageProps } from '@/components/shared/Image'
 import Subtitle from '@/components/typo/Subtitle'
@@ -9,7 +9,7 @@ const t = content.posters
 
 export interface PosterProps extends ImageProps {
   featured?: boolean
-  extraStyle: ThemedCssFunction<any>
+  extraStyle: any
 }
 
 const Featured: FC = () => {
@@ -17,8 +17,8 @@ const Featured: FC = () => {
     <StyledFeatured>
       <Arrow />
       <ArrowTextContainer>
-        {t.arrow.map(l => (
-          <Subtitle color="red">
+        {t.arrow.map((l, i) => (
+          <Subtitle key={i} color="red">
             <Line>{l}</Line>
           </Subtitle>
         ))}

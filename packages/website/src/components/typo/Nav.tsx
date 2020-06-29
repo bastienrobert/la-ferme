@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { CSSProperties } from 'styled-components'
-import { Typo } from '@la-ferme/components'
+import { Typo, TypoProps } from '@la-ferme/components'
 
-export interface TypoNavProps {
+export interface TypoNavProps extends TypoProps {
   active?: boolean
   style?: CSSProperties
   className?: string

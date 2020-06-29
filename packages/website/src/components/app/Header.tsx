@@ -5,22 +5,33 @@ import Logo from './Logo'
 import NavItem from './NavItem'
 import Container from '@/components/shared/Container'
 
+import useMenu from '@/hooks/useMenu'
+import breakpoints from '@/utils/breakpoints'
+
 import content from '@/content'
 const t = content.header
 
 const Header: FC = () => {
+  const section = useMenu()
+
   return (
     <Component>
       <StyledContainer>
         <Logo />
         <Nav>
           <Ul>
-            <NavItem active href="#teaser">
+            <NavItem active={section === 'teaser'} href="#teaser">
               {t.nav.teaser}
             </NavItem>
-            <NavItem href="#project">{t.nav.project}</NavItem>
-            <NavItem href="#download">{t.nav.download}</NavItem>
-            <NavItem href="#contact">{t.nav.contact}</NavItem>
+            <NavItem active={section === 'project'} href="#project">
+              {t.nav.project}
+            </NavItem>
+            <NavItem active={section === 'download'} href="#download">
+              {t.nav.download}
+            </NavItem>
+            <NavItem active={section === 'contact'} href="#contact">
+              {t.nav.contact}
+            </NavItem>
           </Ul>
         </Nav>
       </StyledContainer>
@@ -44,7 +55,12 @@ const StyledContainer = styled(Container)`
 `
 
 const Nav = styled.nav`
+  display: block;
   margin-top: -30px;
+
+  @media (max-width: ${breakpoints.sm}) {
+    display: none;
+  }
 `
 
 const Ul = styled.ul`

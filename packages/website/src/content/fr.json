@@ -1,5 +1,9 @@
 {
   "global": {
+    "image": {
+      "src": "/images/global/cross.png",
+      "alt": "cross icon"
+    },
     "seo": {
       "title": "La Ferme - Le jeu",
       "description": "Plongez au coeur de la jungle urbaine et gagnez contre vos amis !"
@@ -14,20 +18,20 @@
     }
   },
   "teaser": {
-    "url": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
+    "url": "/videos/teaser.mp4"
   },
   "details": {
     "title": "le projet",
     "subtitle": "qu'est-ce que la ferme?",
     "left": [
-      "La Ferme ! est un projet conçu dans le cadre du projet de fin d’année de DMII 1 (Design et Manangement de l’innovation interactive - cycle 1) de Gobelins L’école de l’Image. Ce jeu a été réalisé à 8 mains par deux développeurs (Bastien Robet & Mathieu Harribey) et deux designers (Céline Le Provost et Solène Robichon).",
-      "La Ferme ! est un jeu hybride mélant fun et intéractivité. Il aborde le sujet des incivilités (récurent) dans les grandes villes de manière absurde et humouristique.",
-      "Plongé au coeur de la jungle urbaine de Porc Royal et incarné l’un des 4 moutons présents dans le jeu : Monique, Peter, Isabelle ou Léon."
+      "La Ferme ! est un projet conçu dans le cadre du projet de fin d’année de DMII 1 (Design et Manangement de l’innovation interactive - cycle 1) de Gobelins L’école de l’Image.",
+      "La Ferme ! est un jeu hybride mêlant fun et interactivité. Il aborde le sujet des incivilités dans les grandes villes de manière absurde et humoristique.",
+      "Plongez au coeur de la jungle urbaine de Porc Royal et incarnez l’un des 4 moutons présents dans le jeu : Monique, Peter, Isabelle ou Léon."
     ],
     "right": [
-      "Vous devrez choisir entre subir l’incivilité ou au contraire la semer. N’oubliez pas que tout acte d’incivilité est passible de représails.",
-      "Entre être une peau de vache ou bien le dindon de la farce il faudra choisir pour atteindre le premier votre objectif.",
-      "Toute l’équipe du projet La Ferme vous souhaite de bonnes parties"
+      "Vous devrez choisir entre filer des coups de pouce ou bien donner des coups de boule.",
+      "Entre être une peau de vache ou bien le dindon de la farce, il vous faudra choisir pour atteindre le premier votre objectif !",
+      "Toute l’équipe du projet La Ferme vous souhaite de bonnes parties !"
     ],
     "images": {
       "evil": {
@@ -42,7 +46,7 @@
   },
   "board": {
     "image": {
-      "src": "/images/board/board_game.png",
+      "src": "/images/board/board_game.jpg",
       "alt": "board game photo"
     }
   },
@@ -156,5 +160,90 @@
       }
     ]
   },
-  "footer": {}
+  "subway": {
+    "image": {
+      "src": "/images/subway/subway.png",
+      "alt": "subway la ferme"
+    }
+  },
+  "footer": {
+    "columns": [
+      {
+        "title": "Équipes",
+        "sections": [
+          {
+            "title": "Développement :",
+            "links": [
+              {
+                "label": "Bastien Robert",
+                "href": "https://www.bastienrobert.fr/"
+              },
+              {
+                "label": "Mathieu Harribey",
+                "href": "https://www.mathieuharribey.com/"
+              }
+            ]
+          },
+          {
+            "title": "Design :",
+            "links": [
+              {
+                "label": "Céline Le Provost",
+                "href": "#"
+              },
+              {
+                "label": "Solène Robichon",
+                "href": "https://www.behance.net/solenerobichon"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Remerciements",
+        "sections": [
+          {
+            "title": "Musique et Voix :",
+            "links": [
+              {
+                "label": "Lucas Darian",
+                "href": "https://www.youtube.com/channel/UCTVEbbv4QbjP8i1f_BPG92A?view_as=subscriber"
+              },
+              {
+                "label": "David Richard",
+                "href": "https://www.davidvoixoff.fr"
+              }
+            ]
+          },
+          {
+            "title": "Enseignement :",
+            "links": [
+              {
+                "label": "Gobelins l'École de l'Image",
+                "href": "https://www.gobelins.fr/"
+              },
+              {
+                "label": "CCI Paris",
+                "href": "https://www.cci-paris-idf.fr/"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "contact": {
+      "title": "Nous contacter",
+      "text": "Si vous voulez nous contacter pour le projet merci de nous joindre à cet adresse mail :",
+      "buttons": [
+        {
+          "label": "laferme@gmail.com",
+          "href": "mailto:laferme@gmail.com"
+        }
+      ]
+    },
+    "image": {
+      "src": "/images/global/contact.png",
+      "alt": "l'equipe la ferme et leon"
+    }
+  }
 }

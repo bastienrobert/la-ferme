@@ -6,20 +6,25 @@ import BackgroundColor from '@/components/shared/BackgroundColor'
 import Image from '@/components/shared/Image'
 import Title from '@/components/typo/Title'
 
+import useSection from '@/hooks/useSection'
+import breakpoints from '@/utils/breakpoints'
+
 import content from '@/content'
 const t = content.app
 
 const AppSlice: FC = () => {
+  const ref = useSection('download')
+
   return (
-    <Component id="download">
+    <Component id="download" ref={ref}>
       <LeftDecoration {...t.images.left} />
       <RightDecoration {...t.images.right} />
       <BackgroundColor color="gray">
         <TextContainer>
           <StyledText color="beige" size="medium">
             <h3>
-              {t.text.map(l => (
-                <Line>{l}</Line>
+              {t.text.map((l, index) => (
+                <Line key={index}>{l}</Line>
               ))}
             </h3>
           </StyledText>
@@ -70,12 +75,20 @@ const LeftDecoration = styled(Decoration)`
   top: 5%;
   left: -10px;
   transform: rotate(91deg);
+
+  @media (max-width: ${breakpoints.sm}) {
+    display: none;
+  }
 `
 
 const RightDecoration = styled(Decoration)`
   bottom: 0;
   right: -10px;
   transform: rotate(-88deg);
+
+  @media (max-width: ${breakpoints.sm}) {
+    display: none;
+  }
 `
 
 export default AppSlice

@@ -9,6 +9,9 @@ import Title from '@/components/typo/Title'
 import Subtitle from '@/components/typo/Subtitle'
 import Text from '@/components/typo/Text'
 
+import useSection from '@/hooks/useSection'
+import breakpoints from '@/utils/breakpoints'
+
 import content from '@/content'
 const t = content.play
 
@@ -21,6 +24,7 @@ interface ColumnProps {
 }
 
 const Column: FC<ColumnProps> = ({ icon, number, title, text, buttons }) => {
+  const disabled = number === 0 ? true : false
   return (
     <StyledColumn>
       <NumberIcon src={icon} alt={`number icon ${number}`} />
@@ -29,23 +33,27 @@ const Column: FC<ColumnProps> = ({ icon, number, title, text, buttons }) => {
       </ColumnTitle>
       <ColumnText>
         {text &&
-          text.map(p => (
-            <Text textAlign="center">
+          text.map((p, i) => (
+            <StyledText textAlign="center" key={i}>
               <p>{p}</p>
-            </Text>
+            </StyledText>
           ))}
       </ColumnText>
       {buttons &&
-        buttons.map(({ label }) => (
-          <StyledButton variant="primary">{label}</StyledButton>
+        buttons.map(({ label }, i) => (
+          <StyledButton disabled={disabled} variant="primary" key={i}>
+            {label}
+          </StyledButton>
         ))}
     </StyledColumn>
   )
 }
 
 const PlaySlice: FC = () => {
+  const ref = useSection('download')
+
   return (
-    <Container as="section">
+    <Container as="section" ref={ref}>
       <TitleAndSubtitle title={t.title} subtitle={t.subtitle} />
       <Columns>
         {t.columns.map((c, i) => (
@@ -53,8 +61,8 @@ const PlaySlice: FC = () => {
         ))}
       </Columns>
       <BottomTexts>
-        {t.bottom.map(l => (
-          <BottomText color="red">
+        {t.bottom.map((l, i) => (
+          <BottomText key={i} color="red">
             <span>{l}</span>
           </BottomText>
         ))}
@@ -66,14 +74,24 @@ const PlaySlice: FC = () => {
 const Columns = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: flex-start;
   margin-bottom: 70px;
+
+  @media (max-width: ${breakpoints.md}) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const StyledColumn = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 320px;
+
+  @media (max-width: ${breakpoints.sm}) {
+    margin-bottom: 50px;
+  }
 `
 
 const NumberIcon = styled(Image)`
@@ -82,12 +100,16 @@ const NumberIcon = styled(Image)`
 
 const ColumnTitle = styled(Title)`
   line-height: 1.2;
-  letter-spacing: 4%;
+  letter-spacing: 1px;
   margin-bottom: 15px;
 `
 
 const ColumnText = styled.div`
   margin-bottom: 50px;
+`
+
+const StyledText = styled(Text)`
+  margin-bottom: 25px;
 `
 
 const StyledButton = styled(Button)`
