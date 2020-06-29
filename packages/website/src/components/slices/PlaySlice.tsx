@@ -9,6 +9,9 @@ import Title from '@/components/typo/Title'
 import Subtitle from '@/components/typo/Subtitle'
 import Text from '@/components/typo/Text'
 
+import useSection from '@/hooks/useSection'
+import breakpoints from '@/utils/breakpoints'
+
 import content from '@/content'
 const t = content.play
 
@@ -30,15 +33,15 @@ const Column: FC<ColumnProps> = ({ icon, number, title, text, buttons }) => {
       </ColumnTitle>
       <ColumnText>
         {text &&
-          text.map(p => (
-            <StyledText textAlign="center">
+          text.map((p, i) => (
+            <StyledText textAlign="center" key={i}>
               <p>{p}</p>
             </StyledText>
           ))}
       </ColumnText>
       {buttons &&
-        buttons.map(({ label }) => (
-          <StyledButton disabled={disabled} variant="primary">
+        buttons.map(({ label }, i) => (
+          <StyledButton disabled={disabled} variant="primary" key={i}>
             {label}
           </StyledButton>
         ))}
@@ -47,8 +50,10 @@ const Column: FC<ColumnProps> = ({ icon, number, title, text, buttons }) => {
 }
 
 const PlaySlice: FC = () => {
+  const ref = useSection('download')
+
   return (
-    <Container as="section">
+    <Container as="section" ref={ref}>
       <TitleAndSubtitle title={t.title} subtitle={t.subtitle} />
       <Columns>
         {t.columns.map((c, i) => (
@@ -72,7 +77,8 @@ const Columns = styled.div`
   flex-wrap: wrap;
   align-items: flex-start;
   margin-bottom: 70px;
-  @media (max-width: 800px) {
+
+  @media (max-width: ${breakpoints.md}) {
     flex-direction: column;
     align-items: center;
   }
@@ -82,7 +88,8 @@ const StyledColumn = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 320px;
-  @media (max-width: 600px) {
+
+  @media (max-width: ${breakpoints.sm}) {
     margin-bottom: 50px;
   }
 `
@@ -93,7 +100,7 @@ const NumberIcon = styled(Image)`
 
 const ColumnTitle = styled(Title)`
   line-height: 1.2;
-  letter-spacing: 4%;
+  letter-spacing: 1px;
   margin-bottom: 15px;
 `
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import Head from 'next/head'
-import dynamic from 'next/dynamic'
 
 import Header from '@/components/app/Header'
 import Footer from '@/components/app/Footer'

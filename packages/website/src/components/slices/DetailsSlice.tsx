@@ -6,6 +6,9 @@ import Image from '@/components/shared/Image'
 import TitleAndSubtitle from '@/components/shared/TitleAndSubtitle'
 import Text from '@/components/typo/Text'
 
+import useSection from '@/hooks/useSection'
+import breakpoints from '@/utils/breakpoints'
+
 import content from '@/content'
 const t = content.details
 
@@ -26,8 +29,10 @@ const Column: FC<ColumnProps> = ({ paragraphs }) => {
 }
 
 const DetailsSlice: FC = () => {
+  const ref = useSection('project', { threshold: 1 })
+
   return (
-    <Component as="section" id="project">
+    <Component as="section" id="project" ref={ref}>
       <Wrapper>
         <TitleAndSubtitle title={t.title} subtitle={t.subtitle} />
       </Wrapper>
@@ -81,7 +86,8 @@ const EvilImage = styled(Image)`
   top: -100px;
   right: -100px;
   width: 200px;
-  @media (max-width: 600px) {
+
+  @media (max-width: ${breakpoints.sm}) {
     display: none;
   }
 `
@@ -91,7 +97,8 @@ const HeartEyesImage = styled(Image)`
   bottom: -50px;
   left: -50px;
   width: 170px;
-  @media (max-width: 600px) {
+
+  @media (max-width: ${breakpoints.sm}) {
     display: none;
   }
 `
