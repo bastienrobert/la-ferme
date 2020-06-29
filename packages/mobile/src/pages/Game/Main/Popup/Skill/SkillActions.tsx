@@ -21,9 +21,9 @@ interface IconActionProps {
 
 const IconAction: FC<IconActionProps> = ({ onPress }) => {
   return (
-    <Container alignSelf="center">
+    <IconContainer alignSelf="center">
       <Icon icon="cross" background="red" onPress={onPress} />
-    </Container>
+    </IconContainer>
   )
 }
 
@@ -57,6 +57,12 @@ const ButtonContainer = styled(Container)`
   justify-content: space-between;
   width: 90%;
   max-width: 400px;
+  flex: 1;
+`
+
+const IconContainer = styled(Container)`
+  flex: 1;
+  justify-content: center;
 `
 
 export default SkillActions

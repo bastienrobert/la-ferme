@@ -17,7 +17,7 @@ export interface ReportConfirmProps {
 
 const ReportConfirm: FC<ReportConfirmProps> = ({ player }) => {
   return (
-    <>
+    <Component alignSelf="center">
       <TextContainer alignSelf="center">
         <StyledTitle preset="H2" color="red" textAlign="center">
           {content.title}
@@ -31,12 +31,16 @@ const ReportConfirm: FC<ReportConfirmProps> = ({ player }) => {
           {content.confirm.description}
         </Title>
       </TextContainer>
-      <Container alignSelf="center">
+      <PlayerImageContainer alignSelf="center">
         <PlayerImage player={player} />
-      </Container>
-    </>
+      </PlayerImageContainer>
+    </Component>
   )
 }
+
+const Component = styled(Container)`
+  justify-content: space-between;
+`
 
 const TextContainer = styled(Container)`
   margin-bottom: 34px;
@@ -48,6 +52,11 @@ const StyledTitle = styled(Title)`
 
 const StyledText = styled(Text)`
   margin-bottom: 10px;
+`
+
+const PlayerImageContainer = styled(Container)`
+  margin-top: auto;
+  margin-bottom: auto;
 `
 
 export default ReportConfirm

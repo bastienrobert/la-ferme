@@ -26,27 +26,27 @@ const ReportSelect: FC<ReportSelectProps> = ({
   const filteredPlayers = getAllExceptCurrent(players, player)
 
   return (
-    <Container alignSelf="center">
-      <TextContainer>
+    <Component alignSelf="center">
+      <Container alignSelf="center">
         <StyledTitle preset="H2" color="red" textAlign="center">
           {content.title}
         </StyledTitle>
         <StyledText color="beige" textAlign="center">
           {content.select.text}
         </StyledText>
-        <Title preset="H5" color="beige" textAlign="center">
+        <StyledDescription preset="H5" color="beige" textAlign="center">
           {content.select.description}
-        </Title>
-      </TextContainer>
+        </StyledDescription>
+      </Container>
       <PlayerSelectContainer alignSelf="center">
         <PlayerSelect players={filteredPlayers} onPress={setPlayer} />
       </PlayerSelectContainer>
-    </Container>
+    </Component>
   )
 }
 
-const TextContainer = styled(Container)`
-  margin-bottom: 34px;
+const Component = styled(Container)`
+  justify-content: space-between;
 `
 
 const StyledTitle = styled(Title)`
@@ -57,8 +57,13 @@ const StyledText = styled(Text)`
   margin-bottom: 10px;
 `
 
+const StyledDescription = styled(Title)`
+  margin-bottom: 20px;
+`
+
 const PlayerSelectContainer = styled(Container)`
-  margin-bottom: 38px;
+  margin-top: auto;
+  margin-bottom: auto;
 `
 
 export default ReportSelect

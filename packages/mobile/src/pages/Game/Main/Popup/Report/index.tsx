@@ -93,21 +93,26 @@ const Report: FC<PopupProps> = ({ set, player, players }) => {
 
 const Component = styled(FullContainer)`
   padding-bottom: 20px;
+  justify-content: center;
 `
 
 const StyledBigCirclesWrapper = styled(BigCirclesWrapper)`
   flex: 1;
+  margin-top: -20px;
 `
 
 const BigCirclesInner = styled(FastImage)`
   width: 100%;
   aspect-ratio: 1;
+  flex: 1;
 `
 
 const Wrapper = styled(FullContainer)`
+  flex: 1;
   justify-content: center;
   max-width: 400px;
   width: 80%;
+  margin-bottom: 20px;
 `
 
 const BottomContainer = styled(Container)`
@@ -119,7 +124,7 @@ const BottomContainer = styled(Container)`
 const ButtonContainer = styled(Container)`
   width: 100%;
   flex-direction: row;
-  margin-bottom: 38px;
+  margin-top: auto;
   justify-content: space-between;
 `
 

@@ -14,13 +14,13 @@ const SkillHeader: FC<SkillHeaderProps> = ({ data, image }) => {
   return (
     <>
       <BigImage source={image} resizeMode={FastImage.resizeMode.contain} />
-      <TitleWithHashtag
+      <StyledTitleWithHashtag
         title={data.displayName}
         titleColor="gray"
         hashtag={[data.description]}
         hashtagColor="yellow"
         anchor="right"
-        hashtagOffset={{ x: 30, y: 15 }}
+        hashtagOffset={{ x: 30, y: 5 }}
         alignSelf="center"
       />
     </>
@@ -30,7 +30,12 @@ const SkillHeader: FC<SkillHeaderProps> = ({ data, image }) => {
 const BigImage = styled(FastImage)`
   width: 100%;
   height: 50%;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  flex: 1;
+`
+
+const StyledTitleWithHashtag = styled(TitleWithHashtag)`
+  margin-bottom: 15px;
 `
 
 export default SkillHeader
