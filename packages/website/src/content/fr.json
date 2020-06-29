@@ -18,7 +18,7 @@
     }
   },
   "teaser": {
-    "url": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
+    "url": "/videos/teaser.mp4"
   },
   "details": {
     "title": "le projet",
@@ -46,7 +46,7 @@
   },
   "board": {
     "image": {
-      "src": "/images/board/board_game.png",
+      "src": "/images/board/board_game.jpg",
       "alt": "board game photo"
     }
   },
