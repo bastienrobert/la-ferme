@@ -33,12 +33,13 @@ const TextWithCharacter: FC<TextWithCharacterProps> = ({
   type = 'text',
   playerColor = true,
   color = 'gray',
-  params
+  params,
+  ...style
 }) => {
   const C = typoByType[type]
 
   return (
-    <C color={color} textAlign="center" preset="H5">
+    <C color={color} textAlign="center" preset="H5" {...style}>
       {templating(
         text,
         Object.assign(
@@ -57,7 +58,7 @@ const TextWithCharacter: FC<TextWithCharacterProps> = ({
 
               const find = charactersByName[character]
               return (
-                <C key={index} preset="H5" color={color}>
+                <C key={index} preset="H5" textAlign="center" color={color}>
                   {find.displayName}
                 </C>
               )
@@ -66,7 +67,7 @@ const TextWithCharacter: FC<TextWithCharacterProps> = ({
               const find = charactersByName[character]
 
               return (
-                <C key={index} preset="H5" color={color}>
+                <C key={index} preset="H5" textAlign="center" color={color}>
                   {content[find.gender]}
                 </C>
               )

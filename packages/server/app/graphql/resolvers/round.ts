@@ -254,7 +254,7 @@ const resolvers = {
       const numberOfRounds = await game.numberOfRounds()
       const formattedRound = await getRoundData(round, RoundStep.New)
 
-      shouldCreateMiniGame(game, { numberOfRounds })
+      await shouldCreateMiniGame(game, { numberOfRounds })
 
       await checkReports(game)
       await checkRegularization(game, players)

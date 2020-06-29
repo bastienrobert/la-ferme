@@ -43,8 +43,8 @@ const CardTextContent: FC<CardTextContentProps> = ({
           <ScrollView
             alwaysBounceVertical={false}
             contentContainerStyle={{
-              marginTop: 'auto',
-              marginBottom: 'auto'
+              flexGrow: 1,
+              justifyContent: 'center'
             }}>
             <InnerScrollView alignSelf="center">
               {self ? (
@@ -115,6 +115,7 @@ const StyledText = styled(Text)`
 `
 
 const Action = styled(Container)`
+  flex: 1;
   padding-bottom: 10px;
   margin-bottom: auto;
 `

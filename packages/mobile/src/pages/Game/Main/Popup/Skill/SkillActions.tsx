@@ -57,6 +57,8 @@ const ButtonContainer = styled(Container)`
   justify-content: space-between;
   width: 90%;
   max-width: 400px;
+  min-width: 270px;
+  min-height: 40px;
   flex: 1;
 `
 

@@ -46,6 +46,7 @@ const TitleContainer = styled(Container)`
 const ButtonsContainer = styled(Container)`
   width: 90%;
   max-width: 300px;
+  min-width: 270px;
   flex-direction: row;
   justify-content: space-between;
   margin-top: auto;
