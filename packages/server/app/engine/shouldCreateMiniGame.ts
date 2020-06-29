@@ -36,11 +36,9 @@ export default async (
   game: Game,
   { numberOfRounds }: ShouldCreateMiniGameOptions
 ) => {
-  if (!process.env.DEBUG_MINIGAME) {
-    if (numberOfRounds < MINI_GAME_FROM_NUMBER_OF_ROUND) return false
-    const random = Math.random()
-    if (random > 1 / MINI_GAME_AVG_ROUND_COUNT) return
-  }
+  if (numberOfRounds < MINI_GAME_FROM_NUMBER_OF_ROUND) return false
+  const random = Math.random()
+  if (random > 1 / MINI_GAME_AVG_ROUND_COUNT) return
 
   const name = names[Math.floor(Math.random() * names.length)]
   const miniGame = await new MiniGame({
