@@ -64,7 +64,9 @@ const Component = styled(FullContainer)`
 const BigImage = styled(FastImage)`
   width: 60%;
   max-width: 600px;
+  align-self: center;
   aspect-ratio: 1;
+  margin-bottom: 20px;
 `
 
 const Background = styled(FastImage)`

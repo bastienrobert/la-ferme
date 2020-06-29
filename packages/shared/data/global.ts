@@ -202,6 +202,10 @@ export default {
     start: {
       subtitle: 'mini-jeu'
     },
+    go: {
+      title: 'prêts ?',
+      description: 'a battre du fer ?'
+    },
     results: {
       winner: 'gagné',
       looser: 'perdu'

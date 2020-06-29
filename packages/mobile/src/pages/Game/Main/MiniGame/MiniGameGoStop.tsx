@@ -2,12 +2,15 @@ import React, { FC, useState, useCallback } from 'react'
 import { ActivityIndicator } from 'react-native'
 import styled from 'styled-components/native'
 import LottieView from 'lottie-react-native'
+import { global as globalData } from '@la-ferme/shared/data'
 import { Colors } from '@la-ferme/components/native'
 
 import { PendingState } from './'
 import FullContainer from '@/components/shared/FullContainer'
 import Container from '@/components/shared/Container'
 import TitleWithHashtag from '@/components/shared/TitleWithHashtag'
+
+const global = globalData.minigame.go
 
 const animationsByState = {
   go: require('@/assets/lottie/minigame_go.json'),
@@ -27,12 +30,13 @@ const MiniGameGo: FC<MiniGameGoProps> = ({ state, close }) => {
     setLoading(true)
   }, [close, state])
 
-  if (loading)
+  if (loading) {
     return (
       <Component>
         <ActivityIndicator color={Colors.red} />
       </Component>
     )
+  }
 
   return (
     <Component>
@@ -46,9 +50,9 @@ const MiniGameGo: FC<MiniGameGoProps> = ({ state, close }) => {
       </AnimationContainer>
       {state === 'go' && (
         <StyledTitleWithHashtag
-          title="prêts ?"
+          title={global.title}
           titleColor="beige"
-          hashtag={['a battre du fer ?']}
+          hashtag={[global.description]}
           hashtagColor="yellow"
           anchor="right"
           hashtagOffset={{ x: 20, y: 15 }}
