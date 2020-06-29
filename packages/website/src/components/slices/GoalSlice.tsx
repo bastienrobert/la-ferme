@@ -8,19 +8,24 @@ import Image from '@/components/shared/Image'
 import Point from '@/components/shared/Point'
 import Title from '@/components/typo/Title'
 
+import useSection from '@/hooks/useSection'
+import breakpoints from '@/utils/breakpoints'
+
 import content from '@/content'
 const t = content.goal
 
 const GoalSlice: FC = () => {
+  const ref = useSection('download')
+
   return (
-    <Component>
+    <Component ref={ref}>
       <StyledBackgroundColor color="red">
         <StyledContainer>
           <Wrapper>
             <StyledTitleAndSmallText title={t.title} small={t.small} />
             <p>
-              {t.subtitle.map(l => (
-                <Title color="beige" size="medium">
+              {t.subtitle.map((l, i) => (
+                <Title color="beige" size="medium" key={i}>
                   <Line>{l}</Line>
                 </Title>
               ))}
@@ -64,7 +69,7 @@ const Wrapper = styled.div`
 
 const Line = styled.span`
   display: block;
-  @media (max-width: 600px) {
+  @media (max-width: ${breakpoints.sm}) {
     font-size: 24px;
   }
 `
@@ -74,7 +79,7 @@ const LeftDecoration = styled(Image)`
   width: 157px;
   top: -40px;
   left: -60px;
-  @media (max-width: 600px) {
+  @media (max-width: ${breakpoints.sm}) {
     width: 80px;
     left: -20px;
   }
@@ -85,7 +90,7 @@ const RightDecoration = styled(Image)`
   width: 111px;
   bottom: -40px;
   right: -20px;
-  @media (max-width: 600px) {
+  @media (max-width: ${breakpoints.sm}) {
     width: 55px;
   }
 `

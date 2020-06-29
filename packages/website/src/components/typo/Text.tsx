@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
-import { CSSProperties } from 'styled-components'
 
-import { Typo, Colors, Fonts } from '@la-ferme/components'
+import { Typo, TypoProps, Colors, Fonts } from '@la-ferme/components'
 
-export interface TextProps {
+export interface TextProps extends TypoProps {
   textAlign?: Fonts.TextAlignOption
   color?: Colors.Typo
   className?: string

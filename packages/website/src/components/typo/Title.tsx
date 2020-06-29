@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { CSSProperties } from 'styled-components'
 
-import { Typo, Colors } from '@la-ferme/components'
+import { Typo, TypoProps, Colors } from '@la-ferme/components'
 
-export interface TitleProps {
+export interface TitleProps extends TypoProps {
   color?: Colors.Typo
   style?: CSSProperties
   className?: string

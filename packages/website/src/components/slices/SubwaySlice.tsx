@@ -1,24 +1,25 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
 
-import Container from '@/components/shared/Container'
+import useSection from '@/hooks/useSection'
 import Image from '@/components/shared/Image'
 
 import content from '@/content'
 const t = content.subway
 
 const SubwaySlice: FC = () => {
+  const ref = useSection('download')
+
   return (
-    <Component as="section">
+    <Component ref={ref}>
       <BigImage {...t.image} />
     </Component>
   )
 }
 
-const Component = styled(Container)`
+const Component = styled.section`
   position: relative;
   z-index: 1;
-  max-width: 100vw;
   width: 100%;
 `
 

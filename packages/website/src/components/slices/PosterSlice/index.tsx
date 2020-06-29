@@ -9,6 +9,7 @@ import inlineStyles from './inlineStyles'
 import useDraggable from '@/hooks/useDraggable'
 import useOnResize from '@/hooks/useOnResize'
 
+import useSection from '@/hooks/useSection'
 import content from '@/content'
 const t = content.posters
 
@@ -39,8 +40,10 @@ const PosterSlice: FC = () => {
   const onResize = useCallback(setSliderSize, [])
   useOnResize(onResize)
 
+  const ref = useSection('download')
+
   return (
-    <Component>
+    <Component ref={ref}>
       <BackgroundColor color="yellow">
         <PosterContainer ref={container}>
           <PosterWrapper ref={wrapper}>

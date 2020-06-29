@@ -20,7 +20,7 @@ const NavItem: FC<NavItemProps> = ({ children, href, active }) => {
 
   return (
     <Component>
-      <Cross active={active} {...t.image} />
+      {active && <Cross {...t.image} />}
 
       <TypoNav active={active}>
         <A onClick={onClick}>{children}</A>
@@ -30,7 +30,7 @@ const NavItem: FC<NavItemProps> = ({ children, href, active }) => {
 }
 
 const Cross = styled(Image)`
-  display: ${props => (props.active === true ? 'flex' : 'none')};
+  display: flex;
   width: 20px;
   margin-right: 10px;
 `
@@ -41,17 +41,12 @@ const Component = styled.li`
   align-items: center;
   list-style: none;
   margin: 0 20px;
-  @media (max-width: 600px) {
-    margin: 0;
-  }
 `
 
 const A = styled.a`
   cursor: pointer;
   text-decoration: none;
-  @media (max-width: 600px) {
-    font-size: 12px;
-  }
+  font-size: 12px;
 `
 
 export default NavItem
