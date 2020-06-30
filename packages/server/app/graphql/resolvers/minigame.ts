@@ -57,8 +57,10 @@ const resolvers = {
         .fetch()
 
       const miniGamePlayer = miniGamePlayerReq.first()
-      miniGamePlayer.score = score
-      await miniGamePlayer.save()
+      if (miniGamePlayer) {
+        miniGamePlayer.score = score
+        await miniGamePlayer.save()
+      }
 
       await checkIfEveryBodyHasScored(miniGame)
 
