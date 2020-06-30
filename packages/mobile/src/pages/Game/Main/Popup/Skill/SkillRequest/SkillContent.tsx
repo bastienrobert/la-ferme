@@ -82,21 +82,27 @@ const SkillContent: FC<SkillContentProps> = ({
   return (
     <Component alignSelf="center">
       <TextContainer alignSelf="center">
-        <StyledText textAlign="center">{skill.text}</StyledText>
-        <TextWithCharacter
-          type="title"
-          text={skill.use}
-          character={player.character}
-        />
+        <StyledScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            justifyContent: 'center'
+          }}>
+          <StyledText textAlign="center">{skill.text}</StyledText>
+          <TextWithCharacter
+            type="title"
+            text={skill.use}
+            character={player.character}
+          />
+        </StyledScrollView>
       </TextContainer>
-      <Container alignSelf="center">
+      <InnerContainer alignSelf="center">
         <Inner
           player={player}
           players={players}
           onConfirm={onConfirmPress}
           onPlayerSelect={setSelectedPlayer}
         />
-      </Container>
+      </InnerContainer>
     </Component>
   )
 }
@@ -111,14 +117,21 @@ const TextContainer = styled(Container)`
   margin-bottom: 17px;
 `
 
+const StyledScrollView = styled.ScrollView``
+
 const StyledText = styled(Text)`
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+`
+
+const InnerContainer = styled(Container)`
+  padding-bottom: 5px;
 `
 
 const ButtonContainer = styled(Container)`
   flex-direction: row;
   justify-content: space-between;
   width: 90%;
+  min-width: 270px;
   max-width: 400px;
 `
 

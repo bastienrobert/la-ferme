@@ -32,6 +32,7 @@ const Component = styled(FullContainer)`
 
 const TextContainer = styled(Container)`
   width: 90%;
+  margin-top: 10px;
   margin-bottom: 17px;
 `
 

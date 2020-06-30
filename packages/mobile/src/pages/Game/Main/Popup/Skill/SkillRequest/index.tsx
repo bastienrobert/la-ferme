@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import styled from 'styled-components/native'
 import { Player } from '@la-ferme/shared/typings'
 
 import SkillHeader from '../SkillHeader'
@@ -25,25 +24,19 @@ const SkillRequest: FC<SkillRequestProps> = ({
 
   return (
     <>
-      <StyledScrollView>
-        <SkillHeader data={find} image={images[player.skill]} />
-        {confirm ? (
-          <SkillConfirm player={player} skill={find} />
-        ) : (
-          <SkillContent
-            onConfirm={onConfirm}
-            player={player}
-            skill={find}
-            players={players}
-          />
-        )}
-      </StyledScrollView>
+      <SkillHeader data={find} image={images[player.skill]} />
+      {confirm ? (
+        <SkillConfirm player={player} skill={find} />
+      ) : (
+        <SkillContent
+          onConfirm={onConfirm}
+          player={player}
+          skill={find}
+          players={players}
+        />
+      )}
     </>
   )
 }
-
-const StyledScrollView = styled.ScrollView`
-  flex: 1;
-`
 
 export default SkillRequest

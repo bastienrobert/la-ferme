@@ -92,7 +92,6 @@ const WalktroughCard: FC<WalktroughCardProps> = ({
                   {type === 'skill' && (
                     <StyledEffect preset="H5" textAlign="center">
                       {(data as Skill).effect}
-                      {(data as Skill).effect}
                     </StyledEffect>
                   )}
                 </Container>

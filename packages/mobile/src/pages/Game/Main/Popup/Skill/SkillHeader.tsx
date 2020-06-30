@@ -29,7 +29,7 @@ const SkillHeader: FC<SkillHeaderProps> = ({ data, image }) => {
 
 const BigImage = styled(FastImage)`
   width: 100%;
-  height: 50%;
+  max-height: 50%;
   min-height: 200px;
   margin-bottom: 5px;
   flex: 1;

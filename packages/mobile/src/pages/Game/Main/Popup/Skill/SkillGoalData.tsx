@@ -17,6 +17,7 @@ export interface SkillGoalDataProps {
 
 const SkillGoalData: FC<SkillGoalDataProps> = ({ players, targets, data }) => {
   const target = targets[0]
+
   const firstData = data.find(d => d.uuid === target)
   const skill = skillsByName.cellphone
 
