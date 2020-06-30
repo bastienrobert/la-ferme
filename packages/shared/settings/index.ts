@@ -25,8 +25,8 @@ export const MOST_CIVIL_SCORE = 1
 
 // prevent mini-games in the first X rounds
 // export const MINI_GAME_FROM_NUMBER_OF_ROUND = 3
-export const MINI_GAME_FROM_NUMBER_OF_ROUND = 1
+export const MINI_GAME_FROM_NUMBER_OF_ROUND = 0
 
 // mini game will be create on average every X rounds
 // export const MINI_GAME_AVG_ROUND_COUNT = 15
-export const MINI_GAME_AVG_ROUND_COUNT = 3
+export const MINI_GAME_AVG_ROUND_COUNT = 2
