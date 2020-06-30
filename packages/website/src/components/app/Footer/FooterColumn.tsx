@@ -18,7 +18,7 @@ const FooterColumn: FC<ColumnProps> = ({ index, title, sections }) => {
         {index === 0 && (
           <Icon src="/images/global/heart.png" alt="heart icon" />
         )}
-        <ColumnTitle color="beige" size="28px">
+        <ColumnTitle color="beige" size="28px" textAlign="left">
           <h3>{title}</h3>
         </ColumnTitle>
       </ColumnTop>
