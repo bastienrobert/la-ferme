@@ -79,6 +79,7 @@ const StyledText = styled(Text)`
 `
 
 const A = styled(Text)`
+  display: block;
   margin-bottom: 5px;
   font-size: 16px;
 `
