@@ -20,7 +20,7 @@
   "devDependencies": {
     "@babel/core": "~7.6.0",
     "@rollup/plugin-alias": "^3.0.1",
-    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-commonjs": "11.1.0",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@storybook/addon-a11y": "^5.3.14",
     "@storybook/addon-actions": "^5.3.14",
