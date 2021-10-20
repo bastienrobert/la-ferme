@@ -68,7 +68,7 @@
     "@types/react-native": "~0.60.23",
     "@types/react-native-video": "^5.0.1",
     "@types/styled-components": "^5.0.1",
-    "@types/uuid": "^3.4.7",
+    "@types/uuid": "3.4.10",
     "babel-jest": "^24.9.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-styled-components": "^1.10.7",
