@@ -79,6 +79,6 @@
     "mock-socket": "^9.0.3",
     "react-native-config": "^1.0.0",
     "react-test-renderer": "^16.11.0",
-    "typescript-styled-plugin": "^0.15.0"
+    "typescript-styled-plugin": "0.18.2"
   }
 }
