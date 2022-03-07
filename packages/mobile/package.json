@@ -74,7 +74,7 @@
     "babel-plugin-styled-components": "^1.10.7",
     "csstype": "^2.6.10",
     "jest-fetch-mock": "^3.0.3",
-    "jest-websocket-mock": "^2.0.2",
+    "jest-websocket-mock": "2.3.0",
     "metro-react-native-babel-preset": "^0.58.0",
     "mock-socket": "^9.0.3",
     "react-native-config": "^1.0.0",
