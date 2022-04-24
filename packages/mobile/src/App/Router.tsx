@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 
 import { createCustomNavigator } from '@/lib/CustomNavigator'
 
-const CustomNav = createCustomNavigator()
+import useBackHandler from '@/hooks/useBackHandler'
 
 export interface Page {
   name: string
@@ -20,9 +20,18 @@ export interface Props {
 }
 
 const Navigation: FC<Props> = ({ routes }) => {
+  const CustomNav = createCustomNavigator()
+
+  /**
+   * prevent "back" hardware button on Android
+   */
+  useBackHandler(() => {
+    return true
+  })
+
   return (
     <NavigationContainer>
-      <CustomNav.Navigator>
+      <CustomNav.Navigator initialRouteName={routes.base}>
         {routes.pages.map((page, i) => (
           <CustomNav.Screen key={`screen-${i}`} {...page} />
         ))}

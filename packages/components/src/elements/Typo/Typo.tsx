@@ -1,46 +1,25 @@
-import React, { Children, cloneElement } from 'react'
-import styled, { css } from 'styled-components'
+import React, { FC, Children, cloneElement } from 'react'
+import styled from 'styled-components'
 
-import { ITypoProps } from './'
+import { TypoSharedProps, StaticProps, presets } from './Typo.shared'
+import generateTypoStyle from './Typo.styles'
 
-import { Fonts, Colors } from '@/theme'
-
-export default function Typo({ children, ...styles }: ITypoProps): any {
-  return <StyledTypo {...styles}>{Children.only(children)}</StyledTypo>
+export interface TypoProps extends TypoSharedProps {
+  children: JSX.Element
 }
 
-function computeSizeStyle(size) {
-  return `font-size: ${size}px;`
+export type TypoFC = FC<TypoProps> & StaticProps
+
+const Typo: TypoFC = ({ children, ...style }) => {
+  return <StyledTypo {...style}>{Children.only(children)}</StyledTypo>
 }
 
-function computeColorStyle(color) {
-  return `color: ${color};`
-}
+Typo.presets = presets
 
-function getFontStyle(name, style) {
-  const family = Fonts.fontFamilies[name] || Fonts.fontFamilies[Fonts.defaultFontFamily] // prettier-ignore
-  const definition = family[style] || family[Fonts.defaultFontStyle] // prettier-ignore
-  return css`
-    ${typeof definition === 'string'
-      ? `font-family: ${definition};`
-      : definition}
-  `
-}
+export { Typo }
 
-function getSizeStyle(size: Fonts.Sizes) {
-  if (!size) return computeSizeStyle(Fonts.defaultSize)
-  return computeSizeStyle(Fonts.sizes[size])
-}
-
-function getColorStyle(color: Fonts.Colors) {
-  if (!color) return computeColorStyle(Fonts.defaultColor)
-  return computeColorStyle(Colors[color])
-}
-
-const StyledTypo = styled(({ children, ...props }: ITypoProps) =>
+const StyledTypo = styled(({ children, ...props }) =>
   cloneElement(children, props)
 )`
-  ${props => getSizeStyle(props.size)}
-  ${props => getColorStyle(props.color)}
-  ${props => getFontStyle(props.family, props.style)}
+  ${generateTypoStyle}
 `

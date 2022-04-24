@@ -3,6 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <SDWebImageWebPCoder/SDWebImageWebPCoder.h>
 
 #import "RNBootSplash.h"
 
@@ -32,6 +33,9 @@ static void InitializeFlipper(UIApplication *application) {
 #if DEBUG
   InitializeFlipper(application);
 #endif
+
+  // Register WebP format support
+  [[SDImageCodersManager sharedManager] addCoder:[SDImageWebPCoder sharedCoder]];
 
   self.moduleRegistryAdapter = [[UMModuleRegistryAdapter alloc] initWithModuleRegistryProvider:[[UMModuleRegistryProvider alloc] init]];
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];

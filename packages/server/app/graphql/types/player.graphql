@@ -1,0 +1,15 @@
+type Player {
+  uuid: UUID!
+  ready: Boolean
+  character: String
+  skill: String
+  goal: String
+}
+
+extend type Query {
+  getPlayer(playerUUID: UUID!): Player!
+}
+
+extend type Mutation {
+  playerReady(playerUUID: UUID!): Boolean!
+}

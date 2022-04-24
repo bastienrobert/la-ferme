@@ -10,15 +10,19 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "postinstall": "yarn bootstrap",
+    "heroku-postbuild": "yarn build:server",
     "build": "run-p build:**",
     "build:components": "yarn --cwd packages/components build",
+    "build:website": "yarn --cwd packages/website build",
+    "build:server": "yarn --cwd packages/server build",
     "components": "yarn --cwd packages/components dev",
     "dev": "run-p dev:**",
     "dev:components": "yarn --cwd packages/components dev:compile",
     "dev:mobile": "yarn --cwd packages/mobile dev",
     "dev:server": "yarn --cwd packages/server dev",
-    "server": "yarn --cwd sources/server start",
+    "server": "yarn --cwd packages/server start",
     "lint": "lerna run lint",
+    "test:setup": "lerna run test:setup",
     "test": "lerna run test"
   },
   "dependencies": {
@@ -49,7 +53,7 @@
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.8.3"
   },
   "authors": [
     "Bastien Robert <bastienrobert@outlook.com> (https://bastienrobert.fr)",

@@ -1,5 +1,4 @@
 import { ApolloClient } from 'apollo-client'
-import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
 import { WebSocketLink } from 'apollo-link-ws'
 import { split } from 'apollo-link'
@@ -7,18 +6,35 @@ import { getMainDefinition } from 'apollo-utilities'
 import unfetch from 'unfetch'
 import ws from 'isomorphic-ws'
 
+import cache from '@/graphql/local/cache'
+import resolvers from '@/graphql/local/resolvers'
+
+import auth from '@/services/auth'
+
+import config from '@/utils/config'
+
+const protocol = config.ssl && config.ssl !== 'false' ? 'https' : 'http'
+
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: `${protocol}://${config.api}/graphql`,
   fetch: unfetch
 })
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:4000/graphql',
+  uri: `ws://${config.api}/graphql`,
   webSocketImpl: ws,
   options: {
-    reconnect: true
+    reconnect: true,
+    connectionParams: async () => {
+      return new Promise(resolve => {
+        if (typeof auth.uuid !== 'undefined') {
+          return resolve({ user: auth.uuid })
+        }
+        auth.on('uuid', user => resolve({ user }))
+      })
+    }
   }
 })
 
@@ -39,8 +55,8 @@ const link = split(
 
 const client = new ApolloClient({
   link,
-  cache: new InMemoryCache()
-  // other options like cache
+  resolvers,
+  cache
 })
 
 export default client

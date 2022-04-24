@@ -1,0 +1,57 @@
+enum EventType {
+  REGULARIZATION
+  REPORT
+  SKILL
+  MINI_GAME
+  MINI_GAME_SCORE
+}
+
+interface Event {
+  type: EventType!
+  gameUUID: UUID!
+}
+
+type EventDefault implements Event {
+  type: EventType!
+  gameUUID: UUID!
+}
+
+type EventRegularization implements Event {
+  type: EventType!
+  gameUUID: UUID!
+  name: String!
+}
+
+type EventSkill implements Event {
+  type: EventType!
+  gameUUID: UUID!
+  player: UUID!
+  skill: String!
+  targets: [UUID]!
+}
+
+type EventReport implements Event {
+  type: EventType!
+  gameUUID: UUID!
+  targets: [UUID]!
+  status: ReportStatus!
+}
+
+type EventMiniGame implements Event {
+  type: EventType!
+  gameUUID: UUID!
+  name: String!
+  miniGameUUID: UUID!
+}
+
+type EventMiniGameScore implements Event {
+  type: EventType!
+  gameUUID: UUID!
+  name: String!
+  winner: UUID!
+  miniGameUUID: UUID!
+}
+
+extend type Subscription {
+  eventTriggered(gameUUID: UUID!): Event!
+}

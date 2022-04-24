@@ -1,4 +1,3 @@
-import Button from './Button'
-import Typo from './Typo'
-
-export { Button, Typo }
+export * from './Button/index'
+export * from './Typo/index'
+export * from './Icon/index'

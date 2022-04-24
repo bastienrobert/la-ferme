@@ -1,15 +1,8 @@
 {
+  "private": true,
   "name": "@la-ferme/shared",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
-  "license": "ISC",
-  "author": "",
-  "main": "src/index.ts",
   "scripts": {
     "lint": "eslint src/**/*.ts"
-  },
-  "devDependencies": {
-    "@types/node": "^13.9.0"
   }
 }

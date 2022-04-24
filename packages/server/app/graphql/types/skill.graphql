@@ -1,0 +1,34 @@
+interface UseSkill {
+  name: String
+  completed: Boolean!
+}
+
+type UseSkillDefault implements UseSkill {
+  name: String
+  completed: Boolean!
+}
+
+type UseSkillWithTargets implements UseSkill {
+  name: String
+  completed: Boolean!
+  targets: [UUID]!
+}
+
+type UseSkillWithTargetsData implements UseSkill {
+  name: String
+  completed: Boolean!
+  targets: [UUID]!
+  data: [Player]!
+}
+
+type LastTargeter {
+  targeter: UUID!
+}
+
+extend type Query {
+  getLastTargeter(playerUUID: UUID!): LastTargeter!
+}
+
+extend type Mutation {
+  useSkill(playerUUID: UUID!, targets: [UUID]): UseSkill!
+}

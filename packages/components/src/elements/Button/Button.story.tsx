@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { text } from '@storybook/addon-knobs'
 
-import Button, { IButtonProps } from './'
+import { Button, ButtonProps } from './'
 
 // PROPS
 const childrenProps = (value = '') => {
@@ -11,7 +11,7 @@ const childrenProps = (value = '') => {
 }
 
 // LOCAL INTERFACES
-interface IClosureOption extends Partial<IButtonProps> {
+interface ClosureOption extends Partial<ButtonProps> {
   children?: string
 }
 
@@ -21,7 +21,7 @@ const render = ({
   size,
   variant,
   disabled = false
-}: IClosureOption = {}) => {
+}: ClosureOption = {}) => {
   return () => (
     <Button
       size={size}
@@ -36,6 +36,7 @@ const render = ({
 // STORIES
 const stories = storiesOf('Button', module)
 
+stories.add('default', render())
 stories.add('small', render({ size: 'small' }))
 stories.add('medium', render({ size: 'medium' }))
 stories.add('large', render({ size: 'large' }))

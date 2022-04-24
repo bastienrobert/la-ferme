@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
-    <item android:drawable="@color/splashscreen_background" />
-
-    <item>
-        <bitmap android:src="@mipmap/splashscreen_logo" android:gravity="center" />
-    </item>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item>
+    <color android:color="#FFFF"></color>
+  </item>
+  <item>
+    <bitmap
+      android:src="@mipmap/splashscreen"
+      android:gravity="fill_horizontal|fill_vertical"
+      />
+  </item>
 </layer-list>

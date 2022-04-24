@@ -1,7 +1,24 @@
 import Knex from 'knex'
-import knexfile from '../knexfile'
+import Bookshelf from 'bookshelf'
 
-const env = process.env.NODE_ENV || 'development'
-const database = Knex(knexfile[env] as Knex.Config)
+import knexfile from '@/knexfile'
 
-export default database
+class Database {
+  protected _knex: Knex = null
+  protected _bookshelf: Bookshelf = null
+
+  constructor() {
+    this._knex = Knex(knexfile)
+    this._bookshelf = Bookshelf(this._knex as any)
+  }
+
+  public get knex(): Knex {
+    return this._knex
+  }
+
+  public get bookshelf(): Bookshelf {
+    return this._bookshelf
+  }
+}
+
+export default new Database()

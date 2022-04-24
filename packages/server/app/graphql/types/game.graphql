@@ -1,0 +1,81 @@
+enum GameStatusType {
+  START
+  END
+  READY
+  ROUND
+}
+
+enum GameGlobalStatisticsName {
+  CIVIL
+  UNCIVIL
+}
+
+type PlayerStatistic {
+  player: UUID!
+  name: String!
+  civil: Int!
+  uncivil: Int!
+  reports: Int!
+  skill: Int!
+}
+
+type GameGlobalStatistics {
+  name: GameGlobalStatisticsName!
+  civil: Int!
+  uncivil: Int!
+  reports: Int!
+  skill: Int!
+}
+
+type Statistics {
+  players: [PlayerStatistic]!
+  global: GameGlobalStatistics!
+}
+
+interface GameStatus {
+  type: GameStatusType!
+  gameUUID: UUID!
+  players: [Player]!
+}
+
+type GameStatusDefault implements GameStatus {
+  type: GameStatusType!
+  gameUUID: UUID!
+  players: [Player]!
+}
+
+type GameStatusReady implements GameStatus {
+  type: GameStatusType!
+  gameUUID: UUID!
+  players: [Player]!
+}
+
+type GameStatusRound implements GameStatus {
+  type: GameStatusType!
+  gameUUID: UUID!
+  numberOfRounds: Int!
+  players: [Player]!
+  round: Round!
+}
+
+type GameStatusWon implements GameStatus {
+  type: GameStatusType!
+  gameUUID: UUID!
+  numberOfRounds: Int!
+  players: [Player]!
+  statistics: Statistics!
+  winnerUUID: UUID!
+}
+
+extend type Query {
+  getReadyPlayers(gameUUID: UUID!): [Player]!
+}
+
+extend type Mutation {
+  startGame(playerUUID: UUID!): Boolean!
+  stopGame(winnerUUID: UUID!): Boolean!
+}
+
+extend type Subscription {
+  gameUpdated(gameUUID: UUID!): GameStatus!
+}

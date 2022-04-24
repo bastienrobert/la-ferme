@@ -1,0 +1,51 @@
+type Cards {
+  civil: String
+  uncivil: String
+}
+
+enum RoundStep {
+  NEW
+  CARD
+  CONFIRM
+  COMPLETE
+}
+
+enum RoundChoice {
+  CIVIL
+  UNCIVIL
+}
+
+interface Round {
+  player: UUID!
+  step: RoundStep!
+}
+
+type RoundStepDefault implements Round {
+  player: UUID!
+  step: RoundStep!
+}
+
+type RoundStepCard implements Round {
+  player: UUID!
+  step: RoundStep!
+  cards: Cards!
+}
+
+type RoundStepConfirm implements Round {
+  player: UUID!
+  step: RoundStep!
+  cards: Cards!
+  choice: String!
+  targets: [UUID]
+}
+
+extend type Mutation {
+  readyForRound(playerUUID: UUID!): Boolean!
+  confirmBoardRound(playerUUID: UUID!): Boolean!
+  setCardRound(
+    playerUUID: UUID
+    choice: RoundChoice!
+    targets: [UUID]
+  ): Boolean!
+  completeCardRound(playerUUID: UUID!): Boolean!
+}
