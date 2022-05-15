@@ -1,1 +1,4 @@
-import './router.d.ts'
+interface Offset {
+  x?: number
+  y?: number
+}

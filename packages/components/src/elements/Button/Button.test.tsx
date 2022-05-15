@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
-import Button, { IButtonProps } from './'
+import { Button, ButtonProps } from './'
 
 describe('<Button />', () => {
   it('should returns variants and sizes', () => {
@@ -12,7 +12,7 @@ describe('<Button />', () => {
     const button = getWrapper({
       variant: 'primary'
     })
-    expect((button.props() as IButtonProps).variant).toBe('primary')
+    expect((button.props() as ButtonProps).variant).toBe('primary')
   })
 
   it('should pass the `disabled` prop down to the DOM element', () => {

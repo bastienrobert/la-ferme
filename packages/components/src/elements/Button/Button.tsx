@@ -1,16 +1,27 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components'
 
-import { IButtonProps, defaultSize, defaultVariant } from './'
+import Background from './Background'
+import {
+  ButtonSharedProps,
+  variants,
+  defaultSize,
+  defaultVariant
+} from './Button.shared'
 import styles from './Button.styles'
 
-export interface WebButtonProps extends IButtonProps {
+export interface ButtonProps extends ButtonSharedProps {
   /** Callback on click */
-  onClick?: (e: Event) => void
+  onClick?: (e) => void
 }
 
-function Button({ children, ...style }: WebButtonProps) {
-  return <StyledButton {...style}>{children}</StyledButton>
+const Button: FC<ButtonProps> = ({ children, variant, ...style }) => {
+  return (
+    <StyledButton {...style}>
+      <Background color={variants[variant]} />
+      <ButtonText>{children}</ButtonText>
+    </StyledButton>
+  )
 }
 
 Button.defaultProps = {
@@ -18,17 +29,21 @@ Button.defaultProps = {
   variant: defaultVariant
 }
 
-export default Button
+export { Button }
 
 const StyledButton = styled.button<any>`
-  ${props => styles.box(props.variant, props.size, true)}
-  ${props => styles.text(props.variant, props.size, true)}
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  ${({ disabled }) => styles.box(true, disabled)}
+  ${props => styles.text(props.size)}
+  ${styles.commons.box}
+  ${styles.web.box}
 
   &:disabled {
-    opacity: 0.5;
-    pointer-events: none;
-    cursor: not-allowed;
+    ${styles.commons.disabled}
+    ${styles.web.disabled}
   }
+`
+
+const ButtonText = styled.span`
+  position: relative;
+  z-index: 1;
 `

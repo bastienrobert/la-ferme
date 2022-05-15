@@ -7,8 +7,8 @@
     </style>
 
     <!-- inherit from AppTheme -->
-    <style name="SplashScreenTheme" parent="AppTheme">
-      <!-- set the generated bootsplash.xml drawable as activity background -->
-      <item name="android:background">@drawable/splashscreen</item>
+    <style name="BootTheme" parent="AppTheme">
+        <!-- set the generated bootsplash.xml drawable as activity background -->
+        <item name="android:background">@drawable/splashscreen</item>
     </style>
 </resources>

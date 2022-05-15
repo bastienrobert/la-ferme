@@ -10,6 +10,8 @@ import pkg from './package.json'
 import pkg_native from './native/package.json'
 import tsconfig from './tsconfig.json'
 
+const watch = process.env.ROLLUP_WATCH
+
 function resolveEntries() {
   return Object.entries(
     tsconfig.compilerOptions.paths
@@ -34,7 +36,7 @@ function generateConfig(input, output) {
       commonjs({
         include: ['node_modules/**']
       }),
-      filesize()
+      !watch && filesize()
     ]
   }
 }

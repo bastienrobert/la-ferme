@@ -1,17 +1,15 @@
-extend type Query {
-  rooms: [Room]
+type Room {
+  boxID: UUID!
+  gameUUID: UUID!
+  playerUUID: UUID!
+  creatorUUID: UUID!
+  users: [User]!
 }
 
 extend type Mutation {
-  join: Boolean
-  roundComplete: Float
+  joinRoom(boxID: UUID!, userUUID: UUID!): Room!
 }
 
 extend type Subscription {
-  roundCompleted: Float
-}
-
-type Room {
-  title: String
-  foo: String
+  connectedUsers(boxID: UUID!): Room!
 }

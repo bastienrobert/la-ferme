@@ -1,0 +1,7 @@
+extend type Mutation {
+  submitMiniGame(
+    playerUUID: UUID!
+    miniGameUUID: UUID!
+    score: Float!
+  ): Boolean!
+}

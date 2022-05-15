@@ -1,0 +1,249 @@
+{
+  "global": {
+    "image": {
+      "src": "/images/global/cross.png",
+      "alt": "cross icon"
+    },
+    "seo": {
+      "title": "La Ferme - Le jeu",
+      "description": "Plongez au coeur de la jungle urbaine et gagnez contre vos amis !"
+    }
+  },
+  "header": {
+    "nav": {
+      "teaser": "le teaser",
+      "project": "le projet",
+      "download": "télécharger le jeu",
+      "contact": "contact"
+    }
+  },
+  "teaser": {
+    "url": "/videos/teaser.mp4"
+  },
+  "details": {
+    "title": "le projet",
+    "subtitle": "qu'est-ce que la ferme?",
+    "left": [
+      "La Ferme ! est un projet conçu dans le cadre du projet de fin d’année de DMII 1 (Design et Manangement de l’innovation interactive - cycle 1) de Gobelins L’école de l’Image.",
+      "La Ferme ! est un jeu hybride mêlant fun et interactivité. Il aborde le sujet des incivilités dans les grandes villes de manière absurde et humoristique.",
+      "Plongez au coeur de la jungle urbaine de Porc Royal et incarnez l’un des 4 moutons présents dans le jeu : Monique, Peter, Isabelle ou Léon."
+    ],
+    "right": [
+      "Vous devrez choisir entre filer des coups de pouce ou bien donner des coups de boule.",
+      "Entre être une peau de vache ou bien le dindon de la farce, il vous faudra choisir pour atteindre le premier votre objectif !",
+      "Toute l’équipe du projet La Ferme vous souhaite de bonnes parties !"
+    ],
+    "images": {
+      "evil": {
+        "src": "/images/details/evil.png",
+        "alt": "devil icon"
+      },
+      "heart_eyes": {
+        "src": "/images/details/heart_eyes.png",
+        "alt": "heart eyes icon"
+      }
+    }
+  },
+  "board": {
+    "image": {
+      "src": "/images/board/board_game.jpg",
+      "alt": "board game photo"
+    }
+  },
+  "app": {
+    "text": [
+      "entre 2 et 4 joueurs",
+      "un plateau",
+      "un pion par joueur",
+      "un téléphone par joueur",
+      "l’application :"
+    ],
+    "images": {
+      "right": {
+        "src": "/images/app/peter.webp",
+        "alt": "peter bound animation"
+      },
+      "left": {
+        "src": "/images/app/monique.webp",
+        "alt": "monique bound animation"
+      }
+    }
+  },
+  "play": {
+    "title": "pour jouer",
+    "subtitle": "installez le jeu gratuitement",
+    "columns": [
+      {
+        "icon": "/images/play/01.svg",
+        "title": "installez l’application",
+        "text": [
+          "L’application est disponible pour IOS et android. Veuillez vous rendrez sur les liens suivants pour télécharger l’application :"
+        ],
+        "buttons": [
+          {
+            "label": "ios",
+            "href": "#"
+          },
+          {
+            "label": "android",
+            "href": "#"
+          }
+        ]
+      },
+      {
+        "icon": "/images/play/02.svg",
+        "title": "imprimer le plateau",
+        "text": [
+          "Le plateau contient au total 49 cases (7 rangés de 7 colonnes).",
+          "Vous trouverez dans ce pdf : 10 cartes L, 10 cartes T, 10 cartes |, 4 cartes X, 1 cartes de chaque lieu (8 au total), 6 cartes impasses et une case départ.",
+          "Nous vous recommandons d’imprimer votre plateau sur carton épais ou de contre collé vos impressions pour une meilleure maniabilité du jeu. Les pions ne sont pas fournis !"
+        ],
+        "buttons": [
+          {
+            "label": "pdf plateau",
+            "href": "#"
+          }
+        ]
+      },
+      {
+        "icon": "/images/play/03.svg",
+        "title": "lisez les règles",
+        "text": [
+          "Vous trouverez ici les règles du jeu : de la mise en place du plateau à la fin de la partie.",
+          "Une vidéo d’introduction en début de partie viendra vous rappeler les règles pour le bon déroulé de la partie.",
+          "P’tit tips ;) N’hésitez pas à imprimer les règles sur une feuille recto verso format A3 et de la plié pour vous faire un petit plan de metro."
+        ],
+        "buttons": [
+          {
+            "label": "règles pdf",
+            "href": "#"
+          }
+        ]
+      }
+    ],
+    "bottom": ["embarquez pour porc royal,", "a vous de jouer !"]
+  },
+  "goal": {
+    "title": "but du jeu",
+    "small": ["coup de boule ou", "coup de pouce ?"],
+    "subtitle": ["atteignez votre objectif", "avant les autres joueurs !"],
+    "images": {
+      "left": {
+        "src": "/images/goal/left.png",
+        "alt": "decoration insults"
+      },
+      "right": {
+        "src": "/images/goal/right.png",
+        "alt": "decoration insults"
+      }
+    }
+  },
+  "posters": {
+    "arrow": ["Actuellement au", "Gaumont Pate"],
+    "images": [
+      {
+        "src": "/images/posters/la_chevre.jpg",
+        "alt": "La Chèvre - le film par la Ferme"
+      },
+      {
+        "src": "/images/posters/la_famille_belier.jpg",
+        "alt": "La famille Bélier - le film par la Ferme"
+      },
+      {
+        "src": "/images/posters/le_silence_des_agneaux.jpg",
+        "alt": "Le silence des Agneaux - le film par la Ferme",
+        "featured": true
+      },
+      {
+        "src": "/images/posters/peter_goat_a_gun.jpg",
+        "alt": "Peter goat a gun - le film par la Ferme"
+      }
+    ]
+  },
+  "subway": {
+    "image": {
+      "src": "/images/subway/subway.png",
+      "alt": "subway la ferme"
+    }
+  },
+  "footer": {
+    "columns": [
+      {
+        "title": "Équipes",
+        "sections": [
+          {
+            "title": "Développement :",
+            "links": [
+              {
+                "label": "Bastien Robert",
+                "href": "https://www.bastienrobert.fr/"
+              },
+              {
+                "label": "Mathieu Harribey",
+                "href": "https://www.mathieuharribey.com/"
+              }
+            ]
+          },
+          {
+            "title": "Design :",
+            "links": [
+              {
+                "label": "Céline Le Provost",
+                "href": "https://www.instagram.com/the.celinette/"
+              },
+              {
+                "label": "Solène Robichon",
+                "href": "https://www.behance.net/solenerobichon"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Remerciements",
+        "sections": [
+          {
+            "title": "Musique et Voix :",
+            "links": [
+              {
+                "label": "Lucas Darian",
+                "href": "https://www.youtube.com/channel/UCTVEbbv4QbjP8i1f_BPG92A?view_as=subscriber"
+              },
+              {
+                "label": "David Richard",
+                "href": "https://www.davidvoixoff.fr"
+              }
+            ]
+          },
+          {
+            "title": "Enseignement :",
+            "links": [
+              {
+                "label": "Gobelins l'École de l'Image",
+                "href": "https://www.gobelins.fr/"
+              },
+              {
+                "label": "CCI Paris",
+                "href": "https://www.cci-paris-idf.fr/"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "contact": {
+      "title": "Nous contacter",
+      "text": "Si vous voulez nous contacter pour le projet merci de nous joindre à cet adresse mail :",
+      "buttons": [
+        {
+          "label": "laferme@gmail.com",
+          "href": "mailto:laferme@gmail.com"
+        }
+      ]
+    },
+    "image": {
+      "src": "/images/global/contact.png",
+      "alt": "l'equipe la ferme et leon"
+    }
+  }
+}

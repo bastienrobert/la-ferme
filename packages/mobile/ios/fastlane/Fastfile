@@ -1,0 +1,59 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    sync_code_signing(type: "appstore")
+    increment_build_number(xcodeproj: "LaFerme.xcodeproj")
+    # Create or get certificate, and install it
+    get_certificates(output_path: "./builds")
+    # Create or get provisioning profile
+    get_provisioning_profile(
+      output_path: "./builds",
+      filename: "provisioning.mobileprovision"
+    )
+    # Set the project provisioning profile (related in Xcode to the General > Signing Release section)
+    update_project_provisioning(
+      xcodeproj: "LaFerme.xcodeproj",
+      target_filter: "LaFerme",
+      profile: "./builds/provisioning.mobileprovision",
+      build_configuration: "Release"
+    )
+    # Set the right team on your project
+    update_project_team(
+      teamid: CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
+    )
+    # 🧪 Compile
+    build_app(
+      workspace: "LaFerme.xcworkspace", 
+      scheme: "LaFerme",
+      clean: true,
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: { 
+          # Value of this parameter is the name of the Provisioning Profile. By default, it will be "match AppStore {bundleId}"
+          CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier) => "match AppStore " + CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+        }
+      },
+      build_path: "./builds",
+      output_directory: "./builds"
+    )
+    # 🚀 Send to testflight
+    upload_to_testflight
+  end
+end

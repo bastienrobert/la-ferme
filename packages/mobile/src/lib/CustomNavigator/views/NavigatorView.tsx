@@ -59,38 +59,21 @@ export default class BottomTabView extends Component<Props, State> {
   }
 
   render() {
-    const { state, descriptors, lazy } = this.props
-    const { routes } = state
-    const { loaded } = this.state
+    const { state, descriptors } = this.props
+    const { routes, index } = state
+
+    const route = routes[index]
+    const descriptor = descriptors[route.key]
 
     return (
       <View style={styles.container}>
         <ScreenContainer style={styles.pages}>
-          {routes.map((route, index) => {
-            const descriptor = descriptors[route.key]
-            const { unmountOnBlur } = descriptor.options
-            const isFocused = state.index === index
-
-            if (unmountOnBlur && !isFocused) {
-              return null
-            }
-
-            if (lazy && !loaded.includes(index) && !isFocused) {
-              // Don't render a screen if we've never navigated to it
-              return null
-            }
-
-            return (
-              <ResourceSavingScene
-                key={route.key}
-                style={StyleSheet.absoluteFill}
-                isVisible={isFocused}>
-                <SceneContent isFocused={isFocused}>
-                  {descriptor.render()}
-                </SceneContent>
-              </ResourceSavingScene>
-            )
-          })}
+          <ResourceSavingScene
+            key={route.key}
+            style={StyleSheet.absoluteFill}
+            isVisible={true}>
+            <SceneContent isFocused={true}>{descriptor.render()}</SceneContent>
+          </ResourceSavingScene>
         </ScreenContainer>
       </View>
     )
@@ -99,8 +82,7 @@ export default class BottomTabView extends Component<Props, State> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    overflow: 'hidden'
+    flex: 1
   },
   pages: {
     flex: 1
