@@ -18,7 +18,7 @@
     "test:setup": "yarn build"
   },
   "devDependencies": {
-    "@babel/core": "~7.6.0",
+    "@babel/core": "7.18.5",
     "@rollup/plugin-alias": "^3.0.1",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
@@ -31,7 +31,7 @@
     "@types/react-native": "~0.60.23",
     "@types/styled-components": "^5.0.1",
     "@wessberg/rollup-plugin-ts": "^1.2.19",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "8.2.5",
     "csstype": "^2.6.10",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
