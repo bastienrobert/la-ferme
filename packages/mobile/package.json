@@ -75,7 +75,7 @@
     "csstype": "^2.6.10",
     "jest-fetch-mock": "^3.0.3",
     "jest-websocket-mock": "^2.0.2",
-    "metro-react-native-babel-preset": "^0.58.0",
+    "metro-react-native-babel-preset": "0.71.1",
     "mock-socket": "^9.0.3",
     "react-native-config": "^1.0.0",
     "react-test-renderer": "^16.11.0",
